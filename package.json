@@ -1,13 +1,20 @@
 {
-	"name": "NodejsStarterApp",
-	"version": "0.0.1",
+	"name": "parmperu",
+	"version": "1.0",
 	"private": true,
 	"scripts": {
 		"start": "node app.js"
 	},
 	"dependencies": {
+		"body-parser": "1.14.x",
+		"exceljs": "^0.2.37",
 		"express": "4.13.x",
-		"cfenv": "1.0.x"
+		"express-session": "^1.14.1",
+		"multer": "^1.2.0",
+		"ibm_db": "latest",
+		"nodemailer": "^2.7.0",
+		"twilio": "^2.11.0",
+		"pug": "latest"
 	},
 	"repository": {},
 	"engines": {

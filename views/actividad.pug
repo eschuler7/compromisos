@@ -1,0 +1,59 @@
+extends ./layout.pug
+block container
+  section.content-header
+    h1
+      | Registro de Actividad 
+    ol.breadcrumb
+      li.active
+        i.fa.fa-history
+        |  Registro de Actividad
+  section.content
+    .box
+      .box-body
+        table#solicitudespendientes.table.table-hover(data-toggle='table', data-url='/parmsecure/registroactividad', data-toolbar='#toolbarsolicitudespendientes',data-show-refresh='true',data-id-field='ID',data-search='true',data-detail-view='true',data-detail-formatter='detailFormatter',data-search-align='left')
+          thead
+            tr
+              th(data-field='ID',data-visible='false',data-card-visible='false') ID
+              th(data-field='RESPONSABLE') Responsable
+              th(data-field='PUESTO') Puesto
+              th(data-field='APELLIDO_PATERNO') Apellido Paterno
+              th(data-field='APELLIDO_MATERNO') Apellido Materno
+              th(data-field='CELULAR') Celular
+              th(data-field='CORREO') Correo Electrónico
+              th(data-field='ESTADO_LLAMADA',data-formatter='formateadorLlamada',data-align='center') Estado llamada
+              th(data-field='ESTADO_SMS',data-formatter='formateadorSms',data-align='center') Estado envío SMS
+              th(data-field='ESTADO_CORREO',data-formatter='formateadorCorreo',data-align='center') Estado envío correo
+              th(data-field='FECHA_HORA_REGISTRO') Fecha y Hora
+  script.
+    function formateadorSms(value, row, index) {
+      if(value.substring(0,2) == 'OK') {
+        return "<div style='color: #00CC00'><strong>ENVIADO</strong></div>";
+      } else {
+        return "<div style='color: #FF0000'><strong>NO ENVIADO</strong></div>";
+      }
+    }
+
+    function formateadorCorreo(value, row, index) {
+      if(value.substring(0,12) == '250 2.0.0 OK') {
+        return "<div style='color: #00CC00'><strong>ENVIADO</strong></div>";
+      } else {
+        return "<div style='color: #FF0000'><strong>NO ENVIADO</strong></div>";
+      }
+    }
+
+    function formateadorLlamada(value, row, index) {
+      if(value.length == 34) {
+        return "<div style='color: #00CC00'><strong>ENVIADO</strong></div>";
+      } else {
+        return "<div style='color: #FF0000'><strong>NO ENVIADO</strong></div>";
+      }
+    }
+
+    function detailFormatter(index, row) {
+      var html = [];
+      $.each(row, function (key, value) {
+        if(key == 'ESTADO_LLAMADA' || key == 'ESTADO_SMS' || key == 'ESTADO_CORREO')
+        html.push('<p><b>' + key + ':</b> ' + value + '</p>');
+      });
+      return html.join('');
+    }
