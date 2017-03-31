@@ -19,7 +19,7 @@ block container
               b Cambiar Imagen de Perfil
         .box.box-primary
           .box-header.with-border
-            h3.box-title Mi información
+            h3.box-title Mi Información
           .box-body
             strong
               i.fa.fa-book.margin-r-5
@@ -66,10 +66,19 @@ block container
                 .box-header
                   h3.box-title Primer Contacto
                   .pull-right.box-tools
+                    if contactos[0]
+                      button#btn_eliminar_contacto_1.btn.btn-info.btn-sm(type='button', data-toggle='tooltip', title='Eliminar')
+                        i.fa.fa-trash
+                    else
+                      button#btn_eliminar_contacto_1.btn.btn-info.btn-sm.disabled(type='button', data-toggle='tooltip', title='Eliminar',disabled='')
+                        i.fa.fa-trash
+                    |  
                     button#btn_contacto_1.btn.btn-info.btn-sm(type='button', data-toggle='tooltip', title='Editar')
                       i.fa.fa-edit
                 .box-body
                   if contactos[0]
+                    form#frm_eliminar_contacto_1(action='/parmsecure/eliminarcontacto',method='post')
+                      input(type='hidden',name='dni',value=contactos[0].DNI)
                     .row
                       .col-xs-2
                         strong Nombres
@@ -116,10 +125,19 @@ block container
                 .box-header
                   h3.box-title Segundo Contacto
                   .pull-right.box-tools
+                    if contactos[1]
+                      button#btn_eliminar_contacto_2.btn.btn-info.btn-sm(type='button', data-toggle='tooltip', title='Eliminar')
+                        i.fa.fa-trash
+                    else
+                      button#btn_eliminar_contacto_2.btn.btn-info.btn-sm.disabled(type='button', data-toggle='tooltip', title='Eliminar',disabled='')
+                        i.fa.fa-trash
+                    |  
                     button#btn_contacto_2.btn.btn-info.btn-sm(type='button', data-toggle='tooltip', title='Editar')
                       i.fa.fa-edit
                 .box-body
                   if contactos[1]
+                    form#frm_eliminar_contacto_2(action='/parmsecure/eliminarcontacto',method='post')
+                      input(type='hidden',name='dni',value=contactos[1].DNI)
                     .row
                       .col-xs-2
                         strong Nombres
@@ -167,10 +185,25 @@ block container
                 .box-header.with-border
                   h3.box-title Texto SMS
                   .pull-right.box-tools
-                    button.btn.bg-olive.btn-sm(type='button', data-toggle='tooltip', title='Restaurar texto original')
+                    button.btn.btn-info.btn-sm.dropdown-toggle(type='button', data-toggle='dropdown',title='Insertar Variables') Variables
+                    ul.dropdown-menu(role='menu')
+                      li
+                        a(href='javascript:insertarVariableSms("RAZON_SOCIAL")') Razón Social
+                      li
+                        a(href='javascript:insertarVariableSms("PUESTO")') Puesto
+                      li
+                        a(href='javascript:insertarVariableSms("NOMBRES")') Nombres
+                      li
+                        a(href='javascript:insertarVariableSms("APELLIDOS")') Apellidos
+                      li
+                        a(href='javascript:insertarVariableSms("FECHA")') Fecha
+                      li
+                        a(href='javascript:insertarVariableSms("HORA")') Hora
+                    |  
+                    button.btn.bg-olive.btn-sm(type='button', title='Restaurar texto original')
                       i.fa.fa-rotate-left
                     |  
-                    button.btn.btn-info.btn-sm(type='button', data-toggle='tooltip', title='Guardar')
+                    button#btn_guardar_texto_sms.btn.btn-info.btn-sm(type='button', title='Guardar')
                       i.fa.fa-save
                 form#frmsms(role='form')
                   .box-body
@@ -183,10 +216,25 @@ block container
                 .box-header.with-border
                   h3.box-title Mensaje de Llamada Telefónica
                   .pull-right.box-tools
-                    button.btn.bg-olive.btn-sm(type='button', data-toggle='tooltip', title='Restaurar texto original')
+                    button.btn.btn-info.btn-sm.dropdown-toggle(type='button', data-toggle='dropdown',title='Insertar Variables') Variables
+                    ul.dropdown-menu(role='menu')
+                      li
+                        a(href='javascript:insertarVariableLlamada("RAZON_SOCIAL")') Razón Social
+                      li
+                        a(href='javascript:insertarVariableLlamada("PUESTO")') Puesto
+                      li
+                        a(href='javascript:insertarVariableLlamada("NOMBRES")') Nombres
+                      li
+                        a(href='javascript:insertarVariableLlamada("APELLIDOS")') Apellidos
+                      li
+                        a(href='javascript:insertarVariableLlamada("FECHA")') Fecha
+                      li
+                        a(href='javascript:insertarVariableLlamada("HORA")') Hora
+                    |  
+                    button.btn.bg-olive.btn-sm(type='button', title='Restaurar texto original')
                       i.fa.fa-rotate-left
                     |  
-                    button.btn.btn-info.btn-sm(type='button', data-toggle='tooltip', title='Guardar')
+                    button#btn_guardar_texto_llamada.btn.btn-info.btn-sm(type='button', title='Guardar')
                       i.fa.fa-save
                 form#frmllamada(role='form')
                   .box-body
@@ -199,10 +247,10 @@ block container
                 .box-header.with-border
                   h3.box-title Texto Correo Electrónico
                   .pull-right.box-tools
-                    button.btn.bg-olive.btn-sm(type='button', data-toggle='tooltip', title='Restaurar texto original')
+                    button.btn.bg-olive.btn-sm(type='button', title='Restaurar texto original')
                       i.fa.fa-rotate-left
                     |  
-                    button#btn_guardar_texto_correo.btn.btn-info.btn-sm(type='button', data-toggle='tooltip', title='Guardar')
+                    button#btn_guardar_texto_correo.btn.btn-info.btn-sm(type='button', title='Guardar')
                       i.fa.fa-save
                 form#frmcorreo(role='form')
                   .box-body.pad
@@ -274,7 +322,13 @@ block container
               h4.modal-title Actualizar datos de Contacto 1
             .modal-body
               form#frm_actualizar_contacto_1(action='/parmsecure/actualizarcontacto',method='post')
-                input#dni_contacto1(type='hidden',name='dni_contacto')
+                .form-group
+                  i.fa.fa-user.margin-r-5
+                  label.form-control-label DNI:
+                  if contactos[0]
+                    input#dni_contacto1.form-control(type='text',name='dni_contacto',disabled='')
+                  else
+                    input#dni_contacto1.form-control(type='text',name='dni_contacto')
                 .form-group
                   i.fa.fa-user.margin-r-5
                   label.form-control-label Nombres:
@@ -305,7 +359,13 @@ block container
               h4.modal-title Actualizar datos de Contacto 2
             .modal-body
               form#frm_actualizar_contacto_2(action='/parmsecure/actualizarcontacto',method='post')
-                input#dni_contacto2(type='hidden',name='dni_contacto')
+                .form-group
+                  i.fa.fa-user.margin-r-5
+                  label.form-control-label DNI:
+                  if contactos[1]
+                    input#dni_contacto2.form-control(type='text',name='dni_contacto',disabled='')
+                  else
+                    input#dni_contacto2.form-control(type='text',name='dni_contacto')
                 .form-group
                   i.fa.fa-user.margin-r-5
                   label.form-control-label Nombres:
@@ -399,28 +459,80 @@ block container
       $("#mail_texto").val(decoded);
       CKEDITOR.replace('mail_texto');
 
-
-
-
       $("#frmcorreo").submit(function(e) {
-        alert("Hola 2");
         $.ajax({
           type: "POST",
           url: "/parmsecure/guardartextocorreo",
           data: $("#frmcorreo").serialize(),
           success: function(data) {
-            
+            $("#mensaje").text(data);
+            $("#mensaje_modal").modal("show");
           },
           error:function(jqXHR,textStatus,errorThrown){
             console.log(errorThrown);
           }
         });
-
         e.preventDefault();
       });
+
+      $("#frmsms").submit(function(e) {
+        $.ajax({
+          type: "POST",
+          url: "/parmsecure/guardartextosms",
+          data: $("#frmsms").serialize(),
+          success: function(data) {
+            $("#mensaje").text(data);
+            $("#mensaje_modal").modal("show");
+          },
+          error:function(jqXHR,textStatus,errorThrown){
+            console.log(errorThrown);
+          }
+        });
+        e.preventDefault();
+      });
+
+      $("#frmllamada").submit(function(e) {
+        $.ajax({
+          type: "POST",
+          url: "/parmsecure/guardartextollamada",
+          data: $("#frmllamada").serialize(),
+          success: function(data) {
+            $("#mensaje").text(data);
+            $("#mensaje_modal").modal("show");
+          },
+          error:function(jqXHR,textStatus,errorThrown){
+            console.log(errorThrown);
+          }
+        });
+        e.preventDefault();
+      });
+
       $('#btn_guardar_texto_correo').click(function (event){
         $("#frmcorreo").submit();
       });
+      $('#btn_guardar_texto_sms').click(function (event){
+        $("#frmsms").submit();
+      });
+      $('#btn_guardar_texto_llamada').click(function (event){
+        $("#frmllamada").submit();
+      });
+
+      $('#actualizar_contacto_1').click(function(event){
+        $('#frm_actualizar_contacto_1').submit();
+      });
+
+      $('#actualizar_contacto_2').click(function(event){
+        $('#frm_actualizar_contacto_2').submit();
+      });
+
+      $('#btn_eliminar_contacto_1').click(function(){
+          $('#frm_eliminar_contacto_1').submit();
+      });
+
+      $('#btn_eliminar_contacto_2').click(function(){ 
+          $('#frm_eliminar_contacto_2').submit();
+      });
+
     });
 
     function initMap() {
@@ -456,7 +568,20 @@ block container
       map.panTo(latLng);
     }
 
+    function insertarVariableSms(variable,tipo) {
+      var cajaTexto = $("#sms_texto");
+      cajaTexto.val(cajaTexto.val() + "$" + variable);
+    }
 
+    function insertarVariableLlamada(variable) {
+      var cajaTexto = $("#llamada_texto");
+      cajaTexto.val(cajaTexto.val() + "$" + variable);
+    }
+
+    function insertarVariableEmail(variable) {
+      var cajaTexto = $("#mail_texto");
+      cajaTexto.val(cajaTexto.val() + "$" + variable);
+    }
 
     function actualizarComponentesMapa(latLng){
       $("#map_boton").removeClass("disabled").attr("disabled",false);

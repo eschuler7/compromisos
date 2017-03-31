@@ -14,6 +14,14 @@ function obtenerContactos(ruc) {
 	return resultado;
 }
 
+var qBuscarContacto = "SELECT * FROM PARM.TBL_CONTACTO WHERE DNI=";
+function buscarContacto(dni) {
+	var conn = ibmdb.openSync(connString, options);
+	var resultado = conn.querySync(qBuscarContacto + "'" + dni + "'");
+	conn.closeSync();
+	return resultado;
+}
+
 var qActualizarContacto = "UPDATE PARM.TBL_CONTACTO SET ";
 function actualizarContacto(ruc, dni, nombres, apellidos, correo, telefono) {
 	var conn = ibmdb.openSync(connString, options);
@@ -39,3 +47,4 @@ module.exports.obtenerContactos = obtenerContactos;
 module.exports.actualizarContacto = actualizarContacto;
 module.exports.registrarContacto = registrarContacto;
 module.exports.eliminarContacto = eliminarContacto;
+module.exports.buscarContacto = buscarContacto;

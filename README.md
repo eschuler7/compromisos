@@ -1,8 +1,8 @@
-# Node.js Hello World Sample
+# Node.js Plataforma PARM
 
-This application demonstrates a simple, reusable Node.js web application based on the Express framework.
+Plataforma de reclutamiento masivo de personal. Esta plataforma puede ser usada para contactar a personas via telefónica, sms y correo electrónico, con la finalidad de convocarlos a una reunión de entrevista laboral.
 
-[![Deploy to Bluemix](https://bluemix.net/deploy/button.png)](https://bluemix.net/deploy?repository=https://github.com/IBM-Bluemix/nodejs-helloworld)
+[![PARM Perú](http://www.parmperu.com)](http://www.parmperu.com)
 
 ## Run the app locally
 

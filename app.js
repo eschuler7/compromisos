@@ -5,7 +5,7 @@ var bodyParser = require("body-parser");
 var clientedb = require("./app_modules/cliente.js");
 var usuariodb = require("./app_modules/usuario.js");
 var reclutamientodb = require("./app_modules/registroreclutamiento.js");
-var plataformadb = require("./app_modules/configuracionplataforma.js");
+var configuracionplataformadb = require("./app_modules/configuracionplataforma.js");
 var contactodb = require("./app_modules/contacto.js");
 var nodemailer = require('nodemailer');
 var multer  = require('multer');
@@ -129,7 +129,7 @@ app.get("/parmsecure/estadisticas", function(req, res){
 app.get("/parmsecure/perfil", function(req, res){
 	var clientes = clientedb.buscarClienteXRuc(req.session.usuario.RUC);
 	var contactos = contactodb.obtenerContactos(req.session.usuario.RUC);
-	var configuracion_plataforma = plataformadb.obtenerConfiguracionPlataforma(req.session.usuario.RUC);
+	var configuracion_plataforma = configuracionplataformadb.obtenerConfiguracionPlataforma(req.session.usuario.RUC);
 
 	res.render("perfil",{cliente:clientes[0],contactos:contactos,configuracion_plataforma:configuracion_plataforma[0]});
 });
@@ -445,14 +445,27 @@ app.post("/parmsecure/actualizarcontacto", function(req, res){
 	var telefono = req.body.telefono_contacto;
 	var ruc = req.session.usuario.RUC;
 
-	console.log("DNI: " + dni);
+	var contacto = contactodb.buscarContacto(dni);
 
 	try{
-		if(dni == '') {
-			contactodb.registrarContacto(ruc, dni, nombres, apellidos, correo, telefono);
-		} else {
+		if(contacto[0]) {
 			contactodb.actualizarContacto(ruc, dni, nombres, apellidos, correo, telefono);
+		} else {
+			contactodb.registrarContacto(ruc, dni, nombres, apellidos, correo, telefono);
 		}
+	} catch (err){
+		console.log(err);
+	}
+
+	res.redirect("/parmsecure/perfil");
+});
+
+app.post("/parmsecure/eliminarcontacto", function(req, res){
+	var dni = req.body.dni;
+	var ruc = req.session.usuario.RUC;
+
+	try{
+		contactodb.eliminarContacto(dni,ruc);
 	} catch (err){
 		console.log(err);
 	}
@@ -461,7 +474,12 @@ app.post("/parmsecure/actualizarcontacto", function(req, res){
 
 // -- AJAX GET CALLS --
 app.get("/parmsecure/admin/listarsolicitudespendientes",function(req,res){
-	var solicitudes = clientedb.solicitudesPendientes();
+	var solicitudes = null;
+	try{
+		solicitudes = clientedb.solicitudesPendientes();
+	} catch(err) {
+		console.log(err);
+	}
 	res.setHeader("content-type","text/json");
 	res.send(solicitudes);
 });
@@ -502,17 +520,41 @@ app.get("/parmsecure/admin/confirmarsolicitud",function(req, res){
 
 app.post("/parmsecure/guardartextosms", function(req, res){
 	var textosms = req.body.textosms;
-	console.log(textosms);
+	var ruc = req.session.usuario.RUC;
+	res.setHeader("content-type","text/plain");
+	try {
+		configuracionplataformadb.actualizarTextoSms(textosms,ruc);
+		res.send("El texto de los SMS fue actualizado.");
+	} catch (err) {
+		console.log(err);
+		res.send(err);
+	}
 });
 
 app.post("/parmsecure/guardartextollamada", function(req, res){
 	var textollamada = req.body.textollamada;
-	console.log(textollamada);
+	var ruc = req.session.usuario.RUC;
+	res.setHeader("content-type","text/plain");
+	try {
+		configuracionplataformadb.actualizarTextoLlamada(textosms,ruc);
+		res.send("El texto de las llamadas fue actualizado.");
+	} catch (err) {
+		console.log(err);
+		res.send(err);
+	}
 });
 
 app.post("/parmsecure/guardartextocorreo", function(req, res){
 	var textocorreo = req.body.textocorreo;
-	console.log(textocorreo);
+	var ruc = req.session.usuario.RUC;
+	res.setHeader("content-type","text/plain");
+	try {
+		configuracionplataformadb.actualizarTextoEmail(textosms,ruc);
+		res.send("El texto del correo fue actualizado.");
+	} catch (err) {
+		console.log(err);
+		res.send(err);
+	}
 });
 
 // -- ADICIONAL FUNCTIONS --
