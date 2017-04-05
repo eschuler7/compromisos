@@ -12,7 +12,7 @@ block container
       .col-md-12
         .box.box-success
           .box-header.with-border
-            h3.box-title Información de Consumo Mensual 
+            h3.box-title Información de Consumo Mensual / #{consumo.NOMBRE}
             |  
             small ( Enero 2017 )
             .box-tools.pull-right
@@ -29,21 +29,21 @@ block container
             .row
               .col-md-12
                 .progress-group
-                  span.progress-text Llamadas
+                  span.progress-text Llamadas Faltantes
                   |  
                   span.progress-number
-                    b 120
-                    | /200
+                    b #{consumo.CANT_LLAMADAS}
+                    | /#{consumo.LLAMADAS}
                   .progress.sm
-                    .progress-bar.progress-bar-aqua(style='width: 80%')
+                    #consumo_llamada.progress-bar.progress-bar-aqua(style='width: 50%')
                 .progress-group
-                  span.progress-text Mensajes de texto (SMS)
+                  span.progress-text Mensajes de Texto Faltantes
                   |  
                   span.progress-number
-                    b 120
-                    | /200
+                    b #{consumo.CANT_SMS}
+                    | /#{consumo.SMS}
                   .progress.sm
-                    .progress-bar.progress-bar-red(style='width: 80%')
+                    #consumo_sms.progress-bar.progress-bar-red
     .row
       .col-md-12
         .box.box-success
@@ -69,34 +69,40 @@ block container
               canvas#bar_reclutamiento(style='height:350px')
 
   script(type='text/javascript').
-    $(function () {
+    var consumo = !{JSON.stringify(consumo)};
+    $(document).ready(function(){
+      console.log(consumo.P_DISPONIBLE_LLAMADA);
+      $("#consumo_llamada").width(consumo.P_DISPONIBLE_LLAMADA + "%");
+      $("#consumo_sms").width(consumo.P_DISPONIBLE_SMS + "%");
+    });
 
+    $(function () {
       //-------------
       //- BAR CHART -
       //-------------
 
       var areaChartData = {
-        labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio"],
+        labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Setiembre", "Octubre", "Noviembre", "Diciembre"],
         datasets: [
           {
-            label: "Electronics",
+            label: "Llamadas",
             fillColor: "rgba(210, 214, 222, 1)",
             strokeColor: "rgba(210, 214, 222, 1)",
             pointColor: "rgba(210, 214, 222, 1)",
             pointStrokeColor: "#c1c7d1",
             pointHighlightFill: "#fff",
             pointHighlightStroke: "rgba(220,220,220,1)",
-            data: [65, 59, 80, 81, 56, 55, 40]
+            data: [65, 59, 80, 81, 56, 55, 40, 12, 56, 56, 10, 24]
           },
           {
-            label: "Digital Goods",
+            label: "Sms",
             fillColor: "rgba(60,141,188,0.9)",
             strokeColor: "rgba(60,141,188,0.8)",
             pointColor: "#3b8bba",
             pointStrokeColor: "rgba(60,141,188,1)",
             pointHighlightFill: "#fff",
             pointHighlightStroke: "rgba(60,141,188,1)",
-            data: [28, 48, 40, 19, 86, 27, 90]
+            data: [28, 48, 40, 19, 86, 27, 90, 16, 57, 34, 58, 90]
           }
         ]
       };

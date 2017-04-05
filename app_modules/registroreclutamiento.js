@@ -4,10 +4,11 @@ var dbConn = require("./db2.js");
 var Q = require("q");
 
 var connString = dbConn.initDBconnection();
+var schema = dbConn.getSchema();
 
 var options = { connectTimeout : 20 }; // time out de 20 segundos para todas las conexiones sincronas
 
-var qRegistrarReclutamiento = "INSERT INTO PARM.TBL_REGISTRO_RECLUTAMIENTO(ID,RESPONSABLE,PUESTO,NOMBRES,APELLIDO_PATERNO,APELLIDO_MATERNO,CELULAR,CORREO,RUC,FECHA_HORA_REGISTRO) VALUES";
+var qRegistrarReclutamiento = "INSERT INTO " + schema + ".TBL_REGISTRO_RECLUTAMIENTO(ID,RESPONSABLE,PUESTO,NOMBRES,APELLIDO_PATERNO,APELLIDO_MATERNO,CELULAR,CORREO,RUC,FECHA_HORA_REGISTRO) VALUES";
 function registrarReclutamiento(jsonArray, ruc) {
 	var deferred = Q.defer();
 	try{
@@ -25,28 +26,28 @@ function registrarReclutamiento(jsonArray, ruc) {
 	return deferred.promise;
 }
 
-var qActualizarResultadoCorreo = "UPDATE PARM.TBL_REGISTRO_RECLUTAMIENTO SET ESTADO_CORREO=";
+var qActualizarResultadoCorreo = "UPDATE " + schema + ".TBL_REGISTRO_RECLUTAMIENTO SET ESTADO_CORREO=";
 function actualizarResultadoCorreo(id, estado) {
 	var conn = ibmdb.openSync(connString, options);
 	conn.querySync(qActualizarResultadoCorreo + "'" + estado + "' WHERE ID='" + id + "'");
 	conn.closeSync();
 }
 
-var qActualizarResultadoSms = "UPDATE PARM.TBL_REGISTRO_RECLUTAMIENTO SET ESTADO_SMS=";
+var qActualizarResultadoSms = "UPDATE " + schema + ".TBL_REGISTRO_RECLUTAMIENTO SET ESTADO_SMS=";
 function actualizarResultadoSms(id, estado) {
 	var conn = ibmdb.openSync(connString, options);
 	conn.querySync(qActualizarResultadoSms + "'" + estado + "' WHERE ID='" + id + "'");
 	conn.closeSync();
 }
 
-var qActualizarResultadoLlamada = "UPDATE PARM.TBL_REGISTRO_RECLUTAMIENTO SET ESTADO_LLAMADA=";
+var qActualizarResultadoLlamada = "UPDATE " + schema + ".TBL_REGISTRO_RECLUTAMIENTO SET ESTADO_LLAMADA=";
 function actualizarResultadoLlamada(id, estado) {
 	var conn = ibmdb.openSync(connString, options);
 	conn.querySync(qActualizarResultadoLlamada + "'" + estado + "' WHERE ID='" + id + "'");
 	conn.closeSync();
 }
 
-var qObtenerRegistroActividad = "SELECT * FROM PARM.TBL_REGISTRO_RECLUTAMIENTO WHERE RUC=";
+var qObtenerRegistroActividad = "SELECT * FROM " + schema + ".TBL_REGISTRO_RECLUTAMIENTO WHERE RUC=";
 function obtenerRegistroActividad(ruc) {
 	var conn = ibmdb.openSync(connString, options);
 	var resultado = conn.querySync(qObtenerRegistroActividad + "'" + ruc + "'");

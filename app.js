@@ -44,6 +44,7 @@ var storageReclutas = multer.diskStorage({
   }
 });
 var uploadreclutas = multer({ storage: storageReclutas });
+var url_base = "http://www.parmperu.com"
 
 var storageImagenPerfil = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -60,11 +61,6 @@ var uploadImagenPerfil = multer({ storage: storageImagenPerfil });
 var accountSid = 'AC1cbe766e2bfd55280fb89c25ba0664a9';
 var authToken = '2b32e0ac4085065806a7577201f81878';
 var client = new twilio.RestClient(accountSid, authToken);
-
-// Mensajes por defecto para el contacto con el recluta.
-var textoDefaultSms = "Somos $RAZON_SOCIAL, recibimos su CV para el puesto $PUESTO y lo invitamos a una entrevista laboral. Se envió mayor detalle a su correo.";
-var textoDefaultCorreo = "<h3>Saludos estimado <strong>$NOMBRES $APELLIDOS</strong>,</h3><p>Le informamos que recibimos su CV para el puesto de <strong>$PUESTO</strong>. Por eso lo invitamos a una entrevista laboral que se realizar&aacute; el d&iacute;a <strong>$FECHA</strong> a las <strong>$HORA</strong> en la direcci&oacute;n <strong>$DIRECCION</strong>. Favor de traer CV impreso y copia de DNI.</p><p>Para cualquier consulta comunicarse a los datos que figuran en la parte inferior de este mail.</p><p>Saludos cordiales.</p><hr /><p>$RAZON_SOCIAL<br />Area de Recursos Humanos<br />$DIRECCION<br />$TELEFONO</p>";
-var textoDefaultLlamada = "Somos $RAZON_SOCIAL, el motivo de nuestra llamada es para invitarlo a una entrevista laboral para el puesto $PUESTO que se realizará el día $FECHA, toda la información de la entrevista se lo enviamos al correo que figura en su Curriculum Vitae, cualquier consulta comunicarse a los datos que aparecen en el mail. Saludos.";
 
 // -- FILTROS --
 // Filtro de sesion
@@ -123,14 +119,27 @@ app.get("/parmsecure/actividad", function(req, res){
 });
 
 app.get("/parmsecure/estadisticas", function(req, res){
-	res.render("estadisticas");
+	var consumo;
+	try{
+		consumo = configuracionplataformadb.obtenerConsumoPorRUC(req.session.usuario.RUC);
+		console.log(consumo);
+	} catch (err) {
+		console.log(err);
+	}
+	res.render("estadisticas",{consumo:consumo[0]});
 });
 
 app.get("/parmsecure/perfil", function(req, res){
-	var clientes = clientedb.buscarClienteXRuc(req.session.usuario.RUC);
-	var contactos = contactodb.obtenerContactos(req.session.usuario.RUC);
-	var configuracion_plataforma = configuracionplataformadb.obtenerConfiguracionPlataforma(req.session.usuario.RUC);
-
+	var configuracion_plataforma;
+	var clientes;
+	var contactos;
+	try {
+		clientes = clientedb.buscarClienteXRuc(req.session.usuario.RUC);
+		contactos = contactodb.obtenerContactos(req.session.usuario.RUC);
+		configuracion_plataforma = configuracionplataformadb.obtenerConfiguracionPlataforma(req.session.usuario.RUC);
+	} catch(err) {
+		console.log(err);
+	}
 	res.render("perfil",{cliente:clientes[0],contactos:contactos,configuracion_plataforma:configuracion_plataforma[0]});
 });
 
@@ -226,7 +235,9 @@ app.get("/parmsecure/reclutar",function(req, res){
 
 	    	res.send("ok");
 	    });
-	    
+
+		configuracionplataformadb.actualizarConsumoSms(req.session.usuario.RUC,jsonArray.length);
+	    //falta la actualizacion de las llamadas
 	} else {
 		console.log("No se ha cargado ningún archivo.");
 	}
@@ -367,7 +378,7 @@ app.post("/solicitarreseteo", function (req, res) {
 
 		var htmlbody = "<h3>Estimado Cliente,</h3>" + 
 		"<p>Hemos recibido una solicitud de reseteo de contraseña, si usted la solicitó, por favor haga click en el siguiente enlace:</p>" +
-		"<p><a href='http://www.parmperu.com.pe/resetearcontrasena?ruc=" + ruc + "&cod=" + codigoReseteo + "'>Resetear contraseña</a></p>" +
+		"<p><a href='" + url_base + "/resetearcontrasena?ruc=" + ruc + "&cod=" + codigoReseteo + "'>Resetear contraseña</a></p>" +
 		"<p>Si usted no la solicitó por favor omitir este correo.</p>";
 
 		enviarCorreo(cliente[0].CORREO, "Solicitud de reseteo de contraseña", htmlbody,false,null);
@@ -509,11 +520,49 @@ app.get("/parmsecure/admin/confirmarsolicitud",function(req, res){
 	"<p>Estimado cliente, el presente correo contiene el enlace para la confirmación de su cuenta. Hacer click en el siguiente enlace para activar su cuenta.</p>";
 	for (var i = seleccion.length - 1; i >= 0; i--) {
 		var codigo = codigoAleatorio("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",16);
-		usuariodb.actualizarCodigoConfirmacion(seleccion[i].ruc,codigo);
-		htmlbody += "<p><a href='http://www.parmperu.com.pe/activarcuenta?ruc=" + seleccion[i].ruc + "&cod=" + codigo + "'>Activar tu cuenta</a></p>"
-		enviarCorreo(seleccion[i].correo,"Código de confirmación PARM", htmlbody,false,null);
+		try{
+			usuariodb.actualizarCodigoConfirmacion(seleccion[i].ruc,codigo);
+			clientedb.actualizarPaquete(seleccion[i].ruc,seleccion[i].paquete);
+			configuracionplataformadb.configuracionInicial(seleccion[i].ruc,seleccion[i].paquete);
+			htmlbody += "<p><a href='" + url_base + "/activarcuenta?ruc=" + seleccion[i].ruc + "&cod=" + codigo + "'>Activar tu cuenta</a></p>"
+			//enviarCorreo(seleccion[i].correo,"Código de confirmación PARM", htmlbody,false,null);
+			console.log(htmlbody);
+		} catch (err) {
+			console.log("Hubo un error al actualizar los datos de confirmación, por favor revisar los logs");
+			console.log(err);
+		}
 	}
 	res.send("ok");
+});
+
+app.get("/twiml",function(req, res){
+	try{
+		var ruc = req.query.r;
+		var razon_social = req.query.rs;
+		var puesto = req.query.p;
+		var fecha = req.query.f;
+
+		var config = configuracionplataformadb.obtenerConfiguracionPlataforma(ruc);
+		var texto = config[0].TEXTO_LLAMADA;
+		texto = texto.replace("$RAZON_SOCIAL",razon_social);
+		texto = texto.replace("$PUESTO",puesto);
+		texto = texto.replace("$FECHA",fecha);
+
+		var twiml = '<?xml version="1.0" encoding="UTF-8"?>';
+		twiml += '<Response>';
+		twiml += '<Say voice="alice" language="es-MX">';
+		twiml += texto;
+		twiml += '</Say>';
+		twiml += '</Response>';
+
+		console.log(twiml);
+
+		res.setHeader("content-type","text/xml");
+		res.send(twiml);
+	} catch (err) {
+		console.log(err);
+		res.status(505).send("Ocurrió un error en el servidor");
+	}
 });
 
 // -- AJAX POST CALLS --
@@ -596,11 +645,11 @@ function enviarCorreo(email, asunto, htmlbody, actualizarbd, id){
 	});
 }
 
-function generarLlamada(numeroCelular,id) {
+function generarLlamada(numeroCelular,id,ruc,razon_social,puesto,fecha) {
 	client.calls.create({
 		to:'+51' + numeroCelular,
 		from: "+51946198461",
-		url:"https://handler.twilio.com/twiml/EH188352b7f9b7ca5e1bd0f121df95043d"
+		url: url_base + "/twiml?r=" + ruc + "&rs=" + razon_social + "&p=" + puesto + "&f=" + fecha
 	}, function(err, call) {
 		if(err) {
 			console.log(err);
@@ -658,31 +707,7 @@ function codigoAleatorio(chars, lon){
 
 app.listen(app.get("port"), "0.0.0.0", function() {
 	console.log("PARM Nodejs Server iniciado en el puerto " + app.get("port"));
-	/*
-	var htmlbody = "<html><body>" +
-	    			"<h2>Reclutamiento de personal</h2>" + 
-		    		"<p>Estimado Joan Delgado,</p>" +
-		    		"<p>La empresa lo invita a una convocatoria para el puesto de programador.</p>" +
-		    		"<p></p>" + 
-		    		"<div id='ubicacion' style='height: 400px'></div>" +
-		    		"<script text='javascript'>" +
-		    		`function initMap() {
-      var myLatLng = {lat: -12.060578, lng: -76.943505};
-      map = new google.maps.Map(document.getElementById("ubicacion"), {
-        center: myLatLng,
-        zoom: 10
-      });
-
-        marcador = new google.maps.Marker({
-          position: myLatLng,
-          map: map
-        });
-        map.panTo(myLatLng);
-      
-    }` +
-		    		"</script>" +
-		    		"<script async defer src='https://maps.googleapis.com/maps/api/js?key=AIzaSyAmgzWsRC_anL6pED8-R2AE_BV4rOmNvM4&callback=initMap'/>"
-		    		"</body></html>";
-	enviarCorreo("joandelgado18@gmail.com","Convocatoria de personal",htmlbody,false,null);
-	*/
+	//var texto = "Somos $RAZON_SOCIAL, recibimos su CV para el puesto $PUESTO y lo invitamos a una entrevista laboral. Se envió mayor detalle a su correo.";
+	//texto = texto.replace("$RAZON_SOCIAL","DELPA GROUP");
+	//console.log(texto);
 });
