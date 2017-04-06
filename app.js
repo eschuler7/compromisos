@@ -202,9 +202,9 @@ app.get("/parmsecure/reclutar",function(req, res){
 	    	var ruc = req.session.usuario.RUC;
 	    	var razon_social = req.session.usuario.RAZON_SOCIAL;
 	    	var config = configuracionplataformadb.obtenerConfiguracionPlataforma(ruc);
+	    	var texto = config[0].TEXTO_SMS;
 
 	    	reclutamientodb.registrarReclutamiento(jsonArray,req.session.usuario.RUC)
-	    	var texto = config[0].TEXTO_SMS;
 	    	.then(function(){
 	    		console.log("Inicia el envío de mensajes de texto");
 	    		for (var i = jsonArray.length - 1; i >= 0; i--) {
