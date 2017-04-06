@@ -201,23 +201,24 @@ app.get("/parmsecure/reclutar",function(req, res){
 
 	    	var ruc = req.session.usuario.RUC;
 	    	var razon_social = req.session.usuario.RAZON_SOCIAL;
-	    	
+	    	var config = configuracionplataformadb.obtenerConfiguracionPlataforma(ruc);
+
 	    	reclutamientodb.registrarReclutamiento(jsonArray,req.session.usuario.RUC)
+	    	var texto = config[0].TEXTO_SMS;
 	    	.then(function(){
 	    		console.log("Inicia el envío de mensajes de texto");
 	    		for (var i = jsonArray.length - 1; i >= 0; i--) {
 	    			var recluta = jsonArray[i];
-	    			enviarSms(recluta.celular,recluta.id);
+	    			enviarSms(recluta.celular,recluta.id,texto);
 	    		}
 	    	})
 	    	.then(function(){
 	    		console.log("Inicia las llamadas a celular");
 	    		for (var i = jsonArray.length - 1; i >= 0; i--) {
 	    			var recluta = jsonArray[i];
-	    			razon_social = razon_social.replace(/ /g,"%20");
-	    			var puesto = recluta.puesto.replace(/ /g,"%20");
-	    			var fecha = formatearFecha(recluta.fecha).replace(/ /g,"%20");
-	    			generarLlamada(recluta.celular,recluta.id,ruc,razon_social,puesto,fecha);
+	    			var fecha = formatearFecha(recluta.fecha);
+	    			var hora = formatearHora(recluta.hora);
+	    			generarLlamada(recluta.celular,recluta.id,ruc,razon_social,recluta.puesto,fecha,hora);
 	    		}
 	    	})
 	    	.then(function(){
@@ -546,6 +547,7 @@ app.post("/twiml",function(req, res){
 		var razon_social = req.query.rs;
 		var puesto = req.query.p;
 		var fecha = req.query.f;
+		var hora = req.query.h;
 
 		var config = configuracionplataformadb.obtenerConfiguracionPlataforma(ruc);
 		var texto = config[0].TEXTO_LLAMADA;
@@ -557,6 +559,9 @@ app.post("/twiml",function(req, res){
 		}
 		if(fecha) {
 			texto = texto.replace("$FECHA",fecha);
+		}
+		if(hora) {
+			texto = texto.replace("$HORA", hora);
 		}
 
 		var twiml = '<?xml version="1.0" encoding="UTF-8"?>';
@@ -657,11 +662,12 @@ function enviarCorreo(email, asunto, htmlbody, actualizarbd, id){
 }
 
 var client = twilio.initTwilioClient();
-function generarLlamada(numeroCelular,id,ruc,razon_social,puesto,fecha) {
+function generarLlamada(numeroCelular,id,ruc,razon_social,puesto,fecha,hora) {
+	var url = url_base + "/twiml?r=" + ruc + "&rs=" + razon_social + "&p=" + puesto + "&f=" + fecha + "&h=" + hora;
 	client.calls.create({
 		to:'+51' + numeroCelular,
 		from: "+51946198461",
-		url: url_base + "/twiml?r=" + ruc + "&amp;rs=" + razon_social + "&amp;p=" + puesto + "&amp;f=" + fecha
+		url: encodeURI(url)
 	}, function(err, call) {
 		if(err) {
 			console.log(err);
@@ -673,10 +679,11 @@ function generarLlamada(numeroCelular,id,ruc,razon_social,puesto,fecha) {
 	});
 }
 
-function enviarSms(numeroCelular,id){
+function enviarSms(numeroCelular,id,texto){
+	var uri = '/enviar_sms.asp?api=1&relogin=1&usuario=SMSAPI&clave=SMSAPI964&tos='+ numeroCelular + '&idinterno=&texto=' + texto;
 	var options = {
 		host: 'servicio.smsmasivos.com.ar',
-		path: '/enviar_sms.asp?api=1&relogin=1&usuario=SMSAPI&clave=SMSAPI964&tos=' + numeroCelular + '&idinterno=&texto=SMS%20de%20reclutamiento%20automatico%20de%20personal%20-%20PARM'
+		path: encodeURI(uri)
 	};
 	var httpreq = http.request(options,function(httpres){
 		var str = '';
@@ -765,6 +772,25 @@ function formatearFecha(fecha) {
 	}
 
 	return fechastr;
+}
+
+function formatearHora(hora) {
+	var hora = dateFormat(hora, "H");
+	var minutos = dateFormat(hora, "M");
+	var horastr = dateFormat(hora, "h");
+
+	if(minutos > 0) {
+		horastr += " y " + minutos;
+	}
+
+	if(hora < 12) {
+		horastr += " de la mañana";
+	} else if (hora >= 12 && hora < 7) {
+		horastr += " de la tarde";
+	} else {
+		horastr += " de la noche";
+	}
+	return horastr;
 }
 
 /*function limpiarImagenPerfil(ruc) {
