@@ -601,7 +601,7 @@ app.post("/parmsecure/guardartextollamada", function(req, res){
 	var ruc = req.session.usuario.RUC;
 	res.setHeader("content-type","text/plain");
 	try {
-		configuracionplataformadb.actualizarTextoLlamada(textosms,ruc);
+		configuracionplataformadb.actualizarTextoLlamada(textollamada,ruc);
 		res.send("El texto de las llamadas fue actualizado.");
 	} catch (err) {
 		console.log(err);
@@ -618,7 +618,7 @@ app.post("/parmsecure/guardartextocorreo", function(req, res){
 		res.send("El texto del correo fue actualizado.");
 	} catch (err) {
 		console.log(err);
-		res.send(err);
+		res.send("Ocurrió un error al actualizar el texto de la llamada");
 	}
 });
 
@@ -816,4 +816,6 @@ app.listen(app.get("port"), "0.0.0.0", function() {
 	//texto = texto.replace("$RAZON_SOCIAL","DELPA GROUP");
 	//texto = texto.replace(/ /g,"%20");
 	//console.log(texto);
+	var now = new Date();
+	console.log(now);
 });
