@@ -7,6 +7,7 @@
   },
   "dependencies": {
     "body-parser": "1.14.x",
+    "dateformat": "^2.0.0",
     "exceljs": "^0.2.37",
     "express": "4.13.x",
     "express-session": "^1.14.1",

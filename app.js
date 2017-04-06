@@ -7,12 +7,13 @@ var usuariodb = require("./app_modules/usuario.js");
 var reclutamientodb = require("./app_modules/registroreclutamiento.js");
 var configuracionplataformadb = require("./app_modules/configuracionplataforma.js");
 var contactodb = require("./app_modules/contacto.js");
+var twilio = require("./app_modules/twilio.js");
 var nodemailer = require('nodemailer');
 var multer  = require('multer');
 var Excel = require('exceljs');
-var twilio = require('twilio');
 var http = require('http');
 var fs = require("fs");
+var dateFormat = require('dateformat');
 
 var app = express();
 
@@ -57,10 +58,7 @@ var storageImagenPerfil = multer.diskStorage({
 });
 var uploadImagenPerfil = multer({ storage: storageImagenPerfil });
 
-// Twilio Credentials 
-var accountSid = 'AC1cbe766e2bfd55280fb89c25ba0664a9';
-var authToken = '2b32e0ac4085065806a7577201f81878';
-var client = new twilio.RestClient(accountSid, authToken);
+
 
 // -- FILTROS --
 // Filtro de sesion
@@ -192,13 +190,17 @@ app.get("/parmsecure/reclutar",function(req, res){
 	    				apellidoPaterno:row.values[5],
 	    				apellidoMaterno:row.values[6],
 	    				celular:row.values[7],
-	    				correo:correotmp
+	    				correo:correotmp,
+	    				fecha:row.values[9],
+	    				hora:row.values[10]
 	    			}
 
 	    			jsonArray.push(json);
 	    		}
 	    	});
-	    	var finalizado = false;
+
+	    	var ruc = req.session.usuario.RUC;
+	    	var razon_social = req.session.usuario.RAZON_SOCIAL;
 	    	
 	    	reclutamientodb.registrarReclutamiento(jsonArray,req.session.usuario.RUC)
 	    	.then(function(){
@@ -212,7 +214,10 @@ app.get("/parmsecure/reclutar",function(req, res){
 	    		console.log("Inicia las llamadas a celular");
 	    		for (var i = jsonArray.length - 1; i >= 0; i--) {
 	    			var recluta = jsonArray[i];
-	    			generarLlamada(recluta.celular,recluta.id);
+	    			razon_social = razon_social.replace(/ /g,"%20");
+	    			var puesto = recluta.puesto.replace(/ /g,"%20");
+	    			var fecha = formatearFecha(recluta.fecha).replace(/ /g,"%20");
+	    			generarLlamada(recluta.celular,recluta.id,ruc,razon_social,puesto,fecha);
 	    		}
 	    	})
 	    	.then(function(){
@@ -525,17 +530,17 @@ app.get("/parmsecure/admin/confirmarsolicitud",function(req, res){
 			clientedb.actualizarPaquete(seleccion[i].ruc,seleccion[i].paquete);
 			configuracionplataformadb.configuracionInicial(seleccion[i].ruc,seleccion[i].paquete);
 			htmlbody += "<p><a href='" + url_base + "/activarcuenta?ruc=" + seleccion[i].ruc + "&cod=" + codigo + "'>Activar tu cuenta</a></p>"
-			//enviarCorreo(seleccion[i].correo,"Código de confirmación PARM", htmlbody,false,null);
-			console.log(htmlbody);
+			enviarCorreo(seleccion[i].correo,"Código de confirmación PARM", htmlbody,false,null);
+			//console.log(htmlbody);
 		} catch (err) {
-			console.log("Hubo un error al actualizar los datos de confirmación, por favor revisar los logs");
+			console.log("Hubo un error al actualizar los datos de confirmación, por favor revisar los logs.");
 			console.log(err);
 		}
 	}
 	res.send("ok");
 });
 
-app.get("/twiml",function(req, res){
+app.post("/twiml",function(req, res){
 	try{
 		var ruc = req.query.r;
 		var razon_social = req.query.rs;
@@ -544,9 +549,15 @@ app.get("/twiml",function(req, res){
 
 		var config = configuracionplataformadb.obtenerConfiguracionPlataforma(ruc);
 		var texto = config[0].TEXTO_LLAMADA;
-		texto = texto.replace("$RAZON_SOCIAL",razon_social);
-		texto = texto.replace("$PUESTO",puesto);
-		texto = texto.replace("$FECHA",fecha);
+		if(razon_social) {
+			texto = texto.replace("$RAZON_SOCIAL",razon_social);
+		}
+		if(puesto){
+			texto = texto.replace("$PUESTO",puesto);
+		}
+		if(fecha) {
+			texto = texto.replace("$FECHA",fecha);
+		}
 
 		var twiml = '<?xml version="1.0" encoding="UTF-8"?>';
 		twiml += '<Response>';
@@ -645,11 +656,12 @@ function enviarCorreo(email, asunto, htmlbody, actualizarbd, id){
 	});
 }
 
+var client = twilio.initTwilioClient();
 function generarLlamada(numeroCelular,id,ruc,razon_social,puesto,fecha) {
 	client.calls.create({
 		to:'+51' + numeroCelular,
 		from: "+51946198461",
-		url: url_base + "/twiml?r=" + ruc + "&rs=" + razon_social + "&p=" + puesto + "&f=" + fecha
+		url: url_base + "/twiml?r=" + ruc + "&amp;rs=" + razon_social + "&amp;p=" + puesto + "&amp;f=" + fecha
 	}, function(err, call) {
 		if(err) {
 			console.log(err);
@@ -688,6 +700,73 @@ function codigoAleatorio(chars, lon){
 	return codigo;
 }
 
+function formatearFecha(fecha) {
+	var fechastr = dateFormat(fecha, "dddd d 'de' mmmm 'del' yyyy");
+	var fectmp = fechastr.split(' ');
+	switch (fectmp[0]) {
+	    case 'Monday':
+	        fechastr = fechastr.replace("Monday","Lunes");
+	        break;
+	    case 'Tuesday':
+	        fechastr = fechastr.replace("Tuesday","Martes");
+	        break;
+	    case 'Wednesday':
+	        fechastr = fechastr.replace("Wednesday","Miercoles");
+	        break;
+	    case 'Thursday':
+	        fechastr = fechastr.replace("Thursday","Jueves");
+	        break;
+	    case 'Friday':
+	        fechastr = fechastr.replace("Friday","Viernes");
+	        break;
+	    case 'Saturday':
+	        fechastr = fechastr.replace("Saturday","Sabado");
+	        break;
+	    case 'Sunday':
+	        fechastr = fechastr.replace("Sunday","Domingo");
+	}
+
+	switch (fectmp[3]) {
+	    case 'January':
+	        fechastr = fechastr.replace("January","Enero");
+	        break;
+	    case 'February':
+	        fechastr = fechastr.replace("February","Febrero");
+	        break;
+	    case 'March':
+	        fechastr = fechastr.replace("March","Marzo");
+	        break;
+	    case 'April':
+	        fechastr = fechastr.replace("April","Abril");
+	        break;
+	    case 'May':
+	        fechastr = fechastr.replace("May","Mayo");
+	        break;
+	    case 'June':
+	        fechastr = fechastr.replace("June","Junio");
+	        break;
+	    case 'July':
+	        fechastr = fechastr.replace("July","Julio");
+	        break;
+	    case 'August':
+	        fechastr = fechastr.replace("August","Agosto");
+	        break;
+	    case 'September':
+	        fechastr = fechastr.replace("September","Setiembre");
+	        break;
+	    case 'October':
+	        fechastr = fechastr.replace("October","Octubre");
+	        break;
+	    case 'November':
+	        fechastr = fechastr.replace("November","Noviembre");
+	        break;
+	    case 'December':
+	        fechastr = fechastr.replace("December","Diciembre");
+	}
+
+	return fechastr;
+}
+
 /*function limpiarImagenPerfil(ruc) {
 	// Find files
 	glob("./uploads/imagenesperfil/" + ruc + ".*",function(err,files){
@@ -709,5 +788,6 @@ app.listen(app.get("port"), "0.0.0.0", function() {
 	console.log("PARM Nodejs Server iniciado en el puerto " + app.get("port"));
 	//var texto = "Somos $RAZON_SOCIAL, recibimos su CV para el puesto $PUESTO y lo invitamos a una entrevista laboral. Se envió mayor detalle a su correo.";
 	//texto = texto.replace("$RAZON_SOCIAL","DELPA GROUP");
+	//texto = texto.replace(/ /g,"%20");
 	//console.log(texto);
 });
