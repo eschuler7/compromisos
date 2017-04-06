@@ -816,6 +816,4 @@ app.listen(app.get("port"), "0.0.0.0", function() {
 	//texto = texto.replace("$RAZON_SOCIAL","DELPA GROUP");
 	//texto = texto.replace(/ /g,"%20");
 	//console.log(texto);
-	var now = new Date();
-	console.log(now);
 });

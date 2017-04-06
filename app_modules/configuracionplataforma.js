@@ -67,7 +67,7 @@ function actualizarConsumoSms(ruc, cant_sms) {
 
 module.exports.obtenerConfiguracionPlataforma = obtenerConfiguracionPlataforma;
 module.exports.actualizarTextoSms = actualizarTextoSms;
-module.exports.actualizarTextoLlamada = obtenerConfiguracionPlataforma;
+module.exports.actualizarTextoLlamada = actualizarTextoLlamada;
 module.exports.actualizarTextoEmail = actualizarTextoEmail;
 module.exports.configuracionInicial = configuracionInicial;
 module.exports.obtenerConsumoPorRUC = obtenerConsumoPorRUC;
