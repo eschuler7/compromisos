@@ -7,7 +7,7 @@ function initTwilioClient() {
 		var vcapServices = JSON.parse(process.env.VCAP_SERVICES);
 		if(vcapServices['user-provided']){
 			twilio_credentials = vcapServices['user-provided'][0].credentials;
-			client = new tilio.RestClient(twilio_credentials.accountSID, twilio_credentials.authToken);
+			client = new twilio.RestClient(twilio_credentials.accountSID, twilio_credentials.authToken);
 		}
 	} else{
 		//console.warn('VCAP_SERVICES environment variable not set - data will be unavailable to the UI');
