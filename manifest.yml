@@ -1,7 +1,7 @@
 applications:
 - path: .
-  memory: 256M
-  instances: 1
+  memory: 512M
+  instances: 2
   domain: parmperu.com
   name: parmperu
   host: parmperu

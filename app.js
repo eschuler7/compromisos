@@ -191,10 +191,10 @@ app.get("/parmsecure/reclutar",function(req, res){
 	    				apellidoMaterno:row.values[6],
 	    				celular:row.values[7],
 	    				correo:correotmp,
-	    				fecha:row.values[9],
-	    				hora:row.values[10]
+	    				fecha:new Date(row.values[9].valueOf() + row.values[9].getTimezoneOffset() * 60000),
+	    				hora:new Date(row.values[10].valueOf() + row.values[10].getTimezoneOffset() * 60000)
 	    			}
-
+	    			console.log("1: " + row.values[10]);
 	    			jsonArray.push(json);
 	    		}
 	    	});
@@ -430,6 +430,7 @@ app.post('/parmsecure/upload', uploadreclutas.single('reclutas'), function (req,
     				fecha:row.values[9],
     				hora:row.values[10]
     			}
+    			
     			jsonArray.push(json);
     		}
     	});
@@ -775,17 +776,18 @@ function formatearFecha(fecha) {
 }
 
 function formatearHora(hora) {
-	var hora = dateFormat(hora, "H");
-	var minutos = dateFormat(hora, "M");
+	console.log("formatearHora: " + hora);
+	var H = dateFormat(hora, "H");
+	var M = dateFormat(hora, "M");
 	var horastr = dateFormat(hora, "h");
 
-	if(minutos > 0) {
-		horastr += " y " + minutos;
+	if(M > 0) {
+		horastr += " y " + M;
 	}
 
-	if(hora < 12) {
+	if(H < 12) {
 		horastr += " de la mañana";
-	} else if (hora >= 12 && hora < 7) {
+	} else if (H >= 12 && H < 7) {
 		horastr += " de la tarde";
 	} else {
 		horastr += " de la noche";
