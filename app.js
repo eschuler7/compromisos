@@ -682,9 +682,9 @@ function generarLlamada(numeroCelular,id,ruc,razon_social,puesto,fecha,hora) {
 		from: "+51946198461",
 		url: encodeURI(url)
 	}, function(error, call) {
-		if(err) {
+		if(error) {
 			console.log("Error en generación de la llamada.");
-			console.log(err);
+			console.log(error);
 			try {
 				reclutamientodb.actualizarResultadoLlamada(id,error.status);
 			} catch(err) {
