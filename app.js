@@ -517,6 +517,7 @@ app.get("/parmsecure/actualizarubicacion",function(req,res){
 
 app.get("/parmsecure/registroactividad",function(req, res){
 	var registroactividad = reclutamientodb.obtenerRegistroActividad(req.session.usuario.RUC);
+	console.log("registroactividad GET: " + registroactividad);
 	res.setHeader("content-type","text/json");
 	res.send(registroactividad);
 });

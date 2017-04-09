@@ -50,6 +50,7 @@ function actualizarResultadoLlamada(id, estado) {
 var qObtenerRegistroActividad = "SELECT * FROM " + schema + ".TBL_REGISTRO_RECLUTAMIENTO WHERE RUC=";
 function obtenerRegistroActividad(ruc) {
 	qObtenerRegistroActividad += "'" + ruc + "'";
+	console.log("obtenerRegistroActividad: " + qObtenerRegistroActividad);
 	var conn = ibmdb.openSync(connString, options);
 	var resultado = conn.querySync(qObtenerRegistroActividad);
 	conn.closeSync();
