@@ -49,10 +49,9 @@ function actualizarResultadoLlamada(id, estado) {
 
 var qObtenerRegistroActividad = "SELECT * FROM " + schema + ".TBL_REGISTRO_RECLUTAMIENTO WHERE RUC=";
 function obtenerRegistroActividad(ruc) {
-	qObtenerRegistroActividad += "'" + ruc + "'";
-	console.log("obtenerRegistroActividad: " + qObtenerRegistroActividad);
+	console.log("obtenerRegistroActividad: " + qObtenerRegistroActividad + "'" + ruc + "'");
 	var conn = ibmdb.openSync(connString, options);
-	var resultado = conn.querySync(qObtenerRegistroActividad);
+	var resultado = conn.querySync(qObtenerRegistroActividad + "'" + ruc + "'");
 	conn.closeSync();
 	return resultado;
 }

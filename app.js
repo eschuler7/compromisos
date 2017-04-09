@@ -498,7 +498,7 @@ app.get("/parmsecure/admin/listarsolicitudespendientes",function(req,res){
 	} catch(err) {
 		console.log(err);
 	}
-	res.setHeader("content-type","text/json");
+	res.setHeader("content-type","application/json");
 	res.send(solicitudes);
 });
 
@@ -518,7 +518,7 @@ app.get("/parmsecure/actualizarubicacion",function(req,res){
 app.get("/parmsecure/registroactividad",function(req, res){
 	var registroactividad = reclutamientodb.obtenerRegistroActividad(req.session.usuario.RUC);
 	console.log("registroactividad GET: " + registroactividad);
-	res.setHeader("content-type","text/json");
+	res.setHeader("content-type","application/json");
 	res.send(registroactividad);
 });
 
