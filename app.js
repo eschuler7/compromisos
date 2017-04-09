@@ -194,22 +194,27 @@ app.get("/parmsecure/reclutar",function(req, res){
 	    				fecha:new Date(row.values[9].valueOf() + row.values[9].getTimezoneOffset() * 60000),
 	    				hora:new Date(row.values[10].valueOf() + row.values[10].getTimezoneOffset() * 60000)
 	    			}
-	    			console.log("1: " + row.values[10]);
 	    			jsonArray.push(json);
 	    		}
 	    	});
 
 	    	var ruc = req.session.usuario.RUC;
 	    	var razon_social = req.session.usuario.RAZON_SOCIAL;
-	    	var config = configuracionplataformadb.obtenerConfiguracionPlataforma(ruc);
-	    	var texto = config[0].TEXTO_SMS;
 
 	    	reclutamientodb.registrarReclutamiento(jsonArray,req.session.usuario.RUC)
 	    	.then(function(){
 	    		console.log("Inicia el envío de mensajes de texto");
 	    		for (var i = jsonArray.length - 1; i >= 0; i--) {
 	    			var recluta = jsonArray[i];
-	    			enviarSms(recluta.celular,recluta.id,texto);
+	    			var fecha = formatearFecha(recluta.fecha);
+	    			var hora = formatearHora(recluta.hora);
+	    			var texto = generarTextoSms(ruc,razon_social,recluta.puesto,fecha,hora);
+	    			if(texto == 1) {
+	    				console.log("Ocurrió un error en la generación del texto.");
+	    			} else {
+	    				console.log(texto);
+	    				//enviarSms(recluta.celular,recluta.id,texto);
+	    			}
 	    		}
 	    	})
 	    	.then(function(){
@@ -218,7 +223,7 @@ app.get("/parmsecure/reclutar",function(req, res){
 	    			var recluta = jsonArray[i];
 	    			var fecha = formatearFecha(recluta.fecha);
 	    			var hora = formatearHora(recluta.hora);
-	    			generarLlamada(recluta.celular,recluta.id,ruc,razon_social,recluta.puesto,fecha,hora);
+	    			//generarLlamada(recluta.celular,recluta.id,ruc,razon_social,recluta.puesto,fecha,hora);
 	    		}
 	    	})
 	    	.then(function(){
@@ -231,7 +236,7 @@ app.get("/parmsecure/reclutar",function(req, res){
 		    		"<p>La empresa " + req.session.usuario.RAZON_SOCIAL + " lo invita a una convocatoria para el puesto de " + recluta.puesto + ".</p>" +
 		    		"<p></p>" + 
 		    		"</html>";
-		    		enviarCorreo(recluta.correo,"Convocatoria de personal",htmlbody,true,recluta.id);
+		    		//enviarCorreo(recluta.correo,"Convocatoria de personal",htmlbody,true,recluta.id);
 	    		}
 	    	})
 	    	.fail(function(err){
@@ -643,7 +648,7 @@ function enviarCorreo(email, asunto, htmlbody, actualizarbd, id){
 	    from: '"PARM PERU" <parmperu@gmail.com>', // sender address 
 	    to: email, // list of receivers 
 	    subject: asunto, // Subject line 
-	    html: htmlbody // html body 
+	    html: htmlbody // html body
 	};
 	 
 	// send mail with defined transport object 
@@ -808,7 +813,6 @@ function formatearFecha(fecha) {
 }
 
 function formatearHora(hora) {
-	console.log("formatearHora: " + hora);
 	var H = dateFormat(hora, "H");
 	var M = dateFormat(hora, "M");
 	var horastr = dateFormat(hora, "h");
@@ -825,6 +829,29 @@ function formatearHora(hora) {
 		horastr += " de la noche";
 	}
 	return horastr;
+}
+
+function generarTextoSms(ruc,razon_social,puesto,fecha,hora){
+	try {
+		var config = configuracionplataformadb.obtenerConfiguracionPlataforma(ruc);
+		var texto = config[0].TEXTO_SMS;
+		if(razon_social) {
+			texto = texto.replace("$RAZON_SOCIAL",razon_social);
+		}
+		if(puesto){
+			texto = texto.replace("$PUESTO",puesto);
+		}
+		if(fecha) {
+			texto = texto.replace("$FECHA",fecha);
+		}
+		if(hora) {
+			texto = texto.replace("$HORA", hora);
+		}
+		return texto;
+	} catch(err) {
+		console.log(err);
+		return 1;
+	}	
 }
 
 /*function limpiarImagenPerfil(ruc) {
