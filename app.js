@@ -650,12 +650,24 @@ function enviarCorreo(email, asunto, htmlbody, actualizarbd, id){
 	    if(error){
 	        console.log(error);
 	        if(actualizarbd){
-	        	reclutamientodb.actualizarResultadoCorreo(id, error);
+	        	try {
+	        		reclutamientodb.actualizarResultadoCorreo(id, error);
+	        	} catch (err) {
+	        		console.log("Ocurrió un error al actualizar el resultado del envío de correo en la base de datos..");
+	        		console.log(err);
+	        		reclutamientodb.actualizarResultadoCorreo(id, "Ocurrió un error al actualizar el resultado de envío de correo, por favor contactar con el soporte de PARM.");
+	        	}
 	        }
 	    } else {
 	    	console.log(info);
 	    	if(actualizarbd){
-	    		reclutamientodb.actualizarResultadoCorreo(id, info.response);
+	    		try {
+	    			reclutamientodb.actualizarResultadoCorreo(id, info.response);
+	    		} catch(err) {
+	    			console.log("Ocurrió un error al actualizar el resultado de correo en la base de datos.");
+	        		console.log(err);
+	        		reclutamientodb.actualizarResultadoCorreo(id, "Ocurrió un error al actualizar el resultado de envío de correo, por favor contactar con el soporte de PARM.");
+	    		}
 	    	}
 	    }
 	    transporter.close();
@@ -669,13 +681,26 @@ function generarLlamada(numeroCelular,id,ruc,razon_social,puesto,fecha,hora) {
 		to:'+51' + numeroCelular,
 		from: "+51946198461",
 		url: encodeURI(url)
-	}, function(err, call) {
+	}, function(error, call) {
 		if(err) {
+			console.log("Error en generación de la llamada.");
 			console.log(err);
-			reclutamientodb.actualizarResultadoLlamada(id,err.status);
+			try {
+				reclutamientodb.actualizarResultadoLlamada(id,error.status);
+			} catch(err) {
+				console.log("Ocurrió un error al actualizar el resultado de la llamada en la base de datos.");
+				console.log(err);
+				reclutamientodb.actualizarResultadoLlamada(id,err);
+			}
 		} else {
 			console.log(call);
-			reclutamientodb.actualizarResultadoLlamada(id,call.sid);
+			try {
+				reclutamientodb.actualizarResultadoLlamada(id,call.sid);
+			} catch(err) {
+				console.log("Ocurrió un error al actualizar el resultado de la llamada en la base de datos.");
+				console.log(err);
+				reclutamientodb.actualizarResultadoLlamada(id,err);
+			}
 		}
 	});
 }
@@ -693,7 +718,13 @@ function enviarSms(numeroCelular,id,texto){
 	 	});
 	 	httpres.on('end', function () {
 	 		console.log(str);
-	 		reclutamientodb.actualizarResultadoSms(id,str);
+	 		try {
+	 			reclutamientodb.actualizarResultadoSms(id,str);
+			} catch(err) {
+				console.log("Ocurrió un error al actualizar el resultado del sms en la base de datos.");
+				console.log(err);
+				reclutamientodb.actualizarResultadoSms(id,err);
+			}
 	 	});
 	});
 	httpreq.end();
@@ -814,8 +845,4 @@ function formatearHora(hora) {
 
 app.listen(app.get("port"), "0.0.0.0", function() {
 	console.log("PARM Nodejs Server iniciado en el puerto " + app.get("port"));
-	//var texto = "Somos $RAZON_SOCIAL, recibimos su CV para el puesto $PUESTO y lo invitamos a una entrevista laboral. Se envió mayor detalle a su correo.";
-	//texto = texto.replace("$RAZON_SOCIAL","DELPA GROUP");
-	//texto = texto.replace(/ /g,"%20");
-	//console.log(texto);
 });
