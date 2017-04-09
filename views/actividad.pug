@@ -26,26 +26,38 @@ block container
               th(data-field='FECHA_HORA_REGISTRO') Fecha y Hora
   script.
     function formateadorSms(value, row, index) {
-      if(value.substring(0,2) == 'OK') {
-        return "<div style='color: #00CC00'><strong>ENVIADO</strong></div>";
-      } else {
+      if(value == null) {
         return "<div style='color: #FF0000'><strong>NO ENVIADO</strong></div>";
+      } else {
+        if(value.substring(0,2) == 'OK') {
+          return "<div style='color: #00CC00'><strong>ENVIADO</strong></div>";
+        } else {
+          return "<div style='color: #FF0000'><strong>NO ENVIADO</strong></div>";
+        }
       }
     }
 
     function formateadorCorreo(value, row, index) {
-      if(value.substring(0,12) == '250 2.0.0 OK') {
-        return "<div style='color: #00CC00'><strong>ENVIADO</strong></div>";
-      } else {
+      if(value == null) {
         return "<div style='color: #FF0000'><strong>NO ENVIADO</strong></div>";
+      } else {
+        if(value.substring(0,12) == '250 2.0.0 OK') {
+          return "<div style='color: #00CC00'><strong>ENVIADO</strong></div>";
+        } else {
+          return "<div style='color: #FF0000'><strong>NO ENVIADO</strong></div>";
+        }
       }
     }
 
     function formateadorLlamada(value, row, index) {
-      if(value.length == 34) {
-        return "<div style='color: #00CC00'><strong>ENVIADO</strong></div>";
-      } else {
+      if(value == null){
         return "<div style='color: #FF0000'><strong>NO ENVIADO</strong></div>";
+      } else {
+        if(value.length == 34) {
+          return "<div style='color: #00CC00'><strong>ENVIADO</strong></div>";
+        } else {
+          return "<div style='color: #FF0000'><strong>NO ENVIADO</strong></div>";
+        }
       }
     }
 
