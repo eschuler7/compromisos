@@ -36,7 +36,7 @@ block container
           .box-header.with-border
             h3.box-title Visor de Carga
             .pull-right
-              button#reclutar.btn.btn-block.btn-success.btn-xs
+              a#reclutar.btn.btn-block.btn-success.btn-xs(href='/parmsecure/reclutar')
                 i.glyphicon.glyphicon-bullhorn
                 span 
                 | Reclutar
@@ -59,21 +59,4 @@ block container
       $(function () {
         var data = !{reclutascargados}
         $('#cargatbl').bootstrapTable({data: data});
-      });
-
-      $(document).ready(function(){
-        $('#reclutar').click(function (event) {
-          $.ajax({
-            type:'GET',
-            url:'/parmsecure/reclutar',
-            contentType:'application/json',
-            success:function(data,textStatus,jqXHR){
-              
-            },
-            error:function(jqXHR,textStatus,errorThrown){
-              console.log(errorThrown);
-            }
-          });
-          event.preventDefault();
-        });
       });

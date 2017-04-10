@@ -120,11 +120,11 @@ app.get("/parmsecure/estadisticas", function(req, res){
 	var consumo;
 	try{
 		consumo = configuracionplataformadb.obtenerConsumoPorRUC(req.session.usuario.RUC);
-		console.log(consumo);
+		res.render("estadisticas",{consumo:consumo[0]});
 	} catch (err) {
 		console.log(err);
+		res.render("estadisticas",{consumo:"Not found"});
 	}
-	res.render("estadisticas",{consumo:consumo[0]});
 });
 
 app.get("/parmsecure/perfil", function(req, res){
@@ -167,6 +167,7 @@ app.get("/parmsecure/cerrarsesion",function(req,res){
 
 app.get("/parmsecure/reclutar",function(req, res){
 	var file = req.session.ultimacarga;
+	var filesplit = file.split(".");
 	var jsonArray = [];
 	if(file){
 		var workbook = new Excel.Workbook();
@@ -201,7 +202,7 @@ app.get("/parmsecure/reclutar",function(req, res){
 	    	var ruc = req.session.usuario.RUC;
 	    	var razon_social = req.session.usuario.RAZON_SOCIAL;
 
-	    	reclutamientodb.registrarReclutamiento(jsonArray,req.session.usuario.RUC)
+	    	reclutamientodb.registrarReclutamiento(jsonArray,ruc,filesplit[0])
 	    	.then(function(){
 	    		console.log("Inicia el envío de mensajes de texto");
 	    		for (var i = jsonArray.length - 1; i >= 0; i--) {
@@ -212,9 +213,9 @@ app.get("/parmsecure/reclutar",function(req, res){
 	    			if(texto == 1) {
 	    				console.log("Ocurrió un error en la generación del texto.");
 	    			} else {
-	    				console.log(texto);
-	    				//enviarSms(recluta.celular,recluta.id,texto);
+	    				enviarSms(recluta.celular,recluta.id,texto);
 	    			}
+	    			configuracionplataformadb.actualizarConsumoSms(ruc,jsonArray.length);
 	    		}
 	    	})
 	    	.then(function(){
@@ -223,7 +224,7 @@ app.get("/parmsecure/reclutar",function(req, res){
 	    			var recluta = jsonArray[i];
 	    			var fecha = formatearFecha(recluta.fecha);
 	    			var hora = formatearHora(recluta.hora);
-	    			//generarLlamada(recluta.celular,recluta.id,ruc,razon_social,recluta.puesto,fecha,hora);
+	    			generarLlamada(recluta.celular,recluta.id,ruc,razon_social,recluta.puesto,fecha,hora);
 	    		}
 	    	})
 	    	.then(function(){
@@ -236,23 +237,36 @@ app.get("/parmsecure/reclutar",function(req, res){
 		    		"<p>La empresa " + req.session.usuario.RAZON_SOCIAL + " lo invita a una convocatoria para el puesto de " + recluta.puesto + ".</p>" +
 		    		"<p></p>" + 
 		    		"</html>";
-		    		//enviarCorreo(recluta.correo,"Convocatoria de personal",htmlbody,true,recluta.id);
+		    		enviarCorreo(recluta.correo,"Convocatoria de personal",htmlbody,true,recluta.id);
 	    		}
 	    	})
 	    	.fail(function(err){
 	    		console.log(err);
 	    	})
 	    	.done();
-
-	    	res.send("ok");
 	    });
-
-		configuracionplataformadb.actualizarConsumoSms(req.session.usuario.RUC,jsonArray.length);
+	    res.render("progresoreclutamiento",{idgrupo:filesplit[0]});
 	    //falta la actualizacion de las llamadas
 	} else {
 		console.log("No se ha cargado ningún archivo.");
 	}
 	
+});
+
+app.get("/parmsecure/progreso", function(req, res){
+	var ruc = req.session.usuario.RUC;
+	console.log(ruc);
+	var idgrupo = req.query.idgrupo;
+	console.log(idgrupo);
+	var progreso = [];
+	res.setHeader("content-type","application/json");
+	try {
+		progreso = reclutamientodb.obtenerProgresoReclutamiento(ruc,idgrupo);
+		console.log(progreso);
+	} catch (err) {
+		console.log(err);
+	}
+	res.send(progreso);
 });
 
 app.get("/resetearcontrasena",function(req, res){
@@ -522,7 +536,6 @@ app.get("/parmsecure/actualizarubicacion",function(req,res){
 
 app.get("/parmsecure/registroactividad",function(req, res){
 	var registroactividad = reclutamientodb.obtenerRegistroActividad(req.session.usuario.RUC);
-	console.log("registroactividad GET: " + registroactividad);
 	res.setHeader("content-type","application/json");
 	res.send(registroactividad);
 });

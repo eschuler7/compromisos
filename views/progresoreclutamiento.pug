@@ -8,9 +8,14 @@ block container
         i.fa.fa-history
         |  Registro de Actividad
   section.content
+    .box.box-solid
+      .box-header.with-border
+        h3.box-title Reclutamiento en proceso...
+      .box-body
+        p El reclutamiento de personal se encuentra en proceso, puede actualizar el contenido de la tabla inferior para ver el estado de las comunicaciones.
     .box
       .box-body
-        table#solicitudespendientes.table.table-hover(data-toggle='table', data-url='/parmsecure/registroactividad',data-show-refresh='true',data-id-field='ID',data-search='true',data-detail-view='true',data-detail-formatter='detailFormatter',data-search-align='left')
+        table#progresoreclutamiento.table.table-hover(data-toggle='table', data-url='/parmsecure/progreso?idgrupo=' + idgrupo, data-show-refresh='true',data-id-field='ID',data-detail-view='true',data-detail-formatter='detailFormatter')
           thead
             tr
               th(data-field='ID',data-visible='false',data-card-visible='false') ID
@@ -23,11 +28,10 @@ block container
               th(data-field='ESTADO_LLAMADA',data-formatter='formateadorLlamada',data-align='center') Estado llamada
               th(data-field='ESTADO_SMS',data-formatter='formateadorSms',data-align='center') Estado envío SMS
               th(data-field='ESTADO_CORREO',data-formatter='formateadorCorreo',data-align='center') Estado envío correo
-              th(data-field='FECHA_HORA_REGISTRO') Fecha y Hora
   script.
     function formateadorSms(value, row, index) {
       if(value == null) {
-        return "<div style='color: #FF0000'><strong>NO ENVIADO</strong></div>";
+        return "<div style='color: #FFAA00'><strong>EN PROCESO</strong></div>";
       } else {
         if(value.substring(0,2) == 'OK') {
           return "<div style='color: #00CC00'><strong>ENVIADO</strong></div>";
@@ -39,7 +43,7 @@ block container
 
     function formateadorCorreo(value, row, index) {
       if(value == null) {
-        return "<div style='color: #FF0000'><strong>NO ENVIADO</strong></div>";
+        return "<div style='color: #FFAA00'><strong>EN PROCESO</strong></div>";
       } else {
         if(value.substring(0,12) == '250 2.0.0 OK') {
           return "<div style='color: #00CC00'><strong>ENVIADO</strong></div>";
@@ -51,7 +55,7 @@ block container
 
     function formateadorLlamada(value, row, index) {
       if(value == null){
-        return "<div style='color: #FF0000'><strong>NO ENVIADO</strong></div>";
+        return "<div style='color: #FFAA00'><strong>EN PROCESO</strong></div>";
       } else {
         if(value.length == 34) {
           return "<div style='color: #00CC00'><strong>ENVIADO</strong></div>";
