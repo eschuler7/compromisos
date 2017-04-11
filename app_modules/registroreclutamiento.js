@@ -26,7 +26,7 @@ function registrarReclutamiento(jsonArray, ruc, idgrupo) {
 	return deferred.promise;
 }
 
-var qObtenerProgresoReclutamiento = "SELECT * FROM PARM.TBL_REGISTRO_RECLUTAMIENTO WHERE RUC=";
+var qObtenerProgresoReclutamiento = "SELECT * FROM " + schema + ".TBL_REGISTRO_RECLUTAMIENTO WHERE RUC=";
 function obtenerProgresoReclutamiento(ruc, idgrupo) {
 	var conn = ibmdb.openSync(connString, options);
 	var resultado = conn.querySync(qObtenerProgresoReclutamiento + "'" + ruc + "' AND IDGRUPO='" + idgrupo + "'");
