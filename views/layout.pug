@@ -120,7 +120,7 @@ html
             .pull-left.info
               p #{session.usuario.RAZON_SOCIAL}
               |  Cuenta Empresarial
-          form.sidebar-form(action='#', method='get')
+          //-form.sidebar-form(action='#', method='get')
             .input-group
               input.form-control(type='text', name='q', placeholder='Search...')
               |  
@@ -176,8 +176,8 @@ html
 
         .tab-content
           #control-sidebar-home-tab.tab-pane
-            h3.control-sidebar-heading Actividad Reciente
-            ul.control-sidebar-menu
+            //-h3.control-sidebar-heading Actividad Reciente
+            //-ul.control-sidebar-menu
               li
                 a(href='javascript:void(0)')
                   i.menu-icon.fa.fa-bullhorn.bg-green

@@ -637,7 +637,8 @@ function enviarCorreo(email, asunto, htmlbody, actualizarbd, id){
 	    secure: true, // use SSL 
 	    auth: {
 	        user: 'parmperu@gmail.com',
-	        pass: 'slnrjljgpfqtmviy'
+	        pass: 'slnrjljgpfqtmviy' //Para producción
+	        //pass: 'lruedgscrgvsxknf' //Para desarrollo
 	    }
 	};
 	// create reusable transporter object using the default SMTP transport 
