@@ -202,6 +202,9 @@ app.get("/parmsecure/reclutar",function(req, res){
 	    	var ruc = req.session.usuario.RUC;
 	    	var razon_social = req.session.usuario.RAZON_SOCIAL;
 
+	    	var config = configuracionplataformadb.obtenerConfiguracionPlataforma(ruc);
+	    	var cliente = clientedb.buscarClienteXRuc(ruc);
+
 	    	reclutamientodb.registrarReclutamiento(jsonArray,ruc,filesplit[0])
 	    	.then(function(){
 	    		console.log("Inicia el envío de mensajes de texto");
@@ -209,13 +212,11 @@ app.get("/parmsecure/reclutar",function(req, res){
 	    			var recluta = jsonArray[i];
 	    			var fecha = formatearFecha(recluta.fecha);
 	    			var hora = formatearHora(recluta.hora);
-	    			var texto = generarTextoSms(ruc,razon_social,recluta.puesto,fecha,hora);
-	    			if(texto == 1) {
-	    				console.log("Ocurrió un error en la generación del texto.");
-	    			} else {
-	    				enviarSms(recluta.celular,recluta.id,texto);
-	    			}
-	    			configuracionplataformadb.actualizarConsumoSms(ruc,jsonArray.length);
+	    			var texto = generarTexto(config[0].TEXTO_SMS,razon_social,recluta.puesto,fecha,hora);
+
+    				enviarSms(recluta.celular,recluta.id,texto);
+
+	    			//configuracionplataformadb.actualizarConsumoSms(ruc,jsonArray.length);
 	    		}
 	    	})
 	    	.then(function(){
@@ -224,21 +225,28 @@ app.get("/parmsecure/reclutar",function(req, res){
 	    			var recluta = jsonArray[i];
 	    			var fecha = formatearFecha(recluta.fecha);
 	    			var hora = formatearHora(recluta.hora);
-	    			generarLlamada(recluta.celular,recluta.id,ruc,razon_social,recluta.puesto,fecha,hora);
+	    			var texto = generarTexto(config[0].TEXTO_LLAMADA,razon_social,recluta.puesto,fecha,hora);
+	    			
+	    			generarLlamada(recluta.celular,recluta.id,texto);
 	    		}
 	    	})
 	    	.then(function(){
 	    		console.log("Inicia el envío de correo electrónico");
-	    		for (var i = jsonArray.length - 1; i >= 0; i--) {
-	    			var recluta = jsonArray[i];
-	    			var htmlbody = "<html>" +
-	    			"<h2>Reclutamiento de personal</h2>" + 
-		    		"<p>Estimado " + recluta.nombres + " " + recluta.apellidoPaterno + " " + recluta.apellidoMaterno + ",</p>" +
-		    		"<p>La empresa " + req.session.usuario.RAZON_SOCIAL + " lo invita a una convocatoria para el puesto de " + recluta.puesto + ".</p>" +
-		    		"<p></p>" + 
-		    		"</html>";
-		    		enviarCorreo(recluta.correo,"Convocatoria de personal",htmlbody,true,recluta.id);
-	    		}
+	    		try {  
+				    var plantilla = fs.readFileSync('plantilla_correo_convocatoria.html', 'utf8');
+				    var plantilla = plantilla.replace("$CUERPO_MENSAJE",config[0].TEXTO_CORREO);
+
+				    for (var i = jsonArray.length - 1; i >= 0; i--) {
+		    			var recluta = jsonArray[i];
+		    			var fecha = formatearFecha(recluta.fecha);
+	    				var hora = formatearHora(recluta.hora);
+		    			var htmltext = generarTexto(plantilla,razon_social,recluta.puesto,fecha,hora,recluta.nombres,recluta.apellidoPaterno,recluta.apellidoMaterno,cliente[0].DIRECCION,cliente[0].TELEFONO,cliente[0].CORREO,cliente[0].LATITUD,cliente[0].LONGITUD);
+		    			
+		    			enviarCorreo(recluta.correo,"Convocatoria de personal",htmltext,true,recluta.id);
+		    		}
+				} catch(err) {
+				    console.log(err);
+				}
 	    	})
 	    	.fail(function(err){
 	    		console.log(err);
@@ -255,14 +263,11 @@ app.get("/parmsecure/reclutar",function(req, res){
 
 app.get("/parmsecure/progreso", function(req, res){
 	var ruc = req.session.usuario.RUC;
-	console.log(ruc);
 	var idgrupo = req.query.idgrupo;
-	console.log(idgrupo);
 	var progreso = [];
 	res.setHeader("content-type","application/json");
 	try {
 		progreso = reclutamientodb.obtenerProgresoReclutamiento(ruc,idgrupo);
-		console.log(progreso);
 	} catch (err) {
 		console.log(err);
 	}
@@ -563,26 +568,7 @@ app.get("/parmsecure/admin/confirmarsolicitud",function(req, res){
 
 app.post("/twiml",function(req, res){
 	try{
-		var ruc = req.query.r;
-		var razon_social = req.query.rs;
-		var puesto = req.query.p;
-		var fecha = req.query.f;
-		var hora = req.query.h;
-
-		var config = configuracionplataformadb.obtenerConfiguracionPlataforma(ruc);
-		var texto = config[0].TEXTO_LLAMADA;
-		if(razon_social) {
-			texto = texto.replace("$RAZON_SOCIAL",razon_social);
-		}
-		if(puesto){
-			texto = texto.replace("$PUESTO",puesto);
-		}
-		if(fecha) {
-			texto = texto.replace("$FECHA",fecha);
-		}
-		if(hora) {
-			texto = texto.replace("$HORA", hora);
-		}
+		var texto = req.query.b;
 
 		var twiml = '<?xml version="1.0" encoding="UTF-8"?>';
 		twiml += '<Response>';
@@ -634,7 +620,8 @@ app.post("/parmsecure/guardartextocorreo", function(req, res){
 	var ruc = req.session.usuario.RUC;
 	res.setHeader("content-type","text/plain");
 	try {
-		configuracionplataformadb.actualizarTextoEmail(textosms,ruc);
+		console.log(textocorreo);
+		configuracionplataformadb.actualizarTextoEmail(textocorreo,ruc);
 		res.send("El texto del correo fue actualizado.");
 	} catch (err) {
 		console.log(err);
@@ -694,8 +681,8 @@ function enviarCorreo(email, asunto, htmlbody, actualizarbd, id){
 }
 
 var client = twilio.initTwilioClient();
-function generarLlamada(numeroCelular,id,ruc,razon_social,puesto,fecha,hora) {
-	var url = url_base + "/twiml?r=" + ruc + "&rs=" + razon_social + "&p=" + puesto + "&f=" + fecha + "&h=" + hora;
+function generarLlamada(numeroCelular,id,texto) {
+	var url = url_base + "/twiml?b=" + texto;
 	client.calls.create({
 		to:'+51' + numeroCelular,
 		from: "+51946198461",
@@ -844,27 +831,46 @@ function formatearHora(hora) {
 	return horastr;
 }
 
-function generarTextoSms(ruc,razon_social,puesto,fecha,hora){
-	try {
-		var config = configuracionplataformadb.obtenerConfiguracionPlataforma(ruc);
-		var texto = config[0].TEXTO_SMS;
-		if(razon_social) {
-			texto = texto.replace("$RAZON_SOCIAL",razon_social);
-		}
-		if(puesto){
-			texto = texto.replace("$PUESTO",puesto);
-		}
-		if(fecha) {
-			texto = texto.replace("$FECHA",fecha);
-		}
-		if(hora) {
-			texto = texto.replace("$HORA", hora);
-		}
-		return texto;
-	} catch(err) {
-		console.log(err);
-		return 1;
-	}	
+function generarTexto(plantilla,razon_social,puesto,fecha,hora,nombres,apellidopaterno,apellidomaterno,direccion,telefono,correo,latitud,longitud){
+	var texto = plantilla;
+	if(razon_social) {
+		texto = texto.replace(new RegExp('\\$RAZON_SOCIAL', 'g'),razon_social);
+	}
+	if(puesto){
+		texto = texto.replace(new RegExp("\\$PUESTO", "g"),puesto);
+	}
+	if(fecha) {
+		texto = texto.replace(new RegExp("\\$FECHA", "g"),fecha);
+	}
+	if(hora) {
+		texto = texto.replace(new RegExp("\\$HORA", "g"), hora);
+	}
+	if(nombres) {
+		texto = texto.replace(new RegExp("\\$NOMBRES", "g"), nombres);
+	}
+	if(apellidopaterno) {
+		texto = texto.replace(new RegExp("\\$APELLIDO_PATERNO", "g"), apellidopaterno);
+	}
+	if(apellidomaterno) {
+		texto = texto.replace(new RegExp("\\$APELLIDO_MATERNO", "g"), apellidomaterno);
+	}
+	if(direccion) {
+		texto = texto.replace(new RegExp("\\$DIRECCION", "g"), direccion);
+	}
+	if(telefono) {
+		texto = texto.replace(new RegExp("\\$TELEFONO", "g"), telefono);
+	}
+	if(correo) {
+		texto = texto.replace(new RegExp("\\$CORREO", "g"), correo);
+	}
+	if(latitud) {
+		texto = texto.replace(new RegExp("\\$LATITUD", "g"), latitud);
+	}
+	if(longitud) {
+		texto = texto.replace(new RegExp("\\$LONGITUD", "g"), longitud);
+	}
+
+	return texto;
 }
 
 /*function limpiarImagenPerfil(ruc) {

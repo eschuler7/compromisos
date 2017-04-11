@@ -194,7 +194,9 @@ block container
                       li
                         a(href='javascript:insertarVariableSms("NOMBRES")') Nombres
                       li
-                        a(href='javascript:insertarVariableSms("APELLIDOS")') Apellidos
+                        a(href='javascript:insertarVariableSms("APELLIDO_PATERNO")') Apellido Paterno
+                      li
+                        a(href='javascript:insertarVariableSms("APELLIDO_MATERNO")') Apellido Materno
                       li
                         a(href='javascript:insertarVariableSms("FECHA")') Fecha
                       li
@@ -225,7 +227,9 @@ block container
                       li
                         a(href='javascript:insertarVariableLlamada("NOMBRES")') Nombres
                       li
-                        a(href='javascript:insertarVariableLlamada("APELLIDOS")') Apellidos
+                        a(href='javascript:insertarVariableSms("APELLIDO_PATERNO")') Apellido Paterno
+                      li
+                        a(href='javascript:insertarVariableSms("APELLIDO_MATERNO")') Apellido Materno
                       li
                         a(href='javascript:insertarVariableLlamada("FECHA")') Fecha
                       li
@@ -460,10 +464,12 @@ block container
       CKEDITOR.replace('mail_texto');
 
       $("#frmcorreo").submit(function(e) {
+        var texto = CKEDITOR.instances.mail_texto.getData();
+        texto = texto.replace(/\n/g, "");
         $.ajax({
           type: "POST",
           url: "/parmsecure/guardartextocorreo",
-          data: $("#frmcorreo").serialize(),
+          data: {textocorreo:texto},
           success: function(data) {
             $("#mensaje").text(data);
             $("#mensaje_modal").modal("show");
@@ -587,5 +593,5 @@ block container
       $("#map_boton").removeClass("disabled").attr("disabled",false);
       $("#map_mensaje").attr("placeholder","Haga click Guardar para registrar la nueva posición.");
     }
-  script(async='', defer='', src='https://maps.googleapis.com/maps/api/js?key=AIzaSyAmgzWsRC_anL6pED8-R2AE_BV4rOmNvM4&callback=initMap')
+  script(async='', defer='', src='https://maps.googleapis.com/maps/api/js?key=AIzaSyAXXVgt21AeEJs2F-rt_z4FcjwbHO_3_tY&callback=initMap')
   script(src='https://cdn.ckeditor.com/4.5.7/standard/ckeditor.js')

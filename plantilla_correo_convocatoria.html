@@ -1,0 +1,189 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <!--[if !mso]><!-->
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!--<![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style type="text/css">
+    	body {
+		    margin: 0 !important;
+		    padding: 0;
+		    background-color: #ffffff;
+		}
+		table {
+		    border-spacing: 0;
+		    font-family: sans-serif;
+		    color: #333333;
+		}
+		td {
+		    padding: 0;
+		}
+		img {
+		    border: 0;
+		}
+		div[style*="margin: 16px 0"] { 
+		    margin:0 !important;
+		}
+		.wrapper {
+		    width: 100%;
+		    table-layout: fixed;
+		    -webkit-text-size-adjust: 100%;
+		    -ms-text-size-adjust: 100%;
+		}
+		.webkit {
+		    max-width: 800px;
+		    margin: 0 auto;
+		}
+		.outer {
+		    margin: 0 auto;
+		    width: 100%;
+		    max-width: 800px;
+		}
+		.full-width-header{
+		    width: 100%;
+		    max-width: 800px;
+		    background-color: #5596e6;
+		    color: white;
+		    height: 60px;
+		}
+		.full-width-footer{
+		    width: 100%;
+		    max-width: 800px;
+		    background-color: #cccccc;
+		    color: #4178b3;
+		    font-size: 11px;
+		    height: 50px;
+		    padding-left: 10px;
+		}
+
+		.full-width-footer strong {
+		    font-size: 12px;
+		}
+
+
+		.inner {
+		    padding: 5px;
+		}
+		p {
+		    margin-top: 0px;
+		    text-align: justify;
+		}
+
+		/*Two column layout*/
+		.two-column {
+		    text-align: center;
+		    font-size: 0;
+		    padding-bottom: 20px;
+		    padding-top: 20px;
+		}
+		.two-column .column {
+		    width: 100%;
+		    max-width: 400px;
+		    display: inline-block;
+		    vertical-align: top;
+		}
+
+		.contents {
+		    width: 100%;
+		}
+
+		.two-column .contents {
+		    font-size: 14px;
+		    text-align: left;
+		}
+		.two-column img {
+		    width: 100%;
+		    max-width: 380px;
+		    height: auto;
+		}
+		.two-column .text {
+		    padding-top: 5px;
+		}
+
+    </style>
+    <!--[if (gte mso 9)|(IE)]>
+    <style type="text/css">
+        table {border-collapse: collapse;}
+    </style>
+    <![endif]-->
+</head>
+<body>
+    <center class="wrapper">
+        <div class="webkit">
+            <!--[if (gte mso 9)|(IE)]>
+			<table width="600" align="center">
+			<tr>
+			<td>
+			<![endif]-->
+			<table class="outer" align="center">
+			    <tr>
+			        <td class="full-width-header">
+			        </td>
+			    </tr>
+				<tr>
+					<td class="two-column">
+				        <!--[if (gte mso 9)|(IE)]>
+				        <table width="100%">
+				        <tr>
+				        <td width="50%" valign="top">
+				        <![endif]-->
+				        <div class="column">
+							<table width="100%">
+						        <tr>
+						            <td class="inner">
+						                <table class="contents">
+										    <tr>
+										            <td class="text">
+										            	$CUERPO_MENSAJE
+										            </td>
+										    </tr>
+										</table>
+						            </td>
+						        </tr>
+						    </table>
+						</div>
+				        <!--[if (gte mso 9)|(IE)]>
+				        </td><td width="50%" valign="top">
+				        <![endif]-->
+				        <div class="column">
+							<table width="100%">
+						        <tr>
+						            <td class="inner">
+						                <table class="contents">
+										    <tr>
+										            <td>
+										            	<a href="https://www.google.com.pe/maps/place//@$LATITUD,$LONGITUD,16z/data=!4m5!3m4!1s0x0:0x0!8m2!3d$LATITUD!4d$LONGITUD?hl=es-419" target="blank">
+										                    <img src="https://maps.googleapis.com/maps/api/staticmap?center=$LATITUD,$LONGITUD&zoom=14&size=380x280&key=AIzaSyAXXVgt21AeEJs2F-rt_z4FcjwbHO_3_tY&markers=color:red%7Clabel:P%7C$LATITUD,$LONGITUD"/>
+										                </a>
+										            </td>
+										    </tr>
+										</table>
+						            </td>
+						        </tr>
+						    </table>
+						</div>
+				        <!--[if (gte mso 9)|(IE)]>
+				        </td>
+				        </tr>
+				        </table>
+				        <![endif]-->
+				    </td>
+				</tr>
+				<tr>
+			        <td class="full-width-footer">
+			        	<strong>$RAZON_SOCIAL</strong> <br/>
+			        	Teléfono: $TELEFONO | email: $CORREO
+			        </td>
+			    </tr>
+			</table>
+			<!--[if (gte mso 9)|(IE)]>
+			</td>
+			</tr>
+			</table>
+			<![endif]-->
+        </div>
+    </center>
+</body>
+</html>
