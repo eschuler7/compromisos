@@ -1,23 +1,18 @@
 extends ./layout.pug
 block container
   section.content-header
-    h1
-      | Bienvenido a PARM
-    ol.breadcrumb
-      li
-        a(href='#')
-          i.fa.fa-dashboard
-          |  Level
-      li.active Here
+    h1 ¡Bienvenido a PARM!
+    //-section.content
+      .row
+        .col-md-12
+          .box.box-solid
+            .box-body
+              dl
+                dt Descripción
+                dd Descripción de PARM
+                dt JFK Asociados
+                dd Descripción de JFK Asociados
+                dt Versión
+                dd V 1.1
   section.content
-    .row
-      .col-md-12
-        .box.box-solid
-          .box-body
-            dl
-              dt Descripción
-              dd Descripción de PARM
-              dt JFK Asociados
-              dd Descripción de JFK Asociados
-              dt Versión
-              dd V 1.1
+    p(style='width:98%') PARM es la plataforma de reclutamiento automático diseñada para agilizar el proceso de selección de personal, automatizando las comunicaciones para realizar convocatorias de personal forma masiva, ágil y segura; aportando visibilidad para poder realizar un mejor seguimiento.

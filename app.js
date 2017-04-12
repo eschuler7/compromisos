@@ -451,8 +451,8 @@ app.post('/parmsecure/upload', uploadreclutas.single('reclutas'), function (req,
     				apellidoMaterno:row.values[6],
     				celular:row.values[7],
     				correo:correotmp,
-    				fecha:row.values[9],
-    				hora:row.values[10]
+    				fecha:dateFormat(new Date(row.values[9].valueOf() + row.values[9].getTimezoneOffset() * 60000),'dd/mm/yyyy'),
+    				hora:dateFormat(new Date(row.values[10].valueOf() + row.values[10].getTimezoneOffset() * 60000),'hh:MM tt')
     			}
     			
     			jsonArray.push(json);
@@ -576,8 +576,6 @@ app.post("/twiml",function(req, res){
 		twiml += texto;
 		twiml += '</Say>';
 		twiml += '</Response>';
-
-		console.log(twiml);
 
 		res.setHeader("content-type","text/xml");
 		res.send(twiml);

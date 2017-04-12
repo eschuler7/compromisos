@@ -48,7 +48,30 @@ block container
       .col-md-12
         .box.box-success
           .box-header.with-border
-            h3.box-title Reclutamientos Mensual 
+            h3.box-title Resumen Reclutamiento Semanal
+            |  
+            small ( 10/04 - 16/04 )
+            .box-tools.pull-right
+              button.btn.btn-box-tool(type='button', data-widget='collapse')
+                i.fa.fa-minus
+              //-.btn-group
+                button.btn.btn-box-tool.dropdown-toggle(type='button', data-toggle='dropdown', title='Cambiar año')
+                  i.fa.fa-wrench
+                ul.dropdown-menu(role='menu')
+                  li
+                    a(href='#') 2015
+                  li
+                    a(href='#') 2016
+                  li
+                    a(href='#') 2017
+          .box-body
+            .chart
+              canvas#bar_reclutamiento_semanal(style='height:280px')
+    .row
+      .col-md-12
+        .box.box-success
+          .box-header.with-border
+            h3.box-title Resumen Reclutamiento Anual
             |  
             small ( Año 2017 )
             .box-tools.pull-right
@@ -66,7 +89,7 @@ block container
                     a(href='#') 2017
           .box-body
             .chart
-              canvas#bar_reclutamiento(style='height:350px')
+              canvas#bar_reclutamiento_anual(style='height:280px')
 
   script(type='text/javascript').
     var consumo = !{JSON.stringify(consumo)};
@@ -81,38 +104,38 @@ block container
       //- BAR CHART -
       //-------------
 
-      var areaChartData = {
-        labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Setiembre", "Octubre", "Noviembre", "Diciembre"],
+      var dataSemanal = {
+        labels: ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo"],
         datasets: [
           {
-            label: "Llamadas",
-            fillColor: "rgba(210, 214, 222, 1)",
+            label: "Reclutados",
+            fillColor: "rgba(60,141,188,0.9)",
             strokeColor: "rgba(210, 214, 222, 1)",
             pointColor: "rgba(210, 214, 222, 1)",
             pointStrokeColor: "#c1c7d1",
             pointHighlightFill: "#fff",
             pointHighlightStroke: "rgba(220,220,220,1)",
-            data: [65, 59, 80, 81, 56, 55, 40, 12, 56, 56, 10, 24]
-          },
-          {
-            label: "Sms",
-            fillColor: "rgba(60,141,188,0.9)",
-            strokeColor: "rgba(60,141,188,0.8)",
-            pointColor: "#3b8bba",
-            pointStrokeColor: "rgba(60,141,188,1)",
-            pointHighlightFill: "#fff",
-            pointHighlightStroke: "rgba(60,141,188,1)",
-            data: [28, 48, 40, 19, 86, 27, 90, 16, 57, 34, 58, 90]
+            data: [15, 20, 0, 0, 0, 0, 0]
           }
         ]
       };
 
-      var barChartCanvas = $("#bar_reclutamiento").get(0).getContext("2d");
-      var barChart = new Chart(barChartCanvas);
-      var barChartData = areaChartData;
-      barChartData.datasets[1].fillColor = "#00a65a";
-      barChartData.datasets[1].strokeColor = "#00a65a";
-      barChartData.datasets[1].pointColor = "#00a65a";
+      var dataAnual = {
+        labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Setiembre", "Octubre", "Noviembre", "Diciembre"],
+        datasets: [
+          {
+            label: "Reclutados",
+            fillColor: "rgba(60,141,188,0.9)",
+            strokeColor: "rgba(210, 214, 222, 1)",
+            pointColor: "rgba(210, 214, 222, 1)",
+            pointStrokeColor: "#c1c7d1",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(220,220,220,1)",
+            data: [150, 60, 200, 10, 0, 0, 0, 0, 0, 0, 0, 0]
+          }
+        ]
+      };
+
       var barChartOptions = {
         //Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
         scaleBeginAtZero: true,
@@ -141,6 +164,12 @@ block container
         maintainAspectRatio: true
       };
 
-      barChartOptions.datasetFill = false;
-      barChart.Bar(barChartData, barChartOptions);
+      var barChartCanvasAnual = $("#bar_reclutamiento_anual").get(0).getContext("2d");
+      var barChartAnual = new Chart(barChartCanvasAnual);
+      barChartAnual.Bar(dataAnual, barChartOptions);
+
+      var barChartCanvasSemanal = $("#bar_reclutamiento_semanal").get(0).getContext("2d");
+      var barChartSemanal = new Chart(barChartCanvasSemanal);
+      barChartSemanal.Bar(dataSemanal, barChartOptions);
+
     });
