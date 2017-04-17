@@ -63,9 +63,27 @@ function obtenerRegistroActividad(ruc) {
 	return resultado;
 }
 
+var qReporteSemanal = "SELECT DAYNAME(FECHA_HORA_REGISTRO) NOMBREDIA,DAYOFWEEK_ISO(FECHA_HORA_REGISTRO) NUMERODIA,DATE(FECHA_HORA_REGISTRO) FECHA,COUNT(*) CONVOCATORIAS FROM " + schema + ".TBL_REGISTRO_RECLUTAMIENTO WHERE WEEK_ISO(FECHA_HORA_REGISTRO)=";
+function reporteSemanal(semana) {
+	var conn = ibmdb.openSync(connString, options);
+	var resultado = conn.querySync(qReporteSemanal + semana + " GROUP BY DAYNAME(FECHA_HORA_REGISTRO),DAYOFWEEK_ISO(FECHA_HORA_REGISTRO),DATE(FECHA_HORA_REGISTRO) ORDER BY DATE(FECHA_HORA_REGISTRO) ASC");
+	conn.closeSync();
+	return resultado;
+}
+
+var qReporteMensual = "SELECT MONTHNAME(FECHA_HORA_REGISTRO) NOMBREMES,MONTH(FECHA_HORA_REGISTRO) NUMEROMES,COUNT(*) CONVOCATORIAS FROM " + schema + ".TBL_REGISTRO_RECLUTAMIENTO WHERE YEAR(FECHA_HORA_REGISTRO)=";
+function reporteAnual(ano){
+	var conn = ibmdb.openSync(connString, options);
+	var resultado = conn.querySync(qReporteMensual + ano + " GROUP BY MONTHNAME(FECHA_HORA_REGISTRO),MONTH(FECHA_HORA_REGISTRO)");
+	conn.closeSync();
+	return resultado;
+}
+
 module.exports.registrarReclutamiento = registrarReclutamiento;
 module.exports.actualizarResultadoCorreo = actualizarResultadoCorreo;
 module.exports.actualizarResultadoSms = actualizarResultadoSms;
 module.exports.actualizarResultadoLlamada = actualizarResultadoLlamada;
 module.exports.obtenerRegistroActividad = obtenerRegistroActividad;
 module.exports.obtenerProgresoReclutamiento = obtenerProgresoReclutamiento;
+module.exports.reporteSemanal = reporteSemanal;
+module.exports.reporteAnual = reporteAnual;

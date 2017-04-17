@@ -104,6 +104,10 @@ html
                     p
                       | #{session.usuario.RAZON_SOCIAL}
                       small Cuenta Empresarial
+                        if session.usuario.ESTADO == 4
+                          |  (
+                          i.icon.fa.fa-lock
+                          | )
                   li.user-footer
                     .pull-left
                       a.btn.btn-default.btn-flat(href='/parmsecure/perfil') Perfil
@@ -120,6 +124,10 @@ html
             .pull-left.info
               p #{session.usuario.RAZON_SOCIAL}
               |  Cuenta Empresarial
+              if session.usuario.ESTADO == 4
+                |  (
+                i.icon.fa.fa-lock
+                | )
           //-form.sidebar-form(action='#', method='get')
             .input-group
               input.form-control(type='text', name='q', placeholder='Search...')
@@ -143,19 +151,15 @@ html
               a(href='/parmsecure/estadisticas')
                 i.fa.fa-bar-chart
                 |  
-                span Estadísticas
+                span Estadísticas de Uso
 
             if session.usuario.ROL == 2
-              li.treeview
-                a(href='#')
-                  i.fa.fa-key
+              li.header ADMINISTRACION
+              li
+                a(href='/parmsecure/admin/administracion')
+                  i.fa.fa-building
                   |  
-                  span Admin
-                  span.pull-right-container
-                    i.fa.fa-angle-left.pull-right
-                ul.treeview-menu
-                  li
-                    a(href='/parmsecure/admin/solicitudes') Lista de Solicitudes
+                  span Clientes PARM
       .content-wrapper
         block container
 

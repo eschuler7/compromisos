@@ -30,10 +30,24 @@ function autentificacionUsuario(ruc, contrasena){
 	return resultado;
 }
 
+var qBloquearCuenta = "UPDATE " + schema + ".TBL_USUARIO SET ESTADO='4' WHERE RUC=";
+function bloquearCuenta(ruc) {
+	var conn = ibmdb.openSync(connString, options);
+	var resultado = conn.querySync(qBloquearCuenta + "'" + ruc + "'");
+	conn.closeSync();
+}
+
+var qDesloquearCuenta = "UPDATE " + schema + ".TBL_USUARIO SET ESTADO='3' WHERE RUC=";
+function desbloquearCuenta(ruc) {
+	var conn = ibmdb.openSync(connString, options);
+	var resultado = conn.querySync(qDesloquearCuenta + "'" + ruc + "'");
+	conn.closeSync();
+}
+
 var qActualizarCodigoConfirmacion = "UPDATE " + schema + ".TBL_USUARIO SET ESTADO='2',";
 function actualizarCodigoConfirmacion(ruc,codigoconfirmacion){
 	var conn = ibmdb.openSync(connString, options);
-	var resultado = conn.querySync(qActualizarCodigoConfirmacion+"CODIGO_CONFIRMACION='" + codigoconfirmacion + "' WHERE RUC='" + ruc + "'");
+	var resultado = conn.querySync(qActualizarCodigoConfirmacion + "CODIGO_CONFIRMACION='" + codigoconfirmacion + "' WHERE RUC='" + ruc + "'");
 	conn.closeSync();
 }
 
@@ -62,6 +76,8 @@ module.exports.listarUsuarios = listarUsuarios;
 module.exports.registrarUsuario = registrarUsuario;
 module.exports.autentificacionUsuario = autentificacionUsuario;
 module.exports.actualizarCodigoConfirmacion = actualizarCodigoConfirmacion;
+module.exports.bloquearCuenta = bloquearCuenta;
+module.exports.desbloquearCuenta = desbloquearCuenta;
 module.exports.activarCuenta = activarCuenta;
 module.exports.resetearContrasena = resetearContrasena;
 module.exports.solicitarReseteoContrasena = solicitarReseteoContrasena;

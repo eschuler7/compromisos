@@ -12,34 +12,50 @@ block container
       .col-md-6
         .box.box-primary
           .box-header.with-border
-            h3.box-title Carga de archivo de reclutamiento
-          form#cargar(role='form',method='post', enctype='multipart/form-data', action="/parmsecure/upload")
-            .box-body
+            h3.box-title Carga de plantilla de reclutamiento
+          .box-body
+            form#cargar(role='form',method='post', enctype='multipart/form-data', action="/parmsecure/upload")
               .form-group
-                input#exampleInputFile(type='file',name='reclutas')
-                p.help-block El archivo debe estar en formato xlsx.
-            .box-footer
-              button.btn.btn-primary(type='submit') Cargar
+                if session.usuario.ESTADO == 4
+                  p La funcionalidad carga de plantillas de reclutamiento está deshabilitada debido a que la cuenta se encuentra bloqueada.
+                else
+                  input#plantillaParm(type='file',name='reclutas')
+          .box-footer
+            if session.usuario.ESTADO == 4
+              button.btn.btn-sm.btn-primary.disabled(disabled='',data-toggle="tooltip",title="La opción está deshabilitada porque la cuenta está bloqueada.") Cargar Plantilla
+            else
+              button#cargar_plantilla.btn.btn-sm.btn-primary Cargar Plantilla
       .col-md-6
         .box.box-info
           .box-header.with-border
-            h3.box-title Ayuda
+            h3.box-title Plantilla de Reclutamiento PARM
           .box-body
-            p El archivo debe estar en formato Excel(xlsx) y debe contener las siguientes columnas: N°, COLABORADOR *, PUESTO *, NOMBRES *, APELLIDO PATERNO *, APELLIDO MATERNO *, CELULAR * y CORREO *.
-            p Las columnas con * son columnas obligatorias.
-            p Puedes descargar una plantilla en el siguiente 
-              a(href='/descargables/Base-PARM.xlsx') enlace
-              | .
+            p Descarga la plantilla de reclutamiento PARM, actualízala con información de tus contactos y luego cárgala en la plataforma. Todas las columnas en la plantilla son obligatorias.
+            center
+              if session.usuario.ESTADO == 4
+                button.btn.btn-sm.bg-olive.disabled(disabled='',data-toggle="tooltip",title="La opción está deshabilitada porque la cuenta está bloqueada.")
+                  i.fa.fa-download 
+                  |  Descargar Plantilla de Reclutamiento PARM
+              else
+                a.btn.btn-sm.bg-olive(href='/descargables/plantilla-reclutamiento.xlsx')
+                  i.fa.fa-download 
+                  |  Descargar Plantilla de Reclutamiento PARM
     .row
       .col-md-12
         .box.box-solid
           .box-header.with-border
             h3.box-title Visor de Carga
             .pull-right
-              a#reclutar.btn.btn-block.btn-success.btn-xs(href='/parmsecure/reclutar')
-                i.glyphicon.glyphicon-bullhorn
-                span 
-                | Reclutar
+              if session.usuario.ESTADO == 4
+                button.btn.btn-block.btn-success.btn-xs.disabled(disabled='',data-toggle="tooltip",title="La opción está deshabilitada porque la cuenta está bloqueada.")
+                  i.glyphicon.glyphicon-bullhorn
+                  span 
+                  | Iniciar Reclutamiento
+              else
+                button#iniciar_reclutamiento.btn.btn-block.btn-success.btn-xs
+                  i.glyphicon.glyphicon-bullhorn
+                  span 
+                  | Iniciar Reclutamiento
           .box-body
             table#cargatbl
               thead
@@ -55,8 +71,54 @@ block container
                   th(data-field='fecha',data-align='center') FECHA
                   th(data-field='hora',data-align='center') HORA
 
-    script(type='text/javascript').
-      $(function () {
-        var data = !{reclutascargados}
-        $('#cargatbl').bootstrapTable({data: data});
-      });
+    #mensaje_modal.modal.fade(tabindex='-1', role='dialog')
+      .modal-dialog(role='document')
+        .modal-content
+          .modal-header
+            button.close(type='button', data-dismiss='modal', aria-label='Close')
+              span(aria-hidden='true') &times;
+            h4.modal-title Mensaje
+          .modal-body
+            p#mensaje
+          .modal-footer
+            button.btn.btn-default(type='button', data-dismiss='modal') Cerrar
+
+    #confirmacion_reclutamiento.modal.fade(tabindex='-1', role='dialog')
+      .modal-dialog(role='document')
+        .modal-content
+          .modal-header
+            button.close(type='button', data-dismiss='modal', aria-label='Close')
+              span(aria-hidden='true') &times;
+            h4.modal-title Mensaje
+          .modal-body
+            p Esta acción iniciará el proceso de reclutamiento, ¿Desea continuar?
+          .modal-footer
+            a.btn.btn-primary(href='/parmsecure/reclutar') Continuar
+            |  
+            button.btn.btn-default(type='button', data-dismiss='modal') Cerrar
+
+  script(type='text/javascript').
+    $(function () {
+      var data = !{reclutascargados}
+      $('#cargatbl').bootstrapTable({data: data});
+    });
+
+    $("#cargar_plantilla").click(function(event) {
+      if($("#plantillaParm").get(0).files.length == 0) {
+        $("#mensaje").text("No se ha seleccionado una plantilla.");
+        $("#mensaje_modal").modal("show");
+      } else {
+        $("#cargar").submit();
+      }
+      event.preventDefault();
+    });
+
+    $("#iniciar_reclutamiento").click(function(event){
+      if($("#cargatbl").bootstrapTable('getData').length == 0) {
+        $("#mensaje").text("No se ha cargado ninguna plantilla de reclutamiento.");
+        $("#mensaje_modal").modal("show");
+      } else {
+        $("#confirmacion_reclutamiento").modal("show");
+      }
+      event.preventDefault();
+    });

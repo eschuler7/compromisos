@@ -7,6 +7,7 @@
   },
   "dependencies": {
     "body-parser": "1.14.x",
+    "current-week-number": "^1.0.7",
     "dateformat": "^2.0.0",
     "exceljs": "^0.2.37",
     "express": "4.13.x",
@@ -14,6 +15,7 @@
     "glob": "^7.1.1",
     "ibm_db": "latest",
     "multer": "^1.2.0",
+    "node-cron": "^1.1.3",
     "nodemailer": "^2.7.0",
     "pug": "latest",
     "q": "^1.5.0",

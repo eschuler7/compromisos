@@ -9,7 +9,7 @@ var schema = dbConn.getSchema();
 
 var options = { connectTimeout : 20 }; // time out de 20 segundos para todas las conexiones sincronas
 
-var qListarClientes = "SELECT * FROM " + schema + ".TBL_CLIENTE";
+var qListarClientes = "SELECT TC.RUC,TC.RAZON_SOCIAL,TC.DIRECCION,TC.TELEFONO,TC.CORREO,TC.PAQUETE,TU.ESTADO FROM " + schema + ".TBL_CLIENTE TC LEFT JOIN " + schema + ".TBL_USUARIO TU ON TC.RUC=TU.RUC";
 function listarClientes(){
 	var conn = ibmdb.openSync(connString, options);
 	var resultado = conn.querySync(qListarClientes);

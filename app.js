@@ -14,6 +14,7 @@ var Excel = require('exceljs');
 var http = require('http');
 var fs = require("fs");
 var dateFormat = require('dateformat');
+var cron = require('node-cron');
 
 var app = express();
 
@@ -120,7 +121,17 @@ app.get("/parmsecure/estadisticas", function(req, res){
 	var consumo;
 	try{
 		consumo = configuracionplataformadb.obtenerConsumoPorRUC(req.session.usuario.RUC);
-		res.render("estadisticas",{consumo:consumo[0]});
+
+		var curr = new Date(); // get current date
+		var pd = curr.getDate() - curr.getDay(); // First day is the day of the month - the day of the week
+		var ud = pd + 6; // last day is the first day + 6
+
+		var firstday = new Date(curr.setDate(pd));
+		var lastday = new Date(curr.setDate(ud));
+
+		var semana = weekOfDate(new Date());
+
+		res.render("estadisticas",{consumo:consumo[0],primerdia:dateFormat(firstday,"dd/mm/yyyy"),ultimodia:dateFormat(lastday,"dd/mm/yyyy"),semana: semana});
 	} catch (err) {
 		console.log(err);
 		res.render("estadisticas",{consumo:"Not found"});
@@ -306,8 +317,8 @@ app.get("/resetearcontrasena",function(req, res){
 });
 
 // -- RUTEOS DE ADMINISTRADOR --
-app.get("/parmsecure/admin/solicitudes", function(req,res){
-	res.render("solicitudes");
+app.get("/parmsecure/admin/administracion", function(req,res){
+	res.render("administracion");
 });
 
 // -- POSTS --
@@ -315,6 +326,7 @@ app.get("/parmsecure/admin/solicitudes", function(req,res){
 //	1: Registrado pero no activado
 //	2: Código de confirmación enviado
 //	3: Registrado y activado
+//  4: Bloqueo de convocatorias por falta de pago
 // Roles:
 //	1: Usuario común
 //	2: Administrador
@@ -380,7 +392,7 @@ app.post("/iniciarsesion",function(req,res){
 
 		if(queryuser.length == 1) {
 			var queryusuario = queryuser[0];
-			if(queryusuario.ESTADO == '3'){
+			if(queryusuario.ESTADO == '3' || queryusuario.ESTADO == '4'){
 				req.session.usuario = queryuser[0];
 				res.redirect("/parmsecure/index");
 			} else {
@@ -526,6 +538,17 @@ app.get("/parmsecure/admin/listarsolicitudespendientes",function(req,res){
 	res.send(solicitudes);
 });
 
+app.get("/parmsecure/admin/listarclientes", function(req, res){
+	var clientes = null;
+	try {
+		clientes = clientedb.listarClientes();
+	} catch (err) {
+		console.log(err);
+	}
+	res.setHeader("content-type","application/json");
+	res.send(clientes);
+});
+
 app.get("/parmsecure/actualizarubicacion",function(req,res){
 	var ruc = req.session.usuario.RUC;
 	var latitud = req.query.lat;
@@ -540,10 +563,85 @@ app.get("/parmsecure/actualizarubicacion",function(req,res){
 });
 
 app.get("/parmsecure/registroactividad",function(req, res){
-	var registroactividad = reclutamientodb.obtenerRegistroActividad(req.session.usuario.RUC);
 	res.setHeader("content-type","application/json");
-	res.send(registroactividad);
+	try {
+		var registroactividad = reclutamientodb.obtenerRegistroActividad(req.session.usuario.RUC);
+		for (var i = 0; i <= registroactividad.length - 1; i++) {
+			registroactividad[i].FECHA_HORA_REGISTRO = dateFormat(registroactividad[i].FECHA_HORA_REGISTRO,'dd/mm/yyyy hh:MM tt');
+		}
+		res.send(registroactividad);
+	} catch (err) {
+		console.log(err);
+		res.send(null);
+	}
 });
+
+app.get("/parmsecure/reportesemanal", function(req, res){
+	var semana;
+
+	if(req.query.sem) {
+		semana = req.query.sem;
+	} else {
+		semana = weekOfDate(new Date());
+	}
+
+	res.setHeader("content-type","application/json");
+	var dataSemanal = [];
+	try {
+		var reporteSemanal = reclutamientodb.reporteSemanal(semana);
+		for (var i = 1; i <= 7; i++) {
+			var convocatorias = obtenerConvocatoriasSemanales(i, reporteSemanal);
+			dataSemanal.push(convocatorias);
+		}
+	} catch(err) {
+		console.log(err);
+	}
+	res.send(dataSemanal);
+});
+
+function obtenerConvocatoriasSemanales(dia, reporteSemanal) {
+	var convocatorias = 0;
+	for (var i = reporteSemanal.length - 1; i >= 0; i--) {
+		if(dia == reporteSemanal[i].NUMERODIA) {
+			convocatorias = reporteSemanal[i].CONVOCATORIAS;
+			break;
+		}
+	}
+	return convocatorias;
+}
+
+app.get("/parmsecure/reporteanual",function(req, res){
+	var ano;
+	if(req.query.ano) {
+		ano = req.query.ano;
+	} else {
+		ano = (new Date()).getFullYear();
+	}
+
+	res.setHeader("content-type","application/json");
+	var dataAnual = [];
+	try {
+		var reporteAnual = reclutamientodb.reporteAnual(ano);
+		for (var i = 1; i <= 12; i++) {
+			var convocatorias = obtenerConvocatoriasAnuales(i, reporteAnual);
+			dataAnual.push(convocatorias);
+		}
+	} catch (err) {
+		console.log(err);
+	}
+	res.send(dataAnual);
+});
+
+function obtenerConvocatoriasAnuales(mes, reporteAnual) {
+	var convocatorias = 0;
+	for (var i = reporteAnual.length - 1; i >= 0; i--) {
+		if(mes == reporteAnual[i].NUMEROMES) {
+			convocatorias = reporteAnual[i].CONVOCATORIAS;
+			break;
+		}
+	}
+	return convocatorias;
+}
 
 app.get("/parmsecure/admin/confirmarsolicitud",function(req, res){
 	var seleccion = req.query.seleccion;
@@ -551,38 +649,29 @@ app.get("/parmsecure/admin/confirmarsolicitud",function(req, res){
 	"<p>Estimado cliente, el presente correo contiene el enlace para la confirmación de su cuenta. Hacer click en el siguiente enlace para activar su cuenta.</p>";
 	for (var i = seleccion.length - 1; i >= 0; i--) {
 		var codigo = codigoAleatorio("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",16);
-		try{
-			usuariodb.actualizarCodigoConfirmacion(seleccion[i].ruc,codigo);
-			clientedb.actualizarPaquete(seleccion[i].ruc,seleccion[i].paquete);
-			configuracionplataformadb.configuracionInicial(seleccion[i].ruc,seleccion[i].paquete);
-			htmlbody += "<p><a href='" + url_base + "/activarcuenta?ruc=" + seleccion[i].ruc + "&cod=" + codigo + "'>Activar tu cuenta</a></p>"
-			enviarCorreo(seleccion[i].correo,"Código de confirmación PARM", htmlbody,false,null);
-			//console.log(htmlbody);
-		} catch (err) {
-			console.log("Hubo un error al actualizar los datos de confirmación, por favor revisar los logs.");
-			console.log(err);
-		}
+		usuariodb.actualizarCodigoConfirmacion(seleccion[i].ruc,codigo);
+		clientedb.actualizarPaquete(seleccion[i].ruc,seleccion[i].paquete);
+		configuracionplataformadb.configuracionInicial(seleccion[i].ruc,seleccion[i].paquete);
+		htmlbody += "<p><a href='" + url_base + "/activarcuenta?ruc=" + seleccion[i].ruc + "&cod=" + codigo + "'>Activar tu cuenta</a></p>"
+		enviarCorreo(seleccion[i].correo,"Código de confirmación PARM", htmlbody,false,null);
 	}
-	res.send("ok");
+	res.end();
 });
 
-app.post("/twiml",function(req, res){
-	try{
-		var texto = req.query.b;
-
-		var twiml = '<?xml version="1.0" encoding="UTF-8"?>';
-		twiml += '<Response>';
-		twiml += '<Say voice="alice" language="es-MX">';
-		twiml += texto;
-		twiml += '</Say>';
-		twiml += '</Response>';
-
-		res.setHeader("content-type","text/xml");
-		res.send(twiml);
-	} catch (err) {
-		console.log(err);
-		res.status(505).send("Ocurrió un error en el servidor");
+app.get("/parmsecure/admin/bloquearcliente", function(req, res){
+	var clientes = req.query.clientes;
+	for (var i = clientes.length - 1; i >= 0; i--) {
+		usuariodb.bloquearCuenta(clientes[i].ruc);
 	}
+	res.end();
+});
+
+app.get("/parmsecure/admin/desbloquearcliente", function(req, res){
+	var clientes = req.query.clientes;
+	for (var i = clientes.length - 1; i >= 0; i--) {
+		usuariodb.desbloquearCuenta(clientes[i].ruc);
+	}
+	res.end();
 });
 
 // -- AJAX POST CALLS --
@@ -681,7 +770,7 @@ function enviarCorreo(email, asunto, htmlbody, actualizarbd, id){
 
 var client = twilio.initTwilioClient();
 function generarLlamada(numeroCelular,id,texto) {
-	var url = url_base + "/twiml?b=" + texto;
+	var url = "https://handler.twilio.com/twiml/EH842c13bab2848b900793f4cf14afd6d5?body=" + texto;
 	client.calls.create({
 		to:'+51' + numeroCelular,
 		from: "+51946198461",
@@ -872,6 +961,13 @@ function generarTexto(plantilla,razon_social,puesto,fecha,hora,nombres,apellidop
 	return texto;
 }
 
+function weekOfDate(date){
+    var d = new Date(+date);
+    d.setHours(0,0,0);
+    d.setDate(d.getDate()+4-(d.getDay()||7));
+    return Math.ceil((((d-new Date(d.getFullYear(),0,1))/8.64e7)+1)/7);
+}
+
 /*function limpiarImagenPerfil(ruc) {
 	// Find files
 	glob("./uploads/imagenesperfil/" + ruc + ".*",function(err,files){
@@ -889,6 +985,9 @@ function generarTexto(plantilla,razon_social,puesto,fecha,hora,nombres,apellidop
 	});
 }*/
 
+
+
 app.listen(app.get("port"), "0.0.0.0", function() {
 	console.log("PARM Nodejs Server iniciado en el puerto " + app.get("port"));
+	//cron.schedule("0 30 5 1 * *",reporteMensual);
 });
