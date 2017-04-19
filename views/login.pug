@@ -23,21 +23,21 @@ html
       if alert
         .text-center
           center
-            .alert.alert-warning.alert-dismissible(style='width: 380px')
+            .alert.alert-warning.alert-dismissible(style='max-width: 380px')
               button.close(type='button', data-dismiss='alert', aria-hidden='true') &times;
               i.icon.fa.fa-ban
               |  #{alert}
       if error
-          .text-center
-            center
-              .alert.alert-danger.alert-dismissible(style='width: 380px')
-                button.close(type='button', data-dismiss='alert', aria-hidden='true') &times;
-                i.icon.fa.fa-ban
-                |  #{error}
+        .text-center
+          center
+            .alert.alert-danger.alert-dismissible(style='max-width: 380px')
+              button.close(type='button', data-dismiss='alert', aria-hidden='true') &times;
+              i.icon.fa.fa-ban
+              |  #{error}
       if info
         .text-center
           center
-            .alert.alert-info.alert-dismissible(style='width: 380px')
+            .alert.alert-info.alert-dismissible(style='max-width: 380px')
               button.close(type='button', data-dismiss='alert', aria-hidden='true') &times;
               i.icon.fa.fa-info
               |  #{info}
