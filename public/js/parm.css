@@ -4,8 +4,8 @@
 	font-size: 17px;
 }
 .login-container {
-	width: 360px;
+	max-width: 360px;
 }
 .registro-container {
-	width: 360px;
+	max-width: 360px;
 }
