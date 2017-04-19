@@ -3,7 +3,7 @@ html
   head
     meta(charset='utf-8')
     meta(http-equiv='X-UA-Compatible', content='IE=edge')
-    title PARM | Inicio
+    title PARM
     meta(content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no', name='viewport')
     link(rel='stylesheet', href='../../bootstrap/css/bootstrap.min.css')
     link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css')
@@ -168,26 +168,41 @@ html
         |  
         strong
           | Copyright &copy; 2017 
-          a(href='#') DELPA GROUP S.A.C.
-          | .
-        |  Todos los derechos reservados.
+          a(href='#') DELPA GROUP S.A.C. 
+        | Todos los derechos reservados.
 
-      aside.control-sidebar.control-sidebar-dark
+      aside.control-sidebar.control-sidebar-light
         ul.nav.nav-tabs.nav-justified.control-sidebar-tabs
           li
-            a(href='#control-sidebar-home-tab', data-toggle='tab')
-              i.fa.fa-home
+            a(href='#control_config_tab', data-toggle='tab')
+              i.fa.fa-gear
 
         .tab-content
-          #control-sidebar-home-tab.tab-pane
+          #control_config_tab.tab-pane
             //-h3.control-sidebar-heading Actividad Reciente
-            //-ul.control-sidebar-menu
+            ul.control-sidebar-menu
               li
-                a(href='javascript:void(0)')
-                  i.menu-icon.fa.fa-bullhorn.bg-green
-                  .menu-info
-                    h4.control-sidebar-subheading No hay actividad reciente
-                    p Ir a reclutamiento masivo
+                a.control-sidebar-subheading(href='javascript:acercaDe()')
+                  |  Acerca de PARM
 
       .control-sidebar-bg
-    script(src='../../dist/js/config.js')
+
+    #acercade_modal.modal.fade(tabindex='-1', role='dialog')
+      .modal-dialog(role='document')
+        .modal-content
+          .modal-header
+            button.close(type='button', data-dismiss='modal', aria-label='Close')
+              span(aria-hidden='true') &times;
+            h4.modal-title Acerca de PARM
+          .modal-body
+            p Plataforma Automática de Reclutamiento Masivo - PARM
+            p Versión 1.0
+            p Producto Licenciado - Propiedad de DELPA GROUP S.A.C. &copy; Copyright 2017
+            p Este producto ha sido construido con Admin LTE.
+          .modal-footer
+            button.btn.btn-default(type='button', data-dismiss='modal') Cerrar
+    script(src='../../dist/js/herramientas.js')
+    script.
+      function acercaDe(){
+        $("#acercade_modal").modal("show");
+      }

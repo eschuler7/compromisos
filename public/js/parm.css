@@ -1,0 +1,11 @@
+.login-link, .login-link:hover, .login-link:visited, .login-link:link, .login-link:active{
+	color: white;
+	text-decoration: underline;
+	font-size: 17px;
+}
+.login-container {
+	width: 360px;
+}
+.registro-container {
+	width: 360px;
+}

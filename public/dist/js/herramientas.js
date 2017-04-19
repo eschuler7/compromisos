@@ -24,18 +24,18 @@
 
   //Create the new tab
   var tab_pane = $("<div />", {
-    "id": "control-sidebar-theme-demo-options-tab",
+    "id": "control_herramientas_tab",
     "class": "tab-pane active"
   });
 
   //Create the tab button
   var tab_button = $("<li />", {"class": "active"})
-      .html("<a href='#control-sidebar-theme-demo-options-tab' data-toggle='tab'>"
+      .html("<a href='#control_herramientas_tab' data-toggle='tab'>"
       + "<i class='fa fa-wrench'></i>"
       + "</a>");
 
   //Add the tab button to the right sidebar tabs
-  $("[href='#control-sidebar-home-tab']")
+  $("[href='#control_config_tab']")
       .parent()
       .before(tab_button);
 
@@ -148,7 +148,7 @@
   demo_settings.append(skins_list);
 
   tab_pane.append(demo_settings);
-  $("#control-sidebar-home-tab").after(tab_pane);
+  $("#control_config_tab").after(tab_pane);
 
   setup();
 

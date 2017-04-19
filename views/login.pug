@@ -3,59 +3,70 @@ html
   head
     meta(charset='utf-8')
     meta(http-equiv='X-UA-Compatible', content='IE=edge')
-    title PARM | Inicio de sesión
+    title PARM
     meta(content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no', name='viewport')
     link(rel='stylesheet', href='../../bootstrap/css/bootstrap.min.css')
     link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css')
     link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css')
     link(rel='stylesheet', href='../../dist/css/AdminLTE.min.css')
-    link(rel='stylesheet', href='../../plugins/iCheck/square/blue.css')
+    link(rel='stylesheet', href='../../dist/css/AdminLTE.min.css')
+    link(rel='stylesheet', href='../../js/parm.css')
     //if lt IE 9
       script(src='https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js')
       script(src='https://oss.maxcdn.com/respond/1.4.2/respond.min.js')
   body.hold-transition.login-page
     .login-box
-      .login-logo
-          | Bienvenido a 
-          b PARM
+      .login-logo(style='color:white')
+        b PARM
+        p(style='font-size:25px') Plataforma Automática de Reclutamiento Masivo
+      
       if alert
         .text-center
-          .alert.alert-warning.alert-dismissible
-            button.close(type='button', data-dismiss='alert', aria-hidden='true') &times;
-            i.icon.fa.fa-ban
-            |  #{alert}
+          center
+            .alert.alert-warning.alert-dismissible(style='width: 380px')
+              button.close(type='button', data-dismiss='alert', aria-hidden='true') &times;
+              i.icon.fa.fa-ban
+              |  #{alert}
       if error
-        .text-center
-          .alert.alert-danger.alert-dismissible
-            button.close(type='button', data-dismiss='alert', aria-hidden='true') &times;
-            i.icon.fa.fa-ban
-            |  #{error}
+          .text-center
+            center
+              .alert.alert-danger.alert-dismissible(style='width: 380px')
+                button.close(type='button', data-dismiss='alert', aria-hidden='true') &times;
+                i.icon.fa.fa-ban
+                |  #{error}
       if info
         .text-center
-          .alert.alert-info.alert-dismissible
-            button.close(type='button', data-dismiss='alert', aria-hidden='true') &times;
-            i.icon.fa.fa-info
-            |  #{info}
-      .login-box-body
-        p.login-box-msg Introduce tus datos para iniciar sesión
-        form(action='/iniciarsesion', method='post')
-          .form-group.has-feedback
-            input.form-control(type='ruc', placeholder='RUC',name='ruc')
-            span.glyphicon.glyphicon-briefcase.form-control-feedback
-          .form-group.has-feedback
-            input.form-control(type='password', placeholder='Contraseña',name='contrasena')
-            span.glyphicon.glyphicon-lock.form-control-feedback
-          .row
-            .col-xs-12
-              button.btn.btn-primary.btn-block.btn-flat(type='submit') Iniciar sesión
-        .social-auth-links.text-center
-          p - O -
-        |  
-        a(href='/olvidocontrasena') Olvidé mi contraseña
-        br
-        |  
-        a.text-center(href='/nuevoregistro') Registrar una nueva cuenta
+          center
+            .alert.alert-info.alert-dismissible(style='width: 380px')
+              button.close(type='button', data-dismiss='alert', aria-hidden='true') &times;
+              i.icon.fa.fa-info
+              |  #{info}
+      center
+        .login-container
+          .box.box-success
+            .box-header.with-border(style='text-align: left')
+              |  Ingresa tus datos para iniciar sesión
+            form.form-horizontal(action='/iniciarsesion', method='post')
+              .box-body(style='background: #f6f6f6')
+                .form-group.has-feedback
+                  .col-sm-12
+                    input.form-control(type='ruc', placeholder='RUC',name='ruc')
+                    span.glyphicon.glyphicon-briefcase.form-control-feedback
+                .form-group.has-feedback
+                  .col-sm-12
+                    input.form-control(type='password', placeholder='Contraseña',name='contrasena')
+                    span.glyphicon.glyphicon-lock.form-control-feedback
+              .box-footer(style='background: #f6f6f6')
+                button.btn.btn-success.btn-block(type='submit') Iniciar sesión
 
+        p(style='font-size: 23px; color:white') - O -
+        .login-container(style)
+          a.login-link(href='/olvidocontrasena') Olvidé mi contraseña
+          br
+          |  
+          a.login-link(href='/nuevoregistro') Registrar una nueva cuenta
     script(src='../../plugins/jQuery/jquery-2.2.3.min.js')
+    script(src='../../plugins/jQuery/jquery.backstretch.min.js')
     script(src='../../bootstrap/js/bootstrap.min.js')
-    script(src='../../plugins/iCheck/icheck.min.js')
+    script.
+      $.backstretch("/img/backgrounds/1.jpg");

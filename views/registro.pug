@@ -3,89 +3,148 @@ html
   head
     meta(charset='utf-8')
     meta(http-equiv='X-UA-Compatible', content='IE=edge')
-    title PARM | Página de Registro
+    title PARM
     meta(content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no', name='viewport')
     link(rel='stylesheet', href='../../bootstrap/css/bootstrap.min.css')
     link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css')
     link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css')
     link(rel='stylesheet', href='../../dist/css/AdminLTE.min.css')
     link(rel='stylesheet', href='../../plugins/iCheck/square/blue.css')
+    link(rel='stylesheet', href='../../js/parm.css')
     //if lt IE 9
       script(src='https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js')
       script(src='https://oss.maxcdn.com/respond/1.4.2/respond.min.js')
   body.hold-transition.register-page
     .register-box
-      .register-logo
-          | Registro de PARM
-      .register-box-body
-        p.login-box-msg Registrar una nueva cuenta
-        form(action='/registro', method='post')
-          .form-group.has-feedback
-            input.form-control(type='text', placeholder='RUC *',name='ruc')
-            span.glyphicon.glyphicon-briefcase.form-control-feedback
-          .form-group.has-feedback
-            input.form-control(type='text', placeholder='Razón Social *',name='razonsocial')
-            span.glyphicon.glyphicon-user.form-control-feedback
-          .form-group.has-feedback
-            input.form-control(type='email', placeholder='Correo electrónico *',name='email')
-            span.glyphicon.glyphicon-envelope.form-control-feedback
-          .form-group.has-feedback
-            input.form-control(type='text', placeholder='Dirección *',name='direccion')
-            span.glyphicon.glyphicon-map-marker.form-control-feedback
-          .form-group.has-feedback
-            input.form-control(type='text', placeholder='Teléfono *',name='telefono')
-            span.glyphicon.glyphicon-phone-alt.form-control-feedback
-          hr
-          .form-group.has-feedback
-            input.form-control(type='password', placeholder='Contraseña',name="contrasena")
-            span.glyphicon.glyphicon-lock.form-control-feedback
-          .form-group.has-feedback
-            input.form-control(type='password', placeholder='Confirmar contraseña',name="confirmarcontrasena")
-            span.glyphicon.glyphicon-log-in.form-control-feedback
-          hr
-          | Datos de contacto 1
-          .form-group.has-feedback
-            input.form-control(type='text', placeholder='DNI *',name='contacto1dni')
-            span.glyphicon.glyphicon-th-large.form-control-feedback
-          .form-group.has-feedback
-            input.form-control(type='text', placeholder='Nombres *',name='contacto1nombres')
-            span.glyphicon.glyphicon-user.form-control-feedback
-          .form-group.has-feedback
-            input.form-control(type='text', placeholder='Apellidos *',name='contacto1apellidos')
-            span.glyphicon.glyphicon-user.form-control-feedback
-          .form-group.has-feedback
-            input.form-control(type='text', placeholder='Correo electrónico *',name='contacto1correo')
-            span.glyphicon.glyphicon-envelope.form-control-feedback
-          .form-group.has-feedback
-            input.form-control(type='text', placeholder='Teléfono de contacto *',name='contacto1telefono')
-            span.glyphicon.glyphicon-phone-alt.form-control-feedback
-          | Datos de Contacto 2
-          .form-group.has-feedback
-            input.form-control(type='text', placeholder='DNI *',name='contacto2dni')
-            span.glyphicon.glyphicon-th-large.form-control-feedback
-          .form-group.has-feedback
-            input.form-control(type='text', placeholder='Nombres',name='contacto2nombres')
-            span.glyphicon.glyphicon-user.form-control-feedback
-          .form-group.has-feedback
-            input.form-control(type='text', placeholder='Apellidos',name='contacto2apellidos')
-            span.glyphicon.glyphicon-user.form-control-feedback
-          .form-group.has-feedback
-            input.form-control(type='text', placeholder='Correo electrónico',name='contacto2correo')
-            span.glyphicon.glyphicon-envelope.form-control-feedback
-          .form-group.has-feedback
-            input.form-control(type='text', placeholder='Teléfono de contacto',name='contacto2telefono')
-            span.glyphicon.glyphicon-phone-alt.form-control-feedback
-          .row
-            .col-xs-7
-              .checkbox.icheck
-                input(type='checkbox')
-                |  Acepto los 
-                a(href='#') términos y condiciones
-            .col-xs-5
-              button.btn.btn-primary.btn-block.btn-flat(type='submit') Registrarme
-        |  
-        a.text-center(href='/') Ya tengo una cuenta
+      .register-logo(style='color:white')
+        b PARM
+        p(style='font-size:18px') Formulario de Registro para Clientes
 
+      center
+        .login-container
+          .box.box-info
+            .box-header.with-border(style='text-align: left')
+              |  Los campos marcados con * son obligatorios
+            form.form-horizontal(action='/registro', method='post')
+              .box-body(style='background: #fafafa')
+                .form-group.has-feedback
+                  .col-sm-12
+                    input.form-control(type='text', placeholder='RUC *',name='ruc')
+                    span.glyphicon.glyphicon-briefcase.form-control-feedback
+                .form-group.has-feedback
+                  .col-sm-12
+                    input.form-control(type='text', placeholder='Razón Social *',name='razonsocial')
+                    span.glyphicon.glyphicon-user.form-control-feedback
+                .form-group.has-feedback
+                  .col-sm-12
+                    input.form-control(type='email', placeholder='Correo electrónico *',name='email')
+                    span.glyphicon.glyphicon-envelope.form-control-feedback
+                .form-group.has-feedback
+                  .col-sm-12
+                    input.form-control(type='text', placeholder='Dirección *',name='direccion')
+                    span.glyphicon.glyphicon-map-marker.form-control-feedback
+                .form-group.has-feedback
+                  .col-sm-12
+                    input.form-control(type='text', placeholder='Teléfono *',name='telefono')
+                    span.glyphicon.glyphicon-phone-alt.form-control-feedback
+                hr
+                .form-group.has-feedback
+                  .col-sm-12
+                    input.form-control(type='password', placeholder='Contraseña *',name="contrasena")
+                    span.glyphicon.glyphicon-lock.form-control-feedback
+                .form-group.has-feedback
+                  .col-sm-12
+                    input.form-control(type='password', placeholder='Confirmar contraseña *',name="confirmarcontrasena")
+                    span.glyphicon.glyphicon-lock.form-control-feedback
+                hr
+                .form-group.has-feedback
+                  .col-sm-12
+                    input.form-control(type='text', placeholder='DNI *',name='contacto1dni')
+                    span.glyphicon.glyphicon-th-large.form-control-feedback
+                .form-group.has-feedback
+                  .col-sm-12
+                    input.form-control(type='text', placeholder='Nombres *',name='contacto1nombres')
+                    span.glyphicon.glyphicon-user.form-control-feedback
+                .form-group.has-feedback
+                  .col-sm-12
+                    input.form-control(type='text', placeholder='Apellidos *',name='contacto1apellidos')
+                    span.glyphicon.glyphicon-user.form-control-feedback
+                .form-group.has-feedback
+                  .col-sm-12
+                    input.form-control(type='text', placeholder='Correo electrónico *',name='contacto1correo')
+                    span.glyphicon.glyphicon-envelope.form-control-feedback
+                .form-group.has-feedback
+                  .col-sm-12
+                    input.form-control(type='text', placeholder='Teléfono de contacto *',name='contacto1telefono')
+                    span.glyphicon.glyphicon-phone-alt.form-control-feedback
+                hr
+                .form-group.has-feedback
+                  .col-sm-12
+                    input.form-control(type='text', placeholder='DNI',name='contacto2dni')
+                    span.glyphicon.glyphicon-th-large.form-control-feedback
+                .form-group.has-feedback
+                  .col-sm-12
+                    input.form-control(type='text', placeholder='Nombres',name='contacto2nombres')
+                    span.glyphicon.glyphicon-user.form-control-feedback
+                .form-group.has-feedback
+                  .col-sm-12
+                    input.form-control(type='text', placeholder='Apellidos',name='contacto2apellidos')
+                    span.glyphicon.glyphicon-user.form-control-feedback
+                .form-group.has-feedback
+                  .col-sm-12
+                    input.form-control(type='text', placeholder='Correo electrónico',name='contacto2correo')
+                    span.glyphicon.glyphicon-envelope.form-control-feedback
+                .form-group.has-feedback
+                  .col-sm-12
+                    input.form-control(type='text', placeholder='Teléfono de contacto',name='contacto2telefono')
+                    span.glyphicon.glyphicon-phone-alt.form-control-feedback
+                .form-group.has-feedback(style='text-align: left')
+                  .col-sm-12
+                    label
+                      input(type='checkbox')
+                      |  Acepto los 
+                      a(href='javascript:terminoscondiciones()') t&eacute;rminos y condiciones
+              .box-footer(style='background: #f6f6f6')
+                button.btn.btn-info.btn-block.btn-flat(type='submit') Registrarme en la plataforma
+        p(style='font-size: 23px; color:white') - O -
+        .login-link-container
+          a.login-link(href='/') Ya tengo una cuenta, quiero iniciar sesión
+
+      #terminos_condiciones.modal.fade(tabindex='-1', role='dialog')
+        .modal-dialog(role='document')
+          .modal-content
+            .modal-header
+              button.close(type='button', data-dismiss='modal', aria-label='Close')
+                span(aria-hidden='true') &times;
+              h4.modal-title Términos y Condiciones de Uso
+            .modal-body(style='text-align: justify')
+              b Estimado usuario:
+              p
+                | Al acceder y utilizar este servicio, usted acepta y accede a estar obligado por los t&eacute;rminos y disposiciones de este acuerdo. Asimismo, al utilizar estos servicios particulares, usted estar&aacute; sujeto a toda regla o gu&iacute;a de uso correspondiente que se haya publicado para dichos servicios. Toda participaci&oacute;n en este servicio constituir&aacute; la aceptaci&oacute;n de este acuerdo. Si no acepta cumplir con lo anterior, por favor, no lo utilice.
+              |  
+              b Pol&iacute;tica de privacidad.
+              p
+                | Estimado usuario, usted puede utilizar PARM&reg; de forma libre y bajo su responsabilidad, y estar&aacute; identificado seg&uacute;n el usuario que se le haya brindado. Por su seguridad, el servicio de llamadas, mensajes de texto y e-mail no estar&aacute; disponible a partir de las 9:00 pm. hasta las 7:00 am. del d&iacute;a siguiente, esto para no perjudicar al usuario y mantener el orden p&uacute;blico. Sin embargo, usted podr&aacute; seguir utilizando las otras herramientas que ofrece PARM. As&iacute; mismo, informarle que toda informaci&oacute;n que gestione dentro de su cuenta no ser&aacute; usa ni revelada por &quot;JFK Asociados&quot; (administrador), lo cual incluye contrase&ntilde;a, nombres que ingrese, n&uacute;meros de tel&eacute;fono o celulares, e-mails, entre otros. El administrador solo podr&aacute; usar esta informaci&oacute;n cuando el usuario lo requiera, en alg&uacute;n proceso de servicio al cliente. PARM no se hace responsable de la exactitud, utilidad o disponibilidad de cualquier informaci&oacute;n que usted transmita o ponga a disposici&oacute;n a trav&eacute;s de la misma; no ser&aacute; responsable por cualquier error u omisi&oacute;n en dicha informaci&oacute;n.
+              |  
+              b Derechos de propiedad intelectual.
+              p
+                | La plataforma y su contenido original, las caracter&iacute;sticas y la funcionalidad son propiedad de &quot;JFK Asociados&quot; y est&aacute;n protegidos por derechos de autor internacionales, marcas registradas, patentes, secretos comerciales y dem&aacute;s leyes de propiedad intelectual o de derechos de propiedad.
+              |  
+              b Pol&iacute;tica de pago.
+              p
+                | El S&uacute;per Usuario y su representado se compromete a realizar el pago de forma oportuna y dentro de las fechas de facturaci&oacute;n, seg&uacute;n el modelo de pago acordado en la firma de contrato. De no efectuarse el pago oportuno, solo se podr&aacute; usar la plataforma hasta que su actual saldo se termine o caduque, seg&uacute;n el plazo establecido por el administrador.
+              |  
+              b Pol&iacute;tica de servicio al cliente.
+              p
+                | La presente plataforma ha sido afecta a procesos de verificaci&oacute;n de calidad rigurosos, por lo cual se espera que el usuario la utilice de forma plena y sin errores. De presentarse alguna contingencia, no dude a consultar a servicio al cliente, quienes siempre estar&aacute; dispuesto a atenderlo en el horario indicado.
+              p Esperemos que disfrute su estancia en PARM. Es usted bienvenido.
+            .modal-footer
+              button.btn.btn-default(type='button', data-dismiss='modal') Cerrar
     script(src='../../plugins/jQuery/jquery-2.2.3.min.js')
+    script(src='../../plugins/jQuery/jquery.backstretch.min.js')
     script(src='../../bootstrap/js/bootstrap.min.js')
-    script(src='../../plugins/iCheck/icheck.min.js')
+    script.
+      $.backstretch("/img/backgrounds/1.jpg");
+      function terminoscondiciones() {
+        $("#terminos_condiciones").modal("show");
+      }

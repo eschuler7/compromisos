@@ -123,13 +123,13 @@ app.get("/parmsecure/estadisticas", function(req, res){
 		consumo = configuracionplataformadb.obtenerConsumoPorRUC(req.session.usuario.RUC);
 
 		var curr = new Date(); // get current date
-		var pd = curr.getDate() - curr.getDay(); // First day is the day of the month - the day of the week
+		var pd = curr.getDate() - curr.getDay() + 1; // First day is the day of the month - the day of the week
 		var ud = pd + 6; // last day is the first day + 6
 
 		var firstday = new Date(curr.setDate(pd));
 		var lastday = new Date(curr.setDate(ud));
 
-		var semana = weekOfDate(new Date());
+		var semana = weekOfDateIso(new Date());
 
 		res.render("estadisticas",{consumo:consumo[0],primerdia:dateFormat(firstday,"dd/mm/yyyy"),ultimodia:dateFormat(lastday,"dd/mm/yyyy"),semana: semana});
 	} catch (err) {
@@ -582,7 +582,7 @@ app.get("/parmsecure/reportesemanal", function(req, res){
 	if(req.query.sem) {
 		semana = req.query.sem;
 	} else {
-		semana = weekOfDate(new Date());
+		semana = weekOfDateIso(new Date());
 	}
 
 	res.setHeader("content-type","application/json");
@@ -961,7 +961,7 @@ function generarTexto(plantilla,razon_social,puesto,fecha,hora,nombres,apellidop
 	return texto;
 }
 
-function weekOfDate(date){
+function weekOfDateIso(date){
     var d = new Date(+date);
     d.setHours(0,0,0);
     d.setDate(d.getDate()+4-(d.getDay()||7));
