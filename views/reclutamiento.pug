@@ -70,6 +70,32 @@ block container
                   th(data-field='correo') CORREO
                   th(data-field='fecha',data-align='center') FECHA
                   th(data-field='hora',data-align='center') HORA
+    if error
+      .row
+        .col-md-12
+          .box.box-danger
+            .box-header.with-border
+              .box-title Se presentaron los siguiente errores en la plantilla
+            .box-body
+              ul.list-unstyled
+                each reg in error
+                  li
+                    span(style='color:red') Registro Nro: #{reg.nro}
+                    ul
+                      if !reg.nomval
+                        li NOMBRES: Contiene caracteres inválidos
+                      if !reg.apepatval
+                        li APELLIDO PATERNO: Contiene caracteres inválidos
+                      if !reg.apematval
+                        li APELLIDO MATERNO: Contiene caracteres inválidos
+                      if !reg.celval
+                        li CELULAR: El número tiene un formato incorrecto
+                      if !reg.corval
+                        li CORREO: El correo electrónico tiene un formato incorrecto
+                    
+                
+
+
 
     #mensaje_modal.modal.fade(tabindex='-1', role='dialog')
       .modal-dialog(role='document')
@@ -101,6 +127,7 @@ block container
     $(function () {
       var data = !{reclutascargados}
       $('#cargatbl').bootstrapTable({data: data});
+      
     });
 
     $("#cargar_plantilla").click(function(event) {

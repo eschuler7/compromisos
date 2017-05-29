@@ -442,6 +442,7 @@ app.post("/solicitarreseteo", function (req, res) {
 app.post('/parmsecure/upload', uploadreclutas.single('reclutas'), function (req, res) {
 	var workbook = new Excel.Workbook();
 	var jsonArray = [];
+	var errorArray = [];
 	req.session.ultimacarga = req.file.filename;
 	workbook.xlsx.readFile('./uploads/reclutamiento/' + req.file.filename).then(function() {
     	var worksheet = workbook.getWorksheet(1);
@@ -453,8 +454,7 @@ app.post('/parmsecure/upload', uploadreclutas.single('reclutas'), function (req,
 	    		} else {
 	    			correotmp = row.values[8];
 	    		}
-
-    			var json = {
+	    		var json = {
     				nro:row.values[1],
     				colaborador:row.values[2],
     				puesto:row.values[3],
@@ -466,11 +466,26 @@ app.post('/parmsecure/upload', uploadreclutas.single('reclutas'), function (req,
     				fecha:dateFormat(new Date(row.values[9].valueOf() + row.values[9].getTimezoneOffset() * 60000),'dd/mm/yyyy'),
     				hora:dateFormat(new Date(row.values[10].valueOf() + row.values[10].getTimezoneOffset() * 60000),'hh:MM tt')
     			}
+	    		//Validar correo y teléfono
+	    		if (validarNombres(json.nombres) && validarNombres(json.apellidoPaterno) && validarNombres(json.apellidoMaterno) && validarNumeroCelular(json.celular) && validarCorreoElectronico(json.correo)) {
+	    			jsonArray.push(json);
+	    		} else {
+	    			json.nomval = validarNombres(json.nombres);
+	    			json.apepatval = validarNombres(json.apellidoPaterno);
+	    			json.apematval = validarNombres(json.apellidoMaterno);
+	    			json.celval = validarNumeroCelular(json.celular);
+	    			json.corval = validarCorreoElectronico(json.correo);
+	    			errorArray.push(json);
+	    		}
     			
-    			jsonArray.push(json);
     		}
     	});
-    	res.render("reclutamiento",{reclutascargados:JSON.stringify(jsonArray)});
+    	if(errorArray.length > 0) {
+    		res.render("reclutamiento",{error:errorArray});
+    	} else {
+    		res.render("reclutamiento",{reclutascargados:JSON.stringify(jsonArray)});
+    	}
+    	
     });
 });
 
@@ -968,6 +983,21 @@ function weekOfDateIso(date){
     return Math.ceil((((d-new Date(d.getFullYear(),0,1))/8.64e7)+1)/7);
 }
 
+function validarNumeroCelular(numero) {
+	var celRegExp = /^([\d]{9}|\+..[\d]{9})$/g;
+	return celRegExp.test(numero);
+}
+
+function validarCorreoElectronico(email) {
+	var correoElectronicoRegExp = /^\w+@\w+(?:\.\w+)+$/g;
+	return correoElectronicoRegExp.test(email);
+}
+
+function validarNombres(nombres) {
+	var nombresRegExp = /^[A-Za-záéíóú]+( [A-Za-záéíóúÁÉÍÓÚ]+)*$/g;
+	return nombresRegExp.test(nombres);
+}
+
 /*function limpiarImagenPerfil(ruc) {
 	// Find files
 	glob("./uploads/imagenesperfil/" + ruc + ".*",function(err,files){
@@ -989,5 +1019,4 @@ function weekOfDateIso(date){
 
 app.listen(app.get("port"), "0.0.0.0", function() {
 	console.log("PARM Nodejs Server iniciado en el puerto " + app.get("port"));
-	//cron.schedule("0 30 5 1 * *",reporteMensual);
 });
