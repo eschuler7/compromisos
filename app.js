@@ -989,7 +989,7 @@ function validarNumeroCelular(numero) {
 }
 
 function validarCorreoElectronico(email) {
-	var correoElectronicoRegExp = /^[\w._-%]{2,}@\w+(?:\.\w+)+$/g;
+	var correoElectronicoRegExp = /^[\w._-]{2,}@\w+(?:\.\w+)+$/g;
 	return correoElectronicoRegExp.test(email);
 }
 
