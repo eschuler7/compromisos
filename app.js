@@ -467,7 +467,7 @@ app.post('/parmsecure/upload', uploadreclutas.single('reclutas'), function (req,
     				hora:dateFormat(new Date(row.values[10].valueOf() + row.values[10].getTimezoneOffset() * 60000),'hh:MM tt')
     			}
 	    		//Validar correo y teléfono
-	    		if (validarNombres(json.nombres) && validarNombres(json.apellidoPaterno) && validarNombres(json.apellidoMaterno) && validarNumeroCelular(json.celular) && validarCorreoElectronico(json.correo)) {
+	    		/*if (validarNombres(json.nombres) && validarNombres(json.apellidoPaterno) && validarNombres(json.apellidoMaterno) && validarNumeroCelular(json.celular) && validarCorreoElectronico(json.correo)) {
 	    			jsonArray.push(json);
 	    		} else {
 	    			json.nomval = validarNombres(json.nombres);
@@ -476,7 +476,7 @@ app.post('/parmsecure/upload', uploadreclutas.single('reclutas'), function (req,
 	    			json.celval = validarNumeroCelular(json.celular);
 	    			json.corval = validarCorreoElectronico(json.correo);
 	    			errorArray.push(json);
-	    		}
+	    		}*/
     			
     		}
     	});
