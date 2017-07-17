@@ -6,4 +6,3 @@ applications:
   name: compromisos
   host: compromisos
   disk_quota: 512M
-  services:
