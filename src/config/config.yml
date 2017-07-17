@@ -1,0 +1,7 @@
+---
+prod: &default
+  views:
+    engine: pug
+dev:
+  <<: *default
+  port: 8080
