@@ -2,10 +2,8 @@ applications:
 - path: .
   memory: 1024M
   instances: 1
-  domain: parmperu.com
-  name: parmperu
-  host: parmperu
-  disk_quota: 1024M
+  domain: mybluemix.net
+  name: compromisos
+  host: compromisos
+  disk_quota: 512M
   services:
-  - parmperu-dashdb
-  - parmperu-twilio
