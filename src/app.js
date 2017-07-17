@@ -15,7 +15,7 @@ app.set('views',__dirname + '/views');
 app.use(express.static(__dirname + '/public'));
 
 // Initialization port
-app.set('port', config().port);
+app.set('port', process.env.PORT || config().port);
 
 // Starting NodeJS Server
 app.listen(app.get('port'), '0.0.0.0', function() {

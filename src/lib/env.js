@@ -2,6 +2,6 @@
 
 module.exports = function() {
 	return {
-		name: process.env.NODE_ENV ? process.env.NODE_ENV : 'prod'
+		name: process.env.NODENV ? process.env.NODENV : 'prod'
 	}
 }
