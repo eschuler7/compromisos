@@ -17,15 +17,15 @@ app.use(express.static(__dirname + '/public'));
 // Initialization port
 app.set('port', process.env.PORT || config().port);
 
-// Starting NodeJS Server
-app.listen(app.get('port'), '0.0.0.0', function() {
-	console.log('Node.Js Server iniciado en el puerto ' + app.get('port'));
-});
-
 app.get('/', function(req, res){
   res.render('login');
 });
 
 app.post('/login', function(req, res){
   res.render('home');
+});
+
+// Starting NodeJS Server
+app.listen(app.get('port'), '0.0.0.0', function() {
+	console.log('Node.Js Server iniciado en el puerto ' + app.get('port'));
 });
