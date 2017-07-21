@@ -22,7 +22,7 @@ app.get('/', function(req, res){
 });
 
 app.post('/login', function(req, res){
-  res.render('home');
+  res.render('partial/home');
 });
 
 // Starting NodeJS Server
