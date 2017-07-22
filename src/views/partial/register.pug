@@ -1,0 +1,251 @@
+extends ../layouts/layout_main.pug
+block container
+ head
+    body 
+      div
+        .page-title
+          .title_left
+            h3 Registrar compromiso
+          .title_right
+            .col-md-5.col-sm-5.col-xs-12.form-group.pull-right.top_search
+              .input-group
+                input.form-control(type='text', placeholder='Search for...')
+                span.input-group-btn
+                  button.btn.btn-default(type='button') Go!
+        .clearfix
+        .row
+          .col-md-12.col-sm-12.col-xs-12
+            .x_panel
+              .x_content
+                form.form-horizontal.form-label-left(novalidate='')
+                  p
+                  .item.form-group
+                    label.control-label.col-md-3.col-sm-3.col-xs-12(for='name')
+                      | Código 
+                      span.required *
+                    .col-md-6.col-sm-6.col-xs-12
+                      input#name.form-control.col-md-7.col-xs-12(data-validate-length-range='6', data-validate-words='2', name='name', placeholder='both name(s) e.g Jon Doe', required='required', type='text')
+                  .item.form-group
+                    label.control-label.col-md-3.col-sm-3.col-xs-12(for='name')
+                      | Proyecto 
+                      span.required *
+                    .col-md-6.col-sm-6.col-xs-12
+                      input#name.form-control.col-md-7.col-xs-12(data-validate-length-range='6', data-validate-words='2', name='name', placeholder='both name(s) e.g Jon Doe', required='required', type='text')
+                  .item.form-group
+                    label.control-label.col-md-3.col-sm-3.col-xs-12(for='name')
+                      | Fuente 
+                      span.required *
+                    .col-md-6.col-sm-6.col-xs-12
+                      input#name.form-control.col-md-7.col-xs-12(data-validate-length-range='6', data-validate-words='2', name='name', placeholder='both name(s) e.g Jon Doe', required='required', type='text')
+                  .item.form-group
+                    label.control-label.col-md-3.col-sm-3.col-xs-12(for='number')
+                      | Capitulo 
+                      span.required *
+                    .col-md-6.col-sm-6.col-xs-12
+                      input#number.form-control.col-md-7.col-xs-12(type='number', name='number', required='required', data-validate-minmax='10,100')
+                  .item.form-group
+                    label.control-label.col-md-3.col-sm-3.col-xs-12(for='number')
+                      | Sección 
+                      span.required *
+                    .col-md-6.col-sm-6.col-xs-12
+                      input#number.form-control.col-md-7.col-xs-12(type='number', name='number', required='required', data-validate-minmax='10,100')
+                  .item.form-group
+                    label.control-label.col-md-3.col-sm-3.col-xs-12(for='number')
+                      | Página 
+                      span.required *
+                    .col-md-6.col-sm-6.col-xs-12
+                      input#number.form-control.col-md-7.col-xs-12(type='number', name='number', required='required', data-validate-minmax='10,100')
+                  .item.form-group
+                    label.control-label.col-md-3.col-sm-3.col-xs-12(for='number')
+                      | Construcción 
+                      span.required *
+                    .col-md-6.col-sm-6.col-xs-12
+                      input#number.form-control.col-md-7.col-xs-12(type='number', name='number', required='required', data-validate-minmax='10,100')
+                  .item.form-group
+                    label.control-label.col-md-3.col-sm-3.col-xs-12(for='number')
+                      | Operación 
+                      span.required *
+                    .col-md-6.col-sm-6.col-xs-12
+                      input#number.form-control.col-md-7.col-xs-12(type='number', name='number', required='required', data-validate-minmax='10,100')
+                  .item.form-group
+                    label.control-label.col-md-3.col-sm-3.col-xs-12(for='number')
+                      | Cierre 
+                      span.required *
+                    .col-md-6.col-sm-6.col-xs-12
+                      input#number.form-control.col-md-7.col-xs-12(type='number', name='number', required='required', data-validate-minmax='10,100')
+                  .item.form-group
+                    label.control-label.col-md-3.col-sm-3.col-xs-12(for='number')
+                      | Post-Cierre 
+                      span.required *
+                    .col-md-6.col-sm-6.col-xs-12
+                      input#number.form-control.col-md-7.col-xs-12(type='number', name='number', required='required', data-validate-minmax='10,100')
+                  .item.form-group
+                    label.control-label.col-md-3.col-sm-3.col-xs-12(for='heard')
+                      | Temporalidad:
+                    .col-md-6.col-sm-6.col-xs-12 
+                      select#heard.form-control(required='')
+                        option(value='') Choose..
+                        option(value='Puntual') Puntual
+                        option(value='Permanente') Permanente
+                  .item.form-group
+                    label.control-label.col-md-3.col-sm-3.col-xs-12(for='name')
+                      | Frecuencia 
+                      span.required *
+                    .col-md-6.col-sm-6.col-xs-12
+                      select#heard.form-control(required='')
+                        option(value='') Choose..
+                        option(value='Unica') Unica
+                        option(value='ndefinida') Indefinida
+                  .item.form-group
+                    label.control-label.col-md-3.col-sm-3.col-xs-12(for='name')
+                      | Frecuencia propuesta de verificación 
+                      span.required *
+                    .col-md-6.col-sm-6.col-xs-12
+                      select#heard.form-control(required='')
+                        option(value='') Choose..
+                        option(value='Trimestral') Trimestral
+                        option(value='Semestral') Semestral
+                        option(value='Anual') Anual
+                  .item.form-group
+                    label.control-label.col-md-3.col-sm-3.col-xs-12(for='name')
+                      | Aspecto ambiental 
+                      span.required *
+                    .col-md-6.col-sm-6.col-xs-12
+                      input#name.form-control.col-md-7.col-xs-12(data-validate-length-range='6', data-validate-words='2', name='name', placeholder='both name(s) e.g Jon Doe', required='required', type='text')
+                  .item.form-group
+                    label.control-label.col-md-3.col-sm-3.col-xs-12(for='message')
+                      | Compromiso textual 
+                      span.required *
+                    .col-md-6.col-sm-6.col-xs-12
+                      textarea#message.form-control(required='required', name='message', data-parsley-trigger='keyup', data-parsley-minlength='20', data-parsley-maxlength='200', data-parsley-minlength-message='Come on! You need to enter at least a 20 caracters long comment..', data-parsley-validation-threshold='10')
+                  .item.form-group
+                    label.control-label.col-md-3.col-sm-3.col-xs-12(for='name')
+                      | Interpretación del compromiso 
+                      span.required *
+                    .col-md-6.col-sm-6.col-xs-12
+                      textarea#message.form-control(required='required', name='message', data-parsley-trigger='keyup', data-parsley-minlength='20', data-parsley-maxlength='200', data-parsley-minlength-message='Come on! You need to enter at least a 20 caracters long comment..', data-parsley-validation-threshold='10')
+                  .item.form-group
+                    label.control-label.col-md-3.col-sm-3.col-xs-12(for='name')
+                      | Instalación/Componente 
+                      span.required *
+                    .col-md-6.col-sm-6.col-xs-12
+                      input#name.form-control.col-md-7.col-xs-12(data-validate-length-range='6', data-validate-words='2', name='name', placeholder='both name(s) e.g Jon Doe', required='required', type='text')
+                  .item.form-group
+                    label.control-label.col-md-3.col-sm-3.col-xs-12(for='name')
+                      | Se encuentra en otro permiso o IGA? 
+                      span.required *
+                    .col-md-6.col-sm-6.col-xs-12
+                      input#name.form-control.col-md-7.col-xs-12(data-validate-length-range='6', data-validate-words='2', name='name', placeholder='both name(s) e.g Jon Doe', required='required', type='text')
+                  .item.form-group
+                    label.control-label.col-md-3.col-sm-3.col-xs-12(for='name')
+                      | Forma de cumplimiento 
+                      span.required *
+                    .col-md-6.col-sm-6.col-xs-12
+                      input#name.form-control.col-md-7.col-xs-12(data-validate-length-range='6', data-validate-words='2', name='name', placeholder='both name(s) e.g Jon Doe', required='required', type='text')
+                  .item.form-group
+                    label.control-label.col-md-3.col-sm-3.col-xs-12(for='name')
+                      | Criticidad (Exposición durante la supervisión) 
+                      span.required *
+                    .col-md-6.col-sm-6.col-xs-12
+                      input#name.form-control.col-md-7.col-xs-12(data-validate-length-range='6', data-validate-words='2', name='name', placeholder='both name(s) e.g Jon Doe', required='required', type='text')
+                  .item.form-group
+                    label.control-label.col-md-3.col-sm-3.col-xs-12(for='name')
+                      | Area responsable del compromiso 
+                      span.required *
+                    .col-md-6.col-sm-6.col-xs-12
+                      input#name.form-control.col-md-7.col-xs-12(data-validate-length-range='6', data-validate-words='2', name='name', placeholder='both name(s) e.g Jon Doe', required='required', type='text')
+                  .item.form-group
+                    label.control-label.col-md-3.col-sm-3.col-xs-12(for='name')
+                      | Requisito legal asociado 
+                      span.required *
+                    .col-md-6.col-sm-6.col-xs-12
+                      input#name.form-control.col-md-7.col-xs-12(data-validate-length-range='6', data-validate-words='2', name='name', placeholder='both name(s) e.g Jon Doe', required='required', type='text')
+                  .item.form-group
+                    label.control-label.col-md-3.col-sm-3.col-xs-12(for='name')
+                      | Autoridad de reporte 
+                      span.required *
+                    .col-md-6.col-sm-6.col-xs-12
+                      input#name.form-control.col-md-7.col-xs-12(data-validate-length-range='6', data-validate-words='2', name='name', placeholder='both name(s) e.g Jon Doe', required='required', type='text')
+                  .item.form-group
+                    label.control-label.col-md-3.col-sm-3.col-xs-12(for='name')
+                      | Frecuencia de reporte 
+                      span.required *
+                    .col-md-6.col-sm-6.col-xs-12
+                      input#name.form-control.col-md-7.col-xs-12(data-validate-length-range='6', data-validate-words='2', name='name', placeholder='both name(s) e.g Jon Doe', required='required', type='text')
+                  .item.form-group
+                    label.control-label.col-md-3.col-sm-3.col-xs-12(for='name')
+                      | Evidencias de cumplimiento 
+                      span.required *
+                    .col-md-6.col-sm-6.col-xs-12
+                      input#name.form-control.col-md-7.col-xs-12(data-validate-length-range='6', data-validate-words='2', name='name', placeholder='both name(s) e.g Jon Doe', required='required', type='text')
+                  .item.form-group
+                    label.control-label.col-md-3.col-sm-3.col-xs-12(for='name')
+                      | Estado del compromiso 
+                      span.required *
+                    .col-md-6.col-sm-6.col-xs-12
+                      select#heard.form-control(required='')
+                        option(value='') Choose..
+                        option(value='Abierto') Abierto
+                        option(value='Cerrado') Cerrado
+                        option(value='proceso') En proceso
+                        option(value='Cancelado') Cancelado                        
+                        option(value='Diferido') Diferido
+                        option(value='Vencido') Vencido                                                
+                  .item.form-group
+                    label.control-label.col-md-3.col-sm-3.col-xs-12(for='name')
+                      | Comentarios / Observaciones 
+                      span.required *
+                    .col-md-6.col-sm-6.col-xs-12
+                      input#name.form-control.col-md-7.col-xs-12(data-validate-length-range='6', data-validate-words='2', name='name', placeholder='both name(s) e.g Jon Doe', required='required', type='text')
+                  .item.form-group
+                    label.control-label.col-md-3.col-sm-3.col-xs-12(for='name')
+                      | Revisado? 
+                      span.required *
+                    .col-md-6.col-sm-6.col-xs-12
+                      select#heard.form-control(required='')
+                        option(value='') Choose..
+                        option(value='Si') Si
+                        option(value='No') No
+                  .item.form-group
+                    label.control-label.col-md-3.col-sm-3.col-xs-12(for='name')
+                      | Modificado a solicitud de: 
+                      span.required *
+                    .col-md-6.col-sm-6.col-xs-12
+                      select#heard.form-control(required='')
+                        option(value='') Choose..
+                        option(value='Si') Si
+                        option(value='No') No
+                  .item.form-group
+                    label.control-label.col-md-3.col-sm-3.col-xs-12(for='name')
+                      | Evidencias (archivos)? 
+                      span.required *
+                    .col-md-6.col-sm-6.col-xs-12
+                      select#heard.form-control(required='')
+                        option(value='') Choose..
+                        option(value='Si') Si
+                        option(value='No') No
+                  .ln_solid
+                  .form-group
+                    .col-md-6.col-md-offset-3
+                      button.btn.btn-primary(type='submit') Cancel
+                      button#send.btn.btn-success(type='submit') Submit
+    // /page content
+    // footer content
+    footer
+      .pull-right
+        | Gentelella - Bootstrap Admin Template by 
+        a(href='https://colorlib.com') Colorlib
+      .clearfix
+    // /footer content
+    // jQuery
+    script(src='../jquery/dist/jquery.min.js')
+    // Bootstrap
+    script(src='../bootstrap/dist/js/bootstrap.min.js')
+    // FastClick
+    script(src='../fastclick/lib/fastclick.js')
+    // NProgress
+    script(src='../nprogress/nprogress.js')
+    // validator
+    script(src='../validator/validator.js')
+    // Custom Theme Scripts
+    script(src='../build/js/custom.min.js')

@@ -25,6 +25,9 @@ app.post('/login', function(req, res){
   res.render('partial/home');
 });
 
+app.get('/register', function(req, res){
+  res.render('partial/register');
+});
 // Starting NodeJS Server
 app.listen(app.get('port'), '0.0.0.0', function() {
 	console.log('Node.Js Server iniciado en el puerto ' + app.get('port'));
