@@ -71,7 +71,8 @@ $(document).ready(function(){
 			password2 : {
 				required : true,
 				maxlength : 15,
-				minlength : 8
+				minlength : 8,
+				equalTo: "#password"
 			}			
 		},
 		submitHandler : function(form) {
@@ -79,6 +80,5 @@ $(document).ready(function(){
 		}
 	});	
 });
-
 
 
