@@ -13,9 +13,12 @@ block container
                 span.input-group-btn
                   button.btn.btn-default(type='button') Go!
         .clearfix
-        .row
-          .col-md-12.col-sm-12.col-xs-12
+          .col-md-12
             .x_panel
+              .x_title
+                h2 Información General
+                ul.nav.navbar-right.panel_toolbox
+                .clearfix
               .x_content
                 form.form-horizontal.form-label-left(novalidate='')
                   p
@@ -79,6 +82,16 @@ block container
                       span.required *
                     .col-md-6.col-sm-6.col-xs-12
                       input#number.form-control.col-md-7.col-xs-12(type='number', name='number', required='required', data-validate-minmax='10,100')
+        .row
+          .col-md-12          
+            .x_panel
+              .x_title
+                h2 Información detallada
+                ul.nav.navbar-right.panel_toolbox
+                .clearfix
+              .x_content
+                form.form-horizontal.form-label-left(novalidate='')
+                  p
                   .item.form-group
                     label.control-label.col-md-3.col-sm-3.col-xs-12(for='heard')
                       | Temporalidad:
@@ -160,18 +173,41 @@ block container
                       span.required *
                     .col-md-6.col-sm-6.col-xs-12
                       input#name.form-control.col-md-7.col-xs-12(data-validate-length-range='6', data-validate-words='2', name='name', placeholder='both name(s) e.g Jon Doe', required='required', type='text')
-                  .item.form-group
-                    label.control-label.col-md-3.col-sm-3.col-xs-12(for='name')
-                      | Autoridad de reporte 
-                      span.required *
-                    .col-md-6.col-sm-6.col-xs-12
-                      input#name.form-control.col-md-7.col-xs-12(data-validate-length-range='6', data-validate-words='2', name='name', placeholder='both name(s) e.g Jon Doe', required='required', type='text')
-                  .item.form-group
-                    label.control-label.col-md-3.col-sm-3.col-xs-12(for='name')
-                      | Frecuencia de reporte 
-                      span.required *
-                    .col-md-6.col-sm-6.col-xs-12
-                      input#name.form-control.col-md-7.col-xs-12(data-validate-length-range='6', data-validate-words='2', name='name', placeholder='both name(s) e.g Jon Doe', required='required', type='text')
+        .row
+          .col-md-12          
+            .x_panel
+              .x_title
+                h2 Monitoreo
+                ul.nav.navbar-right.panel_toolbox
+                .clearfix
+              .x_content
+                //form.form-horizontal.form-label-left(novalidate='')
+                .container
+                  .row
+                    .col-sm-5
+                      .item.form-group
+                        label.control-label.col-md-3.col-sm-3.col-xs-12(for='name')
+                          | Autoridad de reporte 
+                          span.required *
+                        .col-md-6.col-sm-12.col-xs-12
+                          input#name.form-control.col-md-7.col-xs-12(data-validate-length-range='6', data-validate-words='2', name='name', placeholder='both name(s) e.g Jon Doe', required='required', type='text')
+                    .col-sm-5
+                      .item.form-group
+                        label.control-label.col-md-3.col-sm-3.col-xs-12(for='name')
+                          | Frecuencia de reporte 
+                          span.required *
+                        .col-md-6.col-sm-12.col-xs-12
+                          input#name.form-control.col-md-7.col-xs-12(data-validate-length-range='6', data-validate-words='2', name='name', placeholder='both name(s) e.g Jon Doe', required='required', type='text')
+        .row
+          .col-md-6.col-sm-12.col-xs-12
+            .x_panel
+              .x_title
+                h2 Cumplimiento
+                ul.nav.navbar-right.panel_toolbox
+                .clearfix
+              .x_content
+                br
+                form.form-horizontal.form-label-left
                   .item.form-group
                     label.control-label.col-md-3.col-sm-3.col-xs-12(for='name')
                       | Evidencias de cumplimiento 
@@ -197,6 +233,17 @@ block container
                       span.required *
                     .col-md-6.col-sm-6.col-xs-12
                       input#name.form-control.col-md-7.col-xs-12(data-validate-length-range='6', data-validate-words='2', name='name', placeholder='both name(s) e.g Jon Doe', required='required', type='text')
+          // /form input mask
+          // form color picker
+          .col-md-6.col-sm-12.col-xs-12
+            .x_panel
+              .x_title
+                h2 Manejo Interno
+                ul.nav.navbar-right.panel_toolbox
+                .clearfix
+              .x_content
+                br
+                form.form-horizontal.form-label-left
                   .item.form-group
                     label.control-label.col-md-3.col-sm-3.col-xs-12(for='name')
                       | Revisado? 
@@ -224,19 +271,15 @@ block container
                         option(value='') Choose..
                         option(value='Si') Si
                         option(value='No') No
-                  .ln_solid
-                  .form-group
-                    .col-md-6.col-md-offset-3
-                      button.btn.btn-primary(type='submit') Cancel
-                      button#send.btn.btn-success(type='submit') Submit
+        .row
+          .col-md-12
+            .x_panel
+              .form-group
+                .col-md-6.col-md-offset-3
+                  button.btn.btn-primary(type='submit') Cancel
+                  button#send.btn.btn-success(type='submit') Submit
+
     // /page content
-    // footer content
-    footer
-      .pull-right
-        | Gentelella - Bootstrap Admin Template by 
-        a(href='https://colorlib.com') Colorlib
-      .clearfix
-    // /footer content
     // jQuery
     script(src='../jquery/dist/jquery.min.js')
     // Bootstrap
