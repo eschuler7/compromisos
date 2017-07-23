@@ -10,7 +10,8 @@
     "express": "latest",
     "fs": "0.0.1-security",
     "js-yaml": "^3.9.0",
-    "pug": "^2.0.0-rc.2"
+    "pug": "^2.0.0-rc.2",
+    "sync-mysql": "^3.0.1"
   },
   "repository": {},
   "engines": {

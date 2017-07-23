@@ -5,3 +5,9 @@ prod: &default
 dev:
   <<: *default
   port: 8080
+  mysql:
+    host: localhost
+    user: root
+    password: mysql
+    database: compromisos
+    port: 3306

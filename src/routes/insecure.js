@@ -3,6 +3,9 @@
 var express = require('express');
 var router = express.Router();
 
+// Loading mysql library
+var mysql = require('../lib/mysql');
+
 // TODOS LOS GET
 router.get('/',function(req, res){
 	res.render('login');
@@ -38,8 +41,13 @@ router.post('/signup',function(req, res){
 	var email = req.body.email;
 	var userid = req.body.userid;
 	var password = req.body.password;
-	var password2 = req.body.password2;
-	console.log(ruc,company,email,userid,password,password2);
+
+	try {
+		mysql.company.createCompany(ruc, companyname, email);
+	} catch(e) {
+		console.log(e);
+	}
+	
 	res.end();
 });
 
