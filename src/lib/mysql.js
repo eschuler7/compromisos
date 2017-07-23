@@ -28,23 +28,35 @@ var compromisosdb = {
 			return result;
 		},
 		deleteCompanyByRuc : function(ruc){
-
+			var conn = new mysql(connectionOptions);
+			const result = conn.query("delete from t_company where ruc=?",[ruc]);
+			conn.dispose();
+			return result;
+		},
+		updateCompanyByRuc : function(ruc, companyname, email) {
+			var conn = new mysql(connectionOptions);
+			const result = conn.query("update t_company set companyname=?,email=?,udatetime=NOW() where ruc=?",[companyname, email, ruc]);
+			conn.dispose();
+			return result;
 		}
 	},
 	user : {
-		createUser : function(){
-
+		createUser : function(userid, password, name, lastname, ruc, rol){
+			var conn = new mysql(connectionOptions);
+			const result = conn.query("insert into t_user values(?,?,?,?,?,'ROL1')",[userid, password, name, lastname, ruc, rol]);
+			conn.dispose();
+			return result;
 		},
 		deleteUserById : function(ruc, userid) {
 
 		}
 	},
 	rol : {
-		createRol : function() {
-
-		},
-		deleteRolById : function() {
-
+		listRoles : function() {
+			var conn = new mysql(connectionOptions);
+			const result = conn.query('select * from t_rol');
+			conn.dispose();
+			return result;
 		}
 	}
 }
