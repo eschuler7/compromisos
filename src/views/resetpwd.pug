@@ -1,5 +1,5 @@
 doctype html
-html(lang='en')
+html
   head
     meta(http-equiv='Content-Type', content='text/html; charset=UTF-8')
     // Meta, title, CSS, favicons, etc.
@@ -20,13 +20,13 @@ html(lang='en')
       .login_wrapper
         .animate.form.login_form
           section.login_content
-            form(method='POST',action='/login')
+            form#frmResetpwd(method='POST',action='/resetpwd')
               h1 
                 |  Cambio de Clave
               div
-                input.form-control(type='text', placeholder='RUC')
+                input.form-control(type='text', placeholder='RUC', name='ruc')
               div
-                input.form-control(type='email', placeholder='Correo Electrónico')
+                input.form-control(type='email', placeholder='Correo Electrónico', name='email')
               div
                 button.btn.btn-default.submit(type='submit') Enviar
               .clearfix
@@ -35,3 +35,7 @@ html(lang='en')
                   | Regresar a 
                   a.to_register(href='/') Iniciar Sesión
                 .clearfix
+    // jQuery
+    script(src='../jquery/dist/jquery.min.js')
+    script(src='https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js')
+    script(src='compromisos/compromisos.js')

@@ -1,5 +1,5 @@
 doctype html
-html(lang='en')
+html
   head
     meta(http-equiv='Content-Type', content='text/html; charset=UTF-8')
     // Meta, title, CSS, favicons, etc.
@@ -20,7 +20,7 @@ html(lang='en')
       .login_wrapper
         .animate.form.login_form
           section.login_content
-            form(method='POST',action='/login')
+            form#frmLogin(method='POST',action='/login')
               h1 
                 |  Inicio de Sesión
               div
@@ -38,3 +38,7 @@ html(lang='en')
                   | Nuevo en Mis compromisos?
                   a.to_register(href='/signup')  Crea una cuenta
                 .clearfix
+    // jQuery
+    script(src='../jquery/dist/jquery.min.js')
+    script(src='https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js')
+    script(src='compromisos/compromisos.js')

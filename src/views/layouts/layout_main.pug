@@ -48,7 +48,7 @@ html
                       span.fa.fa-chevron-down
                     ul.nav.child_menu
                       li
-                        a(href='dashboard') Dashboard
+                        a(href='/secure/dashboard') Dashboard
                   li
                     a
                       i.fa.fa-edit
@@ -56,13 +56,13 @@ html
                       span.fa.fa-chevron-down
                     ul.nav.child_menu
                       li
-                        a(href='register') Registrar compromiso
+                        a(href='/secure/register') Registrar compromiso
                       li
-                        a(href='update') Actualizar compromiso
+                        a(href='/secure/update') Actualizar compromiso
                       li
-                        a(href='select') Consultar compromisos
+                        a(href='/secure/select') Consultar compromisos
                       li
-                        a(href='massive') Carga masiva compromisos
+                        a(href='/secure/massive') Carga masiva compromisos
                       li
                   li
                     a
@@ -184,3 +184,4 @@ html
     script(src='../jquery.hotkeys/jquery.hotkeys.js')
     // Custom Theme Scripts
     script(src='../build/js/custom.min.js')
+    script(src='https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js')
