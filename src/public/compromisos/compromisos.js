@@ -63,6 +63,16 @@ $(document).ready(function(){
 				maxlength : 15,
 				minlength : 5
 			},		
+			firstname : {
+				required : true,
+				maxlength : 15,
+				minlength : 1
+			},		
+			lastname : {
+				required : true,
+				maxlength : 15,
+				minlength : 1
+			},		
 			password : {
 				required : true,
 				maxlength : 15,
