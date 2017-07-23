@@ -9,6 +9,11 @@ var app = express();
 //Loading Config
 var config = require('./lib/config');
 
+// Body parser
+var bodyParser = require('body-parser');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
 // View engine setup
 app.set('view engine', config().views.engine);
 app.set('views',__dirname + '/views');
@@ -17,33 +22,11 @@ app.use(express.static(__dirname + '/public'));
 // Initialization port
 app.set('port', process.env.PORT || config().port);
 
-app.get('/', function(req, res){
-  res.render('login');
-});
-
-app.get('/dashboard', function(req, res){
-  res.render('partial/dashboard');
-});
-
-app.post('/login', function(req, res){
-  res.render('partial/home');
-});
-
-app.get('/register', function(req, res){
-  res.render('partial/register');
-});
-
-app.get('/update', function(req, res){
-  res.render('partial/update');
-});
-
-app.get('/select', function(req, res){
-  res.render('partial/select');
-});
-
-app.get('/massive', function(req, res){
-  res.render('partial/massive');
-});
+// Client routes
+var insecure = require('./routes/insecure');
+app.use('/', insecure);
+var secure = require('./routes/secure');
+app.use('/secure', secure);
 
 // Starting NodeJS Server
 app.listen(app.get('port'), '0.0.0.0', function() {

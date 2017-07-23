@@ -6,7 +6,8 @@
     "start": "node src/app"
   },
   "dependencies": {
-    "express": "^4.15.3",
+    "body-parser": "^1.17.2",
+    "express": "latest",
     "fs": "0.0.1-security",
     "js-yaml": "^3.9.0",
     "pug": "^2.0.0-rc.2"
