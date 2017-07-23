@@ -40,6 +40,8 @@ router.post('/signup',function(req, res){
 	var companyname = req.body.companyname;
 	var email = req.body.email;
 	var userid = req.body.userid;
+	var firstname = req.body.firstname;
+	var lastname = req.body.lastname;
 	var password = req.body.password;
 
 	try {
