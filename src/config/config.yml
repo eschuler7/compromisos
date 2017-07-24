@@ -8,6 +8,6 @@ dev:
   mysql:
     host: localhost
     user: root
-    password: mysql
+    password: Petrora$1
     database: compromisos
     port: 3306

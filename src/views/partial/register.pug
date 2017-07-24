@@ -89,7 +89,15 @@ block container
           .clearfix
         .x_content
           form.form-horizontal.form-label-left(novalidate='')
-            p
+            .item.form-group
+              label.control-label.col-md-3.col-sm-3.col-xs-12(for='heard')
+                | Fecha de Inicio:
+              .col-sm-2 
+                .form-group
+                  #myDatepicker.input-group.date
+                    input.form-control(type='text')
+                    span.input-group-addon
+                      span.glyphicon.glyphicon-calendar
             .item.form-group
               label.control-label.col-md-3.col-sm-3.col-xs-12(for='heard')
                 | Temporalidad:
@@ -276,3 +284,14 @@ block container
           .form-group.pull-right
             button.btn.btn-primary(type='submit') Cancel
             button.btn.btn-success(type='submit') Submit
+  script(src='../jquery/dist/jquery.min.js')
+  script(src='../moment/min/moment.min.js')
+  script(src='../bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js')
+  script.
+    $('#myDatepicker').datetimepicker({
+      defaultDate: new Date(),
+      format: 'DD/MM/YYYY'
+      });
+
+
+
