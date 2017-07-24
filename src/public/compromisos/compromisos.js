@@ -50,12 +50,12 @@ $(document).ready(function(){
 			},
 			companyname : {
 				required : true,
-				maxlength : 20,
+				maxlength : 50,
 				minlength : 5
 			},
 			email : {
 				required : true,
-				maxlength : 20,
+				maxlength : 100,
 				minlength : 5
 			},		
 			userid : {
@@ -65,13 +65,13 @@ $(document).ready(function(){
 			},		
 			firstname : {
 				required : true,
-				maxlength : 15,
-				minlength : 1
+				maxlength : 50,
+				minlength : 2
 			},		
 			lastname : {
 				required : true,
-				maxlength : 15,
-				minlength : 1
+				maxlength : 50,
+				minlength : 2
 			},		
 			password : {
 				required : true,

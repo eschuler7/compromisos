@@ -38,16 +38,16 @@ html
               div
                 input.form-control(type='text', placeholder='ID de Usuario', name='userid')
               div
-                input.form-control(type='password', placeholder='Contraseña', name='password')
+                input#password.form-control(type='password', placeholder='Contraseña', name='password')
               div
-                input.form-control(type='password', placeholder='Reingrese Contraseña', name='password2')
+                input#password2.form-control(type='password', placeholder='Reingrese Contraseña', name='password2')
               div
                 button.btn.btn-default.submit(type='submit') Registrar
               .clearfix
               .separator
                 p.change_link
-                  | Ya tiene una cuenta?
-                  a.to_register(href='/')  Iniciar Sesión
+                  | Ya tiene una cuenta? 
+                  a.to_register(href='/') Iniciar Sesión
                 .clearfix
     // jQuery
     script(src='../jquery/dist/jquery.min.js')

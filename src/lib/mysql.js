@@ -23,7 +23,7 @@ var compromisosdb = {
 		},
 		createCompany : function(ruc, companyname, email) {
 			var conn = new mysql(connectionOptions);
-			const result = conn.query("insert into t_company values(?,?,?,NOW(),NOW())",[ruc, companyname, email]);
+			const result = conn.query("insert into t_company values(?,?,?,now(),now())",[ruc, companyname, email]);
 			conn.dispose();
 			return result;
 		},
@@ -35,7 +35,7 @@ var compromisosdb = {
 		},
 		updateCompanyByRuc : function(ruc, companyname, email) {
 			var conn = new mysql(connectionOptions);
-			const result = conn.query("update t_company set companyname=?,email=?,udatetime=NOW() where ruc=?",[companyname, email, ruc]);
+			const result = conn.query("update t_company set companyname=?,email=?,udatetime=now() where ruc=?",[companyname, email, ruc]);
 			conn.dispose();
 			return result;
 		}
@@ -43,7 +43,7 @@ var compromisosdb = {
 	user : {
 		createUser : function(userid, password, name, lastname, ruc, rol){
 			var conn = new mysql(connectionOptions);
-			const result = conn.query("insert into t_user values(?,?,?,?,?,'ROL1')",[userid, password, name, lastname, ruc, rol]);
+			const result = conn.query("insert into t_user values(?,?,?,?,?,?,now(),now())",[userid, password, name, lastname, ruc, rol]);
 			conn.dispose();
 			return result;
 		},
@@ -57,6 +57,17 @@ var compromisosdb = {
 			const result = conn.query('select * from t_rol');
 			conn.dispose();
 			return result;
+		}
+	},
+	commitment : {
+		createCommitment : function() {
+
+		},
+		deleteCommitment : function () {
+
+		},
+		updateCommitment : function() {
+
 		}
 	}
 }

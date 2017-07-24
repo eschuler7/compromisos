@@ -2,6 +2,15 @@
 prod: &default
   views:
     engine: pug
+  checksumhash: md5
+  baseUrl: http://compromisos.mybluemix.net
+  smtp:
+    host: smtp.gmail.com
+    port: 465
+    secure: true
+    auth:
+      user: joandelgado18@gmail.com
+      pass: prueba
 dev:
   <<: *default
   port: 8080
@@ -11,3 +20,11 @@ dev:
     password: mysql
     database: compromisos
     port: 3306
+  baseUrl: http://localhost:8080
+  smtp:
+    host: smtp.gmail.com
+    port: 465
+    secure: true
+    auth:
+      user: joandelgado18@gmail.com
+      pass: xtyecjonhrbllmno

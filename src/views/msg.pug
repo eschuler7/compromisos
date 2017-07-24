@@ -1,0 +1,34 @@
+doctype html
+html
+  head
+    meta(http-equiv='Content-Type', content='text/html; charset=UTF-8')
+    // Meta, title, CSS, favicons, etc.
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    title Mis Compromisos 
+    // Bootstrap
+    link(href='../bootstrap/dist/css/bootstrap.min.css', rel='stylesheet')
+    // Font Awesome
+    link(href='../font-awesome/css/font-awesome.min.css', rel='stylesheet')
+    // NProgress
+    link(href='../nprogress/nprogress.css', rel='stylesheet')
+    // Custom Theme Style
+    link(href='../build/css/custom.min.css', rel='stylesheet')
+  body.login
+    div
+      .login_wrapper(style='max-width:700px')
+        .form.login_form
+          section.login_content
+            h2 ¡ El registro se realizó satisfactoriamente !
+            p Gracias por registrarse en Mis Compromisos, en unos momentos le estará llegando un correo de confirmación, ya puede iniciar sesión en la página. 
+            .clearfix
+            .separator
+              p.change_link
+                | Para empezar haga click en 
+                a.to_register(href='/') Iniciar Sesión
+              .clearfix
+    // jQuery
+    script(src='../jquery/dist/jquery.min.js')
+    script(src='https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js')
+    script(src='compromisos/compromisos.js')

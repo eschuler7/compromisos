@@ -29,9 +29,6 @@ var secure = require('./routes/secure');
 app.use('/secure', secure);
 
 // Starting NodeJS Server
-var mysql = require('./lib/mysql');
 app.listen(app.get('port'), '0.0.0.0', function() {
 	console.log('Node.Js Server iniciado en el puerto ' + app.get('port'));
-	var result = mysql.company.listCompanies();
-	console.log(result);
 });
