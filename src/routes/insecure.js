@@ -7,10 +7,13 @@ var router = express.Router();
 var mysql = require('../lib/mysql');
 
 // Loading util library
-var util = require('../lib/util');
+var computil = require('../lib/computil');
 
 //Loading Email Library
-var c_email = require('../lib/email');
+var compemail = require('../lib/email');
+
+//Loading Config
+var config = require('../lib/config');
 
 // TODOS LOS GET
 router.get('/',function(req, res){
@@ -34,8 +37,10 @@ router.post('/login',function(req, res){
 	var ruc = req.body.ruc;
 	var userid = req.body.userid;
 	var password = req.body.password;
-	console.log(ruc,userid,password);
-	res.render('partial/dashboard');
+	
+
+
+	res.redirect('/secure/home');
 });
 
 router.post('/resetpwd',function(req, res){
@@ -63,14 +68,28 @@ router.post('/signup',function(req, res){
 		if(result.affectedRows == 1) {
 			// Registering user information
 			var initRol = 'ROL1';
-			mysql.user.createUser(userid, password, firstname, lastname, ruc, initRol);
-			c_email.sendEmail(email,'Registro Satisfactorio','El registro en mis compromisos ha sido satisfactorio. Muchas Gracias.');
+			mysql.user.createUser(userid, computil.createHash(config().checksumhash,password), firstname, lastname, ruc, initRol);
+			// Sending confirmation email
+			var htmlRegistrationTemplate = computil.loadEmailTemplate('security_registration');
+			if(htmlRegistrationTemplate == '') {
+				console.log('[/signup]','[util email template]','La plantilla de correo no pudo ser cargada.');
+			} else {
+				htmlRegistrationTemplate = htmlRegistrationTemplate.replace('$COMPANY_NAME',companyname);
+				htmlRegistrationTemplate = htmlRegistrationTemplate.replace('$BASE_URL',config().baseUrl);
+				compemail.sendEmail(email,'Registro en Mis Compromisos',htmlRegistrationTemplate);
+			}
 			res.render('msg');
 		} else {
 			res.render('error');
 		}
 	} catch(e) {
-		console.log(e);
+		console.log('[/signup]',e);
+		try {
+			mysql.company.deleteCompanyByRuc(ruc);
+		} catch(e) {
+			console.log('[/signup]','[rollback company]',e);
+		}
+
 		res.render('error');
 	}
 });

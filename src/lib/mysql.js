@@ -48,7 +48,16 @@ var compromisosdb = {
 			return result;
 		},
 		deleteUserById : function(ruc, userid) {
-
+			var conn = new mysql(connectionOptions);
+			const result = conn.query("delete from t_user where ruc=? and userid=?",[ruc, userid]);
+			conn.dispose();
+			return result;
+		},
+		deleteUsersByRuc : function(ruc) {
+			var conn = new mysql(connectionOptions);
+			const result = conn.query("delete from t_user where ruc=?",[ruc]);
+			conn.dispose();
+			return result;
 		}
 	},
 	rol : {

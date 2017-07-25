@@ -17,7 +17,7 @@ dev:
   mysql:
     host: localhost
     user: root
-    password: Petrora$1
+    password: mysql
     database: compromisos
     port: 3306
   baseUrl: http://localhost:8080
