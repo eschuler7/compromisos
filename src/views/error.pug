@@ -17,22 +17,17 @@ html
     link(href='../build/css/custom.min.css', rel='stylesheet')
   body.login
     div
-      .login_wrapper
-        .animate.form.login_form
+      .login_wrapper(style='max-width:700px')
+        .form.login_form
           section.login_content
-            form#frmResetpwd(method='POST',action='/resetpwd')
-              h1 
-                |  Cambio de Clave
-              input.form-control(type='text', placeholder='RUC', name='ruc')
-              input.form-control(type='email', placeholder='Correo Electrónico', name='email')
-              br
-              button.btn.btn-default.submit(type='submit') Enviar
+            h2(style='color: red') Error de registro
+            p Se produjo un error durante el registro en la plataforma, por favor intente en unos minutos.
+            .clearfix
+            .separator
+              p.change_link
+                | Regresar a 
+                a.to_register(href='/') Iniciar Sesión
               .clearfix
-              .separator
-                p.change_link
-                  | Regresar a 
-                  a.to_register(href='/') Iniciar Sesión
-                .clearfix
     // jQuery
     script(src='../jquery/dist/jquery.min.js')
     script(src='https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js')
