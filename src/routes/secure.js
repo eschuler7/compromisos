@@ -16,6 +16,10 @@ router.get('/select', function(req, res){
 	res.render('partial/select');
 });
 
+router.get('/listall', function(req, res){
+	res.render('partial/listall');
+});
+
 router.get('/update', function(req, res){
 	res.render('partial/update');
 });

@@ -11,7 +11,7 @@ html
     link(href='../bootstrap/dist/css/bootstrap.min.css', rel='stylesheet')
     // Font Awesome
     link(href='../font-awesome/css/font-awesome.min.css', rel='stylesheet')
-
+    link(href='../iCheck/skins/flat/green.css', rel='stylesheet')
     link(href='../bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css', rel='stylesheet')
     // NProgress
     link(href='../nprogress/nprogress.css', rel='stylesheet')
@@ -60,9 +60,9 @@ html
                       li
                         a(href='/secure/register') Registrar compromiso
                       li
-                        a(href='/secure/update') Actualizar compromiso
+                        a(href='/secure/listall') Mis compromisos
                       li
-                        a(href='/secure/select') Consultar compromisos
+                        a(href='/secure/update') Búsqueda avanzada
                       li
                         a(href='/secure/massive') Carga masiva compromisos
                       li
@@ -185,5 +185,8 @@ html
     script(src='../nprogress/nprogress.js')
     script(src='../jquery.hotkeys/jquery.hotkeys.js')
     // Custom Theme Scripts
+    script(src='../bootstrap-progressbar/bootstrap-progressbar.min.js')
     script(src='../build/js/custom.min.js')
     script(src='https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js')
+    script(src='../iCheck/icheck.min.js')
+

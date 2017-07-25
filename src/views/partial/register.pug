@@ -25,61 +25,52 @@ block container
                 | Código 
                 span.required *
               .col-md-6.col-sm-6.col-xs-12
-                input#name.form-control.col-md-7.col-xs-12(data-validate-length-range='6', data-validate-words='2', name='name', placeholder='both name(s) e.g Jon Doe', required='required', type='text')
+                input#name.form-control.col-md-7.col-xs-12(name='codigo', placeholder='Código de compromiso', required='required', type='text')
             .item.form-group
               label.control-label.col-md-3.col-sm-3.col-xs-12(for='name')
                 | Proyecto 
                 span.required *
               .col-md-6.col-sm-6.col-xs-12
-                input#name.form-control.col-md-7.col-xs-12(data-validate-length-range='6', data-validate-words='2', name='name', placeholder='both name(s) e.g Jon Doe', required='required', type='text')
+                input#name.form-control.col-md-7.col-xs-12(name='proyecto', placeholder='Código de Proyecto', required='required', type='text')
             .item.form-group
               label.control-label.col-md-3.col-sm-3.col-xs-12(for='name')
                 | Fuente 
                 span.required *
               .col-md-6.col-sm-6.col-xs-12
-                input#name.form-control.col-md-7.col-xs-12(data-validate-length-range='6', data-validate-words='2', name='name', placeholder='both name(s) e.g Jon Doe', required='required', type='text')
+                input#name.form-control.col-md-7.col-xs-12(name='fuente', placeholder='Fuente', required='required', type='text')
             .item.form-group
               label.control-label.col-md-3.col-sm-3.col-xs-12(for='number')
                 | Capitulo 
                 span.required *
               .col-md-6.col-sm-6.col-xs-12
-                input#number.form-control.col-md-7.col-xs-12(type='number', name='number', required='required', data-validate-minmax='10,100')
+                input#number.form-control.col-md-7.col-xs-12(name='capitulo', required='required', type='number')
             .item.form-group
-              label.control-label.col-md-3.col-sm-3.col-xs-12(for='number')
+              label.control-label.col-md-3.col-sm-3.col-xs-12(for='name')
                 | Sección 
                 span.required *
               .col-md-6.col-sm-6.col-xs-12
-                input#number.form-control.col-md-7.col-xs-12(type='number', name='number', required='required', data-validate-minmax='10,100')
+                input#number.form-control.col-md-7.col-xs-12(name='seccion', placeholder='Sección de capítulo', required='required', type='text')
             .item.form-group
               label.control-label.col-md-3.col-sm-3.col-xs-12(for='number')
                 | Página 
                 span.required *
               .col-md-6.col-sm-6.col-xs-12
-                input#number.form-control.col-md-7.col-xs-12(type='number', name='number', required='required', data-validate-minmax='10,100')
+                input#number.form-control.col-md-7.col-xs-12(name='number', required='required', type='number')
             .item.form-group
-              label.control-label.col-md-3.col-sm-3.col-xs-12(for='number')
-                | Construcción 
-                span.required *
-              .col-md-6.col-sm-6.col-xs-12
-                input#number.form-control.col-md-7.col-xs-12(type='number', name='number', required='required', data-validate-minmax='10,100')
-            .item.form-group
-              label.control-label.col-md-3.col-sm-3.col-xs-12(for='number')
-                | Operación 
-                span.required *
-              .col-md-6.col-sm-6.col-xs-12
-                input#number.form-control.col-md-7.col-xs-12(type='number', name='number', required='required', data-validate-minmax='10,100')
-            .item.form-group
-              label.control-label.col-md-3.col-sm-3.col-xs-12(for='number')
-                | Cierre 
-                span.required *
-              .col-md-6.col-sm-6.col-xs-12
-                input#number.form-control.col-md-7.col-xs-12(type='number', name='number', required='required', data-validate-minmax='10,100')
-            .item.form-group
-              label.control-label.col-md-3.col-sm-3.col-xs-12(for='number')
-                | Post-Cierre 
-                span.required *
-              .col-md-6.col-sm-6.col-xs-12
-                input#number.form-control.col-md-7.col-xs-12(type='number', name='number', required='required', data-validate-minmax='10,100')
+              label Etapas a aplicar:
+              p(style='padding: 5px;')
+                input#applycommit1.flat(type='checkbox', name='applycommit[]', value='cons')
+                |  Construcción
+                br
+                input#applycommit2.flat(type='checkbox', name='applycommit[]', value='oper')
+                |  Operación
+                br
+                input#applycommit3.flat(type='checkbox', name='applycommit[]', value='cier')
+                |  Cierre
+                br
+                input#applycommit4.flat(type='checkbox', name='applycommit[]', value='pstc')
+                |  Post-Cierre
+                br
   .row
     .col-md-12          
       .x_panel
@@ -114,7 +105,14 @@ block container
                 select#heard.form-control(required='')
                   option(value='') Choose..
                   option(value='Unica') Unica
-                  option(value='ndefinida') Indefinida
+                  option(value='Diaria') Diaria
+                  option(value='Semanal') Semanal
+                  option(value='Mensual') Mensual
+                  option(value='Trimestral') Trimestral
+                  option(value='Semestral') Semestral
+                  option(value='Anual') Anual
+                  option(value='Continuo') Continuo
+                  option(value='Indefinido') Indefinido
             .item.form-group
               label.control-label.col-md-3.col-sm-3.col-xs-12(for='name')
                 | Frecuencia propuesta de verificación 
@@ -122,63 +120,72 @@ block container
               .col-md-6.col-sm-6.col-xs-12
                 select#heard.form-control(required='')
                   option(value='') Choose..
+                  option(value='Unica') Unica
+                  option(value='Diaria') Diaria
+                  option(value='Semanal') Semanal
+                  option(value='Mensual') Mensual
                   option(value='Trimestral') Trimestral
                   option(value='Semestral') Semestral
                   option(value='Anual') Anual
+                  option(value='Continuo') Continuo
             .item.form-group
               label.control-label.col-md-3.col-sm-3.col-xs-12(for='name')
                 | Aspecto ambiental 
                 span.required *
               .col-md-6.col-sm-6.col-xs-12
-                input#name.form-control.col-md-7.col-xs-12(data-validate-length-range='6', data-validate-words='2', name='name', placeholder='both name(s) e.g Jon Doe', required='required', type='text')
+                input#name.form-control.col-md-7.col-xs-12(name='ambiental', placeholder='Aspecto ambiental', required='required', type='text')
             .item.form-group
               label.control-label.col-md-3.col-sm-3.col-xs-12(for='message')
                 | Compromiso textual 
                 span.required *
               .col-md-6.col-sm-6.col-xs-12
-                textarea#message.form-control(required='required', name='message', data-parsley-trigger='keyup', data-parsley-minlength='20', data-parsley-maxlength='200', data-parsley-minlength-message='Come on! You need to enter at least a 20 caracters long comment..', data-parsley-validation-threshold='10')
+                textarea#message.form-control(name='textual', placeholder='Ingreso información del compromiso', required='required', type='text')
             .item.form-group
               label.control-label.col-md-3.col-sm-3.col-xs-12(for='name')
                 | Interpretación del compromiso 
                 span.required *
               .col-md-6.col-sm-6.col-xs-12
-                textarea#message.form-control(required='required', name='message', data-parsley-trigger='keyup', data-parsley-minlength='20', data-parsley-maxlength='200', data-parsley-minlength-message='Come on! You need to enter at least a 20 caracters long comment..', data-parsley-validation-threshold='10')
+                textarea#message.form-control(name='interpretacion', placeholder='Interpretación del compromiso', required='required', type='text')
             .item.form-group
               label.control-label.col-md-3.col-sm-3.col-xs-12(for='name')
                 | Instalación/Componente 
                 span.required *
               .col-md-6.col-sm-6.col-xs-12
-                input#name.form-control.col-md-7.col-xs-12(data-validate-length-range='6', data-validate-words='2', name='name', placeholder='both name(s) e.g Jon Doe', required='required', type='text')
+                input#name.form-control.col-md-7.col-xs-12(name='inst_comp', placeholder='Componente', required='required', type='text')
             .item.form-group
               label.control-label.col-md-3.col-sm-3.col-xs-12(for='name')
                 | Se encuentra en otro permiso o IGA? 
                 span.required *
               .col-md-6.col-sm-6.col-xs-12
-                input#name.form-control.col-md-7.col-xs-12(data-validate-length-range='6', data-validate-words='2', name='name', placeholder='both name(s) e.g Jon Doe', required='required', type='text')
+                input#name.form-control.col-md-7.col-xs-12(name='permiso', placeholder='Ingrese compromiso relacionado', required='required', type='text')
             .item.form-group
               label.control-label.col-md-3.col-sm-3.col-xs-12(for='name')
                 | Forma de cumplimiento 
                 span.required *
               .col-md-6.col-sm-6.col-xs-12
-                input#name.form-control.col-md-7.col-xs-12(data-validate-length-range='6', data-validate-words='2', name='name', placeholder='both name(s) e.g Jon Doe', required='required', type='text')
+                input#name.form-control.col-md-7.col-xs-12(name='formacumplimiento', placeholder='Forma de cumplimiento', required='required', type='text')
             .item.form-group
               label.control-label.col-md-3.col-sm-3.col-xs-12(for='name')
                 | Criticidad (Exposición durante la supervisión) 
                 span.required *
               .col-md-6.col-sm-6.col-xs-12
-                input#name.form-control.col-md-7.col-xs-12(data-validate-length-range='6', data-validate-words='2', name='name', placeholder='both name(s) e.g Jon Doe', required='required', type='text')
+                select#heard.form-control(required='')
+                  option(value='') Choose..
+                  option(value='Alto') Alto
+                  option(value='Medio') Medio
+                  option(value='Bajo') Bajo
             .item.form-group
               label.control-label.col-md-3.col-sm-3.col-xs-12(for='name')
                 | Area responsable del compromiso 
                 span.required *
               .col-md-6.col-sm-6.col-xs-12
-                input#name.form-control.col-md-7.col-xs-12(data-validate-length-range='6', data-validate-words='2', name='name', placeholder='both name(s) e.g Jon Doe', required='required', type='text')
+                input#name.form-control.col-md-7.col-xs-12(name='responsablecompromiso', placeholder='Responsable', required='required', type='text')
             .item.form-group
               label.control-label.col-md-3.col-sm-3.col-xs-12(for='name')
                 | Requisito legal asociado 
                 span.required *
               .col-md-6.col-sm-6.col-xs-12
-                input#name.form-control.col-md-7.col-xs-12(data-validate-length-range='6', data-validate-words='2', name='name', placeholder='both name(s) e.g Jon Doe', required='required', type='text')
+                input#name.form-control.col-md-7.col-xs-12(name='reqlegal', placeholder='Requisito legal', required='required', type='text')
   .row
     .col-md-12          
       .x_panel
@@ -196,14 +203,23 @@ block container
                     | Autoridad de reporte 
                     span.required *
                   .col-md-6.col-sm-12.col-xs-12
-                    input#name.form-control.col-md-7.col-xs-12(data-validate-length-range='6', data-validate-words='2', name='name', placeholder='both name(s) e.g Jon Doe', required='required', type='text')
+                    input#name.form-control.col-md-7.col-xs-12(name='autoridad', placeholder='Autoridad', required='required', type='text')
               .col-sm-5
                 .item.form-group
                   label.control-label.col-md-3.col-sm-3.col-xs-12(for='name')
                     | Frecuencia de reporte 
                     span.required *
                   .col-md-6.col-sm-12.col-xs-12
-                    input#name.form-control.col-md-7.col-xs-12(data-validate-length-range='6', data-validate-words='2', name='name', placeholder='both name(s) e.g Jon Doe', required='required', type='text')
+                    select#heard.form-control(required='')
+                      option(value='') Choose..
+                      option(value='Unica') Unica
+                      option(value='Diaria') Diaria
+                      option(value='Semanal') Semanal
+                      option(value='Mensual') Mensual
+                      option(value='Trimestral') Trimestral
+                      option(value='Semestral') Semestral
+                      option(value='Anual') Anual
+                      option(value='Continuo') Continuo
   .row
     .col-md-6.col-sm-12.col-xs-12
       .x_panel
@@ -219,7 +235,9 @@ block container
                 | Evidencias de cumplimiento 
                 span.required *
               .col-md-6.col-sm-6.col-xs-12
-                input#name.form-control.col-md-7.col-xs-12(data-validate-length-range='6', data-validate-words='2', name='name', placeholder='both name(s) e.g Jon Doe', required='required', type='text')
+                input#name.form-control.col-md-7.col-xs-12(name='evidencia', type='text')
+                a(href='', onclick="openDialogBox('fileID').....")
+                input#fileID(type='file', multiple='')            
             .item.form-group
               label.control-label.col-md-3.col-sm-3.col-xs-12(for='name')
                 | Estado del compromiso 
@@ -238,7 +256,7 @@ block container
                 | Comentarios / Observaciones 
                 span.required *
               .col-md-6.col-sm-6.col-xs-12
-                input#name.form-control.col-md-7.col-xs-12(data-validate-length-range='6', data-validate-words='2', name='name', placeholder='both name(s) e.g Jon Doe', required='required', type='text')
+                textarea#message.form-control(name='comentarios', placeholder='Comentarios', required='required', type='text')
     // /form input mask
     // form color picker
     .col-md-6.col-sm-12.col-xs-12
