@@ -4,6 +4,7 @@
 var express = require('express');
 var router = express.Router();
 
+// TODAS LAS LLAMADAS GET
 router.get('/dashboard',function(req, res){
 	res.render('partial/dashboard');
 });
@@ -31,5 +32,12 @@ router.get('/home', function(req, res){
 router.get('/massive', function(req, res){
 	res.render('partial/massive');
 });
+
+router.get('/logout', function(req, res){
+	req.session.destroy();
+	res.redirect('/');
+});
+
+// TODAS LAS LLAMADAS POST
 
 module.exports = router;

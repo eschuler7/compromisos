@@ -18,6 +18,24 @@ $(document).ready(function(){
 				minlength : 8
 			}
 		},
+		messages : {
+			ruc : {
+				required : 'Este campo es requerido',
+				digits : 'Ingrese solamente caracteres numéricos',
+				maxlength : 'Este campo debe contener 11 caracteres',
+				minlength : 'Este campo debe contener 11 caracteres'
+			},
+			userid : {
+				required : 'Este campo es requerido',
+				maxlength : 'Máximo 15 caracteres',
+				minlength : 'Mínimo 5'
+			},
+			password : {
+				required : 'Este campo es requerido',
+				maxlength : 'Máximo 15 caracteres',
+				minlength : 'Mínimo 8 caracteres'
+			}
+		},
 		submitHandler : function(form) {
 			form.submit();
 		}
@@ -33,7 +51,22 @@ $(document).ready(function(){
 			email : {
 				required : true,
 				maxlength : 20,
-				minlength : 5
+				minlength : 5,
+				email : true
+			}
+		},
+		messages : {
+			ruc : {
+				required : 'Este campo es requerido',
+				digits : 'Ingrese solamente caracteres numéricos',
+				maxlength : 'Este campo debe contener 11 caracteres',
+				minlength : 'Este campo debe contener 11 caracteres'
+			},
+			email : {
+				required : 'Este campo es requerido',
+				maxlength : 'Máximo 100 caracteres',
+				minlength : 'Mínimo 5 caracteres',
+				email : 'Ingrese un email válido'
 			}
 		},
 		submitHandler : function(form) {

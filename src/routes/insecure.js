@@ -38,9 +38,18 @@ router.post('/login',function(req, res){
 	var userid = req.body.userid;
 	var password = req.body.password;
 	
-
-
-	res.redirect('/secure/home');
+	try {
+		var userlist = mysql.user.login(ruc, userid, computil.createHash(config().checksumhash,password));
+		if(userlist.length == 1) {
+			req.session.user = userlist[0];
+			res.redirect("/secure/home");
+		} else {
+			res.render('login', {error : 'Los datos ingresados no son correctos.'});
+		}
+	} catch(e) {
+		console.log('[POST]','[/login]',e);
+		res.render('login', {error : 'Hubo un error en el inicio de sesión, por favor intente nuevamente.'});
+	}
 });
 
 router.post('/resetpwd',function(req, res){
