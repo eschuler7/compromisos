@@ -11,13 +11,13 @@ html
     link(href='../bootstrap/dist/css/bootstrap.min.css', rel='stylesheet')
     // Font Awesome
     link(href='../font-awesome/css/font-awesome.min.css', rel='stylesheet')
-    link(href='../iCheck/skins/flat/green.css', rel='stylesheet')
-    link(href='../bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css', rel='stylesheet')
+    //link(href='../iCheck/skins/flat/green.css', rel='stylesheet')
     // NProgress
-    link(href='../nprogress/nprogress.css', rel='stylesheet')
+    //link(href='../nprogress/nprogress.css', rel='stylesheet')
     // Switchery
-    link(href='../switchery/dist/switchery.min.css', rel='stylesheet')
+    //link(href='../switchery/dist/switchery.min.css', rel='stylesheet')
     // Custom Theme Style
+    link(href='../bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css', rel='stylesheet')
     link(href='../build/css/custom.min.css', rel='stylesheet')
   body.nav-md
     .container.body
@@ -26,17 +26,14 @@ html
           .left_col.scroll-view
             .navbar.nav_title(style='border: 0;')
               a.site_title(href='index.html')
-                i.fa.fa-paw
-                span Compromisos!
+                span Mis Compromisos!
             .clearfix
-            // menu profile quick info
             .profile.clearfix
-              .profile_pic
-                img.img-circle.profile_img(src='images/img.jpg', alt='...')
               .profile_info
-                span Welcome,
+                span Bienvenido,
                 h2 Emilio
-            // /menu profile quick info
+            br
+            br
             br
             // sidebar menu
             #sidebar-menu.main_menu_side.hidden-print.main_menu
@@ -45,7 +42,7 @@ html
                 ul.nav.side-menu
                   li
                     a
-                      i.fa.fa-home
+                      i.fa.fa-dashboard
                       |  Tablero de Control 
                       span.fa.fa-chevron-down
                     ul.nav.child_menu
@@ -66,33 +63,16 @@ html
                       li
                         a(href='/secure/massive') Carga masiva compromisos
                       li
-                  li
-                    a
-                      i.fa.fa-desktop
-                      |  Usuarios 
-                      span.fa.fa-chevron-down
-                    ul.nav.child_menu
-                      li
-                        a(href='general_elements.html') Registar usuario
-                      li
-                        a(href='media_gallery.html') Modificar usuario                    
-                      li
-                        a(href='media_gallery.html') Consultar usuario
-                      li
-                  li
-            // /sidebar menu
-            // /menu footer buttons
-            .sidebar-footer.hidden-small
-              a(data-toggle='tooltip', data-placement='top', title='Settings')
-                span.glyphicon.glyphicon-cog(aria-hidden='true')
-              a(data-toggle='tooltip', data-placement='top', title='FullScreen')
-                span.glyphicon.glyphicon-fullscreen(aria-hidden='true')
-              a(data-toggle='tooltip', data-placement='top', title='Lock')
-                span.glyphicon.glyphicon-eye-close(aria-hidden='true')
-              a(data-toggle='tooltip', data-placement='top', title='Logout', href='login.html')
-                span.glyphicon.glyphicon-off(aria-hidden='true')
-            // /menu footer buttons
         // top navigation
+        .sidebar-footer.hidden-small
+          a(data-toggle='tooltip', data-placement='top', title='home', href='/secure/home')
+            span.glyphicon.glyphicon-home(aria-hidden='true')
+          a(data-toggle='tooltip', data-placement='top', title='Mis Compromisos', href='/secure/listall')
+            span.glyphicon.glyphicon-list-alt(aria-hidden='false')
+          a(data-toggle='tooltip', data-placement='top', title='Usuarios')
+            span.fa.fa-users(aria-hidden='true')
+          a(data-toggle='tooltip', data-placement='top', title='Logout', href='/secure/logout')
+            span.glyphicon.glyphicon-off(aria-hidden='true')
         .top_nav
           .nav_menu
             nav
@@ -103,90 +83,28 @@ html
                 li
                   a.user-profile.dropdown-toggle(href='javascript:;', data-toggle='dropdown', aria-expanded='false')
                     img(src='images/img.jpg', alt='')
-                    | Emilio
+                    | Emilio  
                     span.fa.fa-angle-down
                   ul.dropdown-menu.dropdown-usermenu.pull-right
                     li
-                      a(href='javascript:;')  Profile
-                    li
-                      a(href='javascript:;')
-                        span.badge.bg-red.pull-right 50%
-                        span Settings
-                    li
-                      a(href='javascript:;') Help
-                    li
-                      a(href='login.html')
+                      a(href='/securte/logout')
                         i.fa.fa-sign-out.pull-right
                         |  Log Out
-                li.dropdown(role='presentation')
-                  a.dropdown-toggle.info-number(href='javascript:;', data-toggle='dropdown', aria-expanded='false')
-                    i.fa.fa-envelope-o
-                    span.badge.bg-green 6
-                  ul#menu1.dropdown-menu.list-unstyled.msg_list(role='menu')
-                    li
-                      a
-                        span.image
-                          img(src='images/img.jpg', alt='Profile Image')
-                        span
-                          span Emilio
-                          span.time 3 mins ago
-                        span.message
-                          | Film festivals used to be do-or-die moments for movie makers. They were where...
-                    li
-                      a
-                        span.image
-                          img(src='images/img.jpg', alt='Profile Image')
-                        span
-                          span Emilio
-                          span.time 3 mins ago
-                        span.message
-                          | Film festivals used to be do-or-die moments for movie makers. They were where...
-                    li
-                      a
-                        span.image
-                          img(src='images/img.jpg', alt='Profile Image')
-                        span
-                          span Emilio
-                          span.time 3 mins ago
-                        span.message
-                          | Film festivals used to be do-or-die moments for movie makers. They were where...
-                    li
-                      a
-                        span.image
-                          img(src='images/img.jpg', alt='Profile Image')
-                        span
-                          span Emilio
-                          span.time 3 mins ago
-                        span.message
-                          | Film festivals used to be do-or-die moments for movie makers. They were where...
-                    li
-                      .text-center
-                        a
-                          strong See All Alerts
-                          i.fa.fa-angle-right
-        // /top navigation
         // page content
         .right_col(role='main')
-          div
-            block container       
+          block container       
         // /page content
-        // footer content
         footer
           .pull-right
             | Admin 
-            a(href='https://colorlib.com') Colorlib
           .clearfix
-        // /footer content
-    // jQuery
     script(src='../jquery/dist/jquery.min.js')
     // Bootstrap
     script(src='../bootstrap/dist/js/bootstrap.min.js')
-    // NProgress
     script(src='../nprogress/nprogress.js')
-    script(src='../jquery.hotkeys/jquery.hotkeys.js')
-    // Custom Theme Scripts
     script(src='../bootstrap-progressbar/bootstrap-progressbar.min.js')
     script(src='../build/js/custom.min.js')
-    script(src='https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js')
-    script(src='../iCheck/icheck.min.js')
-
+    //script(src='../iCheck/icheck.min.js')
+    //script(src='https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js')
+    //script(src='../jquery.hotkeys/jquery.hotkeys.js')
+    

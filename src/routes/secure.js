@@ -24,6 +24,10 @@ router.get('/update', function(req, res){
 	res.render('partial/update');
 });
 
+router.get('/home', function(req, res){
+	res.render('partial/home');
+});
+
 router.get('/massive', function(req, res){
 	res.render('partial/massive');
 });
