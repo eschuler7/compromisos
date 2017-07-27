@@ -23,18 +23,19 @@ html
             form#frmSignup(method='POST',action='/signup')
               h1 
                 |  Crear una Cuenta
-              p(style='text-align:left') Información General
-              input.form-control(type='text', placeholder='RUC', name='ruc')
-              input.form-control(type='text', placeholder='Razón Social', name='companyname')
-              input.form-control(type='email', placeholder='Correo Electrónico', name='email')
-              br
-              p(style='text-align:left') Información de Usuario
-              input.form-control(type='text', placeholder='Nombre', name='firstname')
-              input.form-control(type='text', placeholder='Apellido', name='lastname')
-              input.form-control(type='text', placeholder='ID de Usuario', name='userid')
-              input#password.form-control(type='password', placeholder='Contraseña', name='password')
-              input#password2.form-control(type='password', placeholder='Reingrese Contraseña', name='password2')
-              br
+              center
+                p(style='text-align:left; width: 96%') Información General
+                input.form-control(type='text', placeholder='RUC', name='ruc')
+                input.form-control(type='text', placeholder='Razón Social', name='companyname')
+                input.form-control(type='email', placeholder='Correo Electrónico', name='email')
+                br
+                p(style='text-align:left; width: 96%') Información de Usuario
+                input.form-control(type='text', placeholder='Nombre', name='firstname')
+                input.form-control(type='text', placeholder='Apellido', name='lastname')
+                input.form-control(type='text', placeholder='ID de Usuario', name='userid')
+                input#password.form-control(type='password', placeholder='Contraseña', name='password')
+                input#password2.form-control(type='password', placeholder='Reingrese Contraseña', name='password2')
+                br
               button.btn.btn-default.submit(type='submit') Registrar
               .clearfix
               .separator

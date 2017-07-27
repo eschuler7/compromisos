@@ -23,8 +23,9 @@ html
             form#frmResetpwd(method='POST',action='/resetpwd')
               h1 
                 |  Cambio de Clave
-              input.form-control(type='text', placeholder='RUC', name='ruc')
-              input.form-control(type='email', placeholder='Correo Electrónico', name='email')
+              center
+                input.form-control(type='text', placeholder='RUC', name='ruc')
+                input.form-control(type='email', placeholder='Correo Electrónico', name='email')
               br
               button.btn.btn-default.submit(type='submit') Enviar
               .clearfix
