@@ -10,7 +10,7 @@ prod: &default
     secure: true
     auth:
       user: joandelgado18@gmail.com
-      pass: prueba
+      pass: pcmxskzxujkforgq
   mysql:
     host: bluemix-sandbox-dal-9-portal.1.dblayer.com
     user: admin
