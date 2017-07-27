@@ -25,10 +25,10 @@ var email = {
 	sendEmail : function(email, subject, htmlbody) {
 		var transporter = initTransporter();
 		var mailOptions = {
-	    from: '"MIS COMPROMISOS" <joandelgado18@gmail.com>',
-	    to: email,
-	    subject: subject,
-	    html: htmlbody
+		    from: '"MIS COMPROMISOS" <joandelgado18@gmail.com>',
+		    to: email,
+		    subject: subject,
+		    html: htmlbody
 		};
 		transporter.sendMail(mailOptions, function(error, info){
 			if(error) {
