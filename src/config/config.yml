@@ -11,6 +11,12 @@ prod: &default
     auth:
       user: joandelgado18@gmail.com
       pass: prueba
+  mysql:
+    host: bluemix-sandbox-dal-9-portal.1.dblayer.com
+    user: admin
+    password: BLDYTBJYRVUBXLDG
+    database: compromisos
+    port: 29030
 dev:
   <<: *default
   port: 8080
