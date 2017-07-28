@@ -6,7 +6,7 @@ html(lang='en')
     meta(charset='utf-8')
     meta(http-equiv='X-UA-Compatible', content='IE=edge')
     meta(name='viewport', content='width=device-width, initial-scale=1')
-    title Gentelella Alela! 
+    title Mis Compromisos!
     // Bootstrap
     link(href='/bootstrap/dist/css/bootstrap.min.css', rel='stylesheet')
     // Font Awesome
@@ -22,15 +22,15 @@ html(lang='en')
           .left_col.scroll-view
             .navbar.nav_title(style='border: 0;')
               a.site_title(href='/secure/home')
-                i.fa.fa-paw
-                span Gentelella Alela!
+                i.glyphicon.glyphicon-list-alt
+                span Mis Compromisos!
             .clearfix
             // menu profile quick info
             .profile.clearfix
               .profile_pic
                 img.img-circle.profile_img(src='/images/img.jpg', alt='...')
               .profile_info
-                span Welcome,
+                span Bienvenido,
                 h2 #{session.user.name}
               .clearfix
             // /menu profile quick info
@@ -43,73 +43,29 @@ html(lang='en')
                   li
                     a
                       i.fa.fa-home
-                      |  Home 
+                      |  Dashboard 
                       span.fa.fa-chevron-down
                     ul.nav.child_menu
                       li
-                        a(href='index.html') Dashboard
-                      li
-                        a(href='index2.html') Dashboard2
-                      li
-                        a(href='index3.html') Dashboard3
+                        a(href='dashboard') Dashboard
                   li
                     a
                       i.fa.fa-edit
-                      |  Forms 
+                      |  Adminstración 
                       span.fa.fa-chevron-down
                     ul.nav.child_menu
                       li
-                        a(href='form.html') General Form
+                        a(href='register') Registrar compromiso
                       li
-                        a(href='form_advanced.html') Advanced Components
+                        a(href='listall') Mis compromisos
                       li
-                        a(href='form_validation.html') Form Validation
-                      li
-                        a(href='form_wizards.html') Form Wizard
-                      li
-                        a(href='form_upload.html') Form Upload
-                      li
-                        a(href='form_buttons.html') Form Buttons
-                  li
-                    a
-                      i.fa.fa-desktop
-                      |  UI Elements 
-                      span.fa.fa-chevron-down
-                    ul.nav.child_menu
-                      li
-                        a(href='general_elements.html') General Elements
-                      li
-                        a(href='media_gallery.html') Media Gallery
-                      li
-                        a(href='typography.html') Typography
-                      li
-                        a(href='icons.html') Icons
-                      li
-                        a(href='glyphicons.html') Glyphicons
-                      li
-                        a(href='widgets.html') Widgets
-                      li
-                        a(href='invoice.html') Invoice
-                      li
-                        a(href='inbox.html') Inbox
-                      li
-                        a(href='calendar.html') Calendar
-                  li
-                    a
-                      i.fa.fa-table
-                      |  Tables 
-                      span.fa.fa-chevron-down
-                    ul.nav.child_menu
-                      li
-                        a(href='tables.html') Tables
-                      li
-                        a(href='tables_dynamic.html') Table Dynamic
+                        a(href='massive') Carga masiva
             // /sidebar menu
             // /menu footer buttons
             .sidebar-footer.hidden-small
               a(data-toggle='tooltip', data-placement='top', title='Inicio', href='/secure/home')
                 span.glyphicon.glyphicon-home(aria-hidden='true')
-              a(data-toggle='tooltip', data-placement='top', title='Compromisos', href='/secure/commitments')
+              a(data-toggle='tooltip', data-placement='top', title='Compromisos', href='/secure/listall')
                 span.glyphicon.glyphicon-list-alt(aria-hidden='true')
               a(data-toggle='tooltip', data-placement='top', title='Usuarios', href='/secure/admin/users')
                 span.glyphicon.glyphicon-user(aria-hidden='true')
@@ -131,14 +87,6 @@ html(lang='en')
                     span.fa.fa-angle-down
                   ul.dropdown-menu.dropdown-usermenu.pull-right
                     li
-                      a(href='javascript:;')  Profile
-                    li
-                      a(href='javascript:;')
-                        span.badge.bg-red.pull-right 50%
-                        span Settings
-                    li
-                      a(href='javascript:;') Help
-                    li
                       a(href='/secure/logout')
                         i.fa.fa-sign-out.pull-right
                         |  Log Out
@@ -157,9 +105,11 @@ html(lang='en')
     script(src='/jquery/dist/jquery.min.js')
     // Bootstrap
     script(src='/bootstrap/dist/js/bootstrap.min.js')
-    // FastClick
-    script(src='/fastclick/lib/fastclick.js')
     // NProgress
     script(src='/nprogress/nprogress.js')
+    script(src='../bootstrap-progressbar/bootstrap-progressbar.min.js')
+    // FastClick
+    script(src='/fastclick/lib/fastclick.js')
     // Custom Theme Scripts
     script(src='/build/js/custom.min.js')
+    script(src='../iCheck/icheck.min.js')
