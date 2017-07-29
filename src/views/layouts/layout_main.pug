@@ -69,7 +69,7 @@ html(lang='en')
                 span.glyphicon.glyphicon-list-alt(aria-hidden='true')
               a(data-toggle='tooltip', data-placement='top', title='Usuarios', href='/secure/admin/users')
                 span.glyphicon.glyphicon-user(aria-hidden='true')
-              a(data-toggle='tooltip', data-placement='top', title='Logout', href='/secure/logout')
+              a(data-toggle='tooltip', data-placement='top', title='Logout', href='javascript:logout()')
                 span.glyphicon.glyphicon-off(aria-hidden='true')
             // /menu footer buttons
         // top navigation
@@ -87,7 +87,7 @@ html(lang='en')
                     span.fa.fa-angle-down
                   ul.dropdown-menu.dropdown-usermenu.pull-right
                     li
-                      a(href='/secure/logout')
+                      a(href='javascript:logout()')
                         i.fa.fa-sign-out.pull-right
                         |  Log Out
         // /top navigation
@@ -101,6 +101,20 @@ html(lang='en')
             | Plataforma de Compromisos - Todos los derechos reservados
           .clearfix
         // /footer content
+    #confirm_logout.modal.fade(tabindex='-1', role='dialog')
+      .modal-dialog.modal-sm(role='document')
+        .modal-content
+          .modal-header
+            button.close(type='button', data-dismiss='modal', aria-label='Close')
+              span(aria-hidden='true') &times;
+            h4.modal-title Cerrar Sesión
+          .modal-body
+            center
+              p ¿Continuar con el cierre de sesión?
+          .modal-footer
+            button.btn.btn-default(type='button', data-dismiss='modal') Cancelar
+            |  
+            a.btn.btn-dark(href='/secure/logout') Continuar
     // jQuery
     script(src='/jquery/dist/jquery.min.js')
     // Bootstrap
@@ -113,3 +127,7 @@ html(lang='en')
     // Custom Theme Scripts
     script(src='/build/js/custom.min.js')
     script(src='../iCheck/icheck.min.js')
+    script.
+      var logout = function() {
+        $('#confirm_logout').modal('show');
+      }
