@@ -101,11 +101,11 @@ html(lang='en')
             | Plataforma de Compromisos - Todos los derechos reservados
           .clearfix
         // /footer content
-    #confirm_logout.modal.fade(tabindex='-1', role='dialog')
+    #confirm_logout.modal.fade(tabindex='-1', role='dialog', data-backdrop='static', data-keyboard='false')
       .modal-dialog.modal-sm(role='document')
         .modal-content
           .modal-header
-            button.close(type='button', data-dismiss='modal', aria-label='Close')
+            //button.close(type='button', data-dismiss='modal', aria-label='Close')
               span(aria-hidden='true') &times;
             h4.modal-title Cerrar Sesión
           .modal-body
@@ -115,6 +115,68 @@ html(lang='en')
             button.btn.btn-default(type='button', data-dismiss='modal') Cancelar
             |  
             a.btn.btn-dark(href='/secure/logout') Continuar
+    //Configuración inicial
+    #config_init.modal.fade(tabindex='-1', role='dialog', data-backdrop='static', data-keyboard='false')
+      .modal-dialog.modal-lg(role='document')
+        .modal-content
+          .modal-header
+            center 
+              h4.modal-title Wizard de configuración de compromisos y monitoreo
+          .modal-body
+            // Smart Wizard
+            p
+              | This is a basic form wizard example that inherits the colors from the selected scheme.
+            #wizard.form_wizard.wizard_horizontal
+              ul.wizard_steps
+                li
+                  a(href='#step-1')
+                    span.step_no 1
+                    span.step_descr
+                      | Step 1
+                      br
+                      small Step 1 description
+                li
+                  a(href='#step-2')
+                    span.step_no 2
+                    span.step_descr
+                      | Step 2
+                      br
+                      small Step 2 description
+                li
+                  a(href='#step-3')
+                    span.step_no 3
+                    span.step_descr
+                      | Step 3
+                      br
+                      small Step 3 description
+                li
+                  a(href='#step-4')
+                    span.step_no 4
+                    span.step_descr
+                      | Step 4
+                      br
+                      small Step 4 description
+              #step-1(style='height:107px')
+                h2.StepTitle Step 1 Content
+                p
+                  | do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+                  | fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+              #step-2
+                h2.StepTitle Step 2 Content
+                p
+                  | do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+                  | fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+              #step-3
+                h2.StepTitle Step 3 Content
+                p
+                  | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
+                  | eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+              #step-4
+                h2.StepTitle Step 4 Content
+                p
+                  | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                  | Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            // End SmartWizard Content 
     // jQuery
     script(src='/jquery/dist/jquery.min.js')
     // Bootstrap
@@ -124,10 +186,16 @@ html(lang='en')
     script(src='../bootstrap-progressbar/bootstrap-progressbar.min.js')
     // FastClick
     script(src='/fastclick/lib/fastclick.js')
+    // jQuery Smart Wizard
+    script(src='../jQuery-Smart-Wizard/js/jquery.smartWizard.js')    
     // Custom Theme Scripts
     script(src='/build/js/custom.min.js')
     script(src='../iCheck/icheck.min.js')
     script.
+      $(document).ready(function(){
+        $('#config_init').modal('show');
+        //$('#wizard').smartWizard();
+      });
       var logout = function() {
         $('#confirm_logout').modal('show');
       }
