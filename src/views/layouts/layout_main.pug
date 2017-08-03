@@ -125,47 +125,65 @@ html(lang='en')
           .modal-body
             // Smart Wizard
             p
-              | This is a basic form wizard example that inherits the colors from the selected scheme.
+              | Realice las configuraciones iniciales.
             #wizard.form_wizard.wizard_horizontal
               ul.wizard_steps
                 li
                   a(href='#step-1')
                     span.step_no 1
                     span.step_descr
-                      | Step 1
+                      | Paso 1
                       br
-                      small Step 1 description
+                      small Encabezados
                 li
                   a(href='#step-2')
                     span.step_no 2
                     span.step_descr
-                      | Step 2
+                      | Paso 2
                       br
-                      small Step 2 description
+                      small Dashboard de inicio
                 li
                   a(href='#step-3')
                     span.step_no 3
                     span.step_descr
-                      | Step 3
+                      | Paso 3
                       br
-                      small Step 3 description
+                      small Configuración de tabla de compromisos
                 li
                   a(href='#step-4')
                     span.step_no 4
                     span.step_descr
-                      | Step 4
+                      | Paso 4
                       br
-                      small Step 4 description
+                      small Configuración de tabla de monitoreo
               #step-1(style='height:107px')
-                h2.StepTitle Step 1 Content
-                p
-                  | do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                  | fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                form.form-horizontal.form-label-left
+                  .form-group
+                    label.control-label.col-md-3.col-sm-3.col-xs-12(for='first-name')
+                      | Razón Social 
+                    .col-md-6.col-sm-6.col-xs-12
+                      input#first-name.form-control.col-md-7.col-xs-12(type='text', required='required')
+                  .form-group
+                    label.control-label.col-md-3.col-sm-3.col-xs-12(for='last-name')
+                      | Unidad 
+                    .col-md-6.col-sm-6.col-xs-12
+                      input#last-name.form-control.col-md-7.col-xs-12(type='text', name='last-name', required='required')
+                  .form-group
+                    label.control-label.col-md-3.col-sm-3.col-xs-12(for='middle-name') Proyecto u Operación
+                    .col-md-6.col-sm-6.col-xs-12
+                      input#middle-name.form-control.col-md-7.col-xs-12(type='text', name='middle-name')
               #step-2
-                h2.StepTitle Step 2 Content
-                p
-                  | do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                  | fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                .row-fluid
+                    label.checkbox.inline
+                      input(type='checkbox', value='total', name='compromisos')
+                      |  Total
+                    label.checkbox.inline
+                      input(type='checkbox', value='accion', name='compromisos')
+                      |  Acción
+                    label.checkbox.inline
+                      input(type='checkbox', value='cumplimiento', name='compromisos')
+                      |  Cumplimiento
+                    br
               #step-3
                 h2.StepTitle Step 3 Content
                 p
@@ -183,6 +201,7 @@ html(lang='en')
     script(src='/bootstrap/dist/js/bootstrap.min.js')
     // NProgress
     script(src='/nprogress/nprogress.js')
+    script(src='../moment/min/moment.min.js')
     script(src='../bootstrap-progressbar/bootstrap-progressbar.min.js')
     // FastClick
     script(src='/fastclick/lib/fastclick.js')
@@ -193,9 +212,16 @@ html(lang='en')
     script(src='../iCheck/icheck.min.js')
     script.
       $(document).ready(function(){
-        $('#config_init').modal('show');
-        //$('#wizard').smartWizard();
-      });
+        //$('#config_init').modal('show');
+        //$("button").click(function() {
+          //var compromisos = [];
+          //$.each($("input[name='compromisos']:checked"), function() {
+            //favorite.push($(this).val());
+          //});
+        $('#config_init').modal('show').on('shown.bs.modal', function() {
+        });
+        });//$('#wizard').smartWizard();
+      //});
       var logout = function() {
         $('#confirm_logout').modal('show');
       }
