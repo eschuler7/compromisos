@@ -1,16 +1,9 @@
 $(document).ready(function(){
 	$('#frmLogin').validate({
 		rules : {
-			ruc : {
+			email : {
 				required : true,
-				digits : true,
-				maxlength : 11,
-				minlength : 11
-			},
-			userid : {
-				required : true,
-				maxlength : 15,
-				minlength : 5
+				email : true
 			},
 			password : {
 				required : true,
@@ -19,16 +12,9 @@ $(document).ready(function(){
 			}
 		},
 		messages : {
-			ruc : {
+			email : {
 				required : 'Este campo es requerido',
-				digits : 'Ingrese solamente caracteres numéricos',
-				maxlength : 'Este campo debe contener 11 caracteres',
-				minlength : 'Este campo debe contener 11 caracteres'
-			},
-			userid : {
-				required : 'Este campo es requerido',
-				maxlength : 'Máximo 15 caracteres',
-				minlength : 'Mínimo 5'
+				email : 'Ingrese una dirección de correo válida'
 			},
 			password : {
 				required : 'Este campo es requerido',
@@ -42,30 +28,14 @@ $(document).ready(function(){
 	});
 	$('#frmResetpwd').validate({
 		rules : {
-			ruc : {
-				required : true,
-				digits : true,
-				maxlength : 11,
-				minlength : 11
-			},
 			email : {
 				required : true,
-				maxlength : 20,
-				minlength : 5,
 				email : true
 			}
 		},
 		messages : {
-			ruc : {
-				required : 'Este campo es requerido',
-				digits : 'Ingrese solamente caracteres numéricos',
-				maxlength : 'Este campo debe contener 11 caracteres',
-				minlength : 'Este campo debe contener 11 caracteres'
-			},
 			email : {
 				required : 'Este campo es requerido',
-				maxlength : 'Máximo 100 caracteres',
-				minlength : 'Mínimo 5 caracteres',
 				email : 'Ingrese un email válido'
 			}
 		},

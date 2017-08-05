@@ -59,6 +59,7 @@ var secure = require('./routes/secure');
 app.use('/secure', secure);
 
 // Starting NodeJS Server
+var computil = require('./lib/computil');
 app.listen(app.get('port'), '0.0.0.0', function() {
 	console.log('Node.Js Server iniciado en el puerto ' + app.get('port'));
 });

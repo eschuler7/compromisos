@@ -34,12 +34,11 @@ router.get('/prueba', function(req,res){
 
 // TODOS LOS POST
 router.post('/login',function(req, res){
-	var ruc = req.body.ruc;
-	var userid = req.body.userid;
+	var email = req.body.email;
 	var password = req.body.password;
 	
 	try {
-		var userlist = mysql.user.login(ruc, userid, computil.createHash(config().checksumhash,password));
+		var userlist = mysql.user.login(email, computil.createHash(config().checksumhash,password));
 		if(userlist.length == 1) {
 			req.session.user = userlist[0];
 			res.redirect("/secure/home");
