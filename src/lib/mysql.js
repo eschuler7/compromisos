@@ -21,9 +21,9 @@ var compromisosdb = {
 			conn.dispose();
 			return result;
 		},
-		createCompany : function(ruc, companyname, email) {
+		createCompany : function(ruc, companyname) {
 			var conn = new mysql(connectionOptions);
-			const result = conn.query('insert into t_company values(?,?,?,now(),now())',[ruc, companyname, email]);
+			const result = conn.query('insert into t_company values(?,?,now(),now())',[ruc, companyname]);
 			conn.dispose();
 			return result;
 		},
@@ -33,9 +33,9 @@ var compromisosdb = {
 			conn.dispose();
 			return result;
 		},
-		updateCompanyByRuc : function(ruc, companyname, email) {
+		updateCompanyByRuc : function(ruc, companyname) {
 			var conn = new mysql(connectionOptions);
-			const result = conn.query('update t_company set companyname=?,email=?,udatetime=now() where ruc=?',[companyname, email, ruc]);
+			const result = conn.query('update t_company set companyname=?,udatetime=now() where ruc=?',[companyname, ruc]);
 			conn.dispose();
 			return result;
 		}
@@ -59,9 +59,9 @@ var compromisosdb = {
 			conn.dispose();
 			return result;
 		},
-		login : function(ruc, userid, password) {
+		login : function(userid, password) {
 			var conn = new mysql(connectionOptions);
-			const result = conn.query('select userid, name, lastname, t_company_ruc, tc.companyname, t_rol_rolid from t_user tu left join t_company tc on tu.t_company_ruc=tc.ruc where tu.t_company_ruc=? and userid=? and password=?',[ruc, userid, password]);
+			const result = conn.query('select email, name, lastname, tc.firsttime, t_company_ruc, tc.companyname, t_rol_rolid from t_user tu left join t_company tc on tu.t_company_ruc=tc.ruc where email=? and password=?',[userid, password]);
 			conn.dispose();
 			return result;
 		}
