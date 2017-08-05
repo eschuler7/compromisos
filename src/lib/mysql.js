@@ -38,6 +38,12 @@ var compromisosdb = {
 			const result = conn.query('update t_company set companyname=?,udatetime=now() where ruc=?',[companyname, ruc]);
 			conn.dispose();
 			return result;
+		},
+		updateFirstTime : function(ruc){
+			var conn = new mysql(connectionOptions);
+			const result = conn.query('update t_company set firsttime=0,udatetime=now() where ruc=?',[ruc]);
+			conn.dispose();
+			return result;			
 		}
 	},
 	user : {
@@ -62,6 +68,12 @@ var compromisosdb = {
 		login : function(userid, password) {
 			var conn = new mysql(connectionOptions);
 			const result = conn.query('select email, name, lastname, tc.firsttime, t_company_ruc, tc.companyname, t_rol_rolid from t_user tu left join t_company tc on tu.t_company_ruc=tc.ruc where email=? and password=?',[userid, password]);
+			conn.dispose();
+			return result;
+		},
+		login2 : function(ruc, email) {
+			var conn = new mysql(connectionOptions);
+			const result = conn.query('select email, name, lastname, tc.firsttime, t_company_ruc, tc.companyname, t_rol_rolid from t_user tu left join t_company tc on tu.t_company_ruc=tc.ruc where tc.ruc=? and tu.email=?',[ruc, email]);
 			conn.dispose();
 			return result;
 		}

@@ -41,7 +41,7 @@ router.post('/login',function(req, res){
 		var userlist = mysql.user.login(email, computil.createHash(config().checksumhash,password));
 		if(userlist.length == 1) {
 			req.session.user = userlist[0];
-			res.redirect("/secure/home");
+			res.redirect('/secure/home');
 		} else {
 			res.render('login', {error : 'Los datos ingresados no son correctos.'});
 		}

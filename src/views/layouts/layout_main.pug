@@ -156,8 +156,8 @@ html(lang='en')
                       | Paso 4
                       br
                       small Configuración de tabla de monitoreo
-              #step-1(style='height:107px')
-                form.form-horizontal.form-label-left
+              form#frmWizard.form-horizontal.form-label-left(action='/secure/initConfig', method='post')
+                #step-1(style='height:107px')
                   .form-group
                     label.control-label.col-md-3.col-sm-3.col-xs-12(for='first-name')
                       | Razón Social 
@@ -172,69 +172,69 @@ html(lang='en')
                     label.control-label.col-md-3.col-sm-3.col-xs-12(for='middle-name') Proyecto u Operación
                     .col-md-6.col-sm-6.col-xs-12
                       input#middle-name.form-control.col-md-7.col-xs-12(type='text', name='middle-name')
-              #step-2
-                center
-                  table#datatable-responsive.table.dt-responsive.nowrap(cellspacing='0', width='80%')
-                    tr
-                      td(width='40%')
-                        label(for='total') Total Compromisos
-                      td(width='10%')
-                        input#total(type='checkbox', value='total', name='dashboard')
-                      td(width='40%') 
-                        label(for='incumplidos') Compromisos incumplidos con un plan de acción
-                      td(width='10%')
-                        input#incumplidos(type='checkbox', value='incumplidos', name='dashboard')
-                    tr
-                      td(width='40%')
-                        label(for='accion') Compromisos que requieren acción
-                      td(width='10%')
-                        input#accion(type='checkbox', value='accion', name='dashboard')
-                      td(width='40%') 
-                        label(for='sinaccion') Compromisos sin un plan de acción
-                      td(width='10%')
-                        input#sinaccion(type='checkbox', value='sinaccion', name='dashboard')
-              #step-3
-                center
-                  table#datatable-responsive.table.dt-responsive.nowrap(cellspacing='0', width='80%')
-                    tr
-                      td(width='40%')
-                        label(for='global') Código global
-                      td(width='10%')
-                        input#global(type='checkbox', value='global', name='compromisos')
-                      td(width='40%') 
-                        label(for='asociado') Aspecto asociado
-                      td(width='10%')
-                        input#asociado(type='checkbox', value='asociado', name='compromisos')
-                    tr
-                      td(width='40%')
-                        label(for='unidad') Unidad
-                      td(width='10%')
-                        input#unidad(type='checkbox', value='unidad', name='compromisos')
-                      td(width='40%') 
-                        label(for='instcomp') Instalación/componente
-                      td(width='10%')
-                        input#instcomp(type='checkbox', value='instcomp', name='compromisos')
-              #step-4
-                center
-                  table#datatable-responsive.table.dt-responsive.nowrap(cellspacing='0', width='80%')
-                    tr
-                      td(width='40%')
-                        label(for='global') Código global
-                      td(width='10%')
-                        input#global(type='checkbox', value='global', name='tablamonitoreo')
-                      td(width='40%') 
-                        label(for='temporalidad') Temporalidad
-                      td(width='10%')
-                        input#temporalidad(type='checkbox', value='temporalidad', name='tablamonitoreo')
-                    tr
-                      td(width='40%')
-                        label(for='unidad') Unidad
-                      td(width='10%')
-                        input#unidad(type='checkbox', value='unidad', name='tablamonitoreo')
-                      td(width='40%') 
-                        label(for='frecmonitoreo') Frecuencia de monitoreo
-                      td(width='10%')
-                        input#frecmonitoreo(type='checkbox', value='frecmonitoreo', name='tablamonitoreo')
+                #step-2
+                  center
+                    table#datatable-responsive.table.dt-responsive.nowrap(cellspacing='0', width='80%')
+                      tr
+                        td(width='40%')
+                          label(for='total') Total Compromisos
+                        td(width='10%')
+                          input#total(type='checkbox', value='total', name='dashboard')
+                        td(width='40%') 
+                          label(for='incumplidos') Compromisos incumplidos con un plan de acción
+                        td(width='10%')
+                          input#incumplidos(type='checkbox', value='incumplidos', name='dashboard')
+                      tr
+                        td(width='40%')
+                          label(for='accion') Compromisos que requieren acción
+                        td(width='10%')
+                          input#accion(type='checkbox', value='accion', name='dashboard')
+                        td(width='40%') 
+                          label(for='sinaccion') Compromisos sin un plan de acción
+                        td(width='10%')
+                          input#sinaccion(type='checkbox', value='sinaccion', name='dashboard')
+                #step-3
+                  center
+                    table#datatable-responsive.table.dt-responsive.nowrap(cellspacing='0', width='80%')
+                      tr
+                        td(width='40%')
+                          label(for='global') Código global
+                        td(width='10%')
+                          input#global(type='checkbox', value='global', name='compromisos')
+                        td(width='40%') 
+                          label(for='asociado') Aspecto asociado
+                        td(width='10%')
+                          input#asociado(type='checkbox', value='asociado', name='compromisos')
+                      tr
+                        td(width='40%')
+                          label(for='unidad') Unidad
+                        td(width='10%')
+                          input#unidad(type='checkbox', value='unidad', name='compromisos')
+                        td(width='40%') 
+                          label(for='instcomp') Instalación/componente
+                        td(width='10%')
+                          input#instcomp(type='checkbox', value='instcomp', name='compromisos')
+                #step-4
+                  center
+                    table#datatable-responsive.table.dt-responsive.nowrap(cellspacing='0', width='80%')
+                      tr
+                        td(width='40%')
+                          label(for='global') Código global
+                        td(width='10%')
+                          input#global(type='checkbox', value='global', name='tablamonitoreo')
+                        td(width='40%') 
+                          label(for='temporalidad') Temporalidad
+                        td(width='10%')
+                          input#temporalidad(type='checkbox', value='temporalidad', name='tablamonitoreo')
+                      tr
+                        td(width='40%')
+                          label(for='unidad') Unidad
+                        td(width='10%')
+                          input#unidad(type='checkbox', value='unidad', name='tablamonitoreo')
+                        td(width='40%') 
+                          label(for='frecmonitoreo') Frecuencia de monitoreo
+                        td(width='10%')
+                          input#frecmonitoreo(type='checkbox', value='frecmonitoreo', name='tablamonitoreo')
             // End SmartWizard Content 
     // jQuery
     script(src='/jquery/dist/jquery.min.js')
@@ -253,19 +253,17 @@ html(lang='en')
     script(src='../iCheck/icheck.min.js')
     script.
       $(document).ready(function(){
-        //$('#config_init').modal('show');
-        //$("button").click(function() {
-          //var compromisos = [];
-          //$.each($("input[name='compromisos']:checked"), function() {
-            //favorite.push($(this).val());
-          //});
-        $('#config_init').modal('show').on('shown.bs.modal', function() {
-        });
-        });//$('#wizard').smartWizard();
-      //});
+        var firsttime = '#{session.user.firsttime}';
+        console.log(firsttime);
+        if (firsttime == 1) {
+          $('#config_init').modal('show');
+        }
+      });
       var logout = function() {
         $('#confirm_logout').modal('show');
       }
       var finishWizard = function(){
-        $('#config_init').modal('hide');
+        //$('#config_init').modal('hide');
+        $('#frmWizard').submit();
       }
+
