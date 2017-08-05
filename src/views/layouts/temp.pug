@@ -13,6 +13,18 @@ html(lang='en')
     link(href='../vendors/font-awesome/css/font-awesome.min.css', rel='stylesheet')
     // NProgress
     link(href='../vendors/nprogress/nprogress.css', rel='stylesheet')
+    // iCheck
+    link(href='../vendors/iCheck/skins/flat/green.css', rel='stylesheet')
+    // bootstrap-wysiwyg
+    link(href='../vendors/google-code-prettify/bin/prettify.min.css', rel='stylesheet')
+    // Select2
+    link(href='../vendors/select2/dist/css/select2.min.css', rel='stylesheet')
+    // Switchery
+    link(href='../vendors/switchery/dist/switchery.min.css', rel='stylesheet')
+    // starrr
+    link(href='../vendors/starrr/dist/starrr.css', rel='stylesheet')
+    // bootstrap-daterangepicker
+    link(href='../vendors/bootstrap-daterangepicker/daterangepicker.css', rel='stylesheet')
     // Custom Theme Style
     link(href='../build/css/custom.min.css', rel='stylesheet')
   body.nav-md
@@ -282,7 +294,7 @@ html(lang='en')
           div
             .page-title
               .title_left
-                h3 Form Wizards
+                h3 Form Elements
               .title_right
                 .col-md-5.col-sm-5.col-xs-12.form-group.pull-right.top_search
                   .input-group
@@ -295,7 +307,477 @@ html(lang='en')
                 .x_panel
                   .x_title
                     h2
-                      | Form Wizards 
+                      | Form Design 
+                      small different form elements
+                    ul.nav.navbar-right.panel_toolbox
+                      li
+                        a.collapse-link
+                          i.fa.fa-chevron-up
+                      li.dropdown
+                        a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-expanded='false')
+                          i.fa.fa-wrench
+                        ul.dropdown-menu(role='menu')
+                          li
+                            a(href='#') Settings 1
+                          li
+                            a(href='#') Settings 2
+                      li
+                        a.close-link
+                          i.fa.fa-close
+                    .clearfix
+                  .x_content
+                    br
+                    form#demo-form2.form-horizontal.form-label-left(data-parsley-validate='')
+                      .form-group
+                        label.control-label.col-md-3.col-sm-3.col-xs-12(for='first-name')
+                          | First Name 
+                          span.required *
+                        .col-md-6.col-sm-6.col-xs-12
+                          input#first-name.form-control.col-md-7.col-xs-12(type='text', required='required')
+                      .form-group
+                        label.control-label.col-md-3.col-sm-3.col-xs-12(for='last-name')
+                          | Last Name 
+                          span.required *
+                        .col-md-6.col-sm-6.col-xs-12
+                          input#last-name.form-control.col-md-7.col-xs-12(type='text', name='last-name', required='required')
+                      .form-group
+                        label.control-label.col-md-3.col-sm-3.col-xs-12(for='middle-name') Middle Name / Initial
+                        .col-md-6.col-sm-6.col-xs-12
+                          input#middle-name.form-control.col-md-7.col-xs-12(type='text', name='middle-name')
+                      .form-group
+                        label.control-label.col-md-3.col-sm-3.col-xs-12 Gender
+                        .col-md-6.col-sm-6.col-xs-12
+                          #gender.btn-group(data-toggle='buttons')
+                            label.btn.btn-default(data-toggle-class='btn-primary', data-toggle-passive-class='btn-default')
+                              input(type='radio', name='gender', value='male')
+                              |    Male
+                            label.btn.btn-primary(data-toggle-class='btn-primary', data-toggle-passive-class='btn-default')
+                              input(type='radio', name='gender', value='female')
+                              |  Female
+                      .form-group
+                        label.control-label.col-md-3.col-sm-3.col-xs-12
+                          | Date Of Birth 
+                          span.required *
+                        .col-md-6.col-sm-6.col-xs-12
+                          input#birthday.date-picker.form-control.col-md-7.col-xs-12(required='required', type='text')
+                      .ln_solid
+                      .form-group
+                        .col-md-6.col-sm-6.col-xs-12.col-md-offset-3
+                          button.btn.btn-primary(type='button') Cancel
+                          button.btn.btn-primary(type='reset') Reset
+                          button.btn.btn-success(type='submit') Submit
+            .row
+              .col-md-6.col-xs-12
+                .x_panel
+                  .x_title
+                    h2
+                      | Form Design 
+                      small different form elements
+                    ul.nav.navbar-right.panel_toolbox
+                      li
+                        a.collapse-link
+                          i.fa.fa-chevron-up
+                      li.dropdown
+                        a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-expanded='false')
+                          i.fa.fa-wrench
+                        ul.dropdown-menu(role='menu')
+                          li
+                            a(href='#') Settings 1
+                          li
+                            a(href='#') Settings 2
+                      li
+                        a.close-link
+                          i.fa.fa-close
+                    .clearfix
+                  .x_content
+                    br
+                    form.form-horizontal.form-label-left.input_mask
+                      .col-md-6.col-sm-6.col-xs-12.form-group.has-feedback
+                        input#inputSuccess2.form-control.has-feedback-left(type='text', placeholder='First Name')
+                        span.fa.fa-user.form-control-feedback.left(aria-hidden='true')
+                      .col-md-6.col-sm-6.col-xs-12.form-group.has-feedback
+                        input#inputSuccess3.form-control(type='text', placeholder='Last Name')
+                        span.fa.fa-user.form-control-feedback.right(aria-hidden='true')
+                      .col-md-6.col-sm-6.col-xs-12.form-group.has-feedback
+                        input#inputSuccess4.form-control.has-feedback-left(type='text', placeholder='Email')
+                        span.fa.fa-envelope.form-control-feedback.left(aria-hidden='true')
+                      .col-md-6.col-sm-6.col-xs-12.form-group.has-feedback
+                        input#inputSuccess5.form-control(type='text', placeholder='Phone')
+                        span.fa.fa-phone.form-control-feedback.right(aria-hidden='true')
+                      .form-group
+                        label.control-label.col-md-3.col-sm-3.col-xs-12 Default Input
+                        .col-md-9.col-sm-9.col-xs-12
+                          input.form-control(type='text', placeholder='Default Input')
+                      .form-group
+                        label.control-label.col-md-3.col-sm-3.col-xs-12 Disabled Input 
+                        .col-md-9.col-sm-9.col-xs-12
+                          input.form-control(type='text', disabled='disabled', placeholder='Disabled Input')
+                      .form-group
+                        label.control-label.col-md-3.col-sm-3.col-xs-12 Read-Only Input
+                        .col-md-9.col-sm-9.col-xs-12
+                          input.form-control(type='text', readonly='readonly', placeholder='Read-Only Input')
+                      .form-group
+                        label.control-label.col-md-3.col-sm-3.col-xs-12
+                          | Date Of Birth 
+                          span.required *
+                        .col-md-9.col-sm-9.col-xs-12
+                          input.date-picker.form-control.col-md-7.col-xs-12(required='required', type='text')
+                      .ln_solid
+                      .form-group
+                        .col-md-9.col-sm-9.col-xs-12.col-md-offset-3
+                          button.btn.btn-primary(type='button') Cancel
+                          button.btn.btn-primary(type='reset') Reset
+                          button.btn.btn-success(type='submit') Submit
+                .x_panel
+                  .x_title
+                    h2 Star Rating
+                    ul.nav.navbar-right.panel_toolbox
+                      li
+                        a.collapse-link
+                          i.fa.fa-chevron-up
+                      li.dropdown
+                        a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-expanded='false')
+                          i.fa.fa-wrench
+                        ul.dropdown-menu(role='menu')
+                          li
+                            a(href='#') Settings 1
+                          li
+                            a(href='#') Settings 2
+                      li
+                        a.close-link
+                          i.fa.fa-close
+                    .clearfix
+                  .x_content
+                    h4
+                      | Star Ratings
+                      small  Hover and click on a star
+                    div
+                      .starrr.stars
+                      |                       You gave a rating of 
+                      span.stars-count 0
+                      |  star(s)
+                    p Also you can give a default rating by adding attribute data-rating
+                    .starrr.stars-existing(data-rating='4')
+                    |                     You gave a rating of 
+                    span.stars-count-existing 4
+                    |  star(s)
+                .x_panel
+                  .x_title
+                    h2
+                      | Registration Form 
+                      small Click to validate
+                    ul.nav.navbar-right.panel_toolbox
+                      li
+                        a.collapse-link
+                          i.fa.fa-chevron-up
+                      li.dropdown
+                        a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-expanded='false')
+                          i.fa.fa-wrench
+                        ul.dropdown-menu(role='menu')
+                          li
+                            a(href='#') Settings 1
+                          li
+                            a(href='#') Settings 2
+                      li
+                        a.close-link
+                          i.fa.fa-close
+                    .clearfix
+                  .x_content
+                    // start form for validation
+                    form#demo-form(data-parsley-validate='')
+                      label(for='fullname') Full Name * :
+                      input#fullname.form-control(type='text', name='fullname', required='')
+                      label(for='email') Email * :
+                      input#email.form-control(type='email', name='email', data-parsley-trigger='change', required='')
+                      label Gender *:
+                      p
+                        | M:
+                        input#genderM.flat(type='radio', name='gender', value='M', checked='', required='')
+                        |  F:
+                        input#genderF.flat(type='radio', name='gender', value='F')
+                      label Hobbies (2 minimum):
+                      p(style='padding: 5px;')
+                        input#hobby1.flat(type='checkbox', name='hobbies[]', value='ski', data-parsley-mincheck='2', required='')
+                        |  Skiing
+                        br
+                        input#hobby2.flat(type='checkbox', name='hobbies[]', value='run')
+                        |  Running
+                        br
+                        input#hobby3.flat(type='checkbox', name='hobbies[]', value='eat')
+                        |  Eating
+                        br
+                        input#hobby4.flat(type='checkbox', name='hobbies[]', value='sleep')
+                        |  Sleeping
+                        br
+                      p
+                        label(for='heard') Heard us by *:
+                        select#heard.form-control(required='')
+                          option(value='') Choose..
+                          option(value='press') Press
+                          option(value='net') Internet
+                          option(value='mouth') Word of mouth
+                        label(for='message') Message (20 chars min, 100 max) :
+                        textarea#message.form-control(required='required', name='message', data-parsley-trigger='keyup', data-parsley-minlength='20', data-parsley-maxlength='100', data-parsley-minlength-message='Come on! You need to enter at least a 20 caracters long comment..', data-parsley-validation-threshold='10')
+                        br
+                        span.btn.btn-primary Validate form
+                    // end form for validations
+              .col-md-6.col-xs-12
+                .x_panel
+                  .x_title
+                    h2
+                      | Form Basic Elements 
+                      small different form elements
+                    ul.nav.navbar-right.panel_toolbox
+                      li
+                        a.collapse-link
+                          i.fa.fa-chevron-up
+                      li.dropdown
+                        a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-expanded='false')
+                          i.fa.fa-wrench
+                        ul.dropdown-menu(role='menu')
+                          li
+                            a(href='#') Settings 1
+                          li
+                            a(href='#') Settings 2
+                      li
+                        a.close-link
+                          i.fa.fa-close
+                    .clearfix
+                  .x_content
+                    br
+                    form.form-horizontal.form-label-left
+                      .form-group
+                        label.control-label.col-md-3.col-sm-3.col-xs-12 Default Input
+                        .col-md-9.col-sm-9.col-xs-12
+                          input.form-control(type='text', placeholder='Default Input')
+                      .form-group
+                        label.control-label.col-md-3.col-sm-3.col-xs-12 Disabled Input 
+                        .col-md-9.col-sm-9.col-xs-12
+                          input.form-control(type='text', disabled='disabled', placeholder='Disabled Input')
+                      .form-group
+                        label.control-label.col-md-3.col-sm-3.col-xs-12 Read-Only Input
+                        .col-md-9.col-sm-9.col-xs-12
+                          input.form-control(type='text', readonly='readonly', placeholder='Read-Only Input')
+                      .form-group
+                        label.control-label.col-md-3.col-sm-3.col-xs-12
+                          | Date Of Birth 
+                          span.required *
+                        .col-md-9.col-sm-9.col-xs-12
+                          textarea.form-control(rows='3', placeholder='rows="3"')
+                      .form-group
+                        label.control-label.col-md-3.col-sm-3.col-xs-12 Password
+                        .col-md-9.col-sm-9.col-xs-12
+                          input.form-control(type='password', value='passwordonetwo')
+                      .form-group
+                        label.control-label.col-md-3.col-sm-3.col-xs-12 AutoComplete
+                        .col-md-9.col-sm-9.col-xs-12
+                          input#autocomplete-custom-append.form-control.col-md-10(type='text', name='country')
+                      .form-group
+                        label.control-label.col-md-3.col-sm-3.col-xs-12 Select
+                        .col-md-9.col-sm-9.col-xs-12
+                          select.form-control
+                            option Choose option
+                            option Option one
+                            option Option two
+                            option Option three
+                            option Option four
+                      .form-group
+                        label.control-label.col-md-3.col-sm-3.col-xs-12 Select Custom
+                        .col-md-9.col-sm-9.col-xs-12
+                          select.select2_single.form-control(tabindex='-1')
+                            option
+                            option(value='AK') Alaska
+                            option(value='HI') Hawaii
+                            option(value='CA') California
+                            option(value='NV') Nevada
+                            option(value='OR') Oregon
+                            option(value='WA') Washington
+                            option(value='AZ') Arizona
+                            option(value='CO') Colorado
+                            option(value='ID') Idaho
+                            option(value='MT') Montana
+                            option(value='NE') Nebraska
+                            option(value='NM') New Mexico
+                            option(value='ND') North Dakota
+                            option(value='UT') Utah
+                            option(value='WY') Wyoming
+                            option(value='AR') Arkansas
+                            option(value='IL') Illinois
+                            option(value='IA') Iowa
+                            option(value='KS') Kansas
+                            option(value='KY') Kentucky
+                            option(value='LA') Louisiana
+                            option(value='MN') Minnesota
+                            option(value='MS') Mississippi
+                            option(value='MO') Missouri
+                            option(value='OK') Oklahoma
+                            option(value='SD') South Dakota
+                            option(value='TX') Texas
+                      .form-group
+                        label.control-label.col-md-3.col-sm-3.col-xs-12 Select Grouped
+                        .col-md-9.col-sm-9.col-xs-12
+                          select.select2_group.form-control
+                            optgroup(label='Alaskan/Hawaiian Time Zone')
+                              option(value='AK') Alaska
+                              option(value='HI') Hawaii
+                            optgroup(label='Pacific Time Zone')
+                              option(value='CA') California
+                              option(value='NV') Nevada
+                              option(value='OR') Oregon
+                              option(value='WA') Washington
+                            optgroup(label='Mountain Time Zone')
+                              option(value='AZ') Arizona
+                              option(value='CO') Colorado
+                              option(value='ID') Idaho
+                              option(value='MT') Montana
+                              option(value='NE') Nebraska
+                              option(value='NM') New Mexico
+                              option(value='ND') North Dakota
+                              option(value='UT') Utah
+                              option(value='WY') Wyoming
+                            optgroup(label='Central Time Zone')
+                              option(value='AL') Alabama
+                              option(value='AR') Arkansas
+                              option(value='IL') Illinois
+                              option(value='IA') Iowa
+                              option(value='KS') Kansas
+                              option(value='KY') Kentucky
+                              option(value='LA') Louisiana
+                              option(value='MN') Minnesota
+                              option(value='MS') Mississippi
+                              option(value='MO') Missouri
+                              option(value='OK') Oklahoma
+                              option(value='SD') South Dakota
+                              option(value='TX') Texas
+                              option(value='TN') Tennessee
+                              option(value='WI') Wisconsin
+                            optgroup(label='Eastern Time Zone')
+                              option(value='CT') Connecticut
+                              option(value='DE') Delaware
+                              option(value='FL') Florida
+                              option(value='GA') Georgia
+                              option(value='IN') Indiana
+                              option(value='ME') Maine
+                              option(value='MD') Maryland
+                              option(value='MA') Massachusetts
+                              option(value='MI') Michigan
+                              option(value='NH') New Hampshire
+                              option(value='NJ') New Jersey
+                              option(value='NY') New York
+                              option(value='NC') North Carolina
+                              option(value='OH') Ohio
+                              option(value='PA') Pennsylvania
+                              option(value='RI') Rhode Island
+                              option(value='SC') South Carolina
+                              option(value='VT') Vermont
+                              option(value='VA') Virginia
+                              option(value='WV') West Virginia
+                      .form-group
+                        label.control-label.col-md-3.col-sm-3.col-xs-12 Select Multiple
+                        .col-md-9.col-sm-9.col-xs-12
+                          select.select2_multiple.form-control(multiple='multiple')
+                            option Choose option
+                            option Option one
+                            option Option two
+                            option Option three
+                            option Option four
+                            option Option five
+                            option Option six
+                      .control-group
+                        label.control-label.col-md-3.col-sm-3.col-xs-12 Input Tags
+                        .col-md-9.col-sm-9.col-xs-12
+                          input#tags_1.tags.form-control(type='text', value='social, adverts, sales')
+                          #suggestions-container(style='position: relative; float: left; width: 250px; margin: 10px;')
+                      .form-group
+                        label.col-md-3.col-sm-3.col-xs-12.control-label
+                          | Checkboxes and radios
+                          br
+                          small.text-navy Normal Bootstrap elements
+                        .col-md-9.col-sm-9.col-xs-12
+                          .checkbox
+                            label
+                              input(type='checkbox', value='')
+                              |  Option one. select more than one options
+                          .checkbox
+                            label
+                              input(type='checkbox', value='')
+                              |  Option two. select more than one options
+                          .radio
+                            label
+                              input#optionsRadios1(type='radio', checked='', value='option1', name='optionsRadios')
+                              |  Option one. only select one option
+                          .radio
+                            label
+                              input#optionsRadios2(type='radio', value='option2', name='optionsRadios')
+                              |  Option two. only select one option
+                      .form-group
+                        label.col-md-3.col-sm-3.col-xs-12.control-label
+                          | Checkboxes and radios
+                          br
+                          small.text-navy Normal Bootstrap elements
+                        .col-md-9.col-sm-9.col-xs-12
+                          .checkbox
+                            label
+                              input.flat(type='checkbox', checked='checked')
+                              |  Checked
+                          .checkbox
+                            label
+                              input.flat(type='checkbox')
+                              |  Unchecked
+                          .checkbox
+                            label
+                              input.flat(type='checkbox', disabled='disabled')
+                              |  Disabled
+                          .checkbox
+                            label
+                              input.flat(type='checkbox', disabled='disabled', checked='checked')
+                              |  Disabled & checked
+                          .radio
+                            label
+                              input.flat(type='radio', checked='', name='iCheck')
+                              |  Checked
+                          .radio
+                            label
+                              input.flat(type='radio', name='iCheck')
+                              |  Unchecked
+                          .radio
+                            label
+                              input.flat(type='radio', name='iCheck', disabled='disabled')
+                              |  Disabled
+                          .radio
+                            label
+                              input.flat(type='radio', name='iCheck3', disabled='disabled', checked='')
+                              |  Disabled & Checked
+                      .form-group
+                        label.control-label.col-md-3.col-sm-3.col-xs-12 Switch
+                        .col-md-9.col-sm-9.col-xs-12
+                          div
+                            label
+                              input.js-switch(type='checkbox', checked='')
+                              |  Checked
+                          div
+                            label
+                              input.js-switch(type='checkbox')
+                              |  Unchecked
+                          div
+                            label
+                              input.js-switch(type='checkbox', disabled='disabled')
+                              |  Disabled
+                          div
+                            label
+                              input.js-switch(type='checkbox', disabled='disabled', checked='checked')
+                              |  Disabled Checked
+                      .ln_solid
+                      .form-group
+                        .col-md-9.col-sm-9.col-xs-12.col-md-offset-3
+                          button.btn.btn-primary(type='button') Cancel
+                          button.btn.btn-primary(type='reset') Reset
+                          button.btn.btn-success(type='submit') Submit
+              .col-md-6.col-sm-12.col-xs-12
+                .x_panel
+                  .x_title
+                    h2
+                      | Form Buttons 
                       small Sessions
                     ul.nav.navbar-right.panel_toolbox
                       li
@@ -314,190 +796,291 @@ html(lang='en')
                           i.fa.fa-close
                     .clearfix
                   .x_content
-                    // Smart Wizard
-                    p
-                      | This is a basic form wizard example that inherits the colors from the selected scheme.
-                    #wizard.form_wizard.wizard_horizontal
-                      ul.wizard_steps
+                    form.form-horizontal.form-label-left
+                      .form-group
+                        label.col-sm-3.control-label Button addons
+                        .col-sm-9
+                          .input-group
+                            span.input-group-btn
+                              button.btn.btn-primary(type='button') Go!
+                            input.form-control(type='text')
+                          .input-group
+                            input.form-control(type='text')
+                            span.input-group-btn
+                              button.btn.btn-primary(type='button') Go!
+                      .divider-dashed
+                      .form-group
+                        label.col-sm-3.control-label Button addons
+                        .col-sm-9
+                          .input-group
+                            input.form-control(type='text', aria-label='Text input with dropdown button')
+                            .input-group-btn
+                              button.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown', aria-expanded='false')
+                                | Action 
+                                span.caret
+                              ul.dropdown-menu.dropdown-menu-right(role='menu')
+                                li
+                                  a(href='#') Action
+                                li
+                                  a(href='#') Another action
+                                li
+                                  a(href='#') Something else here
+                                li.divider
+                                li
+                                  a(href='#') Separated link
+                            // /btn-group
+                          .input-group
+                            input.form-control(type='text')
+                            span.input-group-btn
+                              button.btn.btn-primary(type='button') Go!
+            .col-md-12.col-sm-12.col-xs-12
+              .x_panel
+                .x_title
+                  h2
+                    | Text areas
+                    small Sessions
+                  ul.nav.navbar-right.panel_toolbox
+                    li
+                      a.collapse-link
+                        i.fa.fa-chevron-up
+                    li.dropdown
+                      a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-expanded='false')
+                        i.fa.fa-wrench
+                      ul.dropdown-menu(role='menu')
                         li
-                          a(href='#step-1')
-                            span.step_no 1
-                            span.step_descr
-                              | Step 1
-                              br
-                              small Step 1 description
+                          a(href='#') Settings 1
                         li
-                          a(href='#step-2')
-                            span.step_no 2
-                            span.step_descr
-                              | Step 2
-                              br
-                              small Step 2 description
+                          a(href='#') Settings 2
+                    li
+                      a.close-link
+                        i.fa.fa-close
+                  .clearfix
+                .x_content
+                  #alerts
+                  .btn-toolbar.editor(data-role='editor-toolbar', data-target='#editor-one')
+                    .btn-group
+                      a.btn.dropdown-toggle(data-toggle='dropdown', title='Font')
+                        i.fa.fa-font
+                        b.caret
+                      ul.dropdown-menu
+                    .btn-group
+                      a.btn.dropdown-toggle(data-toggle='dropdown', title='Font Size')
+                        i.fa.fa-text-height
+                        b.caret
+                      ul.dropdown-menu
                         li
-                          a(href='#step-3')
-                            span.step_no 3
-                            span.step_descr
-                              | Step 3
-                              br
-                              small Step 3 description
+                          a(data-edit='fontSize 5')
+                            p(style='font-size:17px') Huge
                         li
-                          a(href='#step-4')
-                            span.step_no 4
-                            span.step_descr
-                              | Step 4
-                              br
-                              small Step 4 description
-                      #step-1
-                        form.form-horizontal.form-label-left
-                          .form-group
-                            label.control-label.col-md-3.col-sm-3.col-xs-12(for='first-name')
-                              | First Name 
-                              span.required *
-                            .col-md-6.col-sm-6.col-xs-12
-                              input#first-name.form-control.col-md-7.col-xs-12(type='text', required='required')
-                          .form-group
-                            label.control-label.col-md-3.col-sm-3.col-xs-12(for='last-name')
-                              | Last Name 
-                              span.required *
-                            .col-md-6.col-sm-6.col-xs-12
-                              input#last-name.form-control.col-md-7.col-xs-12(type='text', name='last-name', required='required')
-                          .form-group
-                            label.control-label.col-md-3.col-sm-3.col-xs-12(for='middle-name') Middle Name / Initial
-                            .col-md-6.col-sm-6.col-xs-12
-                              input#middle-name.form-control.col-md-7.col-xs-12(type='text', name='middle-name')
-                          .form-group
-                            label.control-label.col-md-3.col-sm-3.col-xs-12 Gender
-                            .col-md-6.col-sm-6.col-xs-12
-                              #gender.btn-group(data-toggle='buttons')
-                                label.btn.btn-default(data-toggle-class='btn-primary', data-toggle-passive-class='btn-default')
-                                  input(type='radio', name='gender', value='male')
-                                  |    Male
-                                label.btn.btn-primary(data-toggle-class='btn-primary', data-toggle-passive-class='btn-default')
-                                  input(type='radio', name='gender', value='female')
-                                  |  Female
-                          .form-group
-                            label.control-label.col-md-3.col-sm-3.col-xs-12
-                              | Date Of Birth 
-                              span.required *
-                            .col-md-6.col-sm-6.col-xs-12
-                              input#birthday.date-picker.form-control.col-md-7.col-xs-12(required='required', type='text')
-                      #step-2
-                        h2.StepTitle Step 2 Content
-                        p
-                          | do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                          | fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                        p
-                          | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                          | in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                      #step-3
-                        h2.StepTitle Step 3 Content
-                        p
-                          | sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
-                          | eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                        p
-                          | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                          | in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                      #step-4
-                        h2.StepTitle Step 4 Content
-                        p
-                          | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                          | Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                        p
-                          | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                          | in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                        p
-                          | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                          | in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                    // End SmartWizard Content
-                    h2 Example: Vertical Style
-                    // Tabs
-                    #wizard_verticle.form_wizard.wizard_verticle
-                      ul.list-unstyled.wizard_steps
+                          a(data-edit='fontSize 3')
+                            p(style='font-size:14px') Normal
                         li
-                          a(href='#step-11')
-                            span.step_no 1
-                        li
-                          a(href='#step-22')
-                            span.step_no 2
-                        li
-                          a(href='#step-33')
-                            span.step_no 3
-                        li
-                          a(href='#step-44')
-                            span.step_no 4
-                      #step-11
-                        h2.StepTitle Step 1 Content
-                        form.form-horizontal.form-label-left
-                          span.section Personal Info
-                          .form-group
-                            label.control-label.col-md-3.col-sm-3(for='first-name')
-                              | First Name 
-                              span.required *
-                            .col-md-6.col-sm-6
-                              input#first-name2.form-control.col-md-7.col-xs-12(type='text', required='required')
-                          .form-group
-                            label.control-label.col-md-3.col-sm-3(for='last-name')
-                              | Last Name 
-                              span.required *
-                            .col-md-6.col-sm-6
-                              input#last-name2.form-control.col-md-7.col-xs-12(type='text', name='last-name', required='required')
-                          .form-group
-                            label.control-label.col-md-3.col-sm-3(for='middle-name') Middle Name / Initial
-                            .col-md-6.col-sm-6
-                              input#middle-name2.form-control.col-md-7.col-xs-12(type='text', name='middle-name')
-                          .form-group
-                            label.control-label.col-md-3.col-sm-3 Gender
-                            .col-md-6.col-sm-6
-                              #gender2.btn-group(data-toggle='buttons')
-                                label.btn.btn-default(data-toggle-class='btn-primary', data-toggle-passive-class='btn-default')
-                                  input(type='radio', name='gender', value='male')
-                                  |    Male
-                                label.btn.btn-primary(data-toggle-class='btn-primary', data-toggle-passive-class='btn-default')
-                                  input(type='radio', name='gender', value='female', checked='')
-                                  |  Female
-                          .form-group
-                            label.control-label.col-md-3.col-sm-3
-                              | Date Of Birth 
-                              span.required *
-                            .col-md-6.col-sm-6
-                              input#birthday2.date-picker.form-control.col-md-7.col-xs-12(required='required', type='text')
-                      #step-22
-                        h2.StepTitle Step 2 Content
-                        p
-                          | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                          | Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                        p
-                          | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                          | in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                        p
-                          | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                          | in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                        p
-                          | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                          | in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                        p
-                          | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                          | in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                      #step-33
-                        h2.StepTitle Step 3 Content
-                        p
-                          | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                          | Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                        p
-                          | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                          | in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                      #step-44
-                        h2.StepTitle Step 4 Content
-                        p
-                          | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                          | Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                        p
-                          | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                          | in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                        p
-                          | Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                          | in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                    // End SmartWizard Content
+                          a(data-edit='fontSize 1')
+                            p(style='font-size:11px') Small
+                    .btn-group
+                      a.btn(data-edit='bold', title='Bold (Ctrl/Cmd+B)')
+                        i.fa.fa-bold
+                      a.btn(data-edit='italic', title='Italic (Ctrl/Cmd+I)')
+                        i.fa.fa-italic
+                      a.btn(data-edit='strikethrough', title='Strikethrough')
+                        i.fa.fa-strikethrough
+                      a.btn(data-edit='underline', title='Underline (Ctrl/Cmd+U)')
+                        i.fa.fa-underline
+                    .btn-group
+                      a.btn(data-edit='insertunorderedlist', title='Bullet list')
+                        i.fa.fa-list-ul
+                      a.btn(data-edit='insertorderedlist', title='Number list')
+                        i.fa.fa-list-ol
+                      a.btn(data-edit='outdent', title='Reduce indent (Shift+Tab)')
+                        i.fa.fa-dedent
+                      a.btn(data-edit='indent', title='Indent (Tab)')
+                        i.fa.fa-indent
+                    .btn-group
+                      a.btn(data-edit='justifyleft', title='Align Left (Ctrl/Cmd+L)')
+                        i.fa.fa-align-left
+                      a.btn(data-edit='justifycenter', title='Center (Ctrl/Cmd+E)')
+                        i.fa.fa-align-center
+                      a.btn(data-edit='justifyright', title='Align Right (Ctrl/Cmd+R)')
+                        i.fa.fa-align-right
+                      a.btn(data-edit='justifyfull', title='Justify (Ctrl/Cmd+J)')
+                        i.fa.fa-align-justify
+                    .btn-group
+                      a.btn.dropdown-toggle(data-toggle='dropdown', title='Hyperlink')
+                        i.fa.fa-link
+                      .dropdown-menu.input-append
+                        input.span2(placeholder='URL', type='text', data-edit='createLink')
+                        button.btn(type='button') Add
+                      a.btn(data-edit='unlink', title='Remove Hyperlink')
+                        i.fa.fa-cut
+                    .btn-group
+                      a#pictureBtn.btn(title='Insert picture (or just drag & drop)')
+                        i.fa.fa-picture-o
+                      input(type='file', data-role='magic-overlay', data-target='#pictureBtn', data-edit='insertImage')
+                    .btn-group
+                      a.btn(data-edit='undo', title='Undo (Ctrl/Cmd+Z)')
+                        i.fa.fa-undo
+                      a.btn(data-edit='redo', title='Redo (Ctrl/Cmd+Y)')
+                        i.fa.fa-repeat
+                  #editor-one.editor-wrapper
+                  textarea#descr(name='descr', style='display:none;')
+                  br
+                  .ln_solid
+                  .form-group
+                    label.control-label.col-md-3.col-sm-3.col-xs-12 Resizable Text area
+                    .col-md-9.col-sm-9.col-xs-12
+                      textarea.resizable_textarea.form-control(placeholder='This text area automatically resizes its height as you fill in more text courtesy of autosize-master it out...')
+            .x_panel
+              .x_title
+                h2
+                  | Form Input Grid 
+                  small form input 
+                ul.nav.navbar-right.panel_toolbox
+                  li
+                    a.collapse-link
+                      i.fa.fa-chevron-up
+                  li.dropdown
+                    a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-expanded='false')
+                      i.fa.fa-wrench
+                    ul.dropdown-menu(role='menu')
+                      li
+                        a(href='#') Settings 1
+                      li
+                        a(href='#') Settings 2
+                  li
+                    a.close-link
+                      i.fa.fa-close
+                .clearfix
+              .x_content
+                .row
+                  .col-md-12.col-sm-12.col-xs-12.form-group
+                    input.form-control(type='text', placeholder='.col-md-12')
+                  .col-md-6.col-sm-12.col-xs-12.form-group
+                    input.form-control(type='text', placeholder='.col-md-6')
+                  .col-md-6.col-sm-12.col-xs-12.form-group
+                    input.form-control(type='text', placeholder='.col-md-6')
+                  .col-md-4.col-sm-12.col-xs-12.form-group
+                    input.form-control(type='text', placeholder='.col-md-4')
+                  .col-md-4.col-sm-12.col-xs-12.form-group
+                    input.form-control(type='text', placeholder='.col-md-4')
+                  .col-md-4.col-sm-12.col-xs-12.form-group
+                    input.form-control(type='text', placeholder='.col-md-4')
+                  .col-md-3.col-sm-12.col-xs-12.form-group
+                    input.form-control(type='text', placeholder='.col-md-3')
+                  .col-md-3.col-sm-12.col-xs-12.form-group
+                    input.form-control(type='text', placeholder='.col-md-3')
+                  .col-md-3.col-sm-12.col-xs-12.form-group
+                    input.form-control(type='text', placeholder='.col-md-3')
+                  .col-md-3.col-sm-12.col-xs-12.form-group
+                    input.form-control(type='text', placeholder='.col-md-3')
+                  .col-md-2.col-sm-12.col-xs-12.form-group
+                    input.form-control(type='text', placeholder='.col-md-2')
+                  .col-md-2.col-sm-12.col-xs-12.form-group
+                    input.form-control(type='text', placeholder='.col-md-2')
+                  .col-md-2.col-sm-12.col-xs-12.form-group
+                    input.form-control(type='text', placeholder='.col-md-2')
+                  .col-md-2.col-sm-12.col-xs-12.form-group
+                    input.form-control(type='text', placeholder='.col-md-2')
+                  .col-md-2.col-sm-12.col-xs-12.form-group
+                    input.form-control(type='text', placeholder='.col-md-2')
+                  .col-md-2.col-sm-12.col-xs-12.form-group
+                    input.form-control(type='text', placeholder='.col-md-2')
+                  .col-md-1.col-sm-12.col-xs-12.form-group
+                    input.form-control(type='text', placeholder='.col-md-1')
+                  .col-md-1.col-sm-12.col-xs-12.form-group
+                    input.form-control(type='text', placeholder='.col-md-1')
+                  .col-md-1.col-sm-12.col-xs-12.form-group
+                    input.form-control(type='text', placeholder='.col-md-1')
+                  .col-md-1.col-sm-12.col-xs-12.form-group
+                    input.form-control(type='text', placeholder='.col-md-1')
+                  .col-md-1.col-sm-12.col-xs-12.form-group
+                    input.form-control(type='text', placeholder='.col-md-1')
+                  .col-md-1.col-sm-12.col-xs-12.form-group
+                    input.form-control(type='text', placeholder='.col-md-1')
+                  .col-md-1.col-sm-12.col-xs-12.form-group
+                    input.form-control(type='text', placeholder='.col-md-1')
+                  .col-md-1.col-sm-12.col-xs-12.form-group
+                    input.form-control(type='text', placeholder='.col-md-1')
+                  .col-md-1.col-sm-12.col-xs-12.form-group
+                    input.form-control(type='text', placeholder='.col-md-1')
+                  .col-md-1.col-sm-12.col-xs-12.form-group
+                    input.form-control(type='text', placeholder='.col-md-1')
+                  .col-md-1.col-sm-12.col-xs-12.form-group
+                    input.form-control(type='text', placeholder='.col-md-1')
+                  .col-md-1.col-sm-12.col-xs-12.form-group
+                    input.form-control(type='text', placeholder='.col-md-1')
+            .x_panel
+              .x_title
+                h2
+                  | Form Design 
+                  small different form elements
+                ul.nav.navbar-right.panel_toolbox
+                  li
+                    a.collapse-link
+                      i.fa.fa-chevron-up
+                  li.dropdown
+                    a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-expanded='false')
+                      i.fa.fa-wrench
+                    ul.dropdown-menu(role='menu')
+                      li
+                        a(href='#') Settings 1
+                      li
+                        a(href='#') Settings 2
+                  li
+                    a.close-link
+                      i.fa.fa-close
+                .clearfix
+              .x_content
+                br
+                h4 Horizontal labels
+                p.font-gray-dark
+                  | Using the grid system you can control the position of the labels. The form example below has the 
+                  b col-md-10
+                  |  which sets the width to 10/12 and 
+                  b center-margin
+                  |  which centers it.
+                form.form-horizontal.form-label-left
+                  .form-group
+                    label.control-label.col-md-3(for='first-name')
+                      | First Name 
+                      span.required *
+                    .col-md-7
+                      input#first-name2.form-control.col-md-7.col-xs-12(type='text', required='required')
+                  .form-group
+                    label.control-label.col-md-3(for='last-name')
+                      | Last Name 
+                      span.required *
+                    .col-md-7
+                      input#last-name2.form-control.col-md-7.col-xs-12(type='text', name='last-name', required='required')
+                h4 Vertical labels
+                p.font-gray-dark
+                  | For making labels vertical you have two options, either use the apropiate grid 
+                  b .col-
+                  |  class or wrap the form in the 
+                  b form-vertical
+                  |  class.
+                .col-md-8.center-margin
+                  form.form-horizontal.form-label-left
+                    .form-group
+                      label Email address
+                      input.form-control(type='email', placeholder='Enter email')
+                    .form-group
+                      label Password
+                      input.form-control(type='password', placeholder='Password')
+                h4 Inline Form 
+                p.font-gray-dark
+                  | Add .form-inline to your form (which doesn't have to be a <form>) for left-aligned and inline-block controls.
+                form.form-inline
+                  .form-group
+                    label(for='ex3') Email address
+                    input#ex3.form-control(type='text', placeholder=' ')
+                  .form-group
+                    label(for='ex4') Email address
+                    input#ex4.form-control(type='email', placeholder=' ')
+                  .checkbox
+                    label
+                      input(type='checkbox')
+                      |  Remember me
+                  button.btn.btn-default(type='submit') Send invitation
         // /page content
         // footer content
         footer
@@ -514,7 +1097,30 @@ html(lang='en')
     script(src='../vendors/fastclick/lib/fastclick.js')
     // NProgress
     script(src='../vendors/nprogress/nprogress.js')
-    // jQuery Smart Wizard
-    script(src='../vendors/jQuery-Smart-Wizard/js/jquery.smartWizard.js')
+    // bootstrap-progressbar
+    script(src='../vendors/bootstrap-progressbar/bootstrap-progressbar.min.js')
+    // iCheck
+    script(src='../vendors/iCheck/icheck.min.js')
+    // bootstrap-daterangepicker
+    script(src='../vendors/moment/min/moment.min.js')
+    script(src='../vendors/bootstrap-daterangepicker/daterangepicker.js')
+    // bootstrap-wysiwyg
+    script(src='../vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js')
+    script(src='../vendors/jquery.hotkeys/jquery.hotkeys.js')
+    script(src='../vendors/google-code-prettify/src/prettify.js')
+    // jQuery Tags Input
+    script(src='../vendors/jquery.tagsinput/src/jquery.tagsinput.js')
+    // Switchery
+    script(src='../vendors/switchery/dist/switchery.min.js')
+    // Select2
+    script(src='../vendors/select2/dist/js/select2.full.min.js')
+    // Parsley
+    script(src='../vendors/parsleyjs/dist/parsley.min.js')
+    // Autosize
+    script(src='../vendors/autosize/dist/autosize.min.js')
+    // jQuery autocomplete
+    script(src='../vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js')
+    // starrr
+    script(src='../vendors/starrr/dist/starrr.js')
     // Custom Theme Scripts
     script(src='../build/js/custom.min.js')

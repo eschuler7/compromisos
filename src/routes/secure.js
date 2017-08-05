@@ -35,6 +35,22 @@ router.get('/massive', function(req, res){
 	res.render('partial/massive');
 });
 
+router.get('/configattrcommit', function(req, res){
+	res.render('partial/configattrcommit');
+});
+router.get('/configattrmonit', function(req, res){
+	res.render('partial/configattrmonit');
+});
+router.get('/listallmonit', function(req, res){
+	res.render('partial/listallmonit');
+});
+router.get('/massivemonit', function(req, res){
+	res.render('partial/massivemonit');
+});
+router.get('/registermonit', function(req, res){
+	res.render('partial/registermonit');
+});
+
 router.get('/logout', function(req, res){
 	req.session.destroy();
 	res.redirect('/');
