@@ -40,19 +40,46 @@ router.get('/logout', function(req, res){
 	res.redirect('/');
 });
 
+router.get('/clients', function(req, res){
+	var companies;
+	try {
+		companies = mysql.company.listCompanies();
+	} catch(e) {
+		console.log('[/clients]',e);
+	}
+	res.render('partial/clients',{clients: companies});
+});
+
+router.get('/clientdetail/:ruc', function(req, res){
+	var ruc = req.params.ruc;
+	try {
+		
+	} catch(e) {
+		console.log('[/clientdetail]',e);
+	}
+});
+
+router.get('/clientedit/:ruc', function(req, res){
+	var ruc = req.params.ruc;
+	try {
+		
+	} catch(e) {
+		console.log('[/clientedit]',e);
+	}
+});
+
 // TODAS LAS LLAMADAS POST
 
 router.post('/initConfig', function(req, res){
-	mysql.company.updateFirstTime(req.session.user.t_company_ruc);
-
-	var userlist = mysql.user.login2(req.session.user.t_company_ruc,req.session.user.email);
-	
-	if(userlist.length == 1) {
-		req.session.user = userlist[0];
-		res.redirect('/secure/home');
-	} else {
-		res.render('login', {error : 'Los datos ingresados no son correctos.'});
+	try {
+		var result = mysql.company.updateFirstTime(req.session.user.t_company_ruc);
+		if(result.affectedRows == 1) {
+			req.session.user.firsttime == 0;
+		}
+	} catch(e) {
+		console.log('[/initConfig]',e);
 	}
+	res.redirect('/secure/home');
 });
 
 module.exports = router;
