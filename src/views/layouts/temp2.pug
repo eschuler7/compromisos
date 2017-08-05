@@ -6,7 +6,7 @@ html(lang='en')
     meta(charset='utf-8')
     meta(http-equiv='X-UA-Compatible', content='IE=edge')
     meta(name='viewport', content='width=device-width, initial-scale=1')
-    title Gentelella Alela! 
+    title DataTables | Gentelella
     // Bootstrap
     link(href='../vendors/bootstrap/dist/css/bootstrap.min.css', rel='stylesheet')
     // Font Awesome
@@ -15,12 +15,12 @@ html(lang='en')
     link(href='../vendors/nprogress/nprogress.css', rel='stylesheet')
     // iCheck
     link(href='../vendors/iCheck/skins/flat/green.css', rel='stylesheet')
-    // bootstrap-progressbar
-    link(href='../vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css', rel='stylesheet')
-    // PNotify
-    link(href='../vendors/pnotify/dist/pnotify.css', rel='stylesheet')
-    link(href='../vendors/pnotify/dist/pnotify.buttons.css', rel='stylesheet')
-    link(href='../vendors/pnotify/dist/pnotify.nonblock.css', rel='stylesheet')
+    // Datatables
+    link(href='../vendors/datatables.net-bs/css/dataTables.bootstrap.min.css', rel='stylesheet')
+    link(href='../vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css', rel='stylesheet')
+    link(href='../vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css', rel='stylesheet')
+    link(href='../vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css', rel='stylesheet')
+    link(href='../vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css', rel='stylesheet')
     // Custom Theme Style
     link(href='../build/css/custom.min.css', rel='stylesheet')
   body.nav-md
@@ -290,7 +290,9 @@ html(lang='en')
           div
             .page-title
               .title_left
-                h3 General Elements
+                h3
+                  | Users 
+                  small Some examples to get you started
               .title_right
                 .col-md-5.col-sm-5.col-xs-12.form-group.pull-right.top_search
                   .input-group
@@ -298,14 +300,13 @@ html(lang='en')
                     span.input-group-btn
                       button.btn.btn-default(type='button') Go!
             .clearfix
-            div
-              .col-md-6.col-sm-6.col-xs-12
+            .row
+              .col-md-12.col-sm-12.col-xs-12
                 .x_panel
                   .x_title
                     h2
-                      i.fa.fa-bars
-                      |  Tabs 
-                      small Float left
+                      | Default Example 
+                      small Users
                     ul.nav.navbar-right.panel_toolbox
                       li
                         a.collapse-link
@@ -323,34 +324,422 @@ html(lang='en')
                           i.fa.fa-close
                     .clearfix
                   .x_content
-                    div(role='tabpanel', data-example-id='togglable-tabs')
-                      ul#myTab.nav.nav-tabs.bar_tabs(role='tablist')
-                        li.active(role='presentation')
-                          a#home-tab(href='#tab_content1', role='tab', data-toggle='tab', aria-expanded='true') Home
-                        li(role='presentation')
-                          a#profile-tab(href='#tab_content2', role='tab', data-toggle='tab', aria-expanded='false') Profile
-                        li(role='presentation')
-                          a#profile-tab2(href='#tab_content3', role='tab', data-toggle='tab', aria-expanded='false') Profile
-                      #myTabContent.tab-content
-                        #tab_content1.tab-pane.fade.active.in(role='tabpanel', aria-labelledby='home-tab')
-                          p
-                            | Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher
-                            | synth. Cosby sweater eu banh mi, qui irure terr.
-                        #tab_content2.tab-pane.fade(role='tabpanel', aria-labelledby='profile-tab')
-                          p
-                            | Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo
-                            | booth letterpress, commodo enim craft beer mlkshk aliquip
-                        #tab_content3.tab-pane.fade(role='tabpanel', aria-labelledby='profile-tab')
-                          p
-                            | xxFood truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo
-                            | booth letterpress, commodo enim craft beer mlkshk
-              .col-md-6.col-sm-6.col-xs-12
+                    p.text-muted.font-13.m-b-30
+                      | DataTables has most features enabled by default, so all you need to do to use it with your own tables is to call the construction function: 
+                      code $().DataTable();
+                    table#datatable.table.table-striped.table-bordered
+                      thead
+                        tr
+                          th Name
+                          th Position
+                          th Office
+                          th Age
+                          th Start date
+                          th Salary
+                      tbody
+                        tr
+                          td Tiger Nixon
+                          td System Architect
+                          td Edinburgh
+                          td 61
+                          td 2011/04/25
+                          td $320,800
+                        tr
+                          td Garrett Winters
+                          td Accountant
+                          td Tokyo
+                          td 63
+                          td 2011/07/25
+                          td $170,750
+                        tr
+                          td Ashton Cox
+                          td Junior Technical Author
+                          td San Francisco
+                          td 66
+                          td 2009/01/12
+                          td $86,000
+                        tr
+                          td Cedric Kelly
+                          td Senior Javascript Developer
+                          td Edinburgh
+                          td 22
+                          td 2012/03/29
+                          td $433,060
+                        tr
+                          td Airi Satou
+                          td Accountant
+                          td Tokyo
+                          td 33
+                          td 2008/11/28
+                          td $162,700
+                        tr
+                          td Brielle Williamson
+                          td Integration Specialist
+                          td New York
+                          td 61
+                          td 2012/12/02
+                          td $372,000
+                        tr
+                          td Herrod Chandler
+                          td Sales Assistant
+                          td San Francisco
+                          td 59
+                          td 2012/08/06
+                          td $137,500
+                        tr
+                          td Rhona Davidson
+                          td Integration Specialist
+                          td Tokyo
+                          td 55
+                          td 2010/10/14
+                          td $327,900
+                        tr
+                          td Colleen Hurst
+                          td Javascript Developer
+                          td San Francisco
+                          td 39
+                          td 2009/09/15
+                          td $205,500
+                        tr
+                          td Sonya Frost
+                          td Software Engineer
+                          td Edinburgh
+                          td 23
+                          td 2008/12/13
+                          td $103,600
+                        tr
+                          td Jena Gaines
+                          td Office Manager
+                          td London
+                          td 30
+                          td 2008/12/19
+                          td $90,560
+                        tr
+                          td Quinn Flynn
+                          td Support Lead
+                          td Edinburgh
+                          td 22
+                          td 2013/03/03
+                          td $342,000
+                        tr
+                          td Charde Marshall
+                          td Regional Director
+                          td San Francisco
+                          td 36
+                          td 2008/10/16
+                          td $470,600
+                        tr
+                          td Haley Kennedy
+                          td Senior Marketing Designer
+                          td London
+                          td 43
+                          td 2012/12/18
+                          td $313,500
+                        tr
+                          td Tatyana Fitzpatrick
+                          td Regional Director
+                          td London
+                          td 19
+                          td 2010/03/17
+                          td $385,750
+                        tr
+                          td Michael Silva
+                          td Marketing Designer
+                          td London
+                          td 66
+                          td 2012/11/27
+                          td $198,500
+                        tr
+                          td Paul Byrd
+                          td Chief Financial Officer (CFO)
+                          td New York
+                          td 64
+                          td 2010/06/09
+                          td $725,000
+                        tr
+                          td Gloria Little
+                          td Systems Administrator
+                          td New York
+                          td 59
+                          td 2009/04/10
+                          td $237,500
+                        tr
+                          td Bradley Greer
+                          td Software Engineer
+                          td London
+                          td 41
+                          td 2012/10/13
+                          td $132,000
+                        tr
+                          td Dai Rios
+                          td Personnel Lead
+                          td Edinburgh
+                          td 35
+                          td 2012/09/26
+                          td $217,500
+                        tr
+                          td Jenette Caldwell
+                          td Development Lead
+                          td New York
+                          td 30
+                          td 2011/09/03
+                          td $345,000
+                        tr
+                          td Yuri Berry
+                          td Chief Marketing Officer (CMO)
+                          td New York
+                          td 40
+                          td 2009/06/25
+                          td $675,000
+                        tr
+                          td Caesar Vance
+                          td Pre-Sales Support
+                          td New York
+                          td 21
+                          td 2011/12/12
+                          td $106,450
+                        tr
+                          td Doris Wilder
+                          td Sales Assistant
+                          td Sidney
+                          td 23
+                          td 2010/09/20
+                          td $85,600
+                        tr
+                          td Angelica Ramos
+                          td Chief Executive Officer (CEO)
+                          td London
+                          td 47
+                          td 2009/10/09
+                          td $1,200,000
+                        tr
+                          td Gavin Joyce
+                          td Developer
+                          td Edinburgh
+                          td 42
+                          td 2010/12/22
+                          td $92,575
+                        tr
+                          td Jennifer Chang
+                          td Regional Director
+                          td Singapore
+                          td 28
+                          td 2010/11/14
+                          td $357,650
+                        tr
+                          td Brenden Wagner
+                          td Software Engineer
+                          td San Francisco
+                          td 28
+                          td 2011/06/07
+                          td $206,850
+                        tr
+                          td Fiona Green
+                          td Chief Operating Officer (COO)
+                          td San Francisco
+                          td 48
+                          td 2010/03/11
+                          td $850,000
+                        tr
+                          td Shou Itou
+                          td Regional Marketing
+                          td Tokyo
+                          td 20
+                          td 2011/08/14
+                          td $163,000
+                        tr
+                          td Michelle House
+                          td Integration Specialist
+                          td Sidney
+                          td 37
+                          td 2011/06/02
+                          td $95,400
+                        tr
+                          td Suki Burks
+                          td Developer
+                          td London
+                          td 53
+                          td 2009/10/22
+                          td $114,500
+                        tr
+                          td Prescott Bartlett
+                          td Technical Author
+                          td London
+                          td 27
+                          td 2011/05/07
+                          td $145,000
+                        tr
+                          td Gavin Cortez
+                          td Team Leader
+                          td San Francisco
+                          td 22
+                          td 2008/10/26
+                          td $235,500
+                        tr
+                          td Martena Mccray
+                          td Post-Sales support
+                          td Edinburgh
+                          td 46
+                          td 2011/03/09
+                          td $324,050
+                        tr
+                          td Unity Butler
+                          td Marketing Designer
+                          td San Francisco
+                          td 47
+                          td 2009/12/09
+                          td $85,675
+                        tr
+                          td Howard Hatfield
+                          td Office Manager
+                          td San Francisco
+                          td 51
+                          td 2008/12/16
+                          td $164,500
+                        tr
+                          td Hope Fuentes
+                          td Secretary
+                          td San Francisco
+                          td 41
+                          td 2010/02/12
+                          td $109,850
+                        tr
+                          td Vivian Harrell
+                          td Financial Controller
+                          td San Francisco
+                          td 62
+                          td 2009/02/14
+                          td $452,500
+                        tr
+                          td Timothy Mooney
+                          td Office Manager
+                          td London
+                          td 37
+                          td 2008/12/11
+                          td $136,200
+                        tr
+                          td Jackson Bradshaw
+                          td Director
+                          td New York
+                          td 65
+                          td 2008/09/26
+                          td $645,750
+                        tr
+                          td Olivia Liang
+                          td Support Engineer
+                          td Singapore
+                          td 64
+                          td 2011/02/03
+                          td $234,500
+                        tr
+                          td Bruno Nash
+                          td Software Engineer
+                          td London
+                          td 38
+                          td 2011/05/03
+                          td $163,500
+                        tr
+                          td Sakura Yamamoto
+                          td Support Engineer
+                          td Tokyo
+                          td 37
+                          td 2009/08/19
+                          td $139,575
+                        tr
+                          td Thor Walton
+                          td Developer
+                          td New York
+                          td 61
+                          td 2013/08/11
+                          td $98,540
+                        tr
+                          td Finn Camacho
+                          td Support Engineer
+                          td San Francisco
+                          td 47
+                          td 2009/07/07
+                          td $87,500
+                        tr
+                          td Serge Baldwin
+                          td Data Coordinator
+                          td Singapore
+                          td 64
+                          td 2012/04/09
+                          td $138,575
+                        tr
+                          td Zenaida Frank
+                          td Software Engineer
+                          td New York
+                          td 63
+                          td 2010/01/04
+                          td $125,250
+                        tr
+                          td Zorita Serrano
+                          td Software Engineer
+                          td San Francisco
+                          td 56
+                          td 2012/06/01
+                          td $115,000
+                        tr
+                          td Jennifer Acosta
+                          td Junior Javascript Developer
+                          td Edinburgh
+                          td 43
+                          td 2013/02/01
+                          td $75,650
+                        tr
+                          td Cara Stevens
+                          td Sales Assistant
+                          td New York
+                          td 46
+                          td 2011/12/06
+                          td $145,600
+                        tr
+                          td Hermione Butler
+                          td Regional Director
+                          td London
+                          td 47
+                          td 2011/03/21
+                          td $356,250
+                        tr
+                          td Lael Greer
+                          td Systems Administrator
+                          td London
+                          td 21
+                          td 2009/02/27
+                          td $103,500
+                        tr
+                          td Jonas Alexander
+                          td Developer
+                          td San Francisco
+                          td 30
+                          td 2010/07/14
+                          td $86,500
+                        tr
+                          td Shad Decker
+                          td Regional Director
+                          td Edinburgh
+                          td 51
+                          td 2008/11/13
+                          td $183,000
+                        tr
+                          td Michael Bruce
+                          td Javascript Developer
+                          td Singapore
+                          td 29
+                          td 2011/06/27
+                          td $183,000
+                        tr
+                          td Donna Snider
+                          td Customer Support
+                          td New York
+                          td 27
+                          td 2011/01/25
+                          td $112,000
+              .col-md-12.col-sm-12.col-xs-12
                 .x_panel
                   .x_title
-                    h2
-                      i.fa.fa-bars
-                      |  Tabs 
-                      small Float right
+                    h2 Plus Table Design
                     ul.nav.navbar-right.panel_toolbox
                       li
                         a.collapse-link
@@ -368,35 +757,598 @@ html(lang='en')
                           i.fa.fa-close
                     .clearfix
                   .x_content
-                    div(role='tabpanel', data-example-id='togglable-tabs')
-                      ul#myTab1.nav.nav-tabs.bar_tabs.right(role='tablist')
-                        li.active(role='presentation')
-                          a#home-tabb(href='#tab_content11', role='tab', data-toggle='tab', aria-controls='home', aria-expanded='true') Home
-                        li(role='presentation')
-                          a#profile-tabb(href='#tab_content22', role='tab', data-toggle='tab', aria-controls='profile', aria-expanded='false') Profile
-                        li(role='presentation')
-                          a#profile-tabb3(href='#tab_content33', role='tab', data-toggle='tab', aria-controls='profile', aria-expanded='false') Profile
-                      #myTabContent2.tab-content
-                        #tab_content11.tab-pane.fade.active.in(role='tabpanel', aria-labelledby='home-tab')
-                          p
-                            | Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher
-                            | synth. Cosby sweater eu banh mi, qui irure terr.
-                        #tab_content22.tab-pane.fade(role='tabpanel', aria-labelledby='profile-tab')
-                          p
-                            | Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo
-                            | booth letterpress, commodo enim craft beer mlkshk aliquip
-                        #tab_content33.tab-pane.fade(role='tabpanel', aria-labelledby='profile-tab')
-                          p
-                            | xxFood truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo
-                            | booth letterpress, commodo enim craft beer mlkshk
-              .clearfix
-              .col-md-6.col-sm-6.col-xs-12
+                    p.text-muted.font-13.m-b-30
+                      | DataTables has most features enabled by default, so all you need to do to use it with your own tables is to call the construction function: 
+                      code $().DataTable();
+                    table#datatable-checkbox.table.table-striped.table-bordered.bulk_action
+                      thead
+                        tr
+                          th
+                          th
+                            input#check-all.flat(type='checkbox')
+                          th Name
+                          th Position
+                          th Office
+                          th Age
+                          th Start date
+                          th Salary
+                      tbody
+                        tr
+                          td
+                            th
+                              input#check-all.flat(type='checkbox')
+                          td Tiger Nixon
+                          td System Architect
+                          td Edinburgh
+                          td 61
+                          td 2011/04/25
+                          td $320,800
+                        tr
+                          td
+                            th
+                              input#check-all.flat(type='checkbox')
+                          td Garrett Winters
+                          td Accountant
+                          td Tokyo
+                          td 63
+                          td 2011/07/25
+                          td $170,750
+                        tr
+                          td
+                            th
+                              input#check-all.flat(type='checkbox')
+                          td Ashton Cox
+                          td Junior Technical Author
+                          td San Francisco
+                          td 66
+                          td 2009/01/12
+                          td $86,000
+                        tr
+                          td
+                            th
+                              input#check-all.flat(type='checkbox')
+                          td Cedric Kelly
+                          td Senior Javascript Developer
+                          td Edinburgh
+                          td 22
+                          td 2012/03/29
+                          td $433,060
+                        tr
+                          td
+                            th
+                              input#check-all.flat(type='checkbox')
+                          td Airi Satou
+                          td Accountant
+                          td Tokyo
+                          td 33
+                          td 2008/11/28
+                          td $162,700
+                        tr
+                          td
+                            th
+                              input#check-all.flat(type='checkbox')
+                          td Brielle Williamson
+                          td Integration Specialist
+                          td New York
+                          td 61
+                          td 2012/12/02
+                          td $372,000
+                        tr
+                          td
+                            th
+                              input#check-all.flat(type='checkbox')
+                          td Herrod Chandler
+                          td Sales Assistant
+                          td San Francisco
+                          td 59
+                          td 2012/08/06
+                          td $137,500
+                        tr
+                          td
+                            th
+                              input#check-all.flat(type='checkbox')
+                          td Rhona Davidson
+                          td Integration Specialist
+                          td Tokyo
+                          td 55
+                          td 2010/10/14
+                          td $327,900
+                        tr
+                          td
+                            th
+                              input#check-all.flat(type='checkbox')
+                          td Colleen Hurst
+                          td Javascript Developer
+                          td San Francisco
+                          td 39
+                          td 2009/09/15
+                          td $205,500
+                        tr
+                          td
+                            th
+                              input#check-all.flat(type='checkbox')
+                          td Sonya Frost
+                          td Software Engineer
+                          td Edinburgh
+                          td 23
+                          td 2008/12/13
+                          td $103,600
+                        tr
+                          td
+                            th
+                              input#check-all.flat(type='checkbox')
+                          td Jena Gaines
+                          td Office Manager
+                          td London
+                          td 30
+                          td 2008/12/19
+                          td $90,560
+                        tr
+                          td
+                            th
+                              input#check-all.flat(type='checkbox')
+                          td Quinn Flynn
+                          td Support Lead
+                          td Edinburgh
+                          td 22
+                          td 2013/03/03
+                          td $342,000
+                        tr
+                          td
+                            th
+                              input#check-all.flat(type='checkbox')
+                          td Charde Marshall
+                          td Regional Director
+                          td San Francisco
+                          td 36
+                          td 2008/10/16
+                          td $470,600
+                        tr
+                          td
+                            th
+                              input#check-all.flat(type='checkbox')
+                          td Haley Kennedy
+                          td Senior Marketing Designer
+                          td London
+                          td 43
+                          td 2012/12/18
+                          td $313,500
+                        tr
+                          td
+                            th
+                              input#check-all.flat(type='checkbox')
+                          td Tatyana Fitzpatrick
+                          td Regional Director
+                          td London
+                          td 19
+                          td 2010/03/17
+                          td $385,750
+                        tr
+                          td
+                            th
+                              input#check-all.flat(type='checkbox')
+                          td Michael Silva
+                          td Marketing Designer
+                          td London
+                          td 66
+                          td 2012/11/27
+                          td $198,500
+                        tr
+                          td
+                            th
+                              input#check-all.flat(type='checkbox')
+                          td Paul Byrd
+                          td Chief Financial Officer (CFO)
+                          td New York
+                          td 64
+                          td 2010/06/09
+                          td $725,000
+                        tr
+                          td
+                            th
+                              input#check-all.flat(type='checkbox')
+                          td Gloria Little
+                          td Systems Administrator
+                          td New York
+                          td 59
+                          td 2009/04/10
+                          td $237,500
+                        tr
+                          td
+                            th
+                              input#check-all.flat(type='checkbox')
+                          td Bradley Greer
+                          td Software Engineer
+                          td London
+                          td 41
+                          td 2012/10/13
+                          td $132,000
+                        tr
+                          td
+                            th
+                              input#check-all.flat(type='checkbox')
+                          td Dai Rios
+                          td Personnel Lead
+                          td Edinburgh
+                          td 35
+                          td 2012/09/26
+                          td $217,500
+                        tr
+                          td
+                            th
+                              input#check-all.flat(type='checkbox')
+                          td Jenette Caldwell
+                          td Development Lead
+                          td New York
+                          td 30
+                          td 2011/09/03
+                          td $345,000
+                        tr
+                          td
+                            th
+                              input#check-all.flat(type='checkbox')
+                          td Yuri Berry
+                          td Chief Marketing Officer (CMO)
+                          td New York
+                          td 40
+                          td 2009/06/25
+                          td $675,000
+                        tr
+                          td
+                            th
+                              input#check-all.flat(type='checkbox')
+                          td Caesar Vance
+                          td Pre-Sales Support
+                          td New York
+                          td 21
+                          td 2011/12/12
+                          td $106,450
+                        tr
+                          td
+                            th
+                              input#check-all.flat(type='checkbox')
+                          td Doris Wilder
+                          td Sales Assistant
+                          td Sidney
+                          td 23
+                          td 2010/09/20
+                          td $85,600
+                        tr
+                          td
+                            th
+                              input#check-all.flat(type='checkbox')
+                          td Angelica Ramos
+                          td Chief Executive Officer (CEO)
+                          td London
+                          td 47
+                          td 2009/10/09
+                          td $1,200,000
+                        tr
+                          td
+                            th
+                              input#check-all.flat(type='checkbox')
+                          td Gavin Joyce
+                          td Developer
+                          td Edinburgh
+                          td 42
+                          td 2010/12/22
+                          td $92,575
+                        tr
+                          td
+                            th
+                              input#check-all.flat(type='checkbox')
+                          td Jennifer Chang
+                          td Regional Director
+                          td Singapore
+                          td 28
+                          td 2010/11/14
+                          td $357,650
+                        tr
+                          td
+                            th
+                              input#check-all.flat(type='checkbox')
+                          td Brenden Wagner
+                          td Software Engineer
+                          td San Francisco
+                          td 28
+                          td 2011/06/07
+                          td $206,850
+                        tr
+                          td
+                            th
+                              input#check-all.flat(type='checkbox')
+                          td Fiona Green
+                          td Chief Operating Officer (COO)
+                          td San Francisco
+                          td 48
+                          td 2010/03/11
+                          td $850,000
+                        tr
+                          td
+                            th
+                              input#check-all.flat(type='checkbox')
+                          td Shou Itou
+                          td Regional Marketing
+                          td Tokyo
+                          td 20
+                          td 2011/08/14
+                          td $163,000
+                        tr
+                          td
+                            th
+                              input#check-all.flat(type='checkbox')
+                          td Michelle House
+                          td Integration Specialist
+                          td Sidney
+                          td 37
+                          td 2011/06/02
+                          td $95,400
+                        tr
+                          td
+                            th
+                              input#check-all.flat(type='checkbox')
+                          td Suki Burks
+                          td Developer
+                          td London
+                          td 53
+                          td 2009/10/22
+                          td $114,500
+                        tr
+                          td
+                            th
+                              input#check-all.flat(type='checkbox')
+                          td Prescott Bartlett
+                          td Technical Author
+                          td London
+                          td 27
+                          td 2011/05/07
+                          td $145,000
+                        tr
+                          td
+                            th
+                              input#check-all.flat(type='checkbox')
+                          td Gavin Cortez
+                          td Team Leader
+                          td San Francisco
+                          td 22
+                          td 2008/10/26
+                          td $235,500
+                        tr
+                          td
+                            th
+                              input#check-all.flat(type='checkbox')
+                          td Martena Mccray
+                          td Post-Sales support
+                          td Edinburgh
+                          td 46
+                          td 2011/03/09
+                          td $324,050
+                        tr
+                          td
+                            th
+                              input#check-all.flat(type='checkbox')
+                          td Unity Butler
+                          td Marketing Designer
+                          td San Francisco
+                          td 47
+                          td 2009/12/09
+                          td $85,675
+                        tr
+                          td
+                            th
+                              input#check-all.flat(type='checkbox')
+                          td Howard Hatfield
+                          td Office Manager
+                          td San Francisco
+                          td 51
+                          td 2008/12/16
+                          td $164,500
+                        tr
+                          td
+                            th
+                              input#check-all.flat(type='checkbox')
+                          td Hope Fuentes
+                          td Secretary
+                          td San Francisco
+                          td 41
+                          td 2010/02/12
+                          td $109,850
+                        tr
+                          td
+                            th
+                              input#check-all.flat(type='checkbox')
+                          td Vivian Harrell
+                          td Financial Controller
+                          td San Francisco
+                          td 62
+                          td 2009/02/14
+                          td $452,500
+                        tr
+                          td
+                            th
+                              input#check-all.flat(type='checkbox')
+                          td Timothy Mooney
+                          td Office Manager
+                          td London
+                          td 37
+                          td 2008/12/11
+                          td $136,200
+                        tr
+                          td
+                            th
+                              input#check-all.flat(type='checkbox')
+                          td Jackson Bradshaw
+                          td Director
+                          td New York
+                          td 65
+                          td 2008/09/26
+                          td $645,750
+                        tr
+                          td
+                            th
+                              input#check-all.flat(type='checkbox')
+                          td Olivia Liang
+                          td Support Engineer
+                          td Singapore
+                          td 64
+                          td 2011/02/03
+                          td $234,500
+                        tr
+                          td
+                            th
+                              input#check-all.flat(type='checkbox')
+                          td Bruno Nash
+                          td Software Engineer
+                          td London
+                          td 38
+                          td 2011/05/03
+                          td $163,500
+                        tr
+                          td
+                            th
+                              input#check-all.flat(type='checkbox')
+                          td Sakura Yamamoto
+                          td Support Engineer
+                          td Tokyo
+                          td 37
+                          td 2009/08/19
+                          td $139,575
+                        tr
+                          td
+                            th
+                              input#check-all.flat(type='checkbox')
+                          td Thor Walton
+                          td Developer
+                          td New York
+                          td 61
+                          td 2013/08/11
+                          td $98,540
+                        tr
+                          td
+                            th
+                              input#check-all.flat(type='checkbox')
+                          td Finn Camacho
+                          td Support Engineer
+                          td San Francisco
+                          td 47
+                          td 2009/07/07
+                          td $87,500
+                        tr
+                          td
+                            th
+                              input#check-all.flat(type='checkbox')
+                          td Serge Baldwin
+                          td Data Coordinator
+                          td Singapore
+                          td 64
+                          td 2012/04/09
+                          td $138,575
+                        tr
+                          td
+                            th
+                              input#check-all.flat(type='checkbox')
+                          td Zenaida Frank
+                          td Software Engineer
+                          td New York
+                          td 63
+                          td 2010/01/04
+                          td $125,250
+                        tr
+                          td
+                            th
+                              input#check-all.flat(type='checkbox')
+                          td Zorita Serrano
+                          td Software Engineer
+                          td San Francisco
+                          td 56
+                          td 2012/06/01
+                          td $115,000
+                        tr
+                          td
+                            th
+                              input#check-all.flat(type='checkbox')
+                          td Jennifer Acosta
+                          td Junior Javascript Developer
+                          td Edinburgh
+                          td 43
+                          td 2013/02/01
+                          td $75,650
+                        tr
+                          td
+                            th
+                              input#check-all.flat(type='checkbox')
+                          td Cara Stevens
+                          td Sales Assistant
+                          td New York
+                          td 46
+                          td 2011/12/06
+                          td $145,600
+                        tr
+                          td
+                            th
+                              input#check-all.flat(type='checkbox')
+                          td Hermione Butler
+                          td Regional Director
+                          td London
+                          td 47
+                          td 2011/03/21
+                          td $356,250
+                        tr
+                          td
+                            th
+                              input#check-all.flat(type='checkbox')
+                          td Lael Greer
+                          td Systems Administrator
+                          td London
+                          td 21
+                          td 2009/02/27
+                          td $103,500
+                        tr
+                          td
+                            th
+                              input#check-all.flat(type='checkbox')
+                          td Jonas Alexander
+                          td Developer
+                          td San Francisco
+                          td 30
+                          td 2010/07/14
+                          td $86,500
+                        tr
+                          td
+                            th
+                              input#check-all.flat(type='checkbox')
+                          td Shad Decker
+                          td Regional Director
+                          td Edinburgh
+                          td 51
+                          td 2008/11/13
+                          td $183,000
+                        tr
+                          td
+                            th
+                              input#check-all.flat(type='checkbox')
+                          td Michael Bruce
+                          td Javascript Developer
+                          td Singapore
+                          td 29
+                          td 2011/06/27
+                          td $183,000
+                        tr
+                          td
+                            th
+                              input#check-all.flat(type='checkbox')
+                          td Donna Snider
+                          td Customer Support
+                          td New York
+                          td 27
+                          td 2011/01/25
+                          td $112,000
+              .col-md-12.col-sm-12.col-xs-12
                 .x_panel
                   .x_title
                     h2
-                      i.fa.fa-bars
-                      |  Vertical Tabs 
-                      small Float left
+                      | Button Example 
+                      small Users
                     ul.nav.navbar-right.panel_toolbox
                       li
                         a.collapse-link
@@ -414,37 +1366,423 @@ html(lang='en')
                           i.fa.fa-close
                     .clearfix
                   .x_content
-                    .col-xs-3
-                      // required for floating
-                      // Nav tabs
-                      ul.nav.nav-tabs.tabs-left
-                        li.active
-                          a(href='#home', data-toggle='tab') Home
-                        li
-                          a(href='#profile', data-toggle='tab') Profile
-                        li
-                          a(href='#messages', data-toggle='tab') Messages
-                        li
-                          a(href='#settings', data-toggle='tab') Settings
-                    .col-xs-9
-                      // Tab panes
-                      .tab-content
-                        #home.tab-pane.active
-                          p.lead Home tab
-                          p
-                            | Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher
-                            | synth. Cosby sweater eu banh mi, qui irure terr.
-                        #profile.tab-pane Profile Tab.
-                        #messages.tab-pane Messages Tab.
-                        #settings.tab-pane Settings Tab.
-                    .clearfix
-              .col-md-6.col-sm-6.col-xs-12
+                    p.text-muted.font-13.m-b-30
+                      | The Buttons extension for DataTables provides a common set of options, API methods and styling to display buttons on a page that will interact with a DataTable. The core library provides the based framework upon which plug-ins can built.
+                    table#datatable-buttons.table.table-striped.table-bordered
+                      thead
+                        tr
+                          th Name
+                          th Position
+                          th Office
+                          th Age
+                          th Start date
+                          th Salary
+                      tbody
+                        tr
+                          td Tiger Nixon
+                          td System Architect
+                          td Edinburgh
+                          td 61
+                          td 2011/04/25
+                          td $320,800
+                        tr
+                          td Garrett Winters
+                          td Accountant
+                          td Tokyo
+                          td 63
+                          td 2011/07/25
+                          td $170,750
+                        tr
+                          td Ashton Cox
+                          td Junior Technical Author
+                          td San Francisco
+                          td 66
+                          td 2009/01/12
+                          td $86,000
+                        tr
+                          td Cedric Kelly
+                          td Senior Javascript Developer
+                          td Edinburgh
+                          td 22
+                          td 2012/03/29
+                          td $433,060
+                        tr
+                          td Airi Satou
+                          td Accountant
+                          td Tokyo
+                          td 33
+                          td 2008/11/28
+                          td $162,700
+                        tr
+                          td Brielle Williamson
+                          td Integration Specialist
+                          td New York
+                          td 61
+                          td 2012/12/02
+                          td $372,000
+                        tr
+                          td Herrod Chandler
+                          td Sales Assistant
+                          td San Francisco
+                          td 59
+                          td 2012/08/06
+                          td $137,500
+                        tr
+                          td Rhona Davidson
+                          td Integration Specialist
+                          td Tokyo
+                          td 55
+                          td 2010/10/14
+                          td $327,900
+                        tr
+                          td Colleen Hurst
+                          td Javascript Developer
+                          td San Francisco
+                          td 39
+                          td 2009/09/15
+                          td $205,500
+                        tr
+                          td Sonya Frost
+                          td Software Engineer
+                          td Edinburgh
+                          td 23
+                          td 2008/12/13
+                          td $103,600
+                        tr
+                          td Jena Gaines
+                          td Office Manager
+                          td London
+                          td 30
+                          td 2008/12/19
+                          td $90,560
+                        tr
+                          td Quinn Flynn
+                          td Support Lead
+                          td Edinburgh
+                          td 22
+                          td 2013/03/03
+                          td $342,000
+                        tr
+                          td Charde Marshall
+                          td Regional Director
+                          td San Francisco
+                          td 36
+                          td 2008/10/16
+                          td $470,600
+                        tr
+                          td Haley Kennedy
+                          td Senior Marketing Designer
+                          td London
+                          td 43
+                          td 2012/12/18
+                          td $313,500
+                        tr
+                          td Tatyana Fitzpatrick
+                          td Regional Director
+                          td London
+                          td 19
+                          td 2010/03/17
+                          td $385,750
+                        tr
+                          td Michael Silva
+                          td Marketing Designer
+                          td London
+                          td 66
+                          td 2012/11/27
+                          td $198,500
+                        tr
+                          td Paul Byrd
+                          td Chief Financial Officer (CFO)
+                          td New York
+                          td 64
+                          td 2010/06/09
+                          td $725,000
+                        tr
+                          td Gloria Little
+                          td Systems Administrator
+                          td New York
+                          td 59
+                          td 2009/04/10
+                          td $237,500
+                        tr
+                          td Bradley Greer
+                          td Software Engineer
+                          td London
+                          td 41
+                          td 2012/10/13
+                          td $132,000
+                        tr
+                          td Dai Rios
+                          td Personnel Lead
+                          td Edinburgh
+                          td 35
+                          td 2012/09/26
+                          td $217,500
+                        tr
+                          td Jenette Caldwell
+                          td Development Lead
+                          td New York
+                          td 30
+                          td 2011/09/03
+                          td $345,000
+                        tr
+                          td Yuri Berry
+                          td Chief Marketing Officer (CMO)
+                          td New York
+                          td 40
+                          td 2009/06/25
+                          td $675,000
+                        tr
+                          td Caesar Vance
+                          td Pre-Sales Support
+                          td New York
+                          td 21
+                          td 2011/12/12
+                          td $106,450
+                        tr
+                          td Doris Wilder
+                          td Sales Assistant
+                          td Sidney
+                          td 23
+                          td 2010/09/20
+                          td $85,600
+                        tr
+                          td Angelica Ramos
+                          td Chief Executive Officer (CEO)
+                          td London
+                          td 47
+                          td 2009/10/09
+                          td $1,200,000
+                        tr
+                          td Gavin Joyce
+                          td Developer
+                          td Edinburgh
+                          td 42
+                          td 2010/12/22
+                          td $92,575
+                        tr
+                          td Jennifer Chang
+                          td Regional Director
+                          td Singapore
+                          td 28
+                          td 2010/11/14
+                          td $357,650
+                        tr
+                          td Brenden Wagner
+                          td Software Engineer
+                          td San Francisco
+                          td 28
+                          td 2011/06/07
+                          td $206,850
+                        tr
+                          td Fiona Green
+                          td Chief Operating Officer (COO)
+                          td San Francisco
+                          td 48
+                          td 2010/03/11
+                          td $850,000
+                        tr
+                          td Shou Itou
+                          td Regional Marketing
+                          td Tokyo
+                          td 20
+                          td 2011/08/14
+                          td $163,000
+                        tr
+                          td Michelle House
+                          td Integration Specialist
+                          td Sidney
+                          td 37
+                          td 2011/06/02
+                          td $95,400
+                        tr
+                          td Suki Burks
+                          td Developer
+                          td London
+                          td 53
+                          td 2009/10/22
+                          td $114,500
+                        tr
+                          td Prescott Bartlett
+                          td Technical Author
+                          td London
+                          td 27
+                          td 2011/05/07
+                          td $145,000
+                        tr
+                          td Gavin Cortez
+                          td Team Leader
+                          td San Francisco
+                          td 22
+                          td 2008/10/26
+                          td $235,500
+                        tr
+                          td Martena Mccray
+                          td Post-Sales support
+                          td Edinburgh
+                          td 46
+                          td 2011/03/09
+                          td $324,050
+                        tr
+                          td Unity Butler
+                          td Marketing Designer
+                          td San Francisco
+                          td 47
+                          td 2009/12/09
+                          td $85,675
+                        tr
+                          td Howard Hatfield
+                          td Office Manager
+                          td San Francisco
+                          td 51
+                          td 2008/12/16
+                          td $164,500
+                        tr
+                          td Hope Fuentes
+                          td Secretary
+                          td San Francisco
+                          td 41
+                          td 2010/02/12
+                          td $109,850
+                        tr
+                          td Vivian Harrell
+                          td Financial Controller
+                          td San Francisco
+                          td 62
+                          td 2009/02/14
+                          td $452,500
+                        tr
+                          td Timothy Mooney
+                          td Office Manager
+                          td London
+                          td 37
+                          td 2008/12/11
+                          td $136,200
+                        tr
+                          td Jackson Bradshaw
+                          td Director
+                          td New York
+                          td 65
+                          td 2008/09/26
+                          td $645,750
+                        tr
+                          td Olivia Liang
+                          td Support Engineer
+                          td Singapore
+                          td 64
+                          td 2011/02/03
+                          td $234,500
+                        tr
+                          td Bruno Nash
+                          td Software Engineer
+                          td London
+                          td 38
+                          td 2011/05/03
+                          td $163,500
+                        tr
+                          td Sakura Yamamoto
+                          td Support Engineer
+                          td Tokyo
+                          td 37
+                          td 2009/08/19
+                          td $139,575
+                        tr
+                          td Thor Walton
+                          td Developer
+                          td New York
+                          td 61
+                          td 2013/08/11
+                          td $98,540
+                        tr
+                          td Finn Camacho
+                          td Support Engineer
+                          td San Francisco
+                          td 47
+                          td 2009/07/07
+                          td $87,500
+                        tr
+                          td Serge Baldwin
+                          td Data Coordinator
+                          td Singapore
+                          td 64
+                          td 2012/04/09
+                          td $138,575
+                        tr
+                          td Zenaida Frank
+                          td Software Engineer
+                          td New York
+                          td 63
+                          td 2010/01/04
+                          td $125,250
+                        tr
+                          td Zorita Serrano
+                          td Software Engineer
+                          td San Francisco
+                          td 56
+                          td 2012/06/01
+                          td $115,000
+                        tr
+                          td Jennifer Acosta
+                          td Junior Javascript Developer
+                          td Edinburgh
+                          td 43
+                          td 2013/02/01
+                          td $75,650
+                        tr
+                          td Cara Stevens
+                          td Sales Assistant
+                          td New York
+                          td 46
+                          td 2011/12/06
+                          td $145,600
+                        tr
+                          td Hermione Butler
+                          td Regional Director
+                          td London
+                          td 47
+                          td 2011/03/21
+                          td $356,250
+                        tr
+                          td Lael Greer
+                          td Systems Administrator
+                          td London
+                          td 21
+                          td 2009/02/27
+                          td $103,500
+                        tr
+                          td Jonas Alexander
+                          td Developer
+                          td San Francisco
+                          td 30
+                          td 2010/07/14
+                          td $86,500
+                        tr
+                          td Shad Decker
+                          td Regional Director
+                          td Edinburgh
+                          td 51
+                          td 2008/11/13
+                          td $183,000
+                        tr
+                          td Michael Bruce
+                          td Javascript Developer
+                          td Singapore
+                          td 29
+                          td 2011/06/27
+                          td $183,000
+                        tr
+                          td Donna Snider
+                          td Customer Support
+                          td New York
+                          td 27
+                          td 2011/01/25
+                          td $112,000
+              .col-md-12.col-sm-12.col-xs-12
                 .x_panel
                   .x_title
                     h2
-                      i.fa.fa-bars
-                      |  Vertical Tabs 
-                      small Float right
+                      | Fixed Header Example 
+                      small Users
                     ul.nav.navbar-right.panel_toolbox
                       li
                         a.collapse-link
@@ -462,37 +1800,423 @@ html(lang='en')
                           i.fa.fa-close
                     .clearfix
                   .x_content
-                    .col-xs-9
-                      // Tab panes
-                      .tab-content
-                        #home-r.tab-pane.active
-                          p.lead Home tab
-                          p
-                            | Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher
-                            | synth. Cosby sweater eu banh mi, qui irure terr.
-                        #profile-r.tab-pane Profile Tab.
-                        #messages-r.tab-pane Messages Tab.
-                        #settings-r.tab-pane Settings Tab.
-                    .col-xs-3
-                      // required for floating
-                      // Nav tabs
-                      ul.nav.nav-tabs.tabs-right
-                        li.active
-                          a(href='#home-r', data-toggle='tab') Home
-                        li
-                          a(href='#profile-r', data-toggle='tab') Profile
-                        li
-                          a(href='#messages-r', data-toggle='tab') Messages
-                        li
-                          a(href='#settings-r', data-toggle='tab') Settings
-              .clearfix
-              .col-md-6.col-sm-6.col-xs-12
+                    p.text-muted.font-13.m-b-30
+                      | This example shows FixedHeader being styling by the Bootstrap CSS framework.
+                    table#datatable-fixed-header.table.table-striped.table-bordered
+                      thead
+                        tr
+                          th Name
+                          th Position
+                          th Office
+                          th Age
+                          th Start date
+                          th Salary
+                      tbody
+                        tr
+                          td Tiger Nixon
+                          td System Architect
+                          td Edinburgh
+                          td 61
+                          td 2011/04/25
+                          td $320,800
+                        tr
+                          td Garrett Winters
+                          td Accountant
+                          td Tokyo
+                          td 63
+                          td 2011/07/25
+                          td $170,750
+                        tr
+                          td Ashton Cox
+                          td Junior Technical Author
+                          td San Francisco
+                          td 66
+                          td 2009/01/12
+                          td $86,000
+                        tr
+                          td Cedric Kelly
+                          td Senior Javascript Developer
+                          td Edinburgh
+                          td 22
+                          td 2012/03/29
+                          td $433,060
+                        tr
+                          td Airi Satou
+                          td Accountant
+                          td Tokyo
+                          td 33
+                          td 2008/11/28
+                          td $162,700
+                        tr
+                          td Brielle Williamson
+                          td Integration Specialist
+                          td New York
+                          td 61
+                          td 2012/12/02
+                          td $372,000
+                        tr
+                          td Herrod Chandler
+                          td Sales Assistant
+                          td San Francisco
+                          td 59
+                          td 2012/08/06
+                          td $137,500
+                        tr
+                          td Rhona Davidson
+                          td Integration Specialist
+                          td Tokyo
+                          td 55
+                          td 2010/10/14
+                          td $327,900
+                        tr
+                          td Colleen Hurst
+                          td Javascript Developer
+                          td San Francisco
+                          td 39
+                          td 2009/09/15
+                          td $205,500
+                        tr
+                          td Sonya Frost
+                          td Software Engineer
+                          td Edinburgh
+                          td 23
+                          td 2008/12/13
+                          td $103,600
+                        tr
+                          td Jena Gaines
+                          td Office Manager
+                          td London
+                          td 30
+                          td 2008/12/19
+                          td $90,560
+                        tr
+                          td Quinn Flynn
+                          td Support Lead
+                          td Edinburgh
+                          td 22
+                          td 2013/03/03
+                          td $342,000
+                        tr
+                          td Charde Marshall
+                          td Regional Director
+                          td San Francisco
+                          td 36
+                          td 2008/10/16
+                          td $470,600
+                        tr
+                          td Haley Kennedy
+                          td Senior Marketing Designer
+                          td London
+                          td 43
+                          td 2012/12/18
+                          td $313,500
+                        tr
+                          td Tatyana Fitzpatrick
+                          td Regional Director
+                          td London
+                          td 19
+                          td 2010/03/17
+                          td $385,750
+                        tr
+                          td Michael Silva
+                          td Marketing Designer
+                          td London
+                          td 66
+                          td 2012/11/27
+                          td $198,500
+                        tr
+                          td Paul Byrd
+                          td Chief Financial Officer (CFO)
+                          td New York
+                          td 64
+                          td 2010/06/09
+                          td $725,000
+                        tr
+                          td Gloria Little
+                          td Systems Administrator
+                          td New York
+                          td 59
+                          td 2009/04/10
+                          td $237,500
+                        tr
+                          td Bradley Greer
+                          td Software Engineer
+                          td London
+                          td 41
+                          td 2012/10/13
+                          td $132,000
+                        tr
+                          td Dai Rios
+                          td Personnel Lead
+                          td Edinburgh
+                          td 35
+                          td 2012/09/26
+                          td $217,500
+                        tr
+                          td Jenette Caldwell
+                          td Development Lead
+                          td New York
+                          td 30
+                          td 2011/09/03
+                          td $345,000
+                        tr
+                          td Yuri Berry
+                          td Chief Marketing Officer (CMO)
+                          td New York
+                          td 40
+                          td 2009/06/25
+                          td $675,000
+                        tr
+                          td Caesar Vance
+                          td Pre-Sales Support
+                          td New York
+                          td 21
+                          td 2011/12/12
+                          td $106,450
+                        tr
+                          td Doris Wilder
+                          td Sales Assistant
+                          td Sidney
+                          td 23
+                          td 2010/09/20
+                          td $85,600
+                        tr
+                          td Angelica Ramos
+                          td Chief Executive Officer (CEO)
+                          td London
+                          td 47
+                          td 2009/10/09
+                          td $1,200,000
+                        tr
+                          td Gavin Joyce
+                          td Developer
+                          td Edinburgh
+                          td 42
+                          td 2010/12/22
+                          td $92,575
+                        tr
+                          td Jennifer Chang
+                          td Regional Director
+                          td Singapore
+                          td 28
+                          td 2010/11/14
+                          td $357,650
+                        tr
+                          td Brenden Wagner
+                          td Software Engineer
+                          td San Francisco
+                          td 28
+                          td 2011/06/07
+                          td $206,850
+                        tr
+                          td Fiona Green
+                          td Chief Operating Officer (COO)
+                          td San Francisco
+                          td 48
+                          td 2010/03/11
+                          td $850,000
+                        tr
+                          td Shou Itou
+                          td Regional Marketing
+                          td Tokyo
+                          td 20
+                          td 2011/08/14
+                          td $163,000
+                        tr
+                          td Michelle House
+                          td Integration Specialist
+                          td Sidney
+                          td 37
+                          td 2011/06/02
+                          td $95,400
+                        tr
+                          td Suki Burks
+                          td Developer
+                          td London
+                          td 53
+                          td 2009/10/22
+                          td $114,500
+                        tr
+                          td Prescott Bartlett
+                          td Technical Author
+                          td London
+                          td 27
+                          td 2011/05/07
+                          td $145,000
+                        tr
+                          td Gavin Cortez
+                          td Team Leader
+                          td San Francisco
+                          td 22
+                          td 2008/10/26
+                          td $235,500
+                        tr
+                          td Martena Mccray
+                          td Post-Sales support
+                          td Edinburgh
+                          td 46
+                          td 2011/03/09
+                          td $324,050
+                        tr
+                          td Unity Butler
+                          td Marketing Designer
+                          td San Francisco
+                          td 47
+                          td 2009/12/09
+                          td $85,675
+                        tr
+                          td Howard Hatfield
+                          td Office Manager
+                          td San Francisco
+                          td 51
+                          td 2008/12/16
+                          td $164,500
+                        tr
+                          td Hope Fuentes
+                          td Secretary
+                          td San Francisco
+                          td 41
+                          td 2010/02/12
+                          td $109,850
+                        tr
+                          td Vivian Harrell
+                          td Financial Controller
+                          td San Francisco
+                          td 62
+                          td 2009/02/14
+                          td $452,500
+                        tr
+                          td Timothy Mooney
+                          td Office Manager
+                          td London
+                          td 37
+                          td 2008/12/11
+                          td $136,200
+                        tr
+                          td Jackson Bradshaw
+                          td Director
+                          td New York
+                          td 65
+                          td 2008/09/26
+                          td $645,750
+                        tr
+                          td Olivia Liang
+                          td Support Engineer
+                          td Singapore
+                          td 64
+                          td 2011/02/03
+                          td $234,500
+                        tr
+                          td Bruno Nash
+                          td Software Engineer
+                          td London
+                          td 38
+                          td 2011/05/03
+                          td $163,500
+                        tr
+                          td Sakura Yamamoto
+                          td Support Engineer
+                          td Tokyo
+                          td 37
+                          td 2009/08/19
+                          td $139,575
+                        tr
+                          td Thor Walton
+                          td Developer
+                          td New York
+                          td 61
+                          td 2013/08/11
+                          td $98,540
+                        tr
+                          td Finn Camacho
+                          td Support Engineer
+                          td San Francisco
+                          td 47
+                          td 2009/07/07
+                          td $87,500
+                        tr
+                          td Serge Baldwin
+                          td Data Coordinator
+                          td Singapore
+                          td 64
+                          td 2012/04/09
+                          td $138,575
+                        tr
+                          td Zenaida Frank
+                          td Software Engineer
+                          td New York
+                          td 63
+                          td 2010/01/04
+                          td $125,250
+                        tr
+                          td Zorita Serrano
+                          td Software Engineer
+                          td San Francisco
+                          td 56
+                          td 2012/06/01
+                          td $115,000
+                        tr
+                          td Jennifer Acosta
+                          td Junior Javascript Developer
+                          td Edinburgh
+                          td 43
+                          td 2013/02/01
+                          td $75,650
+                        tr
+                          td Cara Stevens
+                          td Sales Assistant
+                          td New York
+                          td 46
+                          td 2011/12/06
+                          td $145,600
+                        tr
+                          td Hermione Butler
+                          td Regional Director
+                          td London
+                          td 47
+                          td 2011/03/21
+                          td $356,250
+                        tr
+                          td Lael Greer
+                          td Systems Administrator
+                          td London
+                          td 21
+                          td 2009/02/27
+                          td $103,500
+                        tr
+                          td Jonas Alexander
+                          td Developer
+                          td San Francisco
+                          td 30
+                          td 2010/07/14
+                          td $86,500
+                        tr
+                          td Shad Decker
+                          td Regional Director
+                          td Edinburgh
+                          td 51
+                          td 2008/11/13
+                          td $183,000
+                        tr
+                          td Michael Bruce
+                          td Javascript Developer
+                          td Singapore
+                          td 29
+                          td 2011/06/27
+                          td $183,000
+                        tr
+                          td Donna Snider
+                          td Customer Support
+                          td New York
+                          td 27
+                          td 2011/01/25
+                          td $112,000
+              .col-md-12.col-sm-12.col-xs-12
                 .x_panel
                   .x_title
                     h2
-                      i.fa.fa-align-left
-                      |  Collapsible / Accordion 
-                      small Sessions
+                      | KeyTable example 
+                      small Users
                     ul.nav.navbar-right.panel_toolbox
                       li
                         a.collapse-link
@@ -510,60 +2234,426 @@ html(lang='en')
                           i.fa.fa-close
                     .clearfix
                   .x_content
-                    // start accordion
-                    #accordion.accordion(role='tablist', aria-multiselectable='true')
-                      .panel
-                        a#headingOne.panel-heading(role='tab', data-toggle='collapse', data-parent='#accordion', href='#collapseOne', aria-expanded='true', aria-controls='collapseOne')
-                          h4.panel-title Collapsible Group Items #1
-                        #collapseOne.panel-collapse.collapse.in(role='tabpanel', aria-labelledby='headingOne')
-                          .panel-body
-                            table.table.table-bordered
-                              thead
-                                tr
-                                  th #
-                                  th First Name
-                                  th Last Name
-                                  th Username
-                              tbody
-                                tr
-                                  th(scope='row') 1
-                                  td Mark
-                                  td Otto
-                                  td @mdo
-                                tr
-                                  th(scope='row') 2
-                                  td Jacob
-                                  td Thornton
-                                  td @fat
-                                tr
-                                  th(scope='row') 3
-                                  td Larry
-                                  td the Bird
-                                  td @twitter
-                      .panel
-                        a#headingTwo.panel-heading.collapsed(role='tab', data-toggle='collapse', data-parent='#accordion', href='#collapseTwo', aria-expanded='false', aria-controls='collapseTwo')
-                          h4.panel-title Collapsible Group Items #2
-                        #collapseTwo.panel-collapse.collapse(role='tabpanel', aria-labelledby='headingTwo')
-                          .panel-body
-                            p
-                              strong Collapsible Item 2 data
-                            |                             Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor,
-                      .panel
-                        a#headingThree.panel-heading.collapsed(role='tab', data-toggle='collapse', data-parent='#accordion', href='#collapseThree', aria-expanded='false', aria-controls='collapseThree')
-                          h4.panel-title Collapsible Group Items #3
-                        #collapseThree.panel-collapse.collapse(role='tabpanel', aria-labelledby='headingThree')
-                          .panel-body
-                            p
-                              strong Collapsible Item 3 data
-                            |                             Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor
-                    // end of accordion
-              .col-md-6.col-sm-6.col-xs-12
+                    .row
+                      .col-sm-12
+                        .card-box.table-responsive
+                          p.text-muted.font-13.m-b-30
+                            | KeyTable provides Excel like cell navigation on any table. Events (focus, blur, action etc) can be assigned to individual cells, columns, rows or all cells.
+                          table#datatable-keytable.table.table-striped.table-bordered
+                            thead
+                              tr
+                                th Name
+                                th Position
+                                th Office
+                                th Age
+                                th Start date
+                                th Salary
+                            tbody
+                              tr
+                                td Tiger Nixon
+                                td System Architect
+                                td Edinburgh
+                                td 61
+                                td 2011/04/25
+                                td $320,800
+                              tr
+                                td Garrett Winters
+                                td Accountant
+                                td Tokyo
+                                td 63
+                                td 2011/07/25
+                                td $170,750
+                              tr
+                                td Ashton Cox
+                                td Junior Technical Author
+                                td San Francisco
+                                td 66
+                                td 2009/01/12
+                                td $86,000
+                              tr
+                                td Cedric Kelly
+                                td Senior Javascript Developer
+                                td Edinburgh
+                                td 22
+                                td 2012/03/29
+                                td $433,060
+                              tr
+                                td Airi Satou
+                                td Accountant
+                                td Tokyo
+                                td 33
+                                td 2008/11/28
+                                td $162,700
+                              tr
+                                td Brielle Williamson
+                                td Integration Specialist
+                                td New York
+                                td 61
+                                td 2012/12/02
+                                td $372,000
+                              tr
+                                td Herrod Chandler
+                                td Sales Assistant
+                                td San Francisco
+                                td 59
+                                td 2012/08/06
+                                td $137,500
+                              tr
+                                td Rhona Davidson
+                                td Integration Specialist
+                                td Tokyo
+                                td 55
+                                td 2010/10/14
+                                td $327,900
+                              tr
+                                td Colleen Hurst
+                                td Javascript Developer
+                                td San Francisco
+                                td 39
+                                td 2009/09/15
+                                td $205,500
+                              tr
+                                td Sonya Frost
+                                td Software Engineer
+                                td Edinburgh
+                                td 23
+                                td 2008/12/13
+                                td $103,600
+                              tr
+                                td Jena Gaines
+                                td Office Manager
+                                td London
+                                td 30
+                                td 2008/12/19
+                                td $90,560
+                              tr
+                                td Quinn Flynn
+                                td Support Lead
+                                td Edinburgh
+                                td 22
+                                td 2013/03/03
+                                td $342,000
+                              tr
+                                td Charde Marshall
+                                td Regional Director
+                                td San Francisco
+                                td 36
+                                td 2008/10/16
+                                td $470,600
+                              tr
+                                td Haley Kennedy
+                                td Senior Marketing Designer
+                                td London
+                                td 43
+                                td 2012/12/18
+                                td $313,500
+                              tr
+                                td Tatyana Fitzpatrick
+                                td Regional Director
+                                td London
+                                td 19
+                                td 2010/03/17
+                                td $385,750
+                              tr
+                                td Michael Silva
+                                td Marketing Designer
+                                td London
+                                td 66
+                                td 2012/11/27
+                                td $198,500
+                              tr
+                                td Paul Byrd
+                                td Chief Financial Officer (CFO)
+                                td New York
+                                td 64
+                                td 2010/06/09
+                                td $725,000
+                              tr
+                                td Gloria Little
+                                td Systems Administrator
+                                td New York
+                                td 59
+                                td 2009/04/10
+                                td $237,500
+                              tr
+                                td Bradley Greer
+                                td Software Engineer
+                                td London
+                                td 41
+                                td 2012/10/13
+                                td $132,000
+                              tr
+                                td Dai Rios
+                                td Personnel Lead
+                                td Edinburgh
+                                td 35
+                                td 2012/09/26
+                                td $217,500
+                              tr
+                                td Jenette Caldwell
+                                td Development Lead
+                                td New York
+                                td 30
+                                td 2011/09/03
+                                td $345,000
+                              tr
+                                td Yuri Berry
+                                td Chief Marketing Officer (CMO)
+                                td New York
+                                td 40
+                                td 2009/06/25
+                                td $675,000
+                              tr
+                                td Caesar Vance
+                                td Pre-Sales Support
+                                td New York
+                                td 21
+                                td 2011/12/12
+                                td $106,450
+                              tr
+                                td Doris Wilder
+                                td Sales Assistant
+                                td Sidney
+                                td 23
+                                td 2010/09/20
+                                td $85,600
+                              tr
+                                td Angelica Ramos
+                                td Chief Executive Officer (CEO)
+                                td London
+                                td 47
+                                td 2009/10/09
+                                td $1,200,000
+                              tr
+                                td Gavin Joyce
+                                td Developer
+                                td Edinburgh
+                                td 42
+                                td 2010/12/22
+                                td $92,575
+                              tr
+                                td Jennifer Chang
+                                td Regional Director
+                                td Singapore
+                                td 28
+                                td 2010/11/14
+                                td $357,650
+                              tr
+                                td Brenden Wagner
+                                td Software Engineer
+                                td San Francisco
+                                td 28
+                                td 2011/06/07
+                                td $206,850
+                              tr
+                                td Fiona Green
+                                td Chief Operating Officer (COO)
+                                td San Francisco
+                                td 48
+                                td 2010/03/11
+                                td $850,000
+                              tr
+                                td Shou Itou
+                                td Regional Marketing
+                                td Tokyo
+                                td 20
+                                td 2011/08/14
+                                td $163,000
+                              tr
+                                td Michelle House
+                                td Integration Specialist
+                                td Sidney
+                                td 37
+                                td 2011/06/02
+                                td $95,400
+                              tr
+                                td Suki Burks
+                                td Developer
+                                td London
+                                td 53
+                                td 2009/10/22
+                                td $114,500
+                              tr
+                                td Prescott Bartlett
+                                td Technical Author
+                                td London
+                                td 27
+                                td 2011/05/07
+                                td $145,000
+                              tr
+                                td Gavin Cortez
+                                td Team Leader
+                                td San Francisco
+                                td 22
+                                td 2008/10/26
+                                td $235,500
+                              tr
+                                td Martena Mccray
+                                td Post-Sales support
+                                td Edinburgh
+                                td 46
+                                td 2011/03/09
+                                td $324,050
+                              tr
+                                td Unity Butler
+                                td Marketing Designer
+                                td San Francisco
+                                td 47
+                                td 2009/12/09
+                                td $85,675
+                              tr
+                                td Howard Hatfield
+                                td Office Manager
+                                td San Francisco
+                                td 51
+                                td 2008/12/16
+                                td $164,500
+                              tr
+                                td Hope Fuentes
+                                td Secretary
+                                td San Francisco
+                                td 41
+                                td 2010/02/12
+                                td $109,850
+                              tr
+                                td Vivian Harrell
+                                td Financial Controller
+                                td San Francisco
+                                td 62
+                                td 2009/02/14
+                                td $452,500
+                              tr
+                                td Timothy Mooney
+                                td Office Manager
+                                td London
+                                td 37
+                                td 2008/12/11
+                                td $136,200
+                              tr
+                                td Jackson Bradshaw
+                                td Director
+                                td New York
+                                td 65
+                                td 2008/09/26
+                                td $645,750
+                              tr
+                                td Olivia Liang
+                                td Support Engineer
+                                td Singapore
+                                td 64
+                                td 2011/02/03
+                                td $234,500
+                              tr
+                                td Bruno Nash
+                                td Software Engineer
+                                td London
+                                td 38
+                                td 2011/05/03
+                                td $163,500
+                              tr
+                                td Sakura Yamamoto
+                                td Support Engineer
+                                td Tokyo
+                                td 37
+                                td 2009/08/19
+                                td $139,575
+                              tr
+                                td Thor Walton
+                                td Developer
+                                td New York
+                                td 61
+                                td 2013/08/11
+                                td $98,540
+                              tr
+                                td Finn Camacho
+                                td Support Engineer
+                                td San Francisco
+                                td 47
+                                td 2009/07/07
+                                td $87,500
+                              tr
+                                td Serge Baldwin
+                                td Data Coordinator
+                                td Singapore
+                                td 64
+                                td 2012/04/09
+                                td $138,575
+                              tr
+                                td Zenaida Frank
+                                td Software Engineer
+                                td New York
+                                td 63
+                                td 2010/01/04
+                                td $125,250
+                              tr
+                                td Zorita Serrano
+                                td Software Engineer
+                                td San Francisco
+                                td 56
+                                td 2012/06/01
+                                td $115,000
+                              tr
+                                td Jennifer Acosta
+                                td Junior Javascript Developer
+                                td Edinburgh
+                                td 43
+                                td 2013/02/01
+                                td $75,650
+                              tr
+                                td Cara Stevens
+                                td Sales Assistant
+                                td New York
+                                td 46
+                                td 2011/12/06
+                                td $145,600
+                              tr
+                                td Hermione Butler
+                                td Regional Director
+                                td London
+                                td 47
+                                td 2011/03/21
+                                td $356,250
+                              tr
+                                td Lael Greer
+                                td Systems Administrator
+                                td London
+                                td 21
+                                td 2009/02/27
+                                td $103,500
+                              tr
+                                td Jonas Alexander
+                                td Developer
+                                td San Francisco
+                                td 30
+                                td 2010/07/14
+                                td $86,500
+                              tr
+                                td Shad Decker
+                                td Regional Director
+                                td Edinburgh
+                                td 51
+                                td 2008/11/13
+                                td $183,000
+                              tr
+                                td Michael Bruce
+                                td Javascript Developer
+                                td Singapore
+                                td 29
+                                td 2011/06/27
+                                td $183,000
+                              tr
+                                td Donna Snider
+                                td Customer Support
+                                td New York
+                                td 27
+                                td 2011/01/25
+                                td $112,000
+              .col-md-12.col-sm-12.col-xs-12
                 .x_panel
                   .x_title
                     h2
-                      i.fa.fa-align-left
-                      |  Collapsible / Accordion 
-                      small Sessions
+                      | Responsive example
+                      small Users
                     ul.nav.navbar-right.panel_toolbox
                       li
                         a.collapse-link
@@ -581,743 +2671,591 @@ html(lang='en')
                           i.fa.fa-close
                     .clearfix
                   .x_content
-                    // start accordion
-                    #accordion1.accordion(role='tablist', aria-multiselectable='true')
-                      .panel
-                        a#headingOne1.panel-heading(role='tab', data-toggle='collapse', data-parent='#accordion1', href='#collapseOne1', aria-expanded='true', aria-controls='collapseOne')
-                          h4.panel-title Collapsible Group Item #1
-                        #collapseOne1.panel-collapse.collapse.in(role='tabpanel', aria-labelledby='headingOne')
-                          .panel-body
-                            table.table.table-striped
-                              thead
-                                tr
-                                  th #
-                                  th First Name
-                                  th Last Name
-                                  th Username
-                              tbody
-                                tr
-                                  th(scope='row') 1
-                                  td Mark
-                                  td Otto
-                                  td @mdo
-                                tr
-                                  th(scope='row') 2
-                                  td Jacob
-                                  td Thornton
-                                  td @fat
-                                tr
-                                  th(scope='row') 3
-                                  td Larry
-                                  td the Bird
-                                  td @twitter
-                      .panel
-                        a#headingTwo1.panel-heading.collapsed(role='tab', data-toggle='collapse', data-parent='#accordion1', href='#collapseTwo1', aria-expanded='false', aria-controls='collapseTwo')
-                          h4.panel-title Collapsible Group Item #2
-                        #collapseTwo1.panel-collapse.collapse(role='tabpanel', aria-labelledby='headingTwo')
-                          .panel-body
-                            p
-                              strong Collapsible Item 2 data
-                            |                             Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor,
-                      .panel
-                        a#headingThree1.panel-heading.collapsed(role='tab', data-toggle='collapse', data-parent='#accordion1', href='#collapseThree1', aria-expanded='false', aria-controls='collapseThree')
-                          h4.panel-title Collapsible Group Item #3
-                        #collapseThree1.panel-collapse.collapse(role='tabpanel', aria-labelledby='headingThree')
-                          .panel-body
-                            p
-                              strong Collapsible Item 3 data
-                            |                             Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor
-                    // end of accordion
-            .clearfix
-            div
-              .col-md-6.col-sm-6.col-xs-12
-                .x_panel
-                  .x_title
-                    h2
-                      | Tooltips 
-                      small Hover to view
-                    ul.nav.navbar-right.panel_toolbox
-                      li
-                        a.collapse-link
-                          i.fa.fa-chevron-up
-                      li.dropdown
-                        a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-expanded='false')
-                          i.fa.fa-wrench
-                        ul.dropdown-menu(role='menu')
-                          li
-                            a(href='#') Settings 1
-                          li
-                            a(href='#') Settings 2
-                      li
-                        a.close-link
-                          i.fa.fa-close
-                    .clearfix
-                  .x_content
-                    p Add small overlays of content for housing secondary information.
-                    // start pop-over
-                    .bs-example-popovers
-                      button.btn.btn-default(type='button', data-container='body', data-toggle='popover', data-placement='left', data-content='Vivamus sagittis lacus vel augue laoreet rutrum faucibus.', data-original-title='', title='')
-                        | Left
-                      button.btn.btn-default(type='button', data-container='body', data-toggle='popover', data-placement='top', data-content='Vivamus sagittis lacus vel augue laoreet rutrum faucibus.', data-original-title='', title='')
-                        | Top
-                      button.btn.btn-default(type='button', data-container='body', data-toggle='popover', data-placement='bottom', data-content='Vivamus sagittis lacus vel augue laoreet rutrum faucibus.')
-                        | Bottom
-                      button.btn.btn-default(type='button', data-container='body', data-toggle='popover', data-placement='right', data-content='Vivamus sagittis lacus vel augue laoreet rutrum faucibus.')
-                        | Right
-                    // end pop-over
-              .col-md-6.col-sm-6.col-xs-12
-                .x_panel
-                  .x_title
-                    h2
-                      | Tooltips 
-                      small Hover to view
-                    ul.nav.navbar-right.panel_toolbox
-                      li
-                        a.collapse-link
-                          i.fa.fa-chevron-up
-                      li.dropdown
-                        a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-expanded='false')
-                          i.fa.fa-wrench
-                        ul.dropdown-menu(role='menu')
-                          li
-                            a(href='#') Settings 1
-                          li
-                            a(href='#') Settings 2
-                      li
-                        a.close-link
-                          i.fa.fa-close
-                    .clearfix
-                  .x_content
-                    p Hover over the links below to see tooltips:
-                    button.btn.btn-default(type='button', data-toggle='tooltip', data-placement='left', title='Tooltip left') Tooltip left
-                    button.btn.btn-default(type='button', data-toggle='tooltip', data-placement='top', title='Tooltip top') Tooltip top
-                    button.btn.btn-default(type='button', data-toggle='tooltip', data-placement='bottom', title='Tooltip bottom') Tooltip bottom
-                    button.btn.btn-default(type='button', data-toggle='tooltip', data-placement='right', title='Tooltip right') Tooltip right
-            .col-md-6.col-sm-6.col-xs-12
-              .x_panel
-                .x_title
-                  h2
-                    | Daily active users 
-                    small Sessions
-                  ul.nav.navbar-right.panel_toolbox
-                    li
-                      a.collapse-link
-                        i.fa.fa-chevron-up
-                    li.dropdown
-                      a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-expanded='false')
-                        i.fa.fa-wrench
-                      ul.dropdown-menu(role='menu')
-                        li
-                          a(href='#') Settings 1
-                        li
-                          a(href='#') Settings 2
-                    li
-                      a.close-link
-                        i.fa.fa-close
-                  .clearfix
-                .x_content
-                  ul.list-unstyled.timeline
-                    li
-                      .block
-                        .tags
-                          a.tag(href='')
-                            span Entertainment
-                        .block_content
-                          h2.title
-                            a Who Needs Sundance When You’ve Got Crowdfunding?
-                          .byline
-                            span 13 hours ago
-                            |  by 
-                            a Jane Smith
-                          p.excerpt
-                            | Film festivals used to be do-or-die moments for movie makers. They were where you met the producers that could fund your project, and if the buyers liked your flick, they’d pay to Fast-forward and… 
-                            a Read More
-                    li
-                      .block
-                        .tags
-                          a.tag(href='')
-                            span Entertainment
-                        .block_content
-                          h2.title
-                            a Who Needs Sundance When You’ve Got Crowdfunding?
-                          .byline
-                            span 13 hours ago
-                            |  by 
-                            a Jane Smith
-                          p.excerpt
-                            | Film festivals used to be do-or-die moments for movie makers. They were where you met the producers that could fund your project, and if the buyers liked your flick, they’d pay to Fast-forward and… 
-                            a Read More
-                    li
-                      .block
-                        .tags
-                          a.tag(href='')
-                            span Entertainment
-                        .block_content
-                          h2.title
-                            a Who Needs Sundance When You’ve Got Crowdfunding?
-                          .byline
-                            span 13 hours ago
-                            |  by 
-                            a Jane Smith
-                          p.excerpt
-                            | Film festivals used to be do-or-die moments for movie makers. They were where you met the producers that could fund your project, and if the buyers liked your flick, they’d pay to Fast-forward and… 
-                            a Read More
-            .col-md-6.col-sm-6.col-xs-12
-              .x_panel
-                .x_title
-                  h2
-                    | Daily active users 
-                    small Sessions
-                  ul.nav.navbar-right.panel_toolbox
-                    li
-                      a.collapse-link
-                        i.fa.fa-chevron-up
-                    li.dropdown
-                      a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-expanded='false')
-                        i.fa.fa-wrench
-                      ul.dropdown-menu(role='menu')
-                        li
-                          a(href='#') Settings 1
-                        li
-                          a(href='#') Settings 2
-                    li
-                      a.close-link
-                        i.fa.fa-close
-                  .clearfix
-                .x_content
-                  .bs-example(data-example-id='simple-jumbotron')
-                    .jumbotron
-                      h1 Hello, world!
-                      p
-                        | This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.
-            .col-md-6.col-sm-6.col-xs-12
-              .x_panel
-                .x_title
-                  h2
-                    i.fa.fa-chevron-down
-                    |  Dropdowns 
-                    small Multiple dropdown designs
-                  ul.nav.navbar-right.panel_toolbox
-                    li
-                      a.collapse-link
-                        i.fa.fa-chevron-up
-                    li.dropdown
-                      a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-expanded='false')
-                        i.fa.fa-wrench
-                      ul.dropdown-menu(role='menu')
-                        li
-                          a(href='#') Settings 1
-                        li
-                          a(href='#') Settings 2
-                    li
-                      a.close-link
-                        i.fa.fa-close
-                  .clearfix
-                .x_content
-                  p Gentelella provides you with several dropdown designs for your choosing.
-                  ul.nav.nav-pills(role='tablist')
-                    li(role='presentation')
-                      a(href='#') Regular link
-                    li.dropdown(role='presentation')
-                      a#drop4.dropdown-toggle(href='#', data-toggle='dropdown', aria-haspopup='true', role='button', aria-expanded='false')
-                        | Dropdown
-                        span.caret
-                      ul#menu6.dropdown-menu.animated.fadeInDown(role='menu')
-                        li(role='presentation')
-                          a(role='menuitem', tabindex='-1', href='https://twitter.com/fat') Action
-                        li(role='presentation')
-                          a(role='menuitem', tabindex='-1', href='https://twitter.com/fat') Another action
-                        li(role='presentation')
-                          a(role='menuitem', tabindex='-1', href='https://twitter.com/fat') Something else here
-                        li.divider(role='presentation')
-                        li(role='presentation')
-                          a(role='menuitem', tabindex='-1', href='https://twitter.com/fat') Separated link
-                    li.dropdown(role='presentation')
-                      a#drop5.dropdown-toggle(href='#', data-toggle='dropdown', aria-haspopup='true', role='button', aria-expanded='false')
-                        | Dropdown
-                        span.caret
-                      ul#menu2.dropdown-menu.animated.fadeInDown(role='menu', aria-labelledby='drop5')
-                        li(role='presentation')
-                          a(role='menuitem', tabindex='-1', href='https://twitter.com/fat') Action
-                        li(role='presentation')
-                          a(role='menuitem', tabindex='-1', href='https://twitter.com/fat') Another action
-                        li(role='presentation')
-                          a(role='menuitem', tabindex='-1', href='https://twitter.com/fat') Something else here
-                        li.divider(role='presentation')
-                        li(role='presentation')
-                          a(role='menuitem', tabindex='-1', href='https://twitter.com/fat') Separated link
-                    li.dropdown(role='presentation')
-                      a#drop6.dropdown-toggle(href='#', data-toggle='dropdown', aria-haspopup='true', role='button', aria-expanded='false')
-                        | Dropdown
-                        span.caret
-                      ul#menu3.dropdown-menu.animated.fadeInDown(role='menu', aria-labelledby='drop6')
-                        li(role='presentation')
-                          a(role='menuitem', tabindex='-1', href='https://twitter.com/fat') Action
-                        li(role='presentation')
-                          a(role='menuitem', tabindex='-1', href='https://twitter.com/fat') Another action
-                        li(role='presentation')
-                          a(role='menuitem', tabindex='-1', href='https://twitter.com/fat') Something else here
-                        li.divider(role='presentation')
-                        li(role='presentation')
-                          a(role='menuitem', tabindex='-1', href='https://twitter.com/fat') Separated link
-            .col-md-6.col-sm-6.col-xs-12
-              .x_panel
-                .x_title
-                  h2
-                    i.fa.fa-square-o
-                    |  Modals
-                  ul.nav.navbar-right.panel_toolbox
-                    li
-                      a.collapse-link
-                        i.fa.fa-chevron-up
-                    li.dropdown
-                      a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-expanded='false')
-                        i.fa.fa-wrench
-                      ul.dropdown-menu(role='menu')
-                        li
-                          a(href='#') Settings 1
-                        li
-                          a(href='#') Settings 2
-                    li
-                      a.close-link
-                        i.fa.fa-close
-                  .clearfix
-                .x_content
-                  // modals
-                  // Large modal
-                  button.btn.btn-primary(type='button', data-toggle='modal', data-target='.bs-example-modal-lg') Large modal
-                  .modal.fade.bs-example-modal-lg(tabindex='-1', role='dialog', aria-hidden='true')
-                    .modal-dialog.modal-lg
-                      .modal-content
-                        .modal-header
-                          button.close(type='button', data-dismiss='modal')
-                            span(aria-hidden='true') ×
-                          h4#myModalLabel.modal-title Modal title
-                        .modal-body
-                          h4 Text in a modal
-                          p
-                            | Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.
-                          p
-                            | Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.
-                        .modal-footer
-                          button.btn.btn-default(type='button', data-dismiss='modal') Close
-                          button.btn.btn-primary(type='button') Save changes
-                  // Small modal
-                  button.btn.btn-primary(type='button', data-toggle='modal', data-target='.bs-example-modal-sm') Small modal
-                  .modal.fade.bs-example-modal-sm(tabindex='-1', role='dialog', aria-hidden='true')
-                    .modal-dialog.modal-sm
-                      .modal-content
-                        .modal-header
-                          button.close(type='button', data-dismiss='modal', aria-label='Close')
-                            span(aria-hidden='true') ×
-                          h4#myModalLabel2.modal-title Modal title
-                        .modal-body
-                          h4 Text in a modal
-                          p
-                            | Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.
-                          p
-                            | Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.
-                        .modal-footer
-                          button.btn.btn-default(type='button', data-dismiss='modal') Close
-                          button.btn.btn-primary(type='button') Save changes
-                  // /modals
-            .col-md-6.col-sm-6.col-xs-12
-              .x_panel
-                .x_title
-                  h2
-                    i.fa.fa-bell
-                    |  Notifications 
-                    small Styled & Custom notifications
-                  ul.nav.navbar-right.panel_toolbox
-                    li
-                      a.collapse-link
-                        i.fa.fa-chevron-up
-                    li.dropdown
-                      a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-expanded='false')
-                        i.fa.fa-wrench
-                      ul.dropdown-menu(role='menu')
-                        li
-                          a(href='#') Settings 1
-                        li
-                          a(href='#') Settings 2
-                    li
-                      a.close-link
-                        i.fa.fa-close
-                  .clearfix
-                .x_content
-                  p Regular notifications
-                  button.btn.btn-default.source(onclick="new PNotify({\
-                  title: 'Regular Success',\
-                  text: 'That thing that you were trying to do worked!',\
-                  type: 'success',\
-                  styling: 'bootstrap3'\
-                  });") Success
-                  button.btn.btn-default.source(onclick="new PNotify({\
-                  title: 'New Thing',\
-                  text: 'Just to let you know, something happened.',\
-                  type: 'info',\
-                  styling: 'bootstrap3'\
-                  });") Info
-                  button.btn.btn-default.source(onclick="new PNotify({\
-                  title: 'Regular Notice',\
-                  text: 'Check me out! I\'m a notice.',\
-                  styling: 'bootstrap3'\
-                  });") Notice
-                  button.btn.btn-default.source(onclick="new PNotify({\
-                  title: 'Oh No!',\
-                  text: 'Something terrible happened.',\
-                  type: 'error',\
-                  styling: 'bootstrap3'\
-                  });") Error
-                  button.btn.btn-default.source(onclick="new PNotify({\
-                  title: 'Oh No!',\
-                  text: 'Something terrible happened.',\
-                  type: 'info',\
-                  styling: 'bootstrap3',\
-                  addclass: 'dark'\
-                  });") Dark
-                  hr
-                  p Sticky notifications.. these wont close unless user closes them.
-                  button.btn.btn-default.source(onclick="new PNotify({\
-                  title: 'Sticky Success',\
-                  text: 'Sticky success... I\'m not even gonna make a joke.',\
-                  type: 'success',\
-                  hide: false,\
-                  styling: 'bootstrap3'\
-                  });") Success
-                  button.btn.btn-default.source(onclick="new PNotify({\
-                  title: 'Sticky Info',\
-                  text: 'Sticky Info... I\'m not even gonna make a joke.',\
-                  type: 'info',\
-                  hide: false,\
-                  styling: 'bootstrap3'\
-                  });") Info
-                  button.btn.btn-default.source(onclick="new PNotify({\
-                  title: 'Sticky Warning',\
-                  text: 'Sticky Warning... I\'m not even gonna make a joke.',\
-                  hide: false,\
-                  styling: 'bootstrap3'\
-                  });") Warning
-                  button.btn.btn-default.source(onclick="new PNotify({\
-                  title: 'Sticky Danger',\
-                  text: 'Sticky Danger... I\'m not even gonna make a joke.',\
-                  type: 'error',\
-                  hide: false,\
-                  styling: 'bootstrap3'\
-                  });") Error
-                  button.btn.btn-default.source(onclick="new PNotify({\
-                  title: 'Sticky Success',\
-                  text: 'Sticky success... I\'m not even gonna make a joke.',\
-                  type: 'info',\
-                  hide: false,\
-                  styling: 'bootstrap3',\
-                  addclass: 'dark'\
-                  });") Dark
-                  hr
-                  button.btn.btn-default.source(onclick="new PNotify({\
-                  title: 'Non-Blocking Notice',\
-                  type: 'info',\
-                  text: 'When you hover over me I\'ll fade to show the elements underneath. Feel free to click any of them just like I wasn\'t even here.',\
-                  nonblock: {\
-                  nonblock: true\
-                  },\
-                  styling: 'bootstrap3',\
-                  addclass: 'dark'\
-                  });") Non-Blocking Notice
-                  hr
-                  #antoox
-                    div
-                      div
-                      div
-                      div
-                  button.btn.btn-default.source(onclick="new TabbedNotification({\
-                  title: 'Tabbed Notificat',\
-                  text: 'Sticky success... Raw denim you probably haven\'t heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. ',\
-                  type: 'success',\
-                  sound: false\
-                  })") Success
-                  button.btn.btn-default.source(onclick="new TabbedNotification({\
-                  title: 'Tabbed Notificat',\
-                  text: 'Custom Info... Raw denim you probably haven\'t heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica.',\
-                  type: 'info',\
-                  sound: false\
-                  })") Info
-                  button.btn.btn-default.source(onclick="new TabbedNotification({\
-                  title: 'Tabbed Notificat',\
-                  text: 'Custom Warning... Raw denim you probably haven\'t heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. ',\
-                  type: 'warning',\
-                  sound: false\
-                  })") Warning
-                  button.btn.btn-default.source(onclick="new TabbedNotification({\
-                  title: 'Custom Notification error',\
-                  text: 'Custom Error... Raw denim you probably haven\'t heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. ',\
-                  type: 'error',\
-                  sound: false\
-                  })") Error
-                  button.btn.btn-default.source(onclick="new TabbedNotification({\
-                  title: 'Tabbed notification dark',\
-                  text: 'Custom Dark... Raw denim you probably haven\'t heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. ',\
-                  type: 'dark',\
-                  sound: false\
-                  })") Dark
-            .col-md-6
-              .x_panel
-                .x_title
-                  h2
-                    | Pop Overs 
-                    small Sessions
-                  ul.nav.navbar-right.panel_toolbox
-                    li
-                      a.collapse-link
-                        i.fa.fa-chevron-up
-                    li.dropdown
-                      a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-expanded='false')
-                        i.fa.fa-wrench
-                      ul.dropdown-menu(role='menu')
-                        li
-                          a(href='#') Settings 1
-                        li
-                          a(href='#') Settings 2
-                    li
-                      a.close-link
-                        i.fa.fa-close
-                  .clearfix
-                .x_content.bs-example-popovers
-                  .alert.alert-success.alert-dismissible.fade.in(role='alert')
-                    button.close(type='button', data-dismiss='alert', aria-label='Close')
-                      span(aria-hidden='true') ×
-                    strong Holy guacamole!
-                    |  Best check yo self, you're not looking too good.
-                  .alert.alert-info.alert-dismissible.fade.in(role='alert')
-                    button.close(type='button', data-dismiss='alert', aria-label='Close')
-                      span(aria-hidden='true') ×
-                    strong Holy guacamole!
-                    |  Best check yo self, you're not looking too good.
-                  .alert.alert-warning.alert-dismissible.fade.in(role='alert')
-                    button.close(type='button', data-dismiss='alert', aria-label='Close')
-                      span(aria-hidden='true') ×
-                    strong Holy guacamole!
-                    |  Best check yo self, you're not looking too good.
-                  .alert.alert-danger.alert-dismissible.fade.in(role='alert')
-                    button.close(type='button', data-dismiss='alert', aria-label='Close')
-                      span(aria-hidden='true') ×
-                    strong Holy guacamole!
-                    |  Best check yo self, you're not looking too good.
-            .col-md-6
-              .x_panel
-                .x_title
-                  h2
-                    i.fa.fa-align-left
-                    |  Progress bar
-                    small Sessions
-                  ul.nav.navbar-right.panel_toolbox
-                    li
-                      a.collapse-link
-                        i.fa.fa-chevron-up
-                    li.dropdown
-                      a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-expanded='false')
-                        i.fa.fa-wrench
-                      ul.dropdown-menu(role='menu')
-                        li
-                          a(href='#') Settings 1
-                        li
-                          a(href='#') Settings 2
-                    li
-                      a.close-link
-                        i.fa.fa-close
-                  .clearfix
-                .x_content
-                  p
-                    | Bootstrap progress bar with animated loading bar, add right to .progress to align right
-                  .row
-                    .col-md-6
-                      .progress.right
-                        .progress-bar.progress-bar-danger(data-transitiongoal='25')
-                      .progress.right
-                        .progress-bar.progress-bar-warning(data-transitiongoal='45')
-                      .progress.right
-                        .progress-bar.progress-bar-info(data-transitiongoal='65')
-                      .progress.right
-                        .progress-bar.progress-bar-success(data-transitiongoal='95')
-                    .col-md-6
-                      .progress
-                        .progress-bar.progress-bar-danger(data-transitiongoal='25')
-                      .progress
-                        .progress-bar.progress-bar-warning(data-transitiongoal='45')
-                      .progress
-                        .progress-bar.progress-bar-info(data-transitiongoal='65')
-                      .progress
-                        .progress-bar.progress-bar-success(data-transitiongoal='95')
-                  .row
-                    .col-md-6.col-sm-12
-                      ul.verticle_bars.list-inline
-                        li
-                          .progress.progress-striped.vertical.progress_wide.bottom
-                            .progress-bar.progress-bar-danger(role='progressbar', data-transitiongoal='25')
-                        li
-                          .progress.progress-striped.vertical.progress_wide.bottom
-                            .progress-bar.progress-bar-warning(role='progressbar', data-transitiongoal='45')
-                        li
-                          .progress.vertical.progress_wide.bottom
-                            .progress-bar.progress-bar-info(role='progressbar', data-transitiongoal='65')
-                        li
-                          .progress.vertical.progress_wide.bottom
-                            .progress-bar.progress-bar-success(role='progressbar', data-transitiongoal='85')
-                    .col-md-6.col-sm-12.fixed_height_200
-                      ul.verticle_bars.list-inline
-                        li
-                          .progress.vertical.bottom
-                            .progress-bar.progress-bar-success(role='progressbar', data-transitiongoal='85')
-                        li
-                          .progress.vertical.bottom
-                            .progress-bar.progress-bar-info(role='progressbar', data-transitiongoal='65')
-                        li
-                          .progress.vertical.bottom
-                            .progress-bar.progress-bar-warning(role='progressbar', data-transitiongoal='45')
-                        li
-                          .progress.vertical.bottom
-                            .progress-bar.progress-bar-danger(role='progressbar', data-transitiongoal='25')
-                  .row
-                    .col-md-6.col-sm-12
-                      ul.verticle_bars.list-inline
-                        li
-                          .progress.vertical.progress_wide
-                            .progress-bar.progress-bar-danger.progress-bar-striped(role='progressbar', data-transitiongoal='25')
-                        li
-                          .progress.vertical.progress_wide
-                            .progress-bar.progress-bar-warning.progress-bar-striped(role='progressbar', data-transitiongoal='45')
-                        li
-                          .progress.vertical.progress_wide
-                            .progress-bar.progress-bar-info(role='progressbar', data-transitiongoal='65')
-                        li
-                          .progress.vertical.progress_wide
-                            .progress-bar.progress-bar-success(role='progressbar', data-transitiongoal='85')
-                    .col-md-6.col-sm-12.fixed_height_200
-                      ul.verticle_bars.list-inline
-                        li
-                          .progress.vertical
-                            .progress-bar.progress-bar-success(role='progressbar', data-transitiongoal='85')
-                        li
-                          .progress.vertical
-                            .progress-bar.progress-bar-info(role='progressbar', data-transitiongoal='65')
-                        li
-                          .progress.vertical
-                            .progress-bar.progress-bar-warning(role='progressbar', data-transitiongoal='45')
-                        li
-                          .progress.vertical
-                            .progress-bar.progress-bar-danger(role='progressbar', data-transitiongoal='25')
-            // Start to do list
-            .col-md-6.col-sm-6.col-xs-12
-              .x_panel
-                .x_title
-                  h2
-                    | To Do List 
-                    small Sample tasks
-                  ul.nav.navbar-right.panel_toolbox
-                    li
-                      a.collapse-link
-                        i.fa.fa-chevron-up
-                    li.dropdown
-                      a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-expanded='false')
-                        i.fa.fa-wrench
-                      ul.dropdown-menu(role='menu')
-                        li
-                          a(href='#') Settings 1
-                        li
-                          a(href='#') Settings 2
-                    li
-                      a.close-link
-                        i.fa.fa-close
-                  .clearfix
-                .x_content
-                  div
-                    ul.to_do
-                      li
-                        p
-                          input.flat(type='checkbox')
-                          |  Schedule meeting with new client
-                      li
-                        p
-                          input.flat(type='checkbox')
-                          |  Create email address for new intern
-                      li
-                        p
-                          input.flat(type='checkbox')
-                          |  Have IT fix the network printer
-                      li
-                        p
-                          input.flat(type='checkbox')
-                          |  Copy backups to offsite location
-                      li
-                        p
-                          input.flat(type='checkbox')
-                          |  Food truck fixie locavors mcsweeney
-                      li
-                        p
-                          input.flat(type='checkbox')
-                          |  Food truck fixie locavors mcsweeney
-            // End to do list
-            .col-md-6
-              .x_panel
-                .x_title
-                  h2
-                    | Daily active users 
-                    small Sessions
-                  ul.nav.navbar-right.panel_toolbox
-                    li
-                      a.collapse-link
-                        i.fa.fa-chevron-up
-                    li.dropdown
-                      a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-expanded='false')
-                        i.fa.fa-wrench
-                      ul.dropdown-menu(role='menu')
-                        li
-                          a(href='#') Settings 1
-                        li
-                          a(href='#') Settings 2
-                    li
-                      a.close-link
-                        i.fa.fa-close
-                  .clearfix
-                .x_content
-                  ul.list-unstyled.msg_list
-                    li
-                      a
-                        span.image
-                          img(src='images/img.jpg', alt='img')
-                        span
-                          span John Smith
-                          span.time 3 mins ago
-                        span.message
-                          | Film festivals used to be do-or-die moments for movie makers. They were where you met the producers that
-                    li
-                      a
-                        span.image
-                          img(src='images/img.jpg', alt='img')
-                        span
-                          span John Smith
-                          span.time 3 mins ago
-                        span.message
-                          | Film festivals used to be do-or-die moments for movie makers. They were where you met the producers that
-                    li
-                      a
-                        span.image
-                          img(src='images/img.jpg', alt='img')
-                        span
-                          span John Smith
-                          span.time 3 mins ago
-                        span.message
-                          | Film festivals used to be do-or-die moments for movie makers. They were where you met the producers that
-                    li
-                      a
-                        span.image
-                          img(src='images/img.jpg', alt='img')
-                        span
-                          span John Smith
-                          span.time 3 mins ago
-                        span.message
-                          | Film festivals used to be do-or-die moments for movie makers. They were where you met the producers that
-          .clearfix
+                    p.text-muted.font-13.m-b-30
+                      | Responsive is an extension for DataTables that resolves that problem by optimising the table's layout for different screen sizes through the dynamic insertion and removal of columns from the table.
+                    table#datatable-responsive.table.table-striped.table-bordered.dt-responsive.nowrap(cellspacing='0', width='100%')
+                      thead
+                        tr
+                          th First name
+                          th Last name
+                          th Position
+                          th Office
+                          th Age
+                          th Start date
+                          th Salary
+                          th Extn.
+                          th E-mail
+                      tbody
+                        tr
+                          td Tiger
+                          td Nixon
+                          td System Architect
+                          td Edinburgh
+                          td 61
+                          td 2011/04/25
+                          td $320,800
+                          td 5421
+                          td t.nixon@datatables.net
+                        tr
+                          td Garrett
+                          td Winters
+                          td Accountant
+                          td Tokyo
+                          td 63
+                          td 2011/07/25
+                          td $170,750
+                          td 8422
+                          td g.winters@datatables.net
+                        tr
+                          td Ashton
+                          td Cox
+                          td Junior Technical Author
+                          td San Francisco
+                          td 66
+                          td 2009/01/12
+                          td $86,000
+                          td 1562
+                          td a.cox@datatables.net
+                        tr
+                          td Cedric
+                          td Kelly
+                          td Senior Javascript Developer
+                          td Edinburgh
+                          td 22
+                          td 2012/03/29
+                          td $433,060
+                          td 6224
+                          td c.kelly@datatables.net
+                        tr
+                          td Airi
+                          td Satou
+                          td Accountant
+                          td Tokyo
+                          td 33
+                          td 2008/11/28
+                          td $162,700
+                          td 5407
+                          td a.satou@datatables.net
+                        tr
+                          td Brielle
+                          td Williamson
+                          td Integration Specialist
+                          td New York
+                          td 61
+                          td 2012/12/02
+                          td $372,000
+                          td 4804
+                          td b.williamson@datatables.net
+                        tr
+                          td Herrod
+                          td Chandler
+                          td Sales Assistant
+                          td San Francisco
+                          td 59
+                          td 2012/08/06
+                          td $137,500
+                          td 9608
+                          td h.chandler@datatables.net
+                        tr
+                          td Rhona
+                          td Davidson
+                          td Integration Specialist
+                          td Tokyo
+                          td 55
+                          td 2010/10/14
+                          td $327,900
+                          td 6200
+                          td r.davidson@datatables.net
+                        tr
+                          td Colleen
+                          td Hurst
+                          td Javascript Developer
+                          td San Francisco
+                          td 39
+                          td 2009/09/15
+                          td $205,500
+                          td 2360
+                          td c.hurst@datatables.net
+                        tr
+                          td Sonya
+                          td Frost
+                          td Software Engineer
+                          td Edinburgh
+                          td 23
+                          td 2008/12/13
+                          td $103,600
+                          td 1667
+                          td s.frost@datatables.net
+                        tr
+                          td Jena
+                          td Gaines
+                          td Office Manager
+                          td London
+                          td 30
+                          td 2008/12/19
+                          td $90,560
+                          td 3814
+                          td j.gaines@datatables.net
+                        tr
+                          td Quinn
+                          td Flynn
+                          td Support Lead
+                          td Edinburgh
+                          td 22
+                          td 2013/03/03
+                          td $342,000
+                          td 9497
+                          td q.flynn@datatables.net
+                        tr
+                          td Charde
+                          td Marshall
+                          td Regional Director
+                          td San Francisco
+                          td 36
+                          td 2008/10/16
+                          td $470,600
+                          td 6741
+                          td c.marshall@datatables.net
+                        tr
+                          td Haley
+                          td Kennedy
+                          td Senior Marketing Designer
+                          td London
+                          td 43
+                          td 2012/12/18
+                          td $313,500
+                          td 3597
+                          td h.kennedy@datatables.net
+                        tr
+                          td Tatyana
+                          td Fitzpatrick
+                          td Regional Director
+                          td London
+                          td 19
+                          td 2010/03/17
+                          td $385,750
+                          td 1965
+                          td t.fitzpatrick@datatables.net
+                        tr
+                          td Michael
+                          td Silva
+                          td Marketing Designer
+                          td London
+                          td 66
+                          td 2012/11/27
+                          td $198,500
+                          td 1581
+                          td m.silva@datatables.net
+                        tr
+                          td Paul
+                          td Byrd
+                          td Chief Financial Officer (CFO)
+                          td New York
+                          td 64
+                          td 2010/06/09
+                          td $725,000
+                          td 3059
+                          td p.byrd@datatables.net
+                        tr
+                          td Gloria
+                          td Little
+                          td Systems Administrator
+                          td New York
+                          td 59
+                          td 2009/04/10
+                          td $237,500
+                          td 1721
+                          td g.little@datatables.net
+                        tr
+                          td Bradley
+                          td Greer
+                          td Software Engineer
+                          td London
+                          td 41
+                          td 2012/10/13
+                          td $132,000
+                          td 2558
+                          td b.greer@datatables.net
+                        tr
+                          td Dai
+                          td Rios
+                          td Personnel Lead
+                          td Edinburgh
+                          td 35
+                          td 2012/09/26
+                          td $217,500
+                          td 2290
+                          td d.rios@datatables.net
+                        tr
+                          td Jenette
+                          td Caldwell
+                          td Development Lead
+                          td New York
+                          td 30
+                          td 2011/09/03
+                          td $345,000
+                          td 1937
+                          td j.caldwell@datatables.net
+                        tr
+                          td Yuri
+                          td Berry
+                          td Chief Marketing Officer (CMO)
+                          td New York
+                          td 40
+                          td 2009/06/25
+                          td $675,000
+                          td 6154
+                          td y.berry@datatables.net
+                        tr
+                          td Caesar
+                          td Vance
+                          td Pre-Sales Support
+                          td New York
+                          td 21
+                          td 2011/12/12
+                          td $106,450
+                          td 8330
+                          td c.vance@datatables.net
+                        tr
+                          td Doris
+                          td Wilder
+                          td Sales Assistant
+                          td Sidney
+                          td 23
+                          td 2010/09/20
+                          td $85,600
+                          td 3023
+                          td d.wilder@datatables.net
+                        tr
+                          td Angelica
+                          td Ramos
+                          td Chief Executive Officer (CEO)
+                          td London
+                          td 47
+                          td 2009/10/09
+                          td $1,200,000
+                          td 5797
+                          td a.ramos@datatables.net
+                        tr
+                          td Gavin
+                          td Joyce
+                          td Developer
+                          td Edinburgh
+                          td 42
+                          td 2010/12/22
+                          td $92,575
+                          td 8822
+                          td g.joyce@datatables.net
+                        tr
+                          td Jennifer
+                          td Chang
+                          td Regional Director
+                          td Singapore
+                          td 28
+                          td 2010/11/14
+                          td $357,650
+                          td 9239
+                          td j.chang@datatables.net
+                        tr
+                          td Brenden
+                          td Wagner
+                          td Software Engineer
+                          td San Francisco
+                          td 28
+                          td 2011/06/07
+                          td $206,850
+                          td 1314
+                          td b.wagner@datatables.net
+                        tr
+                          td Fiona
+                          td Green
+                          td Chief Operating Officer (COO)
+                          td San Francisco
+                          td 48
+                          td 2010/03/11
+                          td $850,000
+                          td 2947
+                          td f.green@datatables.net
+                        tr
+                          td Shou
+                          td Itou
+                          td Regional Marketing
+                          td Tokyo
+                          td 20
+                          td 2011/08/14
+                          td $163,000
+                          td 8899
+                          td s.itou@datatables.net
+                        tr
+                          td Michelle
+                          td House
+                          td Integration Specialist
+                          td Sidney
+                          td 37
+                          td 2011/06/02
+                          td $95,400
+                          td 2769
+                          td m.house@datatables.net
+                        tr
+                          td Suki
+                          td Burks
+                          td Developer
+                          td London
+                          td 53
+                          td 2009/10/22
+                          td $114,500
+                          td 6832
+                          td s.burks@datatables.net
+                        tr
+                          td Prescott
+                          td Bartlett
+                          td Technical Author
+                          td London
+                          td 27
+                          td 2011/05/07
+                          td $145,000
+                          td 3606
+                          td p.bartlett@datatables.net
+                        tr
+                          td Gavin
+                          td Cortez
+                          td Team Leader
+                          td San Francisco
+                          td 22
+                          td 2008/10/26
+                          td $235,500
+                          td 2860
+                          td g.cortez@datatables.net
+                        tr
+                          td Martena
+                          td Mccray
+                          td Post-Sales support
+                          td Edinburgh
+                          td 46
+                          td 2011/03/09
+                          td $324,050
+                          td 8240
+                          td m.mccray@datatables.net
+                        tr
+                          td Unity
+                          td Butler
+                          td Marketing Designer
+                          td San Francisco
+                          td 47
+                          td 2009/12/09
+                          td $85,675
+                          td 5384
+                          td u.butler@datatables.net
+                        tr
+                          td Howard
+                          td Hatfield
+                          td Office Manager
+                          td San Francisco
+                          td 51
+                          td 2008/12/16
+                          td $164,500
+                          td 7031
+                          td h.hatfield@datatables.net
+                        tr
+                          td Hope
+                          td Fuentes
+                          td Secretary
+                          td San Francisco
+                          td 41
+                          td 2010/02/12
+                          td $109,850
+                          td 6318
+                          td h.fuentes@datatables.net
+                        tr
+                          td Vivian
+                          td Harrell
+                          td Financial Controller
+                          td San Francisco
+                          td 62
+                          td 2009/02/14
+                          td $452,500
+                          td 9422
+                          td v.harrell@datatables.net
+                        tr
+                          td Timothy
+                          td Mooney
+                          td Office Manager
+                          td London
+                          td 37
+                          td 2008/12/11
+                          td $136,200
+                          td 7580
+                          td t.mooney@datatables.net
+                        tr
+                          td Jackson
+                          td Bradshaw
+                          td Director
+                          td New York
+                          td 65
+                          td 2008/09/26
+                          td $645,750
+                          td 1042
+                          td j.bradshaw@datatables.net
+                        tr
+                          td Olivia
+                          td Liang
+                          td Support Engineer
+                          td Singapore
+                          td 64
+                          td 2011/02/03
+                          td $234,500
+                          td 2120
+                          td o.liang@datatables.net
+                        tr
+                          td Bruno
+                          td Nash
+                          td Software Engineer
+                          td London
+                          td 38
+                          td 2011/05/03
+                          td $163,500
+                          td 6222
+                          td b.nash@datatables.net
+                        tr
+                          td Sakura
+                          td Yamamoto
+                          td Support Engineer
+                          td Tokyo
+                          td 37
+                          td 2009/08/19
+                          td $139,575
+                          td 9383
+                          td s.yamamoto@datatables.net
+                        tr
+                          td Thor
+                          td Walton
+                          td Developer
+                          td New York
+                          td 61
+                          td 2013/08/11
+                          td $98,540
+                          td 8327
+                          td t.walton@datatables.net
+                        tr
+                          td Finn
+                          td Camacho
+                          td Support Engineer
+                          td San Francisco
+                          td 47
+                          td 2009/07/07
+                          td $87,500
+                          td 2927
+                          td f.camacho@datatables.net
+                        tr
+                          td Serge
+                          td Baldwin
+                          td Data Coordinator
+                          td Singapore
+                          td 64
+                          td 2012/04/09
+                          td $138,575
+                          td 8352
+                          td s.baldwin@datatables.net
+                        tr
+                          td Zenaida
+                          td Frank
+                          td Software Engineer
+                          td New York
+                          td 63
+                          td 2010/01/04
+                          td $125,250
+                          td 7439
+                          td z.frank@datatables.net
+                        tr
+                          td Zorita
+                          td Serrano
+                          td Software Engineer
+                          td San Francisco
+                          td 56
+                          td 2012/06/01
+                          td $115,000
+                          td 4389
+                          td z.serrano@datatables.net
+                        tr
+                          td Jennifer
+                          td Acosta
+                          td Junior Javascript Developer
+                          td Edinburgh
+                          td 43
+                          td 2013/02/01
+                          td $75,650
+                          td 3431
+                          td j.acosta@datatables.net
+                        tr
+                          td Cara
+                          td Stevens
+                          td Sales Assistant
+                          td New York
+                          td 46
+                          td 2011/12/06
+                          td $145,600
+                          td 3990
+                          td c.stevens@datatables.net
+                        tr
+                          td Hermione
+                          td Butler
+                          td Regional Director
+                          td London
+                          td 47
+                          td 2011/03/21
+                          td $356,250
+                          td 1016
+                          td h.butler@datatables.net
+                        tr
+                          td Lael
+                          td Greer
+                          td Systems Administrator
+                          td London
+                          td 21
+                          td 2009/02/27
+                          td $103,500
+                          td 6733
+                          td l.greer@datatables.net
+                        tr
+                          td Jonas
+                          td Alexander
+                          td Developer
+                          td San Francisco
+                          td 30
+                          td 2010/07/14
+                          td $86,500
+                          td 8196
+                          td j.alexander@datatables.net
+                        tr
+                          td Shad
+                          td Decker
+                          td Regional Director
+                          td Edinburgh
+                          td 51
+                          td 2008/11/13
+                          td $183,000
+                          td 6373
+                          td s.decker@datatables.net
+                        tr
+                          td Michael
+                          td Bruce
+                          td Javascript Developer
+                          td Singapore
+                          td 29
+                          td 2011/06/27
+                          td $183,000
+                          td 5384
+                          td m.bruce@datatables.net
+                        tr
+                          td Donna
+                          td Snider
+                          td Customer Support
+                          td New York
+                          td 27
+                          td 2011/01/25
+                          td $112,000
+                          td 4226
+                          td d.snider@datatables.net
         // /page content
         // footer content
         footer
@@ -1326,10 +3264,6 @@ html(lang='en')
             a(href='https://colorlib.com') Colorlib
           .clearfix
         // /footer content
-    #custom_notifications.custom-notifications.dsp_none
-      ul.list-unstyled.notifications.clearfix(data-tabbed_notifications='notif-group')
-      .clearfix
-      #notif-group.tabbed_notifications
     // jQuery
     script(src='../vendors/jquery/dist/jquery.min.js')
     // Bootstrap
@@ -1338,13 +3272,23 @@ html(lang='en')
     script(src='../vendors/fastclick/lib/fastclick.js')
     // NProgress
     script(src='../vendors/nprogress/nprogress.js')
-    // bootstrap-progressbar
-    script(src='../vendors/bootstrap-progressbar/bootstrap-progressbar.min.js')
     // iCheck
     script(src='../vendors/iCheck/icheck.min.js')
-    // PNotify
-    script(src='../vendors/pnotify/dist/pnotify.js')
-    script(src='../vendors/pnotify/dist/pnotify.buttons.js')
-    script(src='../vendors/pnotify/dist/pnotify.nonblock.js')
+    // Datatables
+    script(src='../vendors/datatables.net/js/jquery.dataTables.min.js')
+    script(src='../vendors/datatables.net-bs/js/dataTables.bootstrap.min.js')
+    script(src='../vendors/datatables.net-buttons/js/dataTables.buttons.min.js')
+    script(src='../vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js')
+    script(src='../vendors/datatables.net-buttons/js/buttons.flash.min.js')
+    script(src='../vendors/datatables.net-buttons/js/buttons.html5.min.js')
+    script(src='../vendors/datatables.net-buttons/js/buttons.print.min.js')
+    script(src='../vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js')
+    script(src='../vendors/datatables.net-keytable/js/dataTables.keyTable.min.js')
+    script(src='../vendors/datatables.net-responsive/js/dataTables.responsive.min.js')
+    script(src='../vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js')
+    script(src='../vendors/datatables.net-scroller/js/dataTables.scroller.min.js')
+    script(src='../vendors/jszip/dist/jszip.min.js')
+    script(src='../vendors/pdfmake/build/pdfmake.min.js')
+    script(src='../vendors/pdfmake/build/vfs_fonts.js')
     // Custom Theme Scripts
     script(src='../build/js/custom.min.js')
