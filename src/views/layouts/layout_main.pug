@@ -11,6 +11,8 @@ html(lang='en')
     link(href='/bootstrap/dist/css/bootstrap.min.css', rel='stylesheet')
     // Font Awesome
     link(href='/font-awesome/css/font-awesome.min.css', rel='stylesheet')
+    // iCheck
+    link(href='../iCheck/skins/flat/green.css', rel='stylesheet')
     // NProgress
     link(href='/nprogress/nprogress.css', rel='stylesheet')
     // Custom Theme Style
@@ -42,7 +44,7 @@ html(lang='en')
                 ul.nav.side-menu
                   li
                     a
-                      i.fa.fa-home
+                      i.fa.fa-bar-chart
                       |  Dashboard 
                       span.fa.fa-chevron-down
                     ul.nav.child_menu
@@ -55,11 +57,28 @@ html(lang='en')
                       span.fa.fa-chevron-down
                     ul.nav.child_menu
                       li
-                        a(href='register') Registrar compromiso
-                      li
                         a(href='listall') Mis compromisos
                       li
                         a(href='massive') Carga masiva
+                      li
+                        a(href='register') Registrar compromiso
+                      li
+                        a(href='configattrcommit') Configuración de atributos
+                  li
+                    a
+                      i.fa.fa-binoculars
+                      |  Monitoreo 
+                      span.fa.fa-chevron-down
+                    ul.nav.child_menu
+                      li
+                        a(href='listallmonit') Monitoreo
+                      li
+                        a(href='massivemonit') Carga masiva
+                      li
+                        a(href='registermonit') Registrar monitoreo
+                      li
+                        a(href='configattrmonit') Configuración de atributos
+
                   if session.user.t_rol_rolid == 'ROL5'
                     li
                       a
@@ -185,20 +204,20 @@ html(lang='en')
                         td(width='40%')
                           label(for='total') Total Compromisos
                         td(width='10%')
-                          input#total(type='checkbox', value='total', name='dashboard')
+                          input#total.flat(type='checkbox', value='total', name='dashboard')
                         td(width='40%') 
                           label(for='incumplidos') Compromisos incumplidos con un plan de acción
                         td(width='10%')
-                          input#incumplidos(type='checkbox', value='incumplidos', name='dashboard')
+                          input#incumplidos.flat(type='checkbox', value='incumplidos', name='dashboard')
                       tr
                         td(width='40%')
                           label(for='accion') Compromisos que requieren acción
                         td(width='10%')
-                          input#accion(type='checkbox', value='accion', name='dashboard')
+                          input#accion.flat(type='checkbox', value='accion', name='dashboard')
                         td(width='40%') 
                           label(for='sinaccion') Compromisos sin un plan de acción
                         td(width='10%')
-                          input#sinaccion(type='checkbox', value='sinaccion', name='dashboard')
+                          input#sinaccion.flat(type='checkbox', value='sinaccion', name='dashboard')
                 #step-3
                   center
                     table#datatable-responsive.table.dt-responsive.nowrap(cellspacing='0', width='80%')
@@ -206,41 +225,80 @@ html(lang='en')
                         td(width='40%')
                           label(for='global') Código global
                         td(width='10%')
-                          input#global(type='checkbox', value='global', name='compromisos')
+                          input#global.flat(type='checkbox', value='global', name='compromisos')
                         td(width='40%') 
                           label(for='asociado') Aspecto asociado
                         td(width='10%')
-                          input#asociado(type='checkbox', value='asociado', name='compromisos')
+                          input#asociado.flat(type='checkbox', value='asociado', name='compromisos')
                       tr
                         td(width='40%')
                           label(for='unidad') Unidad
                         td(width='10%')
-                          input#unidad(type='checkbox', value='unidad', name='compromisos')
+                          input#unidad.flat(type='checkbox', value='unidad', name='compromisos')
                         td(width='40%') 
                           label(for='instcomp') Instalación/componente
                         td(width='10%')
-                          input#instcomp(type='checkbox', value='instcomp', name='compromisos')
-                #step-4
+                          input#instcomp.flat(type='checkbox', value='instcomp', name='compromisos')
+                    table#datatable.table.dt-responsive.nowrap(cellspacing='0', width='60%')
+                      caption(width='60%' style='text-align:center;') Etapas
+                      tr
+                        td(width='10%')
+                          label(for='contruccion') Contrucción
+                        td(width='10%')
+                          input#contruccion.flat(type='checkbox', value='contruccion', name='etapascompromiso')
+                        td(width='10%') 
+                          label(for='operacion') Operación
+                        td(width='10%')
+                          input#operacion.flat(type='checkbox', value='operacion', name='etapascompromiso')
+                        td(width='10%') 
+                          label(for='cierre') Cierre
+                        td(width='10%')
+                          input#cierre.flat(type='checkbox', value='cierre', name='etapascompromiso')
+                        td(width='10%') 
+                          label(for='postcierre') Post-cierre
+                        td(width='10%')
+                          input#postcierre.flat(type='checkbox', value='postcierre', name='etapascompromiso')
+                #step-4 
                   center
                     table#datatable-responsive.table.dt-responsive.nowrap(cellspacing='0', width='80%')
                       tr
                         td(width='40%')
                           label(for='global') Código global
                         td(width='10%')
-                          input#global(type='checkbox', value='global', name='tablamonitoreo')
+                          input#global.flat(type='checkbox', value='global', name='tablamonitoreo')
                         td(width='40%') 
                           label(for='temporalidad') Temporalidad
                         td(width='10%')
-                          input#temporalidad(type='checkbox', value='temporalidad', name='tablamonitoreo')
+                          input#temporalidad.flat(type='checkbox', value='temporalidad', name='tablamonitoreo')
                       tr
                         td(width='40%')
                           label(for='unidad') Unidad
                         td(width='10%')
-                          input#unidad(type='checkbox', value='unidad', name='tablamonitoreo')
+                          input#unidad.flat(type='checkbox', value='unidad', name='tablamonitoreo')
                         td(width='40%') 
                           label(for='frecmonitoreo') Frecuencia de monitoreo
                         td(width='10%')
-                          input#frecmonitoreo(type='checkbox', value='frecmonitoreo', name='tablamonitoreo')
+                          input#frecmonitoreo.flat(type='checkbox', value='frecmonitoreo', name='tablamonitoreo')
+                    table#datatable.table.dt-responsive.nowrap(cellspacing='0', width='60%')
+                      caption(width='60%' style='text-align:center;') Etapas
+                      tr
+                        td(width='10%')
+                          label(for='contruccion') Contrucción
+                        td(width='10%')
+                          input#contruccion.flat(type='checkbox', value='contruccion', name='etapasmonitoreo')
+                        td(width='10%') 
+                          label(for='operacion') Operación
+                        td(width='10%')
+                          input#operacion.flat(type='checkbox', value='operacion', name='etapasmonitoreo')
+                        td(width='10%') 
+                          label(for='cierre') Cierre
+                        td(width='10%')
+                          input#cierre.flat(type='checkbox', value='cierre', name='etapasmonitoreo')
+                        td(width='10%') 
+                          label(for='postcierre') Post-cierre
+                        td(width='10%')
+                          input#postcierre.flat(type='checkbox', value='postcierre', name='etapasmonitoreo')
+
             // End SmartWizard Content 
     // jQuery
     script(src='/jquery/dist/jquery.min.js')
