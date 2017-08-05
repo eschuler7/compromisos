@@ -6,7 +6,7 @@ html(lang='en')
     meta(charset='utf-8')
     meta(http-equiv='X-UA-Compatible', content='IE=edge')
     meta(name='viewport', content='width=device-width, initial-scale=1')
-    title Mis Compromisos!
+    title SIGNEQ
     // Bootstrap
     link(href='/bootstrap/dist/css/bootstrap.min.css', rel='stylesheet')
     // Font Awesome
@@ -23,7 +23,7 @@ html(lang='en')
             .navbar.nav_title(style='border: 0;')
               a.site_title(href='/secure/listall')
                 i.glyphicon.glyphicon-list-alt
-                span Mis Compromisos!
+                span  S I G N E Q
             .clearfix
             // menu profile quick info
             .profile.clearfix
@@ -51,7 +51,7 @@ html(lang='en')
                   li
                     a
                       i.fa.fa-edit
-                      |  Adminstración 
+                      |  Compromisos 
                       span.fa.fa-chevron-down
                     ul.nav.child_menu
                       li
@@ -60,6 +60,15 @@ html(lang='en')
                         a(href='listall') Mis compromisos
                       li
                         a(href='massive') Carga masiva
+                  if session.user.t_rol_rolid == 'ROL5'
+                    li
+                      a
+                        i.fa.fa-lock
+                        |  Administración 
+                        span.fa.fa-chevron-down
+                      ul.nav.child_menu
+                        li
+                          a(href='register') Clientes
             // /sidebar menu
             // /menu footer buttons
             .sidebar-footer.hidden-small
@@ -121,35 +130,32 @@ html(lang='en')
         .modal-content
           .modal-header
             center 
-              h4.modal-title Wizard de configuración de compromisos y monitoreo
+              h4.modal-title Configuración de compromisos y monitoreo
           .modal-body
-            // Smart Wizard
-            p
-              | Realice las configuraciones iniciales.
             #wizard.form_wizard.wizard_horizontal
-              ul.wizard_steps
-                li
+              ul.wizard_steps(style='padding: 0px')
+                li(style='width:25%')
                   a(href='#step-1')
                     span.step_no 1
                     span.step_descr
                       | Paso 1
                       br
                       small Encabezados
-                li
+                li(style='width:25%')
                   a(href='#step-2')
                     span.step_no 2
                     span.step_descr
                       | Paso 2
                       br
                       small Dashboard de inicio
-                li
+                li(style='width:25%')
                   a(href='#step-3')
                     span.step_no 3
                     span.step_descr
                       | Paso 3
                       br
                       small Configuración de tabla de compromisos
-                li
+                li(style='width:25%')
                   a(href='#step-4')
                     span.step_no 4
                     span.step_descr
@@ -254,7 +260,6 @@ html(lang='en')
     script.
       $(document).ready(function(){
         var firsttime = '#{session.user.firsttime}';
-        console.log(firsttime);
         if (firsttime == 1) {
           $('#config_init').modal('show');
         }
