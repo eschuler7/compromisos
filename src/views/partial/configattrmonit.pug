@@ -2,14 +2,63 @@ extends ../layouts/layout_main.pug
 block container
   .page-title
     .title_left
-      h3 Configuración de atributos de monitoreo
+      h3 Editar atributos de monitoreo
   .clearfix
+  .row
+    .col-md-6.col-sm-12.col-xs-12
+      .x_panel
+        .x_title
+          h2 Atributos
+          .clearfix
+        .x_content
+          center
+            table#datatable-responsive.table.dt-responsive.nowrap(cellspacing='0', width='80%')
+              tr
+                td(width='40%')
+                  label(for='global') Código global
+                td(width='10%')
+                  input#global.flat(type='checkbox', value='global', name='tablamonitoreo')
+                td(width='40%') 
+                  label(for='temporalidad') Temporalidad
+                td(width='10%')
+                  input#temporalidad.flat(type='checkbox', value='temporalidad', name='tablamonitoreo')
+              tr
+                td(width='40%')
+                  label(for='unidad') Unidad
+                td(width='10%')
+                  input#unidad.flat(type='checkbox', value='unidad', name='tablamonitoreo')
+                td(width='40%') 
+                  label(for='frecmonitoreo') Frecuencia de monitoreo
+                td(width='10%')
+                  input#frecmonitoreo.flat(type='checkbox', value='frecmonitoreo', name='tablamonitoreo')
+    .col-md-6.col-sm-12.col-xs-12
+      .x_panel
+        .x_title
+          h2 Etapas
+          .clearfix
+        .x_content
+          table#datatable.table.dt-responsive.nowrap(cellspacing='0', width='60%')
+            tr
+              td(width='10%')
+                label(for='contruccion') Contrucción
+              td(width='10%')
+                input#contruccion.flat(type='checkbox', value='contruccion', name='etapasmonitoreo')
+              td(width='10%') 
+                label(for='operacion') Operación
+              td(width='10%')
+                input#operacion.flat(type='checkbox', value='operacion', name='etapasmonitoreo')
+              td(width='10%') 
+                label(for='cierre') Cierre
+              td(width='10%')
+                input#cierre.flat(type='checkbox', value='cierre', name='etapasmonitoreo')
+              td(width='10%') 
+                label(for='postcierre') Post-cierre
+              td(width='10%')
+                input#postcierre.flat(type='checkbox', value='postcierre', name='etapasmonitoreo')
   .row
     .col-md-12.col-sm-12.col-xs-12
       .x_panel
-        .x_title
-          h2 Cuadro Informativo
-          ul.nav.navbar-right.panel_toolbox
-          .clearfix
         .x_content
-          | En esta sección agregamos contenido o agregamos charts...
+          .form-group.pull-right
+            button.btn.btn-primary(type='submit') Cancel
+            button.btn.btn-success(type='submit') Submit
