@@ -49,7 +49,6 @@ html(lang='en')
               .menu_section
                 h3 General
                 ul.nav.side-menu
-<<<<<<< HEAD
                   if session.user.t_rol_rolid != 'ROL5'
                     li
                       a
@@ -87,44 +86,6 @@ html(lang='en')
                           a(href='registermonit') Registrar monitoreo
                         li
                           a(href='configattrmonit') Configuración de atributos
-=======
-                  li
-                    a
-                      i.fa.fa-bar-chart
-                      |  Dashboard[] 
-                      span.fa.fa-chevron-down
-                    ul.nav.child_menu
-                      li
-                        a(href='dashboard[]') Dashboard[]
-                  li
-                    a
-                      i.fa.fa-edit
-                      |  Compromisos 
-                      span.fa.fa-chevron-down
-                    ul.nav.child_menu
-                      li
-                        a(href='listall') Mis compromisos
-                      li
-                        a(href='massive') Carga masiva
-                      li
-                        a(href='register') Registrar compromiso
-                      li
-                        a(href='configattrcommit') Configuración de atributos
-                  li
-                    a
-                      i.fa.fa-binoculars
-                      |  Monitoreo 
-                      span.fa.fa-chevron-down
-                    ul.nav.child_menu
-                      li
-                        a(href='listallmonit') Monitoreo
-                      li
-                        a(href='massivemonit') Carga masiva
-                      li
-                        a(href='registermonit') Registrar monitoreo
-                      li
-                        a(href='configattrmonit') Configuración de atributos
->>>>>>> 57f4430c56251eddca44e86cf2627ecfa11a9020
 
                   if session.user.t_rol_rolid == 'ROL5'
                     li
@@ -549,12 +510,5 @@ html(lang='en')
       var finishWizard = function(){
         //$('#config_init').modal('hide');
         $('#frmWizard').submit();
-          /*var vals = [];
-
-          $(':checkbox:checked[name^=compromisos]').val(function() {
-             vals.push(this.value);
-          });
-
-          console.log(init);*/
       }
 
