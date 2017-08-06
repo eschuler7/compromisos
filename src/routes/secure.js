@@ -56,34 +56,6 @@ router.get('/logout', function(req, res){
 	res.redirect('/');
 });
 
-router.get('/clients', function(req, res){
-	var companies;
-	try {
-		companies = mysql.company.listCompanies();
-	} catch(e) {
-		console.log('[/clients]',e);
-	}
-	res.render('partial/clients',{clients: companies});
-});
-
-router.get('/clientdetail/:ruc', function(req, res){
-	var ruc = req.params.ruc;
-	try {
-		
-	} catch(e) {
-		console.log('[/clientdetail]',e);
-	}
-});
-
-router.get('/clientedit/:ruc', function(req, res){
-	var ruc = req.params.ruc;
-	try {
-		
-	} catch(e) {
-		console.log('[/clientedit]',e);
-	}
-});
-
 // TODAS LAS LLAMADAS POST
 
 router.post('/initConfig', function(req, res){

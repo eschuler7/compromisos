@@ -29,7 +29,24 @@ app.use(function(req,res,next){
 // Session Filter
 app.all('/secure/*',function(req,res,next){
 	if(req.session.user){
-		next();
+		if(req.session.user.t_rol_rolid == 'ROL5'){
+			res.redirect('/admin/clients');
+		} else {
+			next();
+		}
+	} else {
+		req.session.destroy();
+		res.redirect('/');
+	}
+});
+
+app.all('/admin/*',function(req,res,next){
+	if(req.session.user){
+		if(req.session.user.t_rol_rolid == 'ROL5'){
+			next();
+		} else {
+			res.redirect('/secure/home');
+		}
 	} else {
 		req.session.destroy();
 		res.redirect('/');
@@ -38,7 +55,11 @@ app.all('/secure/*',function(req,res,next){
 
 app.all('/', function(req, res, next){
 	if(req.session.user){
-		res.redirect('/secure/home');
+		if(req.session.user.t_rol_rolid == 'ROL5'){
+			res.redirect('/admin/clients');
+		} else {
+			res.redirect('/secure/home');
+		}
 	} else {
 		next();
 	}
@@ -57,6 +78,8 @@ var insecure = require('./routes/insecure');
 app.use('/', insecure);
 var secure = require('./routes/secure');
 app.use('/secure', secure);
+var admin = require('./routes/admin');
+app.use('/admin', admin);
 
 // Starting NodeJS Server
 var computil = require('./lib/computil');

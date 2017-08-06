@@ -32,8 +32,8 @@ html(lang='en')
               .profile_pic
                 img.img-circle.profile_img(src='/images/img.jpg', alt='...')
               .profile_info
-                span Bienvenido,
-                h2 #{session.user.name}
+                h2 #{session.user.companyname}
+                span Unidad
               .clearfix
             // /menu profile quick info
             br
@@ -42,42 +42,43 @@ html(lang='en')
               .menu_section
                 h3 General
                 ul.nav.side-menu
-                  li
-                    a
-                      i.fa.fa-bar-chart
-                      |  Dashboard 
-                      span.fa.fa-chevron-down
-                    ul.nav.child_menu
-                      li
-                        a(href='dashboard') Dashboard
-                  li
-                    a
-                      i.fa.fa-edit
-                      |  Compromisos 
-                      span.fa.fa-chevron-down
-                    ul.nav.child_menu
-                      li
-                        a(href='listall') Mis compromisos
-                      li
-                        a(href='massive') Carga masiva
-                      li
-                        a(href='register') Registrar compromiso
-                      li
-                        a(href='configattrcommit') Configuración de atributos
-                  li
-                    a
-                      i.fa.fa-binoculars
-                      |  Monitoreo 
-                      span.fa.fa-chevron-down
-                    ul.nav.child_menu
-                      li
-                        a(href='listallmonit') Monitoreo
-                      li
-                        a(href='massivemonit') Carga masiva
-                      li
-                        a(href='registermonit') Registrar monitoreo
-                      li
-                        a(href='configattrmonit') Configuración de atributos
+                  if session.user.t_rol_rolid != 'ROL5'
+                    li
+                      a
+                        i.fa.fa-bar-chart
+                        |  Dashboard 
+                        span.fa.fa-chevron-down
+                      ul.nav.child_menu
+                        li
+                          a(href='dashboard') Dashboard
+                    li
+                      a
+                        i.fa.fa-edit
+                        |  Compromisos 
+                        span.fa.fa-chevron-down
+                      ul.nav.child_menu
+                        li
+                          a(href='listall') Mis compromisos
+                        li
+                          a(href='massive') Carga masiva
+                        li
+                          a(href='register') Registrar compromiso
+                        li
+                          a(href='configattrcommit') Configuración de atributos
+                    li
+                      a
+                        i.fa.fa-binoculars
+                        |  Monitoreo 
+                        span.fa.fa-chevron-down
+                      ul.nav.child_menu
+                        li
+                          a(href='listallmonit') Monitoreo
+                        li
+                          a(href='massivemonit') Carga masiva
+                        li
+                          a(href='registermonit') Registrar monitoreo
+                        li
+                          a(href='configattrmonit') Configuración de atributos
 
                   if session.user.t_rol_rolid == 'ROL5'
                     li
@@ -87,18 +88,19 @@ html(lang='en')
                         span.fa.fa-chevron-down
                       ul.nav.child_menu
                         li
-                          a(href='clients') Clientes
+                          a(href='/admin/clients') Clientes
             // /sidebar menu
             // /menu footer buttons
-            .sidebar-footer.hidden-small
-              a(data-toggle='tooltip', data-placement='top', title='Inicio', href='/secure/home')
-                span.glyphicon.glyphicon-home(aria-hidden='true')
-              a(data-toggle='tooltip', data-placement='top', title='Compromisos', href='/secure/listall')
-                span.glyphicon.glyphicon-list-alt(aria-hidden='true')
-              a(data-toggle='tooltip', data-placement='top', title='Usuarios', href='/secure/admin/users')
-                span.glyphicon.glyphicon-user(aria-hidden='true')
-              a(data-toggle='tooltip', data-placement='top', title='Logout', href='javascript:logout()')
-                span.glyphicon.glyphicon-off(aria-hidden='true')
+            if session.user.t_rol_rolid != 'ROL5'
+              .sidebar-footer.hidden-small
+                a(data-toggle='tooltip', data-placement='top', title='Inicio', href='/secure/home')
+                  span.glyphicon.glyphicon-home(aria-hidden='true')
+                a(data-toggle='tooltip', data-placement='top', title='Compromisos', href='/secure/listall')
+                  span.glyphicon.glyphicon-list-alt(aria-hidden='true')
+                a(data-toggle='tooltip', data-placement='top', title='Usuarios', href='/secure/admin/users')
+                  span.glyphicon.glyphicon-user(aria-hidden='true')
+                a(data-toggle='tooltip', data-placement='top', title='Logout', href='javascript:logout()')
+                  span.glyphicon.glyphicon-off(aria-hidden='true')
             // /menu footer buttons
         // top navigation
         .top_nav
@@ -142,7 +144,7 @@ html(lang='en')
           .modal-footer
             button.btn.btn-default(type='button', data-dismiss='modal') Cancelar
             |  
-            a.btn.btn-dark(href='/secure/logout') Continuar
+            a.btn.btn-dark(href='logout') Continuar
     //Configuración inicial
     #config_init.modal.fade(tabindex='-1', role='dialog', data-backdrop='static', data-keyboard='false')
       .modal-dialog.modal-lg(role='document')
@@ -306,8 +308,8 @@ html(lang='en')
     script(src='/bootstrap/dist/js/bootstrap.min.js')
     // NProgress
     script(src='/nprogress/nprogress.js')
-    script(src='../moment/min/moment.min.js')
-    script(src='../bootstrap-progressbar/bootstrap-progressbar.min.js')
+    script(src='/moment/min/moment.min.js')
+    script(src='/bootstrap-progressbar/bootstrap-progressbar.min.js')
     // FastClick
     script(src='/fastclick/lib/fastclick.js')
     // jQuery Smart Wizard
@@ -315,6 +317,8 @@ html(lang='en')
     // Custom Theme Scripts
     script(src='/build/js/custom.min.js')
     script(src='../iCheck/icheck.min.js')
+    script(src='https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js')
+    script(src='/compromisos/admin.js')
     script.
       $(document).ready(function(){
         var firsttime = '#{session.user.firsttime}';

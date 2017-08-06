@@ -3,52 +3,56 @@ block container
   .page-title
     .title_left
       h3 Administración de Clientes
-    .title_right
-      .col-md-5.col-sm-5.col-xs-12.form-group.pull-right.top_search
-        .input-group
-          input.form-control(type='text', placeholder='Search for...')
-          span.input-group-btn
-            button.btn.btn-default(type='button') Go!
   .clearfix
   .row
     .col-md-12.col-sm-12.col-xs-12
       .x_panel
         .x_title
-          h2 Gestión de Clientes
-          
+          a.btn.btn-warning.btn-xs(href='/admin/createclient') Nuevo Cliente
           .clearfix
         .x_content
-          table.table.table-striped.jambo_table
-            thead
-              tr
-                th RUC
-                th Cliente
-                th Usuarios
-                th Configuración Inicial
-                th Fecha de Registro
-                th Opciones
-            tbody
-              each client in clients
+          .table-responsive
+            table.table.table-striped.jambo_table
+              thead
                 tr
-                  td #{client.ruc}
-                  td #{client.companyname}
-                  td #{client.users}
-                  td
-                    if client.firsttime == 0
-                      span.label.label-success Completo
-                    else
-                      span.label.label-warning Incompleto
-                  td #{client.cdatetime}
-                  td
-                    a.btn.btn-primary.btn-xs(href='clientdetail/' + client.ruc)
-                      i.fa.fa-folder
-                      |  Ver
-                    a.btn.btn-info.btn-xs(href='clientedit/' + client.ruc)
-                      i.fa.fa-pencil
-                      |  Editar
-                    a.btn.btn-danger.btn-xs(href='javascript:deleteClient("' + client.ruc + '","' + client.companyname +'")')
-                      i.fa.fa-trash-o
-                      |  Eliminar
+                  th RUC
+                  th Cliente
+                  th Usuarios
+                  th Configuración Inicial
+                  th Fecha de Registro
+                  th Opciones
+              tbody
+                if clients
+                  if clients.length > 0
+                    each client in clients
+                      tr
+                        td #{client.ruc}
+                        td #{client.companyname}
+                        td #{client.users}
+                        td
+                          if client.firsttime == 0
+                            span.label.label-success Completo
+                          else
+                            span.label.label-warning Incompleto
+                        td #{client.cdatetime}
+                        td
+                          //-a.btn.btn-primary.btn-xs(href='clientdetail/' + client.ruc)
+                          a.btn.btn-primary.btn-xs(href='javascript:pruebita()')
+                            i.fa.fa-folder
+                            |  Ver
+                          //-a.btn.btn-info.btn-xs(href='clientedit/' + client.ruc)
+                            i.fa.fa-pencil
+                            |  Editar
+                          a.btn.btn-danger.btn-xs(href='javascript:deleteClient("' + client.ruc + '","' + client.companyname +'")')
+                            i.fa.fa-trash-o
+                            |  Eliminar
+                  else
+                    tr
+                      td(colspan=6) No tiene clientes registrados
+                else
+                  tr
+                    td(colspan=6) No tiene clientes registrados
+
     #confirm_delete.modal.fade(tabindex='-1', role='dialog', data-backdrop='static', data-keyboard='false')
       .modal-dialog(role='document')
         .modal-content
@@ -56,16 +60,40 @@ block container
             //-button.close(type='button', data-dismiss='modal', aria-label='Close')
               span(aria-hidden='true') &times;
             h4#comfirm_delete_title.modal-title
+          form#frmConfirmDelete(action='/admin/deleteclient',method='post')
+            .modal-body
+              p Esta acción eliminará completamente el cliente así como también sus compromisos, monitoreos y toda su configuración. Después de haber sido eliminado no podrá dar marcha atrás.
+              center
+                strong ¿Desea continuar?
+              input(type='hidden',name='ruc')
+            .modal-footer
+              button.btn.btn-default.pull-left(type='button', data-dismiss='modal') Cancelar
+              |  
+              button.btn.btn-danger(type='submit') Continuar
+
+    #pruebita.modal.fade(tabindex='-1', role='dialog', data-backdrop='static', data-keyboard='false')
+      .modal-dialog(role='document')
+        .modal-content
+          .modal-header
+            //-button.close(type='button', data-dismiss='modal', aria-label='Close')
+              span(aria-hidden='true') &times;
+            h4.modal-title Solo una pruebita
           .modal-body
-            p Esta acción eliminará completamente el cliente así como también sus compromisos, monitoreos y toda su configuración. Después de haber sido eliminado no podrá dar marcha atrás.
-            center
-              strong ¿Desea continuar?
+            form(action='pruebita',method='post')
+              input(type='checkbox',name='prueba',value='PRUEBA1')
+              input(type='checkbox',name='prueba',value='PRUEBA2')
+              input(type='checkbox',name='prueba',value='PRUEBA3')
+              input(type='checkbox',name='prueba',value='PRUEBA4')
+              button(type='submit') Submit
           .modal-footer
             button.btn.btn-default.pull-left(type='button', data-dismiss='modal') Cancelar
-            |  
-            a.btn.btn-danger(href='/secure/logout') Continuar
+
     script.
       var deleteClient = function(ruc, companyname) {
         $('#comfirm_delete_title').text('Eliminar Cliente ' + companyname);
+        $('#frmConfirmDelete input[name=ruc]').val(ruc);
         $('#confirm_delete').modal('show');
+      }
+      var pruebita = function() {
+        $('#pruebita').modal('show');
       }

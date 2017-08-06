@@ -34,14 +34,18 @@ router.get('/prueba', function(req,res){
 
 // TODOS LOS POST
 router.post('/login',function(req, res){
-	var email = req.body.email;
+	var userid = req.body.userid;
 	var password = req.body.password;
 	
 	try {
-		var userlist = mysql.user.login(email, computil.createHash(config().checksumhash,password));
+		var userlist = mysql.user.login(userid, computil.createHash(config().checksumhash,password));
 		if(userlist.length == 1) {
 			req.session.user = userlist[0];
-			res.redirect('/secure/home');
+			if(userlist[0].t_rol_rolid == 'ROL5') {
+				res.redirect('/secure/clients');
+			} else {
+				res.redirect('/secure/home');
+			}
 		} else {
 			res.render('login', {error : 'Los datos ingresados no son correctos.'});
 		}
