@@ -15,6 +15,13 @@ html(lang='en')
     link(href='../iCheck/skins/flat/green.css', rel='stylesheet')
     // NProgress
     link(href='/nprogress/nprogress.css', rel='stylesheet')
+    //Datatables    
+    link(href='../datatables.net-buttons-bs/css/buttons.bootstrap.min.css', rel='stylesheet')
+    link(href='../datatables.net-bs/css/dataTables.bootstrap.min.css', rel='stylesheet')
+    link(href='../datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css', rel='stylesheet')
+    link(href='../datatables.net-responsive-bs/css/responsive.bootstrap.min.css', rel='stylesheet')
+    link(href='../datatables.net-scroller-bs/css/scroller.bootstrap.min.css', rel='stylesheet')
+
     // Custom Theme Style
     link(href='/build/css/custom.min.css', rel='stylesheet')
   body.nav-md
@@ -42,6 +49,7 @@ html(lang='en')
               .menu_section
                 h3 General
                 ul.nav.side-menu
+<<<<<<< HEAD
                   if session.user.t_rol_rolid != 'ROL5'
                     li
                       a
@@ -79,6 +87,44 @@ html(lang='en')
                           a(href='registermonit') Registrar monitoreo
                         li
                           a(href='configattrmonit') Configuración de atributos
+=======
+                  li
+                    a
+                      i.fa.fa-bar-chart
+                      |  Dashboard[] 
+                      span.fa.fa-chevron-down
+                    ul.nav.child_menu
+                      li
+                        a(href='dashboard[]') Dashboard[]
+                  li
+                    a
+                      i.fa.fa-edit
+                      |  Compromisos 
+                      span.fa.fa-chevron-down
+                    ul.nav.child_menu
+                      li
+                        a(href='listall') Mis compromisos
+                      li
+                        a(href='massive') Carga masiva
+                      li
+                        a(href='register') Registrar compromiso
+                      li
+                        a(href='configattrcommit') Configuración de atributos
+                  li
+                    a
+                      i.fa.fa-binoculars
+                      |  Monitoreo 
+                      span.fa.fa-chevron-down
+                    ul.nav.child_menu
+                      li
+                        a(href='listallmonit') Monitoreo
+                      li
+                        a(href='massivemonit') Carga masiva
+                      li
+                        a(href='registermonit') Registrar monitoreo
+                      li
+                        a(href='configattrmonit') Configuración de atributos
+>>>>>>> 57f4430c56251eddca44e86cf2627ecfa11a9020
 
                   if session.user.t_rol_rolid == 'ROL5'
                     li
@@ -161,14 +207,14 @@ html(lang='en')
                     span.step_descr
                       | Paso 1
                       br
-                      small Encabezados
+                      small Encabezado[]s
                 li(style='width:25%')
                   a(href='#step-2')
                     span.step_no 2
                     span.step_descr
                       | Paso 2
                       br
-                      small Dashboard de inicio
+                      small Dashboard[] de inicio
                 li(style='width:25%')
                   a(href='#step-3')
                     span.step_no 3
@@ -186,19 +232,23 @@ html(lang='en')
               form#frmWizard.form-horizontal.form-label-left(action='/secure/initConfig', method='post')
                 #step-1(style='height:107px')
                   .form-group
-                    label.control-label.col-md-3.col-sm-3.col-xs-12(for='first-name')
+                    label.control-label.col-md-3.col-sm-3.col-xs-12(for='razonsocial')
                       | Razón Social 
                     .col-md-6.col-sm-6.col-xs-12
-                      input#first-name.form-control.col-md-7.col-xs-12(type='text', required='required')
+                      input#razonsocial.form-control.col-md-7.col-xs-12(type='text', required='required', name='razonsocial')
                   .form-group
-                    label.control-label.col-md-3.col-sm-3.col-xs-12(for='last-name')
+                    label.control-label.col-md-3.col-sm-3.col-xs-12(for='unidadruc')
                       | Unidad 
                     .col-md-6.col-sm-6.col-xs-12
-                      input#last-name.form-control.col-md-7.col-xs-12(type='text', name='last-name', required='required')
+                      input#unidadinit.form-control.col-md-7.col-xs-12(type='text', required='required', name='unidadinit')
+                      input#multiunidad.flat(type='checkbox', value='Multiunidad', name='multiunidad')
+                      label(for='multiunidad') Varias Unidades
                   .form-group
-                    label.control-label.col-md-3.col-sm-3.col-xs-12(for='middle-name') Proyecto u Operación
+                    label.control-label.col-md-3.col-sm-3.col-xs-12(for='proyoper') Proyecto u Operación
                     .col-md-6.col-sm-6.col-xs-12
-                      input#middle-name.form-control.col-md-7.col-xs-12(type='text', name='middle-name')
+                      input#proyoper.form-control.col-md-7.col-xs-12(type='text', name='proyoper')
+                      input#multiproyoper.flat(type='checkbox', value='Multiproyecto', name='multiproyoper')
+                      label(for='multiproyoper') Varias proyectos u operaciones
                 #step-2
                   center
                     table#datatable-responsive.table.dt-responsive.nowrap(cellspacing='0', width='80%')
@@ -206,32 +256,68 @@ html(lang='en')
                         td(width='40%')
                           label(for='total') Total Compromisos
                         td(width='10%')
-                          input#total.flat(type='checkbox', value='total', name='dashboard')
+                          input#total.flat(type='checkbox', value='DB01', name='dashboard')
                         td(width='40%') 
                           label(for='incumplidos') Compromisos incumplidos con un plan de acción
                         td(width='10%')
-                          input#incumplidos.flat(type='checkbox', value='incumplidos', name='dashboard')
+                          input#incumplidos.flat(type='checkbox', value='DB06', name='dashboard')
                       tr
                         td(width='40%')
                           label(for='accion') Compromisos que requieren acción
                         td(width='10%')
-                          input#accion.flat(type='checkbox', value='accion', name='dashboard')
+                          input#accion.flat(type='checkbox', value='DB02', name='dashboard')
                         td(width='40%') 
                           label(for='sinaccion') Compromisos sin un plan de acción
                         td(width='10%')
-                          input#sinaccion.flat(type='checkbox', value='sinaccion', name='dashboard')
+                          input#sinaccion.flat(type='checkbox', value='DB07', name='dashboard')
+                      tr
+                        td(width='40%')
+                          label(for='cumplimiento') Compromisos en cumplimiento
+                        td(width='10%')
+                          input#accion.flat(type='checkbox', value='DB03', name='dashboard')
+                        td(width='40%') 
+                          label(for='incumplidoscrit') Compromisos críticos incumplidos
+                        td(width='10%')
+                          input#sinaccion.flat(type='checkbox', value='DB08', name='dashboard')
+                      tr
+                        td(width='40%')
+                          label(for='sustento') Compromisos en cumplimiento con sustento
+                        td(width='10%')
+                          input#accion.flat(type='checkbox', value='DB04', name='dashboard')
+                        td(width='40%') 
+                          label(for='nodefinidos') Compromisos con aspectos no definidos
+                        td(width='10%')
+                          input#sinaccion.flat(type='checkbox', value='DB09', name='dashboard')
+                      tr
+                        td(width='40%')
+                          label(for='incumplidos') Compromisos incumplidos
+                        td(width='10%')
+                          input#accion.flat(type='checkbox', value='DB05', name='dashboard')
+                        td(width='40%') 
+                          label(for='redefinir') Compromisos que requieren ser definidos
+                        td(width='10%')
+                          input#sinaccion.flat(type='checkbox', value='DB10', name='dashboard')
                 #step-3
                   center
                     table#datatable-responsive.table.dt-responsive.nowrap(cellspacing='0', width='80%')
+                      tr
+                        td(width='40%')
+                          label(for='correlativo') Número correlativo
+                        td(width='10%')
+                          input#correlativo.flat(type='checkbox', value='correlativo', name='compromisos')
+                        td(width='40%') 
+                          label(for='asociado') Aspecto asociado
+                        td(width='10%')
+                          input#asociado.flat(type='checkbox', value='asociado', name='compromisos')
                       tr
                         td(width='40%')
                           label(for='global') Código global
                         td(width='10%')
                           input#global.flat(type='checkbox', value='global', name='compromisos')
                         td(width='40%') 
-                          label(for='asociado') Aspecto asociado
+                          label(for='accion') Compromisos que requieren acción
                         td(width='10%')
-                          input#asociado.flat(type='checkbox', value='asociado', name='compromisos')
+                          input#accion.flat(type='checkbox', value='accion', name='compromisos')
                       tr
                         td(width='40%')
                           label(for='unidad') Unidad
@@ -241,13 +327,81 @@ html(lang='en')
                           label(for='instcomp') Instalación/componente
                         td(width='10%')
                           input#instcomp.flat(type='checkbox', value='instcomp', name='compromisos')
+                      tr
+                        td(width='40%')
+                          label(for='proyopercom') Proyecto y operación
+                        td(width='10%')
+                          input#proyopercom.flat(type='checkbox', value='proyopercom', name='compromisos')
+                        td(width='40%') 
+                          label(for='recurrente') Compromiso recurrente
+                        td(width='10%')
+                          input#recurrente.flat(type='checkbox', value='recurrente', name='compromisos')
+                      tr
+                        td(width='40%')
+                          label(for='origen') Origen del compromiso
+                        td(width='10%')
+                          input#origen.flat(type='checkbox', value='origen', name='compromisos')
+                        td(width='40%') 
+                          label(for='responsable') Área responsable
+                        td(width='10%')
+                          input#responsable.flat(type='checkbox', value='responsable', name='compromisos')
+                      tr
+                        td(width='40%')
+                          label(for='capsecpa') Capítulo, sección y página
+                        td(width='10%')
+                          input#capsecpa.flat(type='checkbox', value='capsecpa', name='compromisos')
+                        td(width='40%') 
+                          label(for='criticidad') Criticidad
+                        td(width='10%')
+                          input#criticidad.flat(type='checkbox', value='criticidad', name='compromisos')                            
+                      tr
+                        td(width='40%')
+                          label(for='textolit') Texto literal
+                        td(width='10%')
+                          input#textolit.flat(type='checkbox', value='textolit', name='compromisos')
+                        td(width='40%') 
+                          label(for='estadocump') Estdo de cumplimiento
+                        td(width='10%')
+                          input#estadocump.flat(type='checkbox', value='estadocump', name='compromisos')                            
+                      tr
+                        td(width='40%')
+                          label(for='resumen') Resumen del compromiso
+                        td(width='10%')
+                          input#resumen.flat(type='checkbox', value='resumen', name='compromisos')
+                        td(width='40%') 
+                          label(for='formacum') Forma de cumplimiento
+                        td(width='10%')
+                          input#formacum.flat(type='checkbox', value='formacum', name='compromisos')                            
+                      tr
+                        td(width='40%')
+                          label(for='temporalidadcom') Temporalidad
+                        td(width='10%')
+                          input#temporalidadcom.flat(type='checkbox', value='temporalidadcom', name='compromisos')
+                        td(width='40%') 
+                          label(for='evidencia') Evidencia de compromiso
+                        td(width='10%')
+                          input#evidencia.flat(type='checkbox', value='evidencia', name='compromisos')                            
+                      tr
+                        td(width='40%')
+                          label(for='frecuencia') Frecuencia
+                        td(width='10%')
+                          input#frecuencia.flat(type='checkbox', value='frecuencia', name='compromisos')
+                        td(width='40%') 
+                          label(for='frecuenciaverif') Frecuencia de verificación
+                        td(width='10%')
+                          input#frecuenciaverif.flat(type='checkbox', value='frecuenciaverif', name='compromisos')                            
+                      tr
+                        td(width='40%')
+                          label(for='notas') Notas adicionales
+                        td(width='10%')
+                          input#notas.flat(type='checkbox', value='notas', name='compromisos')
                     table#datatable.table.dt-responsive.nowrap(cellspacing='0', width='60%')
                       caption(width='60%' style='text-align:center;') Etapas
                       tr
                         td(width='10%')
                           label(for='contruccion') Contrucción
                         td(width='10%')
-                          input#contruccion.flat(type='checkbox', value='contruccion', name='etapascompromiso')
+                          input#contruccion.flat(type='checkbox', value='construccion', name='etapascompromiso')
                         td(width='10%') 
                           label(for='operacion') Operación
                         td(width='10%')
@@ -265,29 +419,92 @@ html(lang='en')
                     table#datatable-responsive.table.dt-responsive.nowrap(cellspacing='0', width='80%')
                       tr
                         td(width='40%')
-                          label(for='global') Código global
+                          label(for='correlativomonit') Número correlativo
                         td(width='10%')
-                          input#global.flat(type='checkbox', value='global', name='tablamonitoreo')
+                          input#correlativomonit.flat(type='checkbox', value='correlativomonit', name='monitoreo')
                         td(width='40%') 
-                          label(for='temporalidad') Temporalidad
+                          label(for='temporalidadmonit') Temporalidad
                         td(width='10%')
-                          input#temporalidad.flat(type='checkbox', value='temporalidad', name='tablamonitoreo')
+                          input#temporalidadmonit.flat(type='checkbox', value='temporalidadmonit', name='monitoreo')
                       tr
                         td(width='40%')
-                          label(for='unidad') Unidad
+                          label(for='globalmonit') Código global
                         td(width='10%')
-                          input#unidad.flat(type='checkbox', value='unidad', name='tablamonitoreo')
+                          input#globalmonit.flat(type='checkbox', value='globalmonit', name='monitoreo')
                         td(width='40%') 
-                          label(for='frecmonitoreo') Frecuencia de monitoreo
+                          label(for='frecuenciamonit') Frecuencia de monitoreo
                         td(width='10%')
-                          input#frecmonitoreo.flat(type='checkbox', value='frecmonitoreo', name='tablamonitoreo')
+                          input#frecuenciamonit.flat(type='checkbox', value='frecuenciamonit', name='monitoreo')
+                      tr
+                        td(width='40%')
+                          label(for='unidadmonit') Unidad
+                        td(width='10%')
+                          input#unidadmonit.flat(type='checkbox', value='unidadmonit', name='monitoreo')
+                        td(width='40%') 
+                          label(for='frecuenciarep') Frecuencia de reporte
+                        td(width='10%')
+                          input#frecuenciarep.flat(type='checkbox', value='frecuenciarep', name='monitoreo')
+                      tr
+                        td(width='40%')
+                          label(for='proyopermonit') Proyecto y operación
+                        td(width='10%')
+                          input#proyopermonit.flat(type='checkbox', value='proyopermonit', name='monitoreo')
+                        td(width='40%') 
+                          label(for='autoridad') Autoridad a reportar
+                        td(width='10%')
+                          input#autoridad.flat(type='checkbox', value='autoridad', name='monitoreo')
+                      tr
+                        td(width='40%')
+                          label(for='origenmonit') Origen del documento
+                        td(width='10%')
+                          input#origenmonit.flat(type='checkbox', value='origenmonit', name='monitoreo')
+                        td(width='40%') 
+                          label(for='responsablemonit') Área responsable
+                        td(width='10%')
+                          input#responsablemonit.flat(type='checkbox', value='responsablemonit', name='monitoreo')
+                      tr
+                        td(width='40%')
+                          label(for='capsecpamonit') Capítulo, sección y página
+                        td(width='10%')
+                          input#capsecpamonit.flat(type='checkbox', value='capsecpamonit', name='monitoreo')
+                        td(width='40%') 
+                          label(for='reportemonit') Reportes de monitoreo
+                        td(width='10%')
+                          input#reportemonit.flat(type='checkbox', value='reportemonit', name='monitoreo')                            
+                      tr
+                        td(width='40%')
+                          label(for='componentemonit') Componente
+                        td(width='10%')
+                          input#componentemonit.flat(type='checkbox', value='componentemonit', name='monitoreo')
+                        td(width='40%') 
+                          label(for='frecuenciaverifmonit') Frecuencia de verificación
+                        td(width='10%')
+                          input#frecuenciaverifmonit.flat(type='checkbox', value='frecuenciaverifmonit', name='monitoreo')                            
+                      tr
+                        td(width='40%')
+                          label(for='estacionmonit') Estación
+                        td(width='10%')
+                          input#estacionmonit.flat(type='checkbox', value='estacionmonit', name='monitoreo')
+                        td(width='40%') 
+                          label(for='notasmonit') Notas
+                        td(width='10%')
+                          input#notasmonit.flat(type='checkbox', value='notasmonit', name='monitoreo')                            
+                      tr
+                        td(width='40%')
+                          label(for='parammonit') Parámetros
+                        td(width='10%')
+                          input#parammonit.flat(type='checkbox', value='parammonit', name='monitoreo')
+                        td(width='40%') 
+                          label(for='metodologia') Metodología
+                        td(width='10%')
+                          input#metodologia.flat(type='checkbox', value='metodologia', name='monitoreo')                            
                     table#datatable.table.dt-responsive.nowrap(cellspacing='0', width='60%')
                       caption(width='60%' style='text-align:center;') Etapas
                       tr
                         td(width='10%')
                           label(for='contruccion') Contrucción
                         td(width='10%')
-                          input#contruccion.flat(type='checkbox', value='contruccion', name='etapasmonitoreo')
+                          input#contruccion.flat(type='checkbox', value='construccion', name='etapasmonitoreo')
                         td(width='10%') 
                           label(for='operacion') Operación
                         td(width='10%')
@@ -332,5 +549,12 @@ html(lang='en')
       var finishWizard = function(){
         //$('#config_init').modal('hide');
         $('#frmWizard').submit();
+          /*var vals = [];
+
+          $(':checkbox:checked[name^=compromisos]').val(function() {
+             vals.push(this.value);
+          });
+
+          console.log(init);*/
       }
 

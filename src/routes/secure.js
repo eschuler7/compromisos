@@ -59,15 +59,43 @@ router.get('/logout', function(req, res){
 // TODAS LAS LLAMADAS POST
 
 router.post('/initConfig', function(req, res){
-	try {
+	/*try {
 		var result = mysql.company.updateFirstTime(req.session.user.t_company_ruc);
 		if(result.affectedRows == 1) {
 			req.session.user.firsttime == 0;
 		}
 	} catch(e) {
 		console.log('[/initConfig]',e);
-	}
-	res.redirect('/secure/home');
+	}*/
+	var  razonsocial = req.body.razonsocial;
+	var  unidadinit = req.body.unidadinit;
+	var  proyoper = req.body.proyoper;
+	var multiunidad = req.body.multiunidad;
+	var multiproyoper = req.body.multiproyoper;
+	console.log('resultado de razonsocial: ',razonsocial);
+	console.log('resultado de unidadinit: ',unidadinit);
+	console.log('resultado de proyoper: ',proyoper);
+	console.log('resultado de multiunidad: ',multiunidad);
+	console.log('resultado de multiproyoper: ',multiproyoper);
+	//sección dashboard
+	var dashboard = req.body.dashboard;
+	console.log('resultado de dashboard: ',dashboard);
+	//sección compromisos
+	var compromisos = req.body.compromisos;
+	console.log('resultado de compromisos: ',compromisos);
+	//sección etapascompromiso
+	var etapascompromiso = req.body.etapascompromiso;
+	console.log('resultado de etapascompromiso: ',etapascompromiso);
+	//sección monitoreo
+	var monitoreo = req.body.monitoreo;
+	console.log('resultado de monitoreo: ',monitoreo);
+	//sección etapasmonitoreo
+	var etapasmonitoreo = req.body.etapasmonitoreo;
+	console.log('resultado de etapasmonitoreo: ',etapasmonitoreo);
+	
+	res.end();
+
+	//res.redirect('/secure/home');
 });
 
 module.exports = router;
