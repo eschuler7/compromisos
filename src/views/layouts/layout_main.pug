@@ -191,7 +191,7 @@ html(lang='en')
                       br
                       small Configuración de tabla de monitoreo
               form#frmWizard.form-horizontal.form-label-left(action='/secure/initConfig', method='post')
-                #step-1(style='height:107px')
+                #step-1(style='height:100px')
                   .form-group
                     label.control-label.col-md-3.col-sm-3.col-xs-12(for='razonsocial')
                       | Razón Social 
@@ -202,15 +202,19 @@ html(lang='en')
                       | Unidad 
                     .col-md-6.col-sm-6.col-xs-12
                       input#unidadinit.form-control.col-md-7.col-xs-12(type='text', required='required', name='unidadinit')
+                      br
+                      br
                       input#multiunidad.flat(type='checkbox', value='Multiunidad', name='multiunidad')
                       label(for='multiunidad') Varias Unidades
                   .form-group
                     label.control-label.col-md-3.col-sm-3.col-xs-12(for='proyoper') Proyecto u Operación
                     .col-md-6.col-sm-6.col-xs-12
                       input#proyoper.form-control.col-md-7.col-xs-12(type='text', name='proyoper')
+                      br
+                      br
                       input#multiproyoper.flat(type='checkbox', value='Multiproyecto', name='multiproyoper')
                       label(for='multiproyoper') Varias proyectos u operaciones
-                #step-2
+                #step-2(style='height:110px')
                   center
                     table#datatable-responsive.table.dt-responsive.nowrap(cellspacing='0', width='80%', tableStyle='margin:-500px;')
                       tr
@@ -258,7 +262,7 @@ html(lang='en')
                           label(for='redefinir') Compromisos que requieren ser definidos
                         td(width='10%')
                           input#sinaccion.flat(type='checkbox', value='DB10', name='dashboard')
-                #step-3
+                #step-3(style='height:290px')
                   center
                     table#datatable-responsive.table.dt-responsive.nowrap(cellspacing='0', width='80%')
                       tr
@@ -375,7 +379,7 @@ html(lang='en')
                           label(for='postcierre') Post-cierre
                         td(width='10%')
                           input#postcierre.flat(type='checkbox', value='postcierre', name='etapascompromiso')
-                #step-4 
+                #step-4(style='height:250px')
                   center
                     table#datatable-responsive.table.dt-responsive.nowrap(cellspacing='0', width='80%')
                       tr
