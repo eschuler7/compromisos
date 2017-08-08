@@ -212,7 +212,7 @@ html(lang='en')
                       label(for='multiproyoper') Varias proyectos u operaciones
                 #step-2
                   center
-                    table#datatable-responsive.table.dt-responsive.nowrap(cellspacing='0', width='80%')
+                    table#datatable-responsive.table.dt-responsive.nowrap(cellspacing='0', width='80%', tableStyle='margin:-500px;')
                       tr
                         td(width='40%')
                           label(for='total') Total Compromisos
@@ -502,6 +502,13 @@ html(lang='en')
         var firsttime = '#{session.user.firsttime}';
         if (firsttime == 1) {
           $('#config_init').modal('show');
+          /*$('#config_init').on('show', function () {
+            $(this).find('.modal-body').css({
+              //width:'auto', //probably not needed
+              height:'auto', //probably not needed 
+              'max-height':'100%'
+            });
+          });*/
         }
       });
       var logout = function() {
