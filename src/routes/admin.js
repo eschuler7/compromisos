@@ -9,6 +9,8 @@ var mysql = require('../lib/mysql');
 var computil = require('../lib/computil');
 //Loading Config
 var config = require('../lib/config');
+//Loading Email Library
+var compemail = require('../lib/email');
 
 // TODAS LAS LLAMADAS GET
 
@@ -66,7 +68,7 @@ router.post('/create',function(req, res){
 		var result = mysql.company.createCompany(ruc, companyname);
 		if(result.affectedRows == 1) {
 			// Registering user information
-			mysql.user.createUser(userid, computil.createHash(config().checksumhash,password), email, name, lastname, ruc, 'ROL1');
+			mysql.user.createUser(userid, computil.createHash(config().checksumhash,password), email, name, lastname, ruc, 'ROL1', 1);
 			// Init Dashboard Configuration
 			mysql.dashboard.initDashboardConfig(ruc);
 			// Init Commitment Configuration
@@ -75,14 +77,16 @@ router.post('/create',function(req, res){
 			mysql.monitor.initMonitorConfig(ruc);
 
 			// Sending confirmation email
-			/*var htmlRegistrationTemplate = computil.loadEmailTemplate('security_registration');
+			var htmlRegistrationTemplate = computil.loadEmailTemplate('security_registration');
 			if(htmlRegistrationTemplate == '') {
 				console.log('[/signup]','[util email template]','La plantilla de correo no pudo ser cargada.');
 			} else {
 				htmlRegistrationTemplate = htmlRegistrationTemplate.replace('$COMPANY_NAME',companyname);
 				htmlRegistrationTemplate = htmlRegistrationTemplate.replace('$BASE_URL',config().baseUrl);
+				htmlRegistrationTemplate = htmlRegistrationTemplate.replace('$USERID',userid);
+				htmlRegistrationTemplate = htmlRegistrationTemplate.replace('$PASSWORD',password);
 				compemail.sendEmail(email,'Registro en Mis Compromisos',htmlRegistrationTemplate);
-			}*/
+			}
 		}
 	} catch(e) {
 		console.log('[/admin/create]',e);

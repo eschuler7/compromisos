@@ -16,25 +16,24 @@ html
     // Custom Theme Style
     link(href='../build/css/custom.min.css', rel='stylesheet')
   body.login
-    div
-      .login_wrapper
-        .animate.form.login_form
-          section.login_content
-            form#frmResetpwd(method='POST',action='/resetpwd')
-              h1 
-                |  Cambio de Clave
-              center
-                //-input.form-control(type='text', placeholder='RUC', name='ruc')
-                input.form-control(type='email', placeholder='Correo Electrónico', name='email')
-              br
-              button.btn.btn-default.submit(type='submit') Enviar
-              .clearfix
-              .separator
-                p.change_link
-                  | Regresar a 
-                  a.to_register(href='/') Iniciar Sesión
-                .clearfix
+    .login_wrapper
+      .animate.form.login_form
+        section.login_content
+          form#frmChangePwd(method='POST',action='/changepwd')
+            h1 
+              |  Cambio de Contraseña
+            center
+              div(style='width:98%')
+                input(type='hidden',name='userid',value=userid)
+                input.form-control(type='password', placeholder='Contraseña actual', name='password')
+                input#newpassword.form-control(type='password', placeholder='Nueva contraseña', name='newpassword')
+                input.form-control(type='password', placeholder='Confirmar nueva contraseña', name='retype_newpassword')
+            br
+            button.btn.btn-default.submit(type='submit') Cambiar Contraseña
+            .clearfix
+
     // jQuery
     script(src='../jquery/dist/jquery.min.js')
+    script(src='../bootstrap/dist/js/bootstrap.min.js')
     script(src='https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js')
     script(src='compromisos/compromisos.js')

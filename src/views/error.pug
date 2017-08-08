@@ -6,7 +6,7 @@ html
     meta(charset='utf-8')
     meta(http-equiv='X-UA-Compatible', content='IE=edge')
     meta(name='viewport', content='width=device-width, initial-scale=1')
-    title Mis Compromisos 
+    title SIGNEQ 
     // Bootstrap
     link(href='../bootstrap/dist/css/bootstrap.min.css', rel='stylesheet')
     // Font Awesome
@@ -20,12 +20,11 @@ html
       .login_wrapper(style='max-width:700px')
         .form.login_form
           section.login_content
-            h2(style='color: red') Error de registro
-            p Se produjo un error durante el registro en la plataforma, por favor intente en unos minutos.
+            h2(style='color: red') #{err.title}
+            p #{err.body}
             .clearfix
             .separator
               p.change_link
-                | Regresar a 
                 a.to_register(href='/') Iniciar Sesión
               .clearfix
     // jQuery
