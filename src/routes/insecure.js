@@ -68,7 +68,7 @@ router.post('/changepwd',function(req, res){
 		if(result.affectedRows == 1) {
 			res.render('msg',{msg:{title:'¡ Cambio de contraseña exitoso !', body:'El cambio de contraseña fue satisfactorio, por favor inicie sesión con sus nuevos datos.'}});
 		} else {
-			res.render('error',{err:{title:'Error',body:'Se produjo un error durante el cambio de contraseña, por favor intente nuevamente en unos minutos.'}});
+			res.render('error',{err:{title:'Error',body:'Los datos ingresados no pudieron ser validados correctamente, por favor intentelo nuevamente.'}});
 		}
 	} catch(e) {
 		console.log('[POST]','[/changepwd]',e);

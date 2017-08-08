@@ -1,3 +1,8 @@
+$.validator.addMethod("notEqualTo", function(value, element, param) {
+	return value != $(param).val();
+   //return $('#password').val() != $('#newpassword').val()
+}, "Value must not be the same");
+
 $(document).ready(function(){
 	$('#frmLogin').validate({
 		rules : {
@@ -7,15 +12,56 @@ $(document).ready(function(){
 				minlength : 5
 			},
 			password : {
-				required : true
+				required : true,
+				minlength : 6
 			}
 		},
 		messages : {
 			userid : {
-				required : 'Este campo es requerido'
+				required : 'Este campo es requerido',
+				maxlength : 'Máximo 20 caracteres',
+				minlength : 'Mínimo 5 caracteres'
 			},
 			password : {
-				required : 'Este campo es requerido'
+				required : 'Este campo es requerido',
+				minlength : 'Mínimo 6 caracteres'
+			}
+		},
+		submitHandler : function(form) {
+			form.submit();
+		}
+	});
+	$('#frmChangePwd').validate({
+		rules : {
+			password : {
+				required : true,
+				minlength : 6
+			},
+			newpassword : {
+				required : true,
+				minlength : 6,
+				notEqualTo : '#password'
+			},
+			retype_newpassword : {
+				required : true,
+				minlength : 6,
+				equalTo : '#newpassword'
+			}
+		},
+		messages : {
+			password : {
+				required : 'Este campo es requerido',
+				minlength : 'Mínimo 6 caracteres'
+			},
+			newpassword : {
+				required : 'Este campo es requerido',
+				minlength : 'Mínimo 6 caracteres',
+				notEqualTo : 'No se puede utilizar el mismo password'
+			},
+			retype_newpassword : {
+				required : 'Este campo es requerido',
+				minlength : 'Mínimo 6 caracteres',
+				equalTo : 'La contraseña no coincide'
 			}
 		},
 		submitHandler : function(form) {
