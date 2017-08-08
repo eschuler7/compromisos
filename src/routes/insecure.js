@@ -40,11 +40,15 @@ router.post('/login',function(req, res){
 	try {
 		var userlist = mysql.user.login(userid, computil.createHash(config().checksumhash,password));
 		if(userlist.length == 1) {
-			req.session.user = userlist[0];
-			if(userlist[0].t_rol_rolid == 'ROL5') {
-				res.redirect('/secure/clients');
+			if (userlist[0].changepwd == 1) {
+				res.render('changepwd',{userid:userid});
 			} else {
-				res.redirect('/secure/home');
+				req.session.user = userlist[0];
+				if(userlist[0].t_rol_rolid == 'ROL5') {
+					res.redirect('/secure/clients');
+				} else {
+					res.redirect('/secure/home');
+				}
 			}
 		} else {
 			res.render('login', {error : 'Los datos ingresados no son correctos.'});
@@ -52,6 +56,23 @@ router.post('/login',function(req, res){
 	} catch(e) {
 		console.log('[POST]','[/login]',e);
 		res.render('login', {error : 'Hubo un error en el inicio de sesión, por favor intente nuevamente.'});
+	}
+});
+router.post('/changepwd',function(req, res){
+	var userid = req.body.userid;
+	var password = req.body.password;
+	var newpassword = req.body.newpassword;
+
+	try {
+		var result = mysql.user.resetPassword(userid, computil.createHash(config().checksumhash,password), computil.createHash(config().checksumhash,newpassword));
+		if(result.affectedRows == 1) {
+			res.render('msg',{msg:{title:'¡ Cambio de contraseña exitoso !', body:'El cambio de contraseña fue satisfactorio, por favor inicie sesión con sus nuevos datos.'}});
+		} else {
+			res.render('error',{err:{title:'Error',body:'Se produjo un error durante el cambio de contraseña, por favor intente nuevamente en unos minutos.'}});
+		}
+	} catch(e) {
+		console.log('[POST]','[/changepwd]',e);
+		res.render('error',{err:{title:'Error',body:'Se produjo un error durante el cambio de contraseña, por favor intente nuevamente en unos minutos.'}});
 	}
 });
 

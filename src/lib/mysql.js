@@ -11,7 +11,7 @@ var connectionOptions = {
 	user: config().mysql.user,
 	database: config().mysql.database,
 	password: config().mysql.password,
-	debug: false
+	debug: true
 }
 
 var compromisosdb = {
@@ -60,15 +60,15 @@ var compromisosdb = {
 		}
 	},
 	user : {
-		createUser : function(userid, password, email, name, lastname, ruc, rol){
+		createUser : function(userid, password, email, name, lastname, ruc, rol, changepwd){
 			var conn = new mysql(connectionOptions);
-			const result = conn.query('insert into t_user values(?,?,?,?,?,?,?,now(),now())',[userid, password, email, name, lastname, ruc, rol]);
+			const result = conn.query('insert into t_user values(?,?,?,?,?,?,?,?,now(),now())',[userid, password, email, name, lastname, ruc, rol, changepwd]);
 			conn.dispose();
 			return result;
 		},
-		deleteUserById : function(ruc, email) {
+		deleteUserById : function(ruc, userid) {
 			var conn = new mysql(connectionOptions);
-			const result = conn.query('delete from t_user where ruc=? and email=?',[ruc, email]);
+			const result = conn.query('delete from t_user where ruc=? and userid=?',[ruc, userid]);
 			conn.dispose();
 			return result;
 		},
@@ -80,13 +80,19 @@ var compromisosdb = {
 		},
 		login : function(userid, password) {
 			var conn = new mysql(connectionOptions);
-			const result = conn.query('select userid, name, lastname, tc.firsttime, t_company_ruc, tc.companyname, t_rol_rolid from t_user tu left join t_company tc on tu.t_company_ruc=tc.ruc where userid=? and password=?',[userid, password]);
+			const result = conn.query('select userid, name, lastname, tc.firsttime, t_company_ruc, tc.companyname, t_rol_rolid, changepwd from t_user tu left join t_company tc on tu.t_company_ruc=tc.ruc where userid=? and password=?',[userid, password]);
 			conn.dispose();
 			return result;
 		},
-		validateUserId : function(email) {
+		validateUserId : function(userid) {
 			var conn = new mysql(connectionOptions);
-			const result = conn.query('select userid from t_user where userid=?',[email]);
+			const result = conn.query('select userid from t_user where userid=?',[userid]);
+			conn.dispose();
+			return result;
+		},
+		resetPassword : function(userid, password, newpassword) {
+			var conn = new mysql(connectionOptions);
+			const result = conn.query('update t_user set password=?,changepwd=0 where userid=? and password=?',[newpassword, userid, password]);
 			conn.dispose();
 			return result;
 		}
