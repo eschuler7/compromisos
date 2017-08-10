@@ -16,6 +16,7 @@ insert into t_dashboard_config(id,name,cdatetime,udatetime) values('DB07','Compr
 insert into t_dashboard_config(id,name,cdatetime,udatetime) values('DB08','Compromisos críticos incumplidos',now(),now());
 insert into t_dashboard_config(id,name,cdatetime,udatetime) values('DB09','Compromisos con aspectos no definidos',now(),now());
 insert into t_dashboard_config(id,name,cdatetime,udatetime) values('DB10','Compromisos que requieren ser modificados',now(),now());
+
 -- Inserts iniciales para la tabla commitments
 insert into t_commitment_config(id,name,cdatetime,udatetime) values('CM01','Número correlativo',now(),now());
 insert into t_commitment_config(id,name,cdatetime,udatetime) values('CM02','Código global',now(),now());
@@ -68,8 +69,20 @@ insert into t_monitor_config(id,name,cdatetime,udatetime) values('MN20','Constru
 insert into t_monitor_config(id,name,cdatetime,udatetime) values('MN21','Operación',now(),now());
 insert into t_monitor_config(id,name,cdatetime,udatetime) values('MN22','Cierre',now(),now());
 insert into t_monitor_config(id,name,cdatetime,udatetime) values('MN23','Post-Cierre',now(),now());
+insert into t_monitor_config(id,name,cdatetime,udatetime) values('MN24','Código global',now(),now());
 
 -- Inserts iniciales para la tabla company / password: password$1
 insert into t_company values('12345678909','SIGNEQ',null,null,0,now(),now());
 insert into t_user values('jdelgado','ca1b02d4cff620b1dd6fccdf2a48714f','joandelgado18@gmail.com','Joan Martín','Delgado Bendezú','12345678909','ROL5',1,now(),now());
 insert into t_user values('eschuler','ca1b02d4cff620b1dd6fccdf2a48714f','eschulergodo7@gmail.com','Joan Martín','Delgado Bendezú','12345678909','ROL5',1,now(),now());
+
+update t_company set firsttime=1 where ruc='10101010101';
+select * from t_company;
+select * from t_company_dashboard;
+delete from t_company_dashboard where t_company_ruc='10101010101';
+
+select * from t_company_commitment;
+delete from t_company_commitment where t_company_ruc='10101010101';
+
+select * from t_company_monitor;
+delete from t_company_monitor where t_company_ruc='10101010101';

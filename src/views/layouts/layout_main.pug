@@ -163,14 +163,14 @@ html(lang='en')
                     span.step_descr
                       | Paso 1
                       br
-                      small Encabezado[]s
+                      small Encabezados
                 li(style='width:25%')
                   a(href='#step-2')
                     span.step_no 2
                     span.step_descr
                       | Paso 2
                       br
-                      small Dashboard[] de inicio
+                      small Dashboard de inicio
                 li(style='width:25%')
                   a(href='#step-3')
                     span.step_no 3
@@ -209,9 +209,9 @@ html(lang='en')
                       br
                       input#multiproyoper.flat(type='checkbox', value='Multiproyecto', name='multiproyoper')
                       label(for='multiproyoper') Varias proyectos u operaciones
-                #step-2(style='height:110px')
+                #step-2(style='height:auto')
                   center
-                    table#datatable-responsive.table.dt-responsive.nowrap(cellspacing='0', width='80%', tableStyle='margin:-500px;')
+                    table#datatable-responsive.table.dt-responsive.nowrap(cellspacing='0', width='80%')
                       tr
                         td(width='40%')
                           label(for='total') Total Compromisos
@@ -257,226 +257,226 @@ html(lang='en')
                           label(for='redefinir') Compromisos que requieren ser definidos
                         td(width='10%')
                           input#sinaccion.flat(type='checkbox', value='DB10', name='dashboard')
-                #step-3(style='height:290px')
+                #step-3(style='height:auto')
                   center
                     table#datatable-responsive.table.dt-responsive.nowrap(cellspacing='0', width='80%')
                       tr
                         td(width='40%')
                           label(for='correlativo') Número correlativo
                         td(width='10%')
-                          input#correlativo.flat(type='checkbox', value='correlativo', name='compromisos')
+                          input#correlativo.flat(type='checkbox', value='CM01', name='compromisos')
                         td(width='40%') 
                           label(for='asociado') Aspecto asociado
                         td(width='10%')
-                          input#asociado.flat(type='checkbox', value='asociado', name='compromisos')
+                          input#asociado.flat(type='checkbox', value='CM13', name='compromisos')
                       tr
                         td(width='40%')
                           label(for='global') Código global
                         td(width='10%')
-                          input#global.flat(type='checkbox', value='global', name='compromisos')
+                          input#global.flat(type='checkbox', value='CM02', name='compromisos')
                         td(width='40%') 
                           label(for='accion') Compromisos que requieren acción
                         td(width='10%')
-                          input#accion.flat(type='checkbox', value='accion', name='compromisos')
+                          input#accion.flat(type='checkbox', value='CM14', name='compromisos')
                       tr
                         td(width='40%')
                           label(for='unidad') Unidad
                         td(width='10%')
-                          input#unidad.flat(type='checkbox', value='unidad', name='compromisos')
+                          input#unidad.flat(type='checkbox', value='CM03', name='compromisos')
                         td(width='40%') 
                           label(for='instcomp') Instalación/componente
                         td(width='10%')
-                          input#instcomp.flat(type='checkbox', value='instcomp', name='compromisos')
+                          input#instcomp.flat(type='checkbox', value='CM15', name='compromisos')
                       tr
                         td(width='40%')
-                          label(for='proyopercom') Proyecto y operación
+                          label(for='proyopercom') Proyecto u operación
                         td(width='10%')
-                          input#proyopercom.flat(type='checkbox', value='proyopercom', name='compromisos')
+                          input#proyopercom.flat(type='checkbox', value='CM04', name='compromisos')
                         td(width='40%') 
                           label(for='recurrente') Compromiso recurrente
                         td(width='10%')
-                          input#recurrente.flat(type='checkbox', value='recurrente', name='compromisos')
+                          input#recurrente.flat(type='checkbox', value='CM16', name='compromisos')
                       tr
                         td(width='40%')
                           label(for='origen') Origen del compromiso
                         td(width='10%')
-                          input#origen.flat(type='checkbox', value='origen', name='compromisos')
+                          input#origen.flat(type='checkbox', value='CM05', name='compromisos')
                         td(width='40%') 
                           label(for='responsable') Área responsable
                         td(width='10%')
-                          input#responsable.flat(type='checkbox', value='responsable', name='compromisos')
+                          input#responsable.flat(type='checkbox', value='CM17', name='compromisos')
                       tr
                         td(width='40%')
                           label(for='capsecpa') Capítulo, sección y página
                         td(width='10%')
-                          input#capsecpa.flat(type='checkbox', value='capsecpa', name='compromisos')
+                          input#capsecpa.flat(type='checkbox', value='CM060708', name='compromisos')
                         td(width='40%') 
                           label(for='criticidad') Criticidad
                         td(width='10%')
-                          input#criticidad.flat(type='checkbox', value='criticidad', name='compromisos')                            
+                          input#criticidad.flat(type='checkbox', value='CM18', name='compromisos')                            
                       tr
                         td(width='40%')
                           label(for='textolit') Texto literal
                         td(width='10%')
-                          input#textolit.flat(type='checkbox', value='textolit', name='compromisos')
+                          input#textolit.flat(type='checkbox', value='CM09', name='compromisos')
                         td(width='40%') 
-                          label(for='estadocump') Estdo de cumplimiento
+                          label(for='estadocump') Estado de cumplimiento
                         td(width='10%')
-                          input#estadocump.flat(type='checkbox', value='estadocump', name='compromisos')                            
+                          input#estadocump.flat(type='checkbox', value='CM19', name='compromisos')                            
                       tr
                         td(width='40%')
                           label(for='resumen') Resumen del compromiso
                         td(width='10%')
-                          input#resumen.flat(type='checkbox', value='resumen', name='compromisos')
+                          input#resumen.flat(type='checkbox', value='CM10', name='compromisos')
                         td(width='40%') 
                           label(for='formacum') Forma de cumplimiento
                         td(width='10%')
-                          input#formacum.flat(type='checkbox', value='formacum', name='compromisos')                            
+                          input#formacum.flat(type='checkbox', value='CM20', name='compromisos')                            
                       tr
                         td(width='40%')
                           label(for='temporalidadcom') Temporalidad
                         td(width='10%')
-                          input#temporalidadcom.flat(type='checkbox', value='temporalidadcom', name='compromisos')
+                          input#temporalidadcom.flat(type='checkbox', value='CM11', name='compromisos')
                         td(width='40%') 
                           label(for='evidencia') Evidencia de compromiso
                         td(width='10%')
-                          input#evidencia.flat(type='checkbox', value='evidencia', name='compromisos')                            
+                          input#evidencia.flat(type='checkbox', value='CM21', name='compromisos')                            
                       tr
                         td(width='40%')
                           label(for='frecuencia') Frecuencia
                         td(width='10%')
-                          input#frecuencia.flat(type='checkbox', value='frecuencia', name='compromisos')
+                          input#frecuencia.flat(type='checkbox', value='CM12', name='compromisos')
                         td(width='40%') 
                           label(for='frecuenciaverif') Frecuencia de verificación
                         td(width='10%')
-                          input#frecuenciaverif.flat(type='checkbox', value='frecuenciaverif', name='compromisos')                            
+                          input#frecuenciaverif.flat(type='checkbox', value='CM22', name='compromisos')                            
                       tr
                         td(width='40%')
                           label(for='notas') Notas adicionales
                         td(width='10%')
-                          input#notas.flat(type='checkbox', value='notas', name='compromisos')
+                          input#notas.flat(type='checkbox', value='CM23', name='compromisos')
                     table#datatable.table.dt-responsive.nowrap(cellspacing='0', width='60%')
                       caption(width='60%' style='text-align:center;') Etapas
                       tr
                         td(width='10%')
                           label(for='contruccion') Contrucción
                         td(width='10%')
-                          input#contruccion.flat(type='checkbox', value='construccion', name='etapascompromiso')
+                          input#contruccion.flat(type='checkbox', value='CM24', name='etapascompromiso')
                         td(width='10%') 
                           label(for='operacion') Operación
                         td(width='10%')
-                          input#operacion.flat(type='checkbox', value='operacion', name='etapascompromiso')
+                          input#operacion.flat(type='checkbox', value='CM25', name='etapascompromiso')
                         td(width='10%') 
                           label(for='cierre') Cierre
                         td(width='10%')
-                          input#cierre.flat(type='checkbox', value='cierre', name='etapascompromiso')
+                          input#cierre.flat(type='checkbox', value='CM26', name='etapascompromiso')
                         td(width='10%') 
                           label(for='postcierre') Post-cierre
                         td(width='10%')
-                          input#postcierre.flat(type='checkbox', value='postcierre', name='etapascompromiso')
-                #step-4(style='height:250px')
+                          input#postcierre.flat(type='checkbox', value='CM27', name='etapascompromiso')
+                #step-4(style='height:auto')
                   center
                     table#datatable-responsive.table.dt-responsive.nowrap(cellspacing='0', width='80%')
                       tr
                         td(width='40%')
                           label(for='correlativomonit') Número correlativo
                         td(width='10%')
-                          input#correlativomonit.flat(type='checkbox', value='correlativomonit', name='monitoreo')
+                          input#correlativomonit.flat(type='checkbox', value='MN01', name='monitoreo')
                         td(width='40%') 
                           label(for='temporalidadmonit') Temporalidad
                         td(width='10%')
-                          input#temporalidadmonit.flat(type='checkbox', value='temporalidadmonit', name='monitoreo')
+                          input#temporalidadmonit.flat(type='checkbox', value='MN12', name='monitoreo')
                       tr
                         td(width='40%')
                           label(for='globalmonit') Código global
                         td(width='10%')
-                          input#globalmonit.flat(type='checkbox', value='globalmonit', name='monitoreo')
+                          input#globalmonit.flat(type='checkbox', value='MN24', name='monitoreo')
                         td(width='40%') 
                           label(for='frecuenciamonit') Frecuencia de monitoreo
                         td(width='10%')
-                          input#frecuenciamonit.flat(type='checkbox', value='frecuenciamonit', name='monitoreo')
+                          input#frecuenciamonit.flat(type='checkbox', value='MN13', name='monitoreo')
                       tr
                         td(width='40%')
                           label(for='unidadmonit') Unidad
                         td(width='10%')
-                          input#unidadmonit.flat(type='checkbox', value='unidadmonit', name='monitoreo')
+                          input#unidadmonit.flat(type='checkbox', value='MN02', name='monitoreo')
                         td(width='40%') 
                           label(for='frecuenciarep') Frecuencia de reporte
                         td(width='10%')
-                          input#frecuenciarep.flat(type='checkbox', value='frecuenciarep', name='monitoreo')
+                          input#frecuenciarep.flat(type='checkbox', value='MN14', name='monitoreo')
                       tr
                         td(width='40%')
-                          label(for='proyopermonit') Proyecto y operación
+                          label(for='proyopermonit') Proyecto u operación
                         td(width='10%')
-                          input#proyopermonit.flat(type='checkbox', value='proyopermonit', name='monitoreo')
+                          input#proyopermonit.flat(type='checkbox', value='MN03', name='monitoreo')
                         td(width='40%') 
                           label(for='autoridad') Autoridad a reportar
                         td(width='10%')
-                          input#autoridad.flat(type='checkbox', value='autoridad', name='monitoreo')
+                          input#autoridad.flat(type='checkbox', value='MN15', name='monitoreo')
                       tr
                         td(width='40%')
                           label(for='origenmonit') Origen del documento
                         td(width='10%')
-                          input#origenmonit.flat(type='checkbox', value='origenmonit', name='monitoreo')
+                          input#origenmonit.flat(type='checkbox', value='MN04', name='monitoreo')
                         td(width='40%') 
                           label(for='responsablemonit') Área responsable
                         td(width='10%')
-                          input#responsablemonit.flat(type='checkbox', value='responsablemonit', name='monitoreo')
+                          input#responsablemonit.flat(type='checkbox', value='MN16', name='monitoreo')
                       tr
                         td(width='40%')
                           label(for='capsecpamonit') Capítulo, sección y página
                         td(width='10%')
-                          input#capsecpamonit.flat(type='checkbox', value='capsecpamonit', name='monitoreo')
+                          input#capsecpamonit.flat(type='checkbox', value='MN050607', name='monitoreo')
                         td(width='40%') 
                           label(for='reportemonit') Reportes de monitoreo
                         td(width='10%')
-                          input#reportemonit.flat(type='checkbox', value='reportemonit', name='monitoreo')                            
+                          input#reportemonit.flat(type='checkbox', value='MN17', name='monitoreo')                            
                       tr
                         td(width='40%')
                           label(for='componentemonit') Componente
                         td(width='10%')
-                          input#componentemonit.flat(type='checkbox', value='componentemonit', name='monitoreo')
+                          input#componentemonit.flat(type='checkbox', value='MN08', name='monitoreo')
                         td(width='40%') 
                           label(for='frecuenciaverifmonit') Frecuencia de verificación
                         td(width='10%')
-                          input#frecuenciaverifmonit.flat(type='checkbox', value='frecuenciaverifmonit', name='monitoreo')                            
+                          input#frecuenciaverifmonit.flat(type='checkbox', value='MN18', name='monitoreo')                            
                       tr
                         td(width='40%')
                           label(for='estacionmonit') Estación
                         td(width='10%')
-                          input#estacionmonit.flat(type='checkbox', value='estacionmonit', name='monitoreo')
+                          input#estacionmonit.flat(type='checkbox', value='MN09', name='monitoreo')
                         td(width='40%') 
                           label(for='notasmonit') Notas
                         td(width='10%')
-                          input#notasmonit.flat(type='checkbox', value='notasmonit', name='monitoreo')                            
+                          input#notasmonit.flat(type='checkbox', value='MN19', name='monitoreo')                            
                       tr
                         td(width='40%')
                           label(for='parammonit') Parámetros
                         td(width='10%')
-                          input#parammonit.flat(type='checkbox', value='parammonit', name='monitoreo')
+                          input#parammonit.flat(type='checkbox', value='MN10', name='monitoreo')
                         td(width='40%') 
                           label(for='metodologia') Metodología
                         td(width='10%')
-                          input#metodologia.flat(type='checkbox', value='metodologia', name='monitoreo')                            
+                          input#metodologia.flat(type='checkbox', value='MN11', name='monitoreo')                            
                     table#datatable.table.dt-responsive.nowrap(cellspacing='0', width='60%')
                       caption(width='60%' style='text-align:center;') Etapas
                       tr
                         td(width='10%')
                           label(for='contruccion') Contrucción
                         td(width='10%')
-                          input#contruccion.flat(type='checkbox', value='construccion', name='etapasmonitoreo')
+                          input#contruccion.flat(type='checkbox', value='MN20', name='etapasmonitoreo')
                         td(width='10%') 
                           label(for='operacion') Operación
                         td(width='10%')
-                          input#operacion.flat(type='checkbox', value='operacion', name='etapasmonitoreo')
+                          input#operacion.flat(type='checkbox', value='MN21', name='etapasmonitoreo')
                         td(width='10%') 
                           label(for='cierre') Cierre
                         td(width='10%')
-                          input#cierre.flat(type='checkbox', value='cierre', name='etapasmonitoreo')
+                          input#cierre.flat(type='checkbox', value='MN22', name='etapasmonitoreo')
                         td(width='10%') 
                           label(for='postcierre') Post-cierre
                         td(width='10%')
-                          input#postcierre.flat(type='checkbox', value='postcierre', name='etapasmonitoreo')
+                          input#postcierre.flat(type='checkbox', value='MN23', name='etapasmonitoreo')
 
             // End SmartWizard Content 
     // jQuery

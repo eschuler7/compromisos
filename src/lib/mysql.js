@@ -57,7 +57,14 @@ var compromisosdb = {
 			const result = conn.query('select * from t_company where ruc=?',[ruc]);
 			conn.dispose();
 			return result;
+		},
+		initConfigHeader : function(ruc,companyname,unidad,proyecto) {
+			var conn = new mysql(connectionOptions);
+			const result = conn.query('update t_company set companyname=?,unidad=?,proyecto=?,udatetime=now() where ruc=?',[companyname,unidad,proyecto,ruc]);
+			conn.dispose();
+			return result;
 		}
+
 	},
 	user : {
 		createUser : function(userid, password, email, name, lastname, ruc, rol, changepwd){
@@ -115,8 +122,9 @@ var compromisosdb = {
 		updateCommitment : function() {
 
 		},
-		initCommitmentConfig : function(ruc) {
-			var initconfig = ['CM01'];
+		initCommitmentConfig : function(ruc,compromisos) {
+			var initconfig = compromisos;
+			console.log('Valores de compromisos: ',compromisos,ruc);
 			var conn = new mysql(connectionOptions);
 			for (var i = 0; i < initconfig.length; i++) {
 				conn.query('insert into t_company_commitment(t_company_ruc,t_commitment_config_id) values(?,?)',[ruc,initconfig[i]]);
@@ -125,8 +133,9 @@ var compromisosdb = {
 		}
 	},
 	monitor : {
-		initMonitorConfig : function(ruc) {
-			var initconfig = ['MN01'];
+		initMonitorConfig : function(ruc,monitoreo) {
+			var initconfig = monitoreo;
+			console.log('Valores de monitoreo: ',monitoreo,ruc);
 			var conn = new mysql(connectionOptions);
 			for (var i = 0; i < initconfig.length; i++) {
 				conn.query('insert into t_company_monitor values(?,?)',[ruc,initconfig[i]]);
@@ -144,8 +153,9 @@ var compromisosdb = {
 		getDashboardConfigByRuc : function(ruc) {
 
 		},
-		initDashboardConfig : function(ruc) {
-			var initconfig = ['DB01','DB02','DB05','DB08','DB09'];
+		initDashboardConfig : function(ruc,dashboard) {
+			var initconfig = dashboard;
+			console.log('Valores de dashboard: ',dashboard,ruc);
 			var conn = new mysql(connectionOptions);
 			for (var i = 0; i < initconfig.length; i++) {
 				conn.query('insert into t_company_dashboard values(?,?)',[ruc,initconfig[i]]);
