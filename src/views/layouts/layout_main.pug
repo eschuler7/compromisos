@@ -15,13 +15,8 @@ html(lang='en')
     link(href='../iCheck/skins/flat/green.css', rel='stylesheet')
     // NProgress
     link(href='/nprogress/nprogress.css', rel='stylesheet')
-    //Datatables    
-    link(href='../datatables.net-buttons-bs/css/buttons.bootstrap.min.css', rel='stylesheet')
-    link(href='../datatables.net-bs/css/dataTables.bootstrap.min.css', rel='stylesheet')
-    link(href='../datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css', rel='stylesheet')
-    link(href='../datatables.net-responsive-bs/css/responsive.bootstrap.min.css', rel='stylesheet')
-    link(href='../datatables.net-scroller-bs/css/scroller.bootstrap.min.css', rel='stylesheet')
-
+    // Datatable
+    link(href='/datatables.net-bs/css/dataTables.bootstrap.min.css', rel='stylesheet')
     // Custom Theme Style
     link(href='/build/css/custom.min.css', rel='stylesheet')
   body.nav-md
@@ -495,11 +490,14 @@ html(lang='en')
     // FastClick
     script(src='/fastclick/lib/fastclick.js')
     // jQuery Smart Wizard
-    script(src='../jQuery-Smart-Wizard/js/jquery.smartWizard.js')    
+    script(src='/jQuery-Smart-Wizard/js/jquery.smartWizard.js')    
     // Custom Theme Scripts
-    script(src='/build/js/custom.min.js')
-    script(src='../iCheck/icheck.min.js')
+    script(src='/iCheck/icheck.min.js')
     script(src='https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js')
+    //Datatable
+    script(src='/datatables.net/js/jquery.dataTables.min.js')
+    script(src='/datatables.net-bs/js/dataTables.bootstrap.min.js')
+    script(src='/build/js/custom.min.js')
     script(src='/compromisos/admin.js')
     script.
       $(document).ready(function(){

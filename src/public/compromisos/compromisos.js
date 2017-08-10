@@ -56,7 +56,7 @@ $(document).ready(function(){
 			newpassword : {
 				required : 'Este campo es requerido',
 				minlength : 'Mínimo 6 caracteres',
-				notEqualTo : 'No se puede utilizar el mismo password'
+				notEqualTo : 'No se puede reutilizar la contraseña'
 			},
 			retype_newpassword : {
 				required : 'Este campo es requerido',
