@@ -13,125 +13,37 @@ block container
         .x_content
           center
             table#datatable-responsive.table.dt-responsive.nowrap(cellspacing='0', width='80%')
-              tr
-                td(width='40%')
-                  label(for='correlativo') Número correlativo
-                td(width='10%')
-                  input#correlativo.flat(type='checkbox', value='CM01', name='compromisos')
-                td(width='40%') 
-                  label(for='asociado') Aspecto asociado
-                td(width='10%')
-                  input#asociado.flat(type='checkbox', value='CM13', name='compromisos')
-              tr
-                td(width='40%')
-                  label(for='global') Código global
-                td(width='10%')
-                  input#global.flat(type='checkbox', value='CM02', name='compromisos')
-                td(width='40%') 
-                  label(for='accion') Compromisos que requieren acción
-                td(width='10%')
-                  input#accion.flat(type='checkbox', value='CM14', name='compromisos')
-              tr
-                td(width='40%')
-                  label(for='unidad') Unidad
-                td(width='10%')
-                  input#unidad.flat(type='checkbox', value='CM03', name='compromisos')
-                td(width='40%') 
-                  label(for='instcomp') Instalación/componente
-                td(width='10%')
-                  input#instcomp.flat(type='checkbox', value='CM15', name='compromisos')
-              tr
-                td(width='40%')
-                  label(for='proyopercom') Proyecto u operación
-                td(width='10%')
-                  input#proyopercom.flat(type='checkbox', value='CM04', name='compromisos')
-                td(width='40%') 
-                  label(for='recurrente') Compromiso recurrente
-                td(width='10%')
-                  input#recurrente.flat(type='checkbox', value='CM16', name='compromisos')
-              tr
-                td(width='40%')
-                  label(for='origen') Origen del compromiso
-                td(width='10%')
-                  input#origen.flat(type='checkbox', value='CM05', name='compromisos')
-                td(width='40%') 
-                  label(for='responsable') Área responsable
-                td(width='10%')
-                  input#responsable.flat(type='checkbox', value='CM17', name='compromisos')
-              tr
-                td(width='40%')
-                  label(for='capsecpa') Capítulo, sección y página
-                td(width='10%')
-                  input#capsecpa.flat(type='checkbox', value='CM68', name='compromisos')
-                td(width='40%') 
-                  label(for='criticidad') Criticidad
-                td(width='10%')
-                  input#criticidad.flat(type='checkbox', value='CM18', name='compromisos')                            
-              tr
-                td(width='40%')
-                  label(for='textolit') Texto literal
-                td(width='10%')
-                  input#textolit.flat(type='checkbox', value='CM09', name='compromisos')
-                td(width='40%') 
-                  label(for='estadocump') Estado de cumplimiento
-                td(width='10%')
-                  input#estadocump.flat(type='checkbox', value='CM19', name='compromisos')                            
-              tr
-                td(width='40%')
-                  label(for='resumen') Resumen del compromiso
-                td(width='10%')
-                  input#resumen.flat(type='checkbox', value='CM10', name='compromisos')
-                td(width='40%') 
-                  label(for='formacum') Forma de cumplimiento
-                td(width='10%')
-                  input#formacum.flat(type='checkbox', value='CM20', name='compromisos')                            
-              tr
-                td(width='40%')
-                  label(for='temporalidadcom') Temporalidad
-                td(width='10%')
-                  input#temporalidadcom.flat(type='checkbox', value='CM11', name='compromisos')
-                td(width='40%') 
-                  label(for='evidencia') Evidencia de compromiso
-                td(width='10%')
-                  input#evidencia.flat(type='checkbox', value='CM21', name='compromisos')                            
-              tr
-                td(width='40%')
-                  label(for='frecuencia') Frecuencia
-                td(width='10%')
-                  input#frecuencia.flat(type='checkbox', value='CM12', name='compromisos')
-                td(width='40%') 
-                  label(for='frecuenciaverif') Frecuencia de verificación
-                td(width='10%')
-                  input#frecuenciaverif.flat(type='checkbox', value='CM22', name='compromisos')                            
-              tr
-                td(width='40%')
-                  label(for='notas') Notas adicionales
-                td(width='10%')
-                  input#notas.flat(type='checkbox', value='CM23', name='compromisos')
-    .col-md-6.col-sm-12.col-xs-12
-      .x_panel
-        .x_title
-          h2 Etapas
-          .clearfix
-        .x_content
-          table#datatable.table.dt-responsive.nowrap(cellspacing='0', width='60%')
-            tr
-              td(width='10%')
-                label(for='contruccion') Contrucción
-              td(width='10%')
-                input#contruccion.flat(type='checkbox', value='CM24', name='etapascompromiso')
-              td(width='10%') 
-                label(for='operacion') Operación
-              td(width='10%')
-                input#operacion.flat(type='checkbox', value='CM25', name='etapascompromiso')
-              td(width='10%') 
-                label(for='cierre') Cierre
-              td(width='10%')
-                input#cierre.flat(type='checkbox', value='CM26', name='etapascompromiso')
-              td(width='10%') 
-                label(for='postcierre') Post-cierre
-              td(width='10%')
-                input#postcierre.flat(type='checkbox', value='CM27', name='etapascompromiso')
+              each type, index in commitment
+                if type.id != 'CM24' && type.id != 'CM25' && type.id != 'CM26' && type.id != 'CM27'
+                  if index % 4 == 0
+                    tr
+                    if index % 4 == 0
+                      td
+                        label(for=type.id,style='cursor: pointer') #{type.name}
+                      td
+                        input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos')
+                  else
+                    td
+                      label(for=type.id,style='cursor: pointer') #{type.name}
+                    td
+                      input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos')
+            table#datatable-responsive.table.dt-responsive.nowrap(cellspacing='0', width='80%')
+              caption(width='60%' style='text-align:center;')
+                strong(style='color: #71859A') ETAPAS
+              each type, index in commitment
+                if type.id == 'CM24' || type.id == 'CM25'|| type.id == 'CM26'|| type.id == 'CM27'
+                  if index+1 % 4 == 0
+                    tr
+                    if index+1 % 4 == 0
+                      td
+                        label(for=type.id,style='cursor: pointer') #{type.name} #{index} 
+                      td
+                        input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos')
+                  else
+                    td
+                      label(for=type.id,style='cursor: pointer') #{type.name} #{index}
+                    td
+                      input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos')
   .row
     .col-md-12.col-sm-12.col-xs-12
       .x_panel

@@ -44,7 +44,9 @@ router.get('/massive', function(req, res){
 });
 
 router.get('/configattrcommit', function(req, res){
-	res.render('partial/configattrcommit');
+	var commitment = mysql.commitment.getCommitmentTypes();
+	//var monitor = mysql.monitor.getMonitorTypes();
+	res.render('partial/configattrcommit',{commitment: commitment});
 });
 router.get('/configattrmonit', function(req, res){
 	res.render('partial/configattrmonit');
@@ -69,11 +71,16 @@ router.get('/logout', function(req, res){
 router.post('/initConfig', function(req, res){
 	try {
 
-		var  razonsocial = req.body.razonsocial;
-		var  unidadinit = req.body.unidadinit;
-		var  proyoper = req.body.proyoper;
+		var razonsocial = req.body.razonsocial;
+		var unidadinit = req.body.unidadinit;
+		var proyoper = req.body.proyoper;
 		var multiunidad = req.body.multiunidad;
 		var multiproyoper = req.body.multiproyoper;
+		console.log('resultado de encabezado: ',razonsocial);
+		console.log('resultado de encabezado: ',unidadinit);
+		console.log('resultado de encabezado: ',proyoper);
+		console.log('resultado de encabezado: ',multiunidad);
+		console.log('resultado de encabezado: ',multiproyoper);
 		//sección dashboard
 		var dashboard = req.body.dashboard;
 		//sección compromisos
@@ -98,10 +105,14 @@ router.post('/initConfig', function(req, res){
 					var unidadinit = 'Multiunidad';
 				if(multiproyoper=='Multiproyecto')
 					var proyoper = 'Multiproyecto';
-
+				console.log('resultado de unidadinit: ',unidadinit);
+				console.log('Insertando Headers: ');
 				mysql.company.initConfigHeader(req.session.user.t_company_ruc,razonsocial,unidadinit,proyoper);
+				console.log('Insertando dashboard: ');
 				mysql.dashboard.initDashboardConfig(req.session.user.t_company_ruc,dashboard);
+				console.log('Insertando compromisos: ');
 				mysql.commitment.initCommitmentConfig(req.session.user.t_company_ruc,compromisos);	
+				console.log('Insertando monitoreo: ');
 				mysql.monitor.initMonitorConfig(req.session.user.t_company_ruc,monitoreo);	
 
 			}catch(e) {

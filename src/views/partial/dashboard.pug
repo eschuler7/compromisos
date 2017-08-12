@@ -46,7 +46,7 @@ block container
                       //br
                       //small Tabla de monitoreo
               #step-1
-                form.form-horizontal.form-label-left
+                form#frmstep1.form-horizontal.form-label-left(action='/secure/initConfig', method='POST' )
                   span.section(style='color: #71859A') Paso 1 : Configuración de Compañía
                   .form-group
                     label.control-label.col-md-4.col-sm-3.col-xs-12(for='razonsocial')
@@ -76,7 +76,7 @@ block container
                       |  
                       label(for='multiproyoper',style='cursor: pointer') Varias proyectos u operaciones
               #step-2
-                form.form-horizontal.form-label-left
+                form#frmstep2.frmstep1form-horizontal.form-label-left
                   span.section(style='color: #71859A') Paso 2 : Configuración inicial del Dashboard
                   center
                     table#datatable-responsive.table.dt-responsive.nowrap(cellspacing='0', width='80%')
@@ -94,12 +94,12 @@ block container
                           td
                             input.flat(id=type.id,type='checkbox', value=type.id, name='dashboard')
               #step-3
-                form.form-horizontal.form-label-left
+                form#frmstep3.form-horizontal.form-label-left
                   span.section(style='color: #71859A') Paso 3 : Configuración inicial de la tabla de compromisos
                   center
                     table#datatable-responsive.table.dt-responsive.nowrap(cellspacing='0', width='80%')
                       each type, index in commitment
-                        if index >= 24 
+                        if type.id != 'CM24' && type.id != 'CM25' && type.id != 'CM26' && type.id != 'CM27'
                           if index % 4 == 0
                             tr
                             if index % 4 == 0
@@ -112,37 +112,60 @@ block container
                               label(for=type.id,style='cursor: pointer') #{type.name}
                             td
                               input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos')
-                        else
-                          if index % 4 == 0
+                    table#datatable-responsive.table.dt-responsive.nowrap(cellspacing='0', width='80%')
+                      caption(width='60%' style='text-align:center;')
+                        strong(style='color: #71859A') ETAPAS
+                      each type, index in commitment
+                        if type.id == 'CM24' || type.id == 'CM25'|| type.id == 'CM26'|| type.id == 'CM27'
+                          if index+1 % 4 == 0
                             tr
-                            if index % 4 == 0
+                            if index+1 % 4 == 0
                               td
-                                label(for=type.id,style='cursor: pointer') #{type.name}
+                                label(for=type.id,style='cursor: pointer') #{type.name} #{index} 
                               td
                                 input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos')
                           else
                             td
-                              label(for=type.id,style='cursor: pointer') #{type.name}
+                              label(for=type.id,style='cursor: pointer') #{type.name} #{index}
                             td
                               input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos')
+
               #step-4
-                form.form-horizontal.form-label-left
+                form#frmstep4.form-horizontal.form-label-left
                   span.section(style='color: #71859A') Paso 4 : Configuración inicial de la tabla de monitoreo
                   center
                     table#datatable-responsive.table.dt-responsive.nowrap(cellspacing='0', width='80%')
                       each type, index in monitor
-                        if index % 4 == 0
-                          tr
+                        if type.id != 'MN21' && type.id != 'MN22' && type.id != 'MN23' && type.id != 'MN24'
                           if index % 4 == 0
+                            tr
+                            if index % 4 == 0
+                              td
+                                label(for=type.id,style='cursor: pointer') #{type.name}
+                              td
+                                input.flat(id=type.id,type='checkbox', value=type.id, name='monitoreo')
+                          else
                             td
                               label(for=type.id,style='cursor: pointer') #{type.name}
                             td
                               input.flat(id=type.id,type='checkbox', value=type.id, name='monitoreo')
-                        else
-                          td
-                            label(for=type.id,style='cursor: pointer') #{type.name}
-                          td
-                            input.flat(id=type.id,type='checkbox', value=type.id, name='monitoreo')
+                    table#datatable-responsive.table.dt-responsive.nowrap(cellspacing='0', width='80%')
+                      caption(width='60%' style='text-align:center;')
+                        strong(style='color: #71859A') ETAPAS
+                      each type, index in monitor
+                        if type.id == 'MN21' || type.id == 'MN22'|| type.id == 'MN23'|| type.id == 'MN24'
+                          if index+1 % 4 == 0
+                            tr
+                            if index+1 % 4 == 0
+                              td
+                                label(for=type.id,style='cursor: pointer') #{type.name} #{index} 
+                              td
+                                input.flat(id=type.id,type='checkbox', value=type.id, name='monitoreo')
+                          else
+                            td
+                              label(for=type.id,style='cursor: pointer') #{type.name} #{index}
+                            td
+                              input.flat(id=type.id,type='checkbox', value=type.id, name='monitoreo')
 
     script.
       window.onload = function() {
@@ -151,11 +174,23 @@ block container
           $('#wizard').smartWizard({
             labelNext:'Siguiente',
             labelPrevious:'Anterior',
-            labelFinish:'Finalizar'
+            labelFinish:'Finalizar',
+            onFinish: finishWizard
           });
           $('.buttonNext').addClass('btn btn-success');
           $('.buttonPrevious').addClass('btn btn-primary');
           $('.buttonFinish').addClass('btn btn-default');
           $('#config_init').modal('show');
         }
+      }
+      var finishWizard = function(){
+        $form = $(document.createElement('form'));
+        $form.attr('action','/secure/initConfig');
+        $form.attr('method','POST');
+        $("#frmstep1 :input").appendTo($form);
+        $("#frmstep2 :input").appendTo($form);
+        $("#frmstep3 :input").appendTo($form);
+        $("#frmstep4 :input").appendTo($form);
+        $form.submit();
+
       }
