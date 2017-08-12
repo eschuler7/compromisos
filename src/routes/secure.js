@@ -11,8 +11,8 @@ router.get('/dashboard',function(req, res){
 	var ft = req.session.user.firsttime;
 	if(ft == 1) {
 		var dashboard = mysql.dashboard.getDashboardTypes();
-		var commitment = '';
-		var monitor = '';
+		var commitment = mysql.commitment.getCommitmentTypes();
+		var monitor = mysql.monitor.getMonitorTypes();
 		res.render('partial/dashboard',{dashboard: dashboard, commitment: commitment, monitor: monitor});
 	} else {
 		res.render('partial/dashboard');

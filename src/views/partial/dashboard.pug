@@ -81,243 +81,69 @@ block container
                   center
                     table#datatable-responsive.table.dt-responsive.nowrap(cellspacing='0', width='80%')
                       each type, index in dashboard
-                        if index % 2 == 0
+                        if index % 4 == 0
                           tr
-                          if index % 2 == 0
-                            td(width='40%')
+                          if index % 4 == 0
+                            td
                               label(for=type.id,style='cursor: pointer') #{type.name}
-                            td(width='10%')
+                            td
                               input.flat(id=type.id,type='checkbox', value=type.id, name='dashboard')
                         else
-                          td(width='40%')
+                          td
                             label(for=type.id,style='cursor: pointer') #{type.name}
-                          td(width='10%')
+                          td
                             input.flat(id=type.id,type='checkbox', value=type.id, name='dashboard')
-
               #step-3
                 form.form-horizontal.form-label-left
                   span.section(style='color: #71859A') Paso 3 : Configuración inicial de la tabla de compromisos
                   center
                     table#datatable-responsive.table.dt-responsive.nowrap(cellspacing='0', width='80%')
-                      tr
-                        td(width='40%')
-                          label(for='correlativo') Número correlativo
-                        td(width='10%')
-                          input#correlativo.flat(type='checkbox', value='CM01', name='compromisos')
-                        td(width='40%') 
-                          label(for='asociado') Aspecto asociado
-                        td(width='10%')
-                          input#asociado.flat(type='checkbox', value='CM13', name='compromisos')
-                      tr
-                        td(width='40%')
-                          label(for='global') Código global
-                        td(width='10%')
-                          input#global.flat(type='checkbox', value='CM02', name='compromisos')
-                        td(width='40%') 
-                          label(for='accion') Compromisos que requieren acción
-                        td(width='10%')
-                          input#accion.flat(type='checkbox', value='CM14', name='compromisos')
-                      tr
-                        td(width='40%')
-                          label(for='unidad') Unidad
-                        td(width='10%')
-                          input#unidad.flat(type='checkbox', value='CM03', name='compromisos')
-                        td(width='40%') 
-                          label(for='instcomp') Instalación/componente
-                        td(width='10%')
-                          input#instcomp.flat(type='checkbox', value='CM15', name='compromisos')
-                      tr
-                        td(width='40%')
-                          label(for='proyopercom') Proyecto u operación
-                        td(width='10%')
-                          input#proyopercom.flat(type='checkbox', value='CM04', name='compromisos')
-                        td(width='40%') 
-                          label(for='recurrente') Compromiso recurrente
-                        td(width='10%')
-                          input#recurrente.flat(type='checkbox', value='CM16', name='compromisos')
-                      tr
-                        td(width='40%')
-                          label(for='origen') Origen del compromiso
-                        td(width='10%')
-                          input#origen.flat(type='checkbox', value='CM05', name='compromisos')
-                        td(width='40%') 
-                          label(for='responsable') Área responsable
-                        td(width='10%')
-                          input#responsable.flat(type='checkbox', value='CM17', name='compromisos')
-                      tr
-                        td(width='40%')
-                          label(for='capsecpa') Capítulo, sección y página
-                        td(width='10%')
-                          input#capsecpa.flat(type='checkbox', value='CM68', name='compromisos')
-                        td(width='40%') 
-                          label(for='criticidad') Criticidad
-                        td(width='10%')
-                          input#criticidad.flat(type='checkbox', value='CM18', name='compromisos')                            
-                      tr
-                        td(width='40%')
-                          label(for='textolit') Texto literal
-                        td(width='10%')
-                          input#textolit.flat(type='checkbox', value='CM09', name='compromisos')
-                        td(width='40%') 
-                          label(for='estadocump') Estado de cumplimiento
-                        td(width='10%')
-                          input#estadocump.flat(type='checkbox', value='CM19', name='compromisos')                            
-                      tr
-                        td(width='40%')
-                          label(for='resumen') Resumen del compromiso
-                        td(width='10%')
-                          input#resumen.flat(type='checkbox', value='CM10', name='compromisos')
-                        td(width='40%') 
-                          label(for='formacum') Forma de cumplimiento
-                        td(width='10%')
-                          input#formacum.flat(type='checkbox', value='CM20', name='compromisos')                            
-                      tr
-                        td(width='40%')
-                          label(for='temporalidadcom') Temporalidad
-                        td(width='10%')
-                          input#temporalidadcom.flat(type='checkbox', value='CM11', name='compromisos')
-                        td(width='40%') 
-                          label(for='evidencia') Evidencia de compromiso
-                        td(width='10%')
-                          input#evidencia.flat(type='checkbox', value='CM21', name='compromisos')                            
-                      tr
-                        td(width='40%')
-                          label(for='frecuencia') Frecuencia
-                        td(width='10%')
-                          input#frecuencia.flat(type='checkbox', value='CM12', name='compromisos')
-                        td(width='40%') 
-                          label(for='frecuenciaverif') Frecuencia de verificación
-                        td(width='10%')
-                          input#frecuenciaverif.flat(type='checkbox', value='CM22', name='compromisos')                            
-                      tr
-                        td(width='40%')
-                          label(for='notas') Notas adicionales
-                        td(width='10%')
-                          input#notas.flat(type='checkbox', value='CM23', name='compromisos')
-                    table#datatable.table.dt-responsive.nowrap(cellspacing='0', width='60%')
-                      caption(width='60%' style='text-align:center;') Etapas
-                      tr
-                        td(width='10%')
-                          label(for='contruccion') Contrucción
-                        td(width='10%')
-                          input#contruccion.flat(type='checkbox', value='CM24', name='etapascompromiso')
-                        td(width='10%') 
-                          label(for='operacion') Operación
-                        td(width='10%')
-                          input#operacion.flat(type='checkbox', value='CM25', name='etapascompromiso')
-                        td(width='10%') 
-                          label(for='cierre') Cierre
-                        td(width='10%')
-                          input#cierre.flat(type='checkbox', value='CM26', name='etapascompromiso')
-                        td(width='10%') 
-                          label(for='postcierre') Post-cierre
-                        td(width='10%')
-                          input#postcierre.flat(type='checkbox', value='CM27', name='etapascompromiso')
+                      each type, index in commitment
+                        if index >= 24 
+                          if index % 4 == 0
+                            tr
+                            if index % 4 == 0
+                              td
+                                label(for=type.id,style='cursor: pointer') #{type.name}
+                              td
+                                input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos')
+                          else
+                            td
+                              label(for=type.id,style='cursor: pointer') #{type.name}
+                            td
+                              input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos')
+                        else
+                          if index % 4 == 0
+                            tr
+                            if index % 4 == 0
+                              td
+                                label(for=type.id,style='cursor: pointer') #{type.name}
+                              td
+                                input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos')
+                          else
+                            td
+                              label(for=type.id,style='cursor: pointer') #{type.name}
+                            td
+                              input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos')
               #step-4
                 form.form-horizontal.form-label-left
                   span.section(style='color: #71859A') Paso 4 : Configuración inicial de la tabla de monitoreo
                   center
                     table#datatable-responsive.table.dt-responsive.nowrap(cellspacing='0', width='80%')
-                      tr
-                        td(width='40%')
-                          label(for='correlativomonit') Número correlativo
-                        td(width='10%')
-                          input#correlativomonit.flat(type='checkbox', value='MN01', name='monitoreo')
-                        td(width='40%') 
-                          label(for='temporalidadmonit') Temporalidad
-                        td(width='10%')
-                          input#temporalidadmonit.flat(type='checkbox', value='MN12', name='monitoreo')
-                      tr
-                        td(width='40%')
-                          label(for='globalmonit') Código global
-                        td(width='10%')
-                          input#globalmonit.flat(type='checkbox', value='MN24', name='monitoreo')
-                        td(width='40%') 
-                          label(for='frecuenciamonit') Frecuencia de monitoreo
-                        td(width='10%')
-                          input#frecuenciamonit.flat(type='checkbox', value='MN13', name='monitoreo')
-                      tr
-                        td(width='40%')
-                          label(for='unidadmonit') Unidad
-                        td(width='10%')
-                          input#unidadmonit.flat(type='checkbox', value='MN02', name='monitoreo')
-                        td(width='40%') 
-                          label(for='frecuenciarep') Frecuencia de reporte
-                        td(width='10%')
-                          input#frecuenciarep.flat(type='checkbox', value='MN14', name='monitoreo')
-                      tr
-                        td(width='40%')
-                          label(for='proyopermonit') Proyecto u operación
-                        td(width='10%')
-                          input#proyopermonit.flat(type='checkbox', value='MN03', name='monitoreo')
-                        td(width='40%') 
-                          label(for='autoridad') Autoridad a reportar
-                        td(width='10%')
-                          input#autoridad.flat(type='checkbox', value='MN15', name='monitoreo')
-                      tr
-                        td(width='40%')
-                          label(for='origenmonit') Origen del documento
-                        td(width='10%')
-                          input#origenmonit.flat(type='checkbox', value='MN04', name='monitoreo')
-                        td(width='40%') 
-                          label(for='responsablemonit') Área responsable
-                        td(width='10%')
-                          input#responsablemonit.flat(type='checkbox', value='MN16', name='monitoreo')
-                      tr
-                        td(width='40%')
-                          label(for='capsecpamonit') Capítulo, sección y página
-                        td(width='10%')
-                          input#capsecpamonit.flat(type='checkbox', value='MN57', name='monitoreo')
-                        td(width='40%') 
-                          label(for='reportemonit') Reportes de monitoreo
-                        td(width='10%')
-                          input#reportemonit.flat(type='checkbox', value='MN17', name='monitoreo')                   
-                      tr
-                        td(width='40%')
-                          label(for='componentemonit') Componente
-                        td(width='10%')
-                          input#componentemonit.flat(type='checkbox', value='MN08', name='monitoreo')
-                        td(width='40%') 
-                          label(for='frecuenciaverifmonit') Frecuencia de verificación
-                        td(width='10%')
-                          input#frecuenciaverifmonit.flat(type='checkbox', value='MN18', name='monitoreo')                            
-                      tr
-                        td(width='40%')
-                          label(for='estacionmonit') Estación
-                        td(width='10%')
-                          input#estacionmonit.flat(type='checkbox', value='MN09', name='monitoreo')
-                        td(width='40%') 
-                          label(for='notasmonit') Notas
-                        td(width='10%')
-                          input#notasmonit.flat(type='checkbox', value='MN19', name='monitoreo')                            
-                      tr
-                        td(width='40%')
-                          label(for='parammonit') Parámetros
-                        td(width='10%')
-                          input#parammonit.flat(type='checkbox', value='MN10', name='monitoreo')
-                        td(width='40%') 
-                          label(for='metodologia') Metodología
-                        td(width='10%')
-                          input#metodologia.flat(type='checkbox', value='MN11', name='monitoreo')                            
-                    table#datatable.table.dt-responsive.nowrap(cellspacing='0', width='60%')
-                      caption(width='60%' style='text-align:center;') Etapas
-                      tr
-                        td(width='10%')
-                          label(for='contruccion') Contrucción
-                        td(width='10%')
-                          input#contruccion.flat(type='checkbox', value='MN20', name='etapasmonitoreo')
-                        td(width='10%') 
-                          label(for='operacion') Operación
-                        td(width='10%')
-                          input#operacion.flat(type='checkbox', value='MN21', name='etapasmonitoreo')
-                        td(width='10%') 
-                          label(for='cierre') Cierre
-                        td(width='10%')
-                          input#cierre.flat(type='checkbox', value='MN22', name='etapasmonitoreo')
-                        td(width='10%') 
-                          label(for='postcierre') Post-cierre
-                        td(width='10%')
-                          input#postcierre.flat(type='checkbox', value='MN23', name='etapasmonitoreo')
+                      each type, index in monitor
+                        if index % 4 == 0
+                          tr
+                          if index % 4 == 0
+                            td
+                              label(for=type.id,style='cursor: pointer') #{type.name}
+                            td
+                              input.flat(id=type.id,type='checkbox', value=type.id, name='monitoreo')
+                        else
+                          td
+                            label(for=type.id,style='cursor: pointer') #{type.name}
+                          td
+                            input.flat(id=type.id,type='checkbox', value=type.id, name='monitoreo')
+
     script.
       window.onload = function() {
         var firsttime = '#{session.user.firsttime}';

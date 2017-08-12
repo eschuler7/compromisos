@@ -122,6 +122,12 @@ var compromisosdb = {
 		updateCommitment : function() {
 
 		},
+		getCommitmentTypes : function() {
+			var conn = new mysql(connectionOptions);
+			const result = conn.query('select id, name from t_commitment_config');
+			conn.dispose();
+			return result;
+		},
 		initCommitmentConfig : function(ruc,compromisos) {
 			var initconfig = compromisos;
 			
@@ -152,6 +158,12 @@ var compromisosdb = {
 		}
 	},
 	monitor : {
+		getMonitorTypes : function() {
+			var conn = new mysql(connectionOptions);
+			const result = conn.query('select id, name from t_monitor_config');
+			conn.dispose();
+			return result;
+		},
 		initMonitorConfig : function(ruc,monitoreo) {
 			var initconfig = monitoreo;
 			
