@@ -8,7 +8,15 @@ var mysql = require('../lib/mysql');
 
 // TODAS LAS LLAMADAS GET
 router.get('/dashboard',function(req, res){
-	res.render('partial/dashboard');
+	var ft = req.session.user.firsttime;
+	if(ft == 1) {
+		var dashboard = mysql.dashboard.getDashboardTypes();
+		var commitment = '';
+		var monitor = '';
+		res.render('partial/dashboard',{dashboard: dashboard, commitment: commitment, monitor: monitor});
+	} else {
+		res.render('partial/dashboard');
+	}
 });
 
 router.get('/register',function(req, res){

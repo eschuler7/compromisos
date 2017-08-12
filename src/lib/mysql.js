@@ -11,7 +11,7 @@ var connectionOptions = {
 	user: config().mysql.user,
 	database: config().mysql.database,
 	password: config().mysql.password,
-	debug: true
+	debug: false
 }
 
 var compromisosdb = {
@@ -183,7 +183,7 @@ var compromisosdb = {
 	dashboard : {
 		getDashboardTypes : function() {
 			var conn = new mysql(connectionOptions);
-			const result = conn.query('select * from t_dashboard_config');
+			const result = conn.query('select id, name from t_dashboard_config');
 			conn.dispose();
 			return result;
 		},
