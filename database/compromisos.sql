@@ -45,31 +45,36 @@ insert into t_commitment_config(id,name,cdatetime,udatetime) values('CM24','Cons
 insert into t_commitment_config(id,name,cdatetime,udatetime) values('CM25','Operación',now(),now());
 insert into t_commitment_config(id,name,cdatetime,udatetime) values('CM26','Cierre',now(),now());
 insert into t_commitment_config(id,name,cdatetime,udatetime) values('CM27','Post-cierre',now(),now());
+
 -- Inserts iniciales para la tabla monitor
 insert into t_monitor_config(id,name,cdatetime,udatetime) values('MN01','Número correlativo',now(),now());
 insert into t_monitor_config(id,name,cdatetime,udatetime) values('MN02','Unidad',now(),now());
-insert into t_monitor_config(id,name,cdatetime,udatetime) values('MN03','Proyecto u operación',now(),now());
-insert into t_monitor_config(id,name,cdatetime,udatetime) values('MN04','Origen documento',now(),now());
-insert into t_monitor_config(id,name,cdatetime,udatetime) values('MN05','Capítulo',now(),now());
-insert into t_monitor_config(id,name,cdatetime,udatetime) values('MN06','Sección',now(),now());
-insert into t_monitor_config(id,name,cdatetime,udatetime) values('MN07','Página',now(),now());
-insert into t_monitor_config(id,name,cdatetime,udatetime) values('MN08','Componente',now(),now());
-insert into t_monitor_config(id,name,cdatetime,udatetime) values('MN09','Estación',now(),now());
-insert into t_monitor_config(id,name,cdatetime,udatetime) values('MN10','Parámetros',now(),now());
-insert into t_monitor_config(id,name,cdatetime,udatetime) values('MN11','Metodología',now(),now());
-insert into t_monitor_config(id,name,cdatetime,udatetime) values('MN12','Temporalidad',now(),now());
-insert into t_monitor_config(id,name,cdatetime,udatetime) values('MN13','Frecuencia de monitoreo',now(),now());
-insert into t_monitor_config(id,name,cdatetime,udatetime) values('MN14','Frecuencia de reporte',now(),now());
-insert into t_monitor_config(id,name,cdatetime,udatetime) values('MN15','Autoridad a reportar',now(),now());
-insert into t_monitor_config(id,name,cdatetime,udatetime) values('MN16','Área responsable',now(),now());
-insert into t_monitor_config(id,name,cdatetime,udatetime) values('MN17','Reportes de monitoreo',now(),now());
-insert into t_monitor_config(id,name,cdatetime,udatetime) values('MN18','Frecuencia Verificación',now(),now());
-insert into t_monitor_config(id,name,cdatetime,udatetime) values('MN19','Notas',now(),now());
-insert into t_monitor_config(id,name,cdatetime,udatetime) values('MN20','Construcción',now(),now());
-insert into t_monitor_config(id,name,cdatetime,udatetime) values('MN21','Operación',now(),now());
-insert into t_monitor_config(id,name,cdatetime,udatetime) values('MN22','Cierre',now(),now());
-insert into t_monitor_config(id,name,cdatetime,udatetime) values('MN23','Post-Cierre',now(),now());
-insert into t_monitor_config(id,name,cdatetime,udatetime) values('MN24','Código global',now(),now());
+insert into t_monitor_config(id,name,cdatetime,udatetime) values('MN03', 'Código global',now(),now());
+insert into t_monitor_config(id,name,cdatetime,udatetime) values('MN04','Proyecto u operación',now(),now());
+insert into t_monitor_config(id,name,cdatetime,udatetime) values('MN05','Origen documento',now(),now());
+insert into t_monitor_config(id,name,cdatetime,udatetime) values('MN06','Capítulo',now(),now());
+insert into t_monitor_config(id,name,cdatetime,udatetime) values('MN07','Sección',now(),now());
+insert into t_monitor_config(id,name,cdatetime,udatetime) values('MN08','Página',now(),now());
+insert into t_monitor_config(id,name,cdatetime,udatetime) values('MN09','Componente',now(),now());
+insert into t_monitor_config(id,name,cdatetime,udatetime) values('MN10','Estación',now(),now());
+insert into t_monitor_config(id,name,cdatetime,udatetime) values('MN11','Parámetros',now(),now());
+insert into t_monitor_config(id,name,cdatetime,udatetime) values('MN12','Metodología',now(),now());
+insert into t_monitor_config(id,name,cdatetime,udatetime) values('MN13','Temporalidad',now(),now());
+insert into t_monitor_config(id,name,cdatetime,udatetime) values('MN14','Frecuencia de monitoreo',now(),now());
+insert into t_monitor_config(id,name,cdatetime,udatetime) values('MN15','Frecuencia de reporte',now(),now());
+insert into t_monitor_config(id,name,cdatetime,udatetime) values('MN16','Autoridad a reportar',now(),now());
+insert into t_monitor_config(id,name,cdatetime,udatetime) values('MN17','Área responsable',now(),now());
+insert into t_monitor_config(id,name,cdatetime,udatetime) values('MN18','Reportes de monitoreo',now(),now());
+insert into t_monitor_config(id,name,cdatetime,udatetime) values('MN19','Frecuencia Verificación',now(),now());
+insert into t_monitor_config(id,name,cdatetime,udatetime) values('MN20','Notas',now(),now());
+insert into t_monitor_config(id,name,cdatetime,udatetime) values('MN21','Construcción',now(),now());
+insert into t_monitor_config(id,name,cdatetime,udatetime) values('MN22','Operación',now(),now());
+insert into t_monitor_config(id,name,cdatetime,udatetime) values('MN23','Cierre',now(),now());
+insert into t_monitor_config(id,name,cdatetime,udatetime) values('MN24','Post-Cierre',now(),now());
+
+
+select * from t_monitor_config;
+delete from t_monitor_config where id like 'MN%';
 
 -- Inserts iniciales para la tabla company / password: password$1
 insert into t_company values('12345678909','SIGNEQ',null,null,0,now(),now());
@@ -86,3 +91,5 @@ delete from t_company_commitment where t_company_ruc='10101010101';
 
 select * from t_company_monitor;
 delete from t_company_monitor where t_company_ruc='10101010101';
+
+select id, name from t_commitment_config;
