@@ -76,7 +76,7 @@ insert into t_company values('12345678909','SIGNEQ',null,null,0,now(),now());
 insert into t_user values('jdelgado','ca1b02d4cff620b1dd6fccdf2a48714f','joandelgado18@gmail.com','Joan Martín','Delgado Bendezú','12345678909','ROL5',1,now(),now());
 insert into t_user values('eschuler','ca1b02d4cff620b1dd6fccdf2a48714f','eschulergodo7@gmail.com','Joan Martín','Delgado Bendezú','12345678909','ROL5',1,now(),now());
 
-update t_company set firsttime=1 where ruc='10101010101';
+update t_company set firsttime=1 where ruc='12345678908';
 select * from t_company;
 select * from t_company_dashboard;
 delete from t_company_dashboard where t_company_ruc='10101010101';

@@ -1,0 +1,109 @@
+doctype html
+html
+  head
+    meta(http-equiv='Content-Type', content='text/html; charset=UTF-8')
+    // Meta, title, CSS, favicons, etc.
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    title SIGNEQ
+    // Bootstrap
+    link(href='/bootstrap/dist/css/bootstrap.min.css', rel='stylesheet')
+    // Font Awesome
+    link(href='/font-awesome/css/font-awesome.min.css', rel='stylesheet')
+    // Datatable
+    link(href='/datatables.net-bs/css/dataTables.bootstrap.min.css', rel='stylesheet')
+    // Custom Theme Style
+    link(href='/build/css/custom.min.css', rel='stylesheet')
+    link(href='/compromisos/css/compromisos.css', rel='stylesheet')
+  body.nav-md
+    .container.body
+      .main_container
+        .col-md-3.left_col
+          .left_col.scroll-view
+            .navbar.nav_title(style='border: 0;')
+              a.site_title(href='/admin/clients')
+                i.glyphicon.glyphicon-list-alt
+                span  S I G N E Q
+            .clearfix
+            // menu profile quick info
+            .profile.clearfix
+              .profile_pic
+                img.img-circle.profile_img(src='/images/img.jpg', alt='...')
+              .profile_info
+                h2 #{session.user.companyname}
+                span Unidad
+              .clearfix
+            // /menu profile quick info
+            br
+            // sidebar menu
+            #sidebar-menu.main_menu_side.hidden-print.main_menu
+              .menu_section
+                h3 General
+                ul.nav.side-menu
+                  li
+                    a
+                      i.fa.fa-lock
+                      |  Administración 
+                      span.fa.fa-chevron-down
+                    ul.nav.child_menu
+                      li
+                        a(href='/admin/clients') Clientes
+        // top navigation
+        .top_nav
+          .nav_menu
+            nav
+              .nav.toggle
+                a#menu_toggle
+                  i.fa.fa-bars
+              ul.nav.navbar-nav.navbar-right
+                li
+                  a.user-profile.dropdown-toggle(href='javascript:;', data-toggle='dropdown', aria-expanded='false')
+                    img(src='/images/img.jpg', alt='')
+                    | #{session.user.name} 
+                    span.fa.fa-angle-down
+                  ul.dropdown-menu.dropdown-usermenu.pull-right
+                    li
+                      a(href='javascript:logout()')
+                        i.fa.fa-sign-out.pull-right
+                        |  Log Out
+        // /top navigation
+        // page content
+        .right_col(role='main')
+          block container
+        // /page content
+        // footer content
+        footer
+          .pull-right
+            | Plataforma de Compromisos - Todos los derechos reservados
+          .clearfix
+        // /footer content
+    #confirm_logout.modal.fade(tabindex='-1', role='dialog', data-backdrop='static', data-keyboard='false')
+      .modal-dialog.modal-sm(role='document')
+        .modal-content
+          .modal-header
+            //button.close(type='button', data-dismiss='modal', aria-label='Close')
+              span(aria-hidden='true') &times;
+            h4.modal-title Cerrar Sesión
+          .modal-body
+            center
+              p ¿Continuar con el cierre de sesión?
+          .modal-footer
+            button.btn.btn-default(type='button', data-dismiss='modal') Cancelar
+            |  
+            a.btn.btn-dark(href='/admin/logout') Continuar
+
+    // jQuery
+    script(src='/jquery/dist/jquery.min.js')
+    // Bootstrap
+    script(src='/bootstrap/dist/js/bootstrap.min.js')
+    script(src='https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js')
+    //Datatable
+    script(src='/datatables.net/js/jquery.dataTables.min.js')
+    script(src='/datatables.net-bs/js/dataTables.bootstrap.min.js')
+    script(src='/build/js/custom.min.js')
+    script(src='/compromisos/js/admin.js')
+    script.
+      var logout = function() {
+        $('#confirm_logout').modal('show');
+      }

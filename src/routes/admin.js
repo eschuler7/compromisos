@@ -15,36 +15,26 @@ var compemail = require('../lib/email');
 // TODAS LAS LLAMADAS GET
 
 router.get('/clients', function(req, res){
-	if(req.session.user.t_rol_rolid != 'ROL5') {
-		res.redirect('/secure/home');
-	} else {
-		var companies;
-		try {
-			companies = mysql.company.listCompanies(req.session.user.t_company_ruc);
-		} catch(e) {
-			console.log('[/clients]',e);
-		}
-		res.render('partial/clients',{clients: companies});
+	var companies;
+	try {
+		companies = mysql.company.listCompanies(req.session.user.t_company_ruc);
+	} catch(e) {
+		console.log('[/clients]',e);
 	}
+	res.render('partial/admin/clients',{clients: companies});
 });
 router.get('/clientdetail/:ruc', function(req, res){
 	var ruc = req.params.ruc;
 	try {
-		
+		var client = mysql.company.getCompanyByRuc(ruc);
+		var users = mysql.user.getUsersByRuc(ruc);
+		res.render('partial/admin/clientdetail',{client:client[0],users:users});
 	} catch(e) {
 		console.log('[/clientdetail]',e);
 	}
 });
-router.get('/clientedit/:ruc', function(req, res){
-	var ruc = req.params.ruc;
-	try {
-		
-	} catch(e) {
-		console.log('[/clientedit]',e);
-	}
-});
 router.get('/createclient', function(req, res){
-	res.render('partial/clientcreate');
+	res.render('partial/admin/clientcreate');
 });
 router.get('/logout', function(req, res){
 	req.session.destroy();

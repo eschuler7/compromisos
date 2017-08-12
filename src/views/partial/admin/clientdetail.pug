@@ -1,0 +1,74 @@
+extends ../../layouts/layout_admin.pug
+block container
+  .row
+    .col-md-12.col-sm-12.col-xs-12
+      .x_panel
+        .x_title
+          h2 Información de Cliente
+          ul.nav.navbar-right.panel_toolbox
+            li.pull-right
+              a.collapse-link
+                i.fa.fa-chevron-up
+          .clearfix
+        .x_content
+          .row
+            .col-md-6
+              strong RUC
+              p(style='font-size: 15px') #{client.ruc}
+            .col-md-6
+              strong Razón Social
+              p(style='font-size: 15px') #{client.companyname}
+          .row
+            .col-md-6
+              strong Unidad
+              if unidad
+                p(style='font-size: 15px') #{client.unidad}
+              else
+                p(style='font-size: 15px') No definido
+            .col-md-6
+              strong Proyecto
+              if proyecto
+                p(style='font-size: 15px') #{client.proyecto}
+              else
+                p(style='font-size: 15px') No definido
+          .row
+            .col-md-6
+              strong Fecha de Creación
+              p(style='font-size: 15px') #{client.cdatetime}
+            .col-md-6
+              strong Fecha de Modificación
+              p(style='font-size: 15px') #{client.udatetime}
+  .row
+    .col-md-12.col-sm-12.col-xs-12
+      .x_panel
+        .x_title
+          h2 Información de Usuarios
+          ul.nav.navbar-right.panel_toolbox
+            li.pull-right
+              a.collapse-link
+                i.fa.fa-chevron-up
+          .clearfix
+        .x_content
+          table.table.table-bordered
+            thead
+              tr
+                th #
+                th ID de Usuario
+                th Nombres
+                th Apellidos
+                th Correo Electrónico
+                th Rol
+                th Fecha de Creación
+            tbody
+              each user,index in users
+                tr
+                  th(scope='row') #{index + 1}
+                  td #{user.userid}
+                  td #{user.name}
+                  td #{user.lastname}
+                  td #{user.email}
+                  td #{user.rol_name}
+                  td #{user.cdatetime}
+  .row
+    .col-md-12.col-sm-12.col-xs-12
+      a.btn.btn-default(href='/admin/clients') Regresar

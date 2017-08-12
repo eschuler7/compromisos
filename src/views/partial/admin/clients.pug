@@ -1,14 +1,12 @@
-extends ../layouts/layout_main.pug
+extends ../../layouts/layout_admin.pug
 block container
   .row
     .col-md-12.col-sm-12.col-xs-12
       .x_panel
         .x_title
           h2 Cartera de Clientes
-          //a.btn.btn-warning.btn-xs(href='/admin/createclient') Nuevo Cliente
           .clearfix
         .x_content
-          //.table-responsive
           table#tblclients.table.table-striped.table-bordered.jambo_table
             thead
               tr
@@ -32,14 +30,13 @@ block container
                         span.label.label-warning Incompleto
                     td #{client.cdatetime}
                     td
-                      //-a.btn.btn-primary.btn-xs(href='clientdetail/' + client.ruc)
-                      a.btn.btn-primary.btn-xs(href='javascript:pruebita()')
+                      a.btn.btn-primary.btn-xs(href='clientdetail/' + client.ruc)
                         i.fa.fa-folder
                         |  Ver
                       //-a.btn.btn-info.btn-xs(href='clientedit/' + client.ruc)
                         i.fa.fa-pencil
                         |  Editar
-                      a.btn.btn-danger.btn-xs(href='javascript:deleteClient("' + client.ruc + '","' + client.companyname +'")')
+                      a.btn.btn-danger.btn-xs(href='javascript:deleteClient("' + client.ruc + '","' + client.companyname + '")')
                         i.fa.fa-trash-o
                         |  Eliminar
           .ln_solid(style='margin-top:5px')
@@ -63,22 +60,6 @@ block container
               |  
               button.btn.btn-danger(type='submit') Continuar
 
-    #pruebita.modal.fade(tabindex='-1', role='dialog', data-backdrop='static', data-keyboard='false')
-      .modal-dialog(role='document')
-        .modal-content
-          .modal-header
-            //-button.close(type='button', data-dismiss='modal', aria-label='Close')
-              span(aria-hidden='true') &times;
-            h4.modal-title Solo una pruebita
-          .modal-body
-            form(action='pruebita',method='post')
-              input(type='checkbox',name='prueba',value='PRUEBA1')
-              input(type='checkbox',name='prueba',value='PRUEBA2')
-              input(type='checkbox',name='prueba',value='PRUEBA3')
-              input(type='checkbox',name='prueba',value='PRUEBA4')
-              button(type='submit') Submit
-          .modal-footer
-            button.btn.btn-default.pull-left(type='button', data-dismiss='modal') Cancelar
     script.
       window.onload = function() {
           $('#tblclients').DataTable({
@@ -102,7 +83,4 @@ block container
         $('#comfirm_delete_title').text('Eliminar Cliente ' + companyname);
         $('#frmConfirmDelete input[name=ruc]').val(ruc);
         $('#confirm_delete').modal('show');
-      }
-      var pruebita = function() {
-        $('#pruebita').modal('show');
       }
