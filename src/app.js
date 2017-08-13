@@ -32,7 +32,11 @@ app.all('/secure/*',function(req,res,next){
 		if(req.session.user.t_rol_rolid == 'ROL5'){
 			res.redirect('/admin/clients');
 		} else {
-			next();
+			if(req.method == 'GET' && req.params[0] != 'dashboard' && req.params[0] != 'logout' && req.session.user.firsttime == 1) {
+				res.redirect('/secure/dashboard');
+			} else {
+				next();
+			}
 		}
 	} else {
 		req.session.destroy();
@@ -45,7 +49,7 @@ app.all('/admin/*',function(req,res,next){
 		if(req.session.user.t_rol_rolid == 'ROL5'){
 			next();
 		} else {
-			res.redirect('/secure/home');
+			res.redirect('/secure/dashboard');
 		}
 	} else {
 		req.session.destroy();
@@ -58,7 +62,7 @@ app.all('/', function(req, res, next){
 		if(req.session.user.t_rol_rolid == 'ROL5'){
 			res.redirect('/admin/clients');
 		} else {
-			res.redirect('/secure/home');
+			res.redirect('/secure/dashboard');
 		}
 	} else {
 		next();
