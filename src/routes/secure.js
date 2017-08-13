@@ -28,7 +28,13 @@ router.get('/select', function(req, res){
 });
 
 router.get('/listall', function(req, res){
-	res.render('partial/listall');
+	var comconfig;
+	try {
+		comconfig = mysql.commitment.getComConfigByRuc(req.session.user.t_company_ruc);
+	} catch(e) {
+		console.log('[/listall]',e);
+	}
+	res.render('partial/listall',{comconfig: comconfig});
 });
 
 router.get('/update', function(req, res){
@@ -72,36 +78,20 @@ router.get('/logout', function(req, res){
 // TODAS LAS LLAMADAS POST
 
 router.post('/initConfig', function(req, res){
+	var razonsocial = req.body.razonsocial;
+	var unidadinit = req.body.unidadinit;
+	var proyoper = req.body.proyoper;
+	var multiunidad = req.body.multiunidad;
+	var multiproyoper = req.body.multiproyoper;
+
+	//sección dashboard
+	var dashboard = req.body.dashboard;
+	//sección compromisos
+	var compromisos = req.body.compromisos;
+	//sección monitoreo
+	var monitoreo = req.body.monitoreo;
 	try {
-
-		var razonsocial = req.body.razonsocial;
-		var unidadinit = req.body.unidadinit;
-		var proyoper = req.body.proyoper;
-		var multiunidad = req.body.multiunidad;
-		var multiproyoper = req.body.multiproyoper;
-		console.log('resultado de encabezado: ',razonsocial);
-		console.log('resultado de encabezado: ',unidadinit);
-		console.log('resultado de encabezado: ',proyoper);
-		console.log('resultado de encabezado: ',multiunidad);
-		console.log('resultado de encabezado: ',multiproyoper);
-		//sección dashboard
-		var dashboard = req.body.dashboard;
-		//sección compromisos
-		var compromisos = req.body.compromisos;
-		console.log('resultado de compromisos: ',compromisos);
-		//sección etapascompromiso
-		var etapascompromiso = req.body.etapascompromiso;
-		console.log('resultado de etapascompromiso: ',etapascompromiso);
-		//sección monitoreo
-		var monitoreo = req.body.monitoreo;
-		console.log('resultado de monitoreo: ',monitoreo);
-		//sección etapasmonitoreo
-		var etapasmonitoreo = req.body.etapasmonitoreo;
-		console.log('resultado de etapasmonitoreo: ',etapasmonitoreo);
-		
 		var result = mysql.company.updateFirstTime(req.session.user.t_company_ruc);
-
-
 		if(result.affectedRows == 1) {
 			req.session.user.firsttime = 0;
 
@@ -112,19 +102,18 @@ router.post('/initConfig', function(req, res){
 					var proyoper = 'Multiproyecto';
 				console.log('resultado de unidadinit: ',unidadinit);
 				console.log('Insertando Headers: ');
-				mysql.company.initConfigHeader(req.session.user.t_company_ruc,razonsocial,unidadinit,proyoper);
+				mysql.company.updateCompanyByRuc(req.session.user.t_company_ruc,razonsocial,unidadinit,proyoper);
 				console.log('Insertando dashboard: ');
-				mysql.dashboard.initDashboardConfig(req.session.user.t_company_ruc,dashboard);
+				mysql.dashboard.updateDashboardConfig(req.session.user.t_company_ruc,dashboard);
 				console.log('Insertando compromisos: ');
-				mysql.commitment.initCommitmentConfig(req.session.user.t_company_ruc,compromisos);	
+				mysql.commitment.updateCommitmentConfig(req.session.user.t_company_ruc,compromisos);	
 				console.log('Insertando monitoreo: ');
-				mysql.monitor.initMonitorConfig(req.session.user.t_company_ruc,monitoreo);	
+				mysql.monitor.updateMonitorConfig(req.session.user.t_company_ruc,monitoreo);	
 
 			}catch(e) {
 				console.log('[/initConfig]',e);
 			}
 			res.redirect('/secure/dashboard');
-
 		}
 	} catch(e) {
 		console.log('[/initConfig]',e);

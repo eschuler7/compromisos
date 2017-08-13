@@ -62,22 +62,23 @@ block container
 
     script.
       window.onload = function() {
-          $('#tblclients').DataTable({
-            "lengthMenu": [[5, 15], [5, 15]],
-            language: {
-              paginate: {
-                  first:    'Inicio',
-                  previous: 'Anterior',
-                  next:     'Siguiente',
-                  last:     'Fin'
-              },
-              info: 'Mostrando _START_ a _END_ de _TOTAL_ registro(s)',
-              emptyTable: 'No tiene clientes registrados',
-              lengthMenu: 'Mostrar _MENU_ registro(s)',
-              search: 'Buscar:',
-              zeroRecords: 'No se encontraron registros coincidentes'
-            }
-          });
+        $('#tblclients').DataTable({
+          "lengthMenu": [[5, 15], [5, 15]],
+          language: {
+            paginate: {
+                first:    'Inicio',
+                previous: 'Anterior',
+                next:     'Siguiente',
+                last:     'Fin'
+            },
+            info: 'Mostrando _START_ a _END_ de _TOTAL_ registro(s)',
+            infoEmpty: 'No se encontraron registros',
+            emptyTable: 'No tiene clientes registrados',
+            lengthMenu: 'Mostrar _MENU_ registro(s)',
+            search: 'Buscar:',
+            zeroRecords: 'No se encontraron registros coincidentes'
+          }
+        });
       }
       var deleteClient = function(ruc, companyname) {
         $('#comfirm_delete_title').text('Eliminar Cliente ' + companyname);

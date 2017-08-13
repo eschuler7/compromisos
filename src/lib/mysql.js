@@ -40,9 +40,9 @@ var compromisosdb = {
 			conn.dispose();
 			return result;
 		},
-		updateCompanyByRuc : function(ruc, companyname) {
+		updateCompanyByRuc : function(ruc, companyname, unidad, proyecto) {
 			var conn = new mysql(connectionOptions);
-			const result = conn.query('update t_company set companyname=?,udatetime=now() where ruc=?',[companyname, ruc]);
+			const result = conn.query('update t_company set companyname=?,unidad=?,proyecto=?,udatetime=now() where ruc=?',[companyname, ruc, unidad, proyecto]);
 			conn.dispose();
 			return result;
 		},
@@ -55,12 +55,6 @@ var compromisosdb = {
 		getCompanyByRuc : function(ruc) {
 			var conn = new mysql(connectionOptions);
 			const result = conn.query('select * from t_company where ruc=?',[ruc]);
-			conn.dispose();
-			return result;
-		},
-		initConfigHeader : function(ruc,companyname,unidad,proyecto) {
-			var conn = new mysql(connectionOptions);
-			const result = conn.query('update t_company set companyname=?,unidad=?,proyecto=?,udatetime=now() where ruc=?',[companyname,unidad,proyecto,ruc]);
 			conn.dispose();
 			return result;
 		}
@@ -128,6 +122,12 @@ var compromisosdb = {
 		updateCommitment : function() {
 
 		},
+		getComConfigByRuc : function(ruc) {
+			var conn = new mysql(connectionOptions);
+			const result = conn.query('select t_company_ruc,t_commitment_config_id,tco.name from t_company_commitment tcc left join t_commitment_config tco on tcc.t_commitment_config_id=tco.id where t_company_ruc=?',[ruc]);
+			conn.dispose();
+			return result;
+		},
 		getCommitmentTypes : function() {
 			var conn = new mysql(connectionOptions);
 			const result = conn.query('select id, name from t_commitment_config');
@@ -140,32 +140,17 @@ var compromisosdb = {
 			conn.dispose();
 			return result;
 		},
-		initCommitmentConfig : function(ruc,compromisos) {
+		updateCommitmentConfig : function(ruc,compromisos) {
 			var initconfig = compromisos;
 			var conn = new mysql(connectionOptions);
 			const result = conn.query('delete from t_company_commitment where t_company_ruc=?',[ruc]);
 			if (Array.isArray(initconfig)) {
 				console.log('Valores de compromisos Array: ',compromisos,ruc);
-				
 				for (var i = 0; i < initconfig.length; i++) {
-					if (initconfig[i] == 'CM68') {
-						conn.query('insert into t_company_commitment(t_company_ruc,t_commitment_config_id) values(?,?)',[ruc,'CM06']);
-						conn.query('insert into t_company_commitment(t_company_ruc,t_commitment_config_id) values(?,?)',[ruc,'CM07']);
-						conn.query('insert into t_company_commitment(t_company_ruc,t_commitment_config_id) values(?,?)',[ruc,'CM08']);
-					} else {
-						conn.query('insert into t_company_commitment(t_company_ruc,t_commitment_config_id) values(?,?)',[ruc,initconfig[i]]);
-					}
-					
+					conn.query('insert into t_company_commitment(t_company_ruc,t_commitment_config_id) values(?,?)',[ruc,initconfig[i]]);
 				}
 			} else {
-				console.log('Valores de compromisos: ',compromisos,ruc);
-				if (initconfig == 'CM68') {
-					conn.query('insert into t_company_commitment(t_company_ruc,t_commitment_config_id) values(?,?)',[ruc,'CM06']);
-					conn.query('insert into t_company_commitment(t_company_ruc,t_commitment_config_id) values(?,?)',[ruc,'CM07']);
-					conn.query('insert into t_company_commitment(t_company_ruc,t_commitment_config_id) values(?,?)',[ruc,'CM08']);
-				} else {
-					conn.query('insert into t_company_commitment(t_company_ruc,t_commitment_config_id) values(?,?)',[ruc,initconfig]);
-				}
+				conn.query('insert into t_company_commitment(t_company_ruc,t_commitment_config_id) values(?,?)',[ruc,initconfig]);
 			}
 			conn.dispose();
 		}
@@ -183,7 +168,7 @@ var compromisosdb = {
 			conn.dispose();
 			return result;
 		},
-		initMonitorConfig : function(ruc,monitoreo) {
+		updateMonitorConfig : function(ruc,monitoreo) {
 			var initconfig = monitoreo;
 			var conn = new mysql(connectionOptions);
 			const result = conn.query('delete from t_company_monitor where t_company_ruc=?',[ruc]);
@@ -192,23 +177,11 @@ var compromisosdb = {
 				console.log('Valores de monitoreo Array: ',monitoreo,ruc);
 			
 				for (var i = 0; i < initconfig.length; i++) {
-					if (initconfig[i] == 'MN57') {
-						conn.query('insert into t_company_monitor values(?,?)',[ruc,'MN05']);
-						conn.query('insert into t_company_monitor values(?,?)',[ruc,'MN06']);
-						conn.query('insert into t_company_monitor values(?,?)',[ruc,'MN07']);
-					} else {
-						conn.query('insert into t_company_monitor values(?,?)',[ruc,initconfig[i]]);
-					}
+					conn.query('insert into t_company_monitor values(?,?)',[ruc,initconfig[i]]);
 				}
 			} else {
 				console.log('Valores de monitoreo: ',monitoreo,ruc);
-				if (initconfig == 'MN57') {
-					conn.query('insert into t_company_monitor values(?,?)',[ruc,'MN05']);
-					conn.query('insert into t_company_monitor values(?,?)',[ruc,'MN06']);
-					conn.query('insert into t_company_monitor values(?,?)',[ruc,'MN07']);
-				} else {
-					conn.query('insert into t_company_monitor values(?,?)',[ruc,initconfig]);
-				}
+				conn.query('insert into t_company_monitor values(?,?)',[ruc,initconfig]);
 			}
 			conn.dispose();
 		}
@@ -223,7 +196,7 @@ var compromisosdb = {
 		getDashboardConfigByRuc : function(ruc) {
 
 		},
-		initDashboardConfig : function(ruc,dashboard) {
+		updateDashboardConfig : function(ruc,dashboard) {
 			var initconfig = dashboard;
 			var conn = new mysql(connectionOptions);
 			const result = conn.query('delete from t_company_dashboard where t_company_ruc=?',[ruc]);
