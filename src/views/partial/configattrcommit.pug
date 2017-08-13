@@ -5,49 +5,48 @@ block container
       h3 Editar atributos de compromisos
   .clearfix
   .row
-    .col-md-6.col-sm-12.col-xs-12
+    .col-md-12
       .x_panel
-        .x_title
-          h2 Atributos
-          .clearfix
+        .clearfix
         .x_content
-          center
-            table#datatable-responsive.table.dt-responsive.nowrap(cellspacing='0', width='80%')
-              each type, index in commitment
-                if type.id != 'CM24' && type.id != 'CM25' && type.id != 'CM26' && type.id != 'CM27'
-                  if index % 4 == 0
-                    tr
+          form.form-horizontal.form-label-left(action='/secure/configattrcommit', method='POST')
+            center
+              table#datatable-responsive.table.dt-responsive.nowrap(cellspacing='0', width='100%')
+                each type, index in commitment
+                  if type.id != 'CM24' && type.id != 'CM25' && type.id != 'CM26' && type.id != 'CM27'
                     if index % 4 == 0
+                      tr
+                      if index % 4 == 0
+                        td
+                          label(for=type.id,style='cursor: pointer') #{type.name}
+                        td
+                          input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos')
+                    else
                       td
                         label(for=type.id,style='cursor: pointer') #{type.name}
                       td
                         input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos')
-                  else
-                    td
-                      label(for=type.id,style='cursor: pointer') #{type.name}
-                    td
-                      input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos')
-            table#datatable-responsive.table.dt-responsive.nowrap(cellspacing='0', width='80%')
-              caption(width='60%' style='text-align:center;')
-                strong(style='color: #71859A') ETAPAS
-              each type, index in commitment
-                if type.id == 'CM24' || type.id == 'CM25'|| type.id == 'CM26'|| type.id == 'CM27'
-                  if index+1 % 4 == 0
-                    tr
+              table#datatable-responsive.table.dt-responsive.nowrap(cellspacing='0', width='100%')
+                caption(width='60%' style='text-align:center;')
+                  strong(style='color: #71859A') ETAPAS
+                each type, index in commitment
+                  if type.id == 'CM24' || type.id == 'CM25'|| type.id == 'CM26'|| type.id == 'CM27'
                     if index+1 % 4 == 0
+                      tr
+                      if index+1 % 4 == 0
+                        td
+                          label(for=type.id,style='cursor: pointer') #{type.name} #{index} 
+                        td
+                          input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos')
+                    else
                       td
-                        label(for=type.id,style='cursor: pointer') #{type.name} #{index} 
+                        label(for=type.id,style='cursor: pointer') #{type.name} #{index}
                       td
                         input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos')
-                  else
-                    td
-                      label(for=type.id,style='cursor: pointer') #{type.name} #{index}
-                    td
-                      input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos')
-  .row
-    .col-md-12.col-sm-12.col-xs-12
-      .x_panel
-        .x_content
-          .form-group.pull-right
-            button.btn.btn-primary(type='submit') Cancel
-            button.btn.btn-success(type='submit') Submit
+            .row
+              .ln_solid
+                .x_content
+                  .form-group.pull-right
+                    a.btn.btn-primary(href='/secure/configattrcommit') Cancel
+                    button.btn.btn-success(type='submit') Submit
+                  

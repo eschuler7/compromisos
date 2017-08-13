@@ -49,7 +49,10 @@ router.get('/configattrcommit', function(req, res){
 	res.render('partial/configattrcommit',{commitment: commitment});
 });
 router.get('/configattrmonit', function(req, res){
-	res.render('partial/configattrmonit');
+	var monitor = mysql.monitor.getMonitorTypes();
+	//var monitor = mysql.monitor.getMonitorTypes();
+	res.render('partial/configattrmonit',{monitor: monitor});
+	
 });
 router.get('/listallmonit', function(req, res){
 	res.render('partial/listallmonit');
@@ -97,6 +100,8 @@ router.post('/initConfig', function(req, res){
 		console.log('resultado de etapasmonitoreo: ',etapasmonitoreo);
 		
 		var result = mysql.company.updateFirstTime(req.session.user.t_company_ruc);
+
+
 		if(result.affectedRows == 1) {
 			req.session.user.firsttime = 0;
 
@@ -128,4 +133,46 @@ router.post('/initConfig', function(req, res){
 	}
 });
 
+router.post('/configattrcommit', function(req, res){
+	try {
+
+		//sección compromisos
+		var compromisos = req.body.compromisos;
+		console.log('resultado de compromisos: ',compromisos);
+		//sección etapascompromiso
+		var etapascompromiso = req.body.etapascompromiso;
+		console.log('resultado de etapascompromiso: ',etapascompromiso);
+		//sección Eliminar data
+		var result = mysql.commitment.deleteCommitmentTypes(req.session.user.t_company_ruc);
+		
+		console.log('Insertando compromisos: ');
+		mysql.commitment.initCommitmentConfig(req.session.user.t_company_ruc,compromisos);	
+
+		res.redirect('/secure/configattrcommit');
+		
+	} catch(e) {
+		console.log('[/configattrcommit]',e);
+	}
+});
+
+router.post('/configattrmonit', function(req, res){
+	try {
+
+		var monitoreo = req.body.monitoreo;
+		console.log('resultado de monitoreo: ',monitoreo);
+		//sección etapasmonitoreo
+		var etapasmonitoreo = req.body.etapasmonitoreo;
+		console.log('resultado de etapasmonitoreo: ',etapasmonitoreo);
+		//sección Eliminar data
+		var result = mysql.monitor.deleteMonitorTypes(req.session.user.t_company_ruc);
+		
+		console.log('Insertando monitoreo: ');
+		mysql.monitor.initMonitorConfig(req.session.user.t_company_ruc,monitoreo);		
+
+		res.redirect('/secure/configattrmonit');
+		
+	} catch(e) {
+		console.log('[/configattrmonit]',e);
+	}
+});
 module.exports = router;

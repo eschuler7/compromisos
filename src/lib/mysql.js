@@ -134,6 +134,12 @@ var compromisosdb = {
 			conn.dispose();
 			return result;
 		},
+		deleteCommitmentTypes : function(ruc) {
+			var conn = new mysql(connectionOptions);
+			const result = conn.query('delete from t_company_commitment where t_company_ruc=?',[ruc]);
+			conn.dispose();
+			return result;
+		},
 		initCommitmentConfig : function(ruc,compromisos) {
 			var initconfig = compromisos;
 			
@@ -167,6 +173,12 @@ var compromisosdb = {
 		getMonitorTypes : function() {
 			var conn = new mysql(connectionOptions);
 			const result = conn.query('select id, name from t_monitor_config');
+			conn.dispose();
+			return result;
+		},
+		deleteMonitorTypes : function(ruc) {
+			var conn = new mysql(connectionOptions);
+			const result = conn.query('delete from t_company_monitor where t_company_ruc=?',[ruc]);
 			conn.dispose();
 			return result;
 		},
