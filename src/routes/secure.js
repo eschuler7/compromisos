@@ -123,8 +123,6 @@ router.post('/initConfig', function(req, res){
 			}catch(e) {
 				console.log('[/initConfig]',e);
 			}
-			
-							
 			res.redirect('/secure/dashboard');
 
 		}

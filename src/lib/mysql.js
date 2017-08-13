@@ -11,7 +11,7 @@ var connectionOptions = {
 	user: config().mysql.user,
 	database: config().mysql.database,
 	password: config().mysql.password,
-	debug: true
+	debug: false
 }
 
 var compromisosdb = {
