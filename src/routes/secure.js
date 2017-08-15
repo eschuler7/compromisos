@@ -76,10 +76,12 @@ router.get('/massivemonit', function(req, res){
 router.get('/registermonit', function(req, res){
 	res.render('partial/registermonit');
 });
-
 router.get('/logout', function(req, res){
 	req.session.destroy();
 	res.redirect('/');
+});
+router.get('/template', function(req, res){
+	
 });
 
 // TODAS LAS LLAMADAS POST

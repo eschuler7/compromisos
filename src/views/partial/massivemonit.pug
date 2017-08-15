@@ -1,19 +1,38 @@
 extends ../layouts/layout_main.pug
 block container
-  head
-  body.nav-md
-    div
-      .page-title
-        .title_left
-          h3 Carga masiva de monitoreo 
-      .clearfix
-      .row
-        .col-md-12.col-sm-12.col-xs-12
-          .x_panel
-            .x_title
-              h2 Carga de excel
-              ul.nav.navbar-right.panel_toolbox
-              .clearfix
-            .x_content
-              p
-              br
+  .row
+    .col-md-12.col-sm-12.col-xs-12
+      .x_panel
+        .x_title
+          h2 Plantilla para carga masiva de monitoreo
+          ul.nav.navbar-right.panel_toolbox
+          .clearfix
+        .x_content
+          p(style='text-align: justify') Para realizar la carga masiva debe descargar la plantilla que se ha generado de acuerdo a las configuraciones iniciales que ha escogido durante el wizard de configuración inicial. Para modificar los campos del excel puede ir a configuración de atributos y seleccionar los campos que se mostrarán.
+          a.btn.btn-success.btn-xs(href='#')
+            i.fa.fa-download
+            |  Descargar Plantilla
+          a.btn.btn-info.btn-xs(href='#')
+            i.fa.fa-gear
+            |  Configuración de Atributos
+
+      .x_panel
+        .x_title
+          h2 Formulario de carga masiva de monitoreo
+          ul.nav.navbar-right.panel_toolbox
+          .clearfix
+        .x_content
+          p(style='text-align: justify') Cargue la plantilla de monitoreo que descargó previamente con la información de todos los monitoreos.
+          form.form-horizontal(action='/admin/create',method='post')
+            .row
+              .col-md-12.col-sm-12.col-xs-12
+                input#template.inputfile.inputfile-6(type='file',name='template')
+                label(for='template',width='100%')
+                  span
+                  strong
+                    i.fa.fa-upload
+                    |  Cargar Plantilla
+            .ln_solid
+            .form-group
+              a.btn.btn-default.btn-sm(href='clients') Cancelar
+              button.btn.btn-success.btn-sm.pull-right(type='submit') Siguiente
