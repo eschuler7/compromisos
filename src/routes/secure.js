@@ -51,13 +51,13 @@ router.get('/massive', function(req, res){
 
 router.get('/configattrcommit', function(req, res){
 	var commitment = mysql.commitment.getCommitmentTypes();
-	//var monitor = mysql.monitor.getMonitorTypes();
-	res.render('partial/configattrcommit',{commitment: commitment});
+	var commitmentconfig = mysql.commitment.getComConfigByRuc(req.session.user.t_company_ruc);
+	res.render('partial/configattrcommit',{commitment: commitment,commitmentconfig: commitmentconfig});
 });
 router.get('/configattrmonit', function(req, res){
 	var monitor = mysql.monitor.getMonitorTypes();
-	//var monitor = mysql.monitor.getMonitorTypes();
-	res.render('partial/configattrmonit',{monitor: monitor});
+	var monitorconfig = mysql.monitor.getMonitConfigByRuc(req.session.user.t_company_ruc);
+	res.render('partial/configattrmonit',{monitor: monitor,monitorconfig: monitorconfig});
 	
 });
 router.get('/listallmonit', function(req, res){

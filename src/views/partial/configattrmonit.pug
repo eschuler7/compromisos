@@ -13,6 +13,7 @@ block container
             center
               table#datatable-responsive.table.dt-responsive.nowrap(cellspacing='0', width='100%')
                 each type, index in monitor
+                  - var check = false
                   if type.id != 'MN21' && type.id != 'MN22' && type.id != 'MN23' && type.id != 'MN24'
                     if index % 4 == 0
                       tr
@@ -20,29 +21,59 @@ block container
                         td
                           label(for=type.id,style='cursor: pointer') #{type.name}
                         td
-                          input.flat(id=type.id,type='checkbox', value=type.id, name='monitoreo')
+                          each config in monitorconfig
+                            if type.id == config.t_monitor_config_id
+                              - check = true
+                              - break
+                          if check == true
+                            input.flat(id=type.id,type='checkbox', value=type.id, name='monitoreo', checked)
+                          else
+                            input.flat(id=type.id,type='checkbox', value=type.id, name='monitoreo')
                     else
                       td
                         label(for=type.id,style='cursor: pointer') #{type.name}
                       td
-                        input.flat(id=type.id,type='checkbox', value=type.id, name='monitoreo')
+                        each config in monitorconfig
+                          if type.id == config.t_monitor_config_id
+                            - check = true
+                            - break
+                        if check == true
+                          input.flat(id=type.id,type='checkbox', value=type.id, name='monitoreo', checked)
+                        else
+                          input.flat(id=type.id,type='checkbox', value=type.id, name='monitoreo')
+                
               table#datatable-responsive.table.dt-responsive.nowrap(cellspacing='0', width='100%')
                 caption(width='60%' style='text-align:center;')
                   strong(style='color: #71859A') ETAPAS
                 each type, index in monitor
+                  - var check = false
                   if type.id == 'MN21' || type.id == 'MN22'|| type.id == 'MN23'|| type.id == 'MN24'
                     if index+1 % 4 == 0
                       tr
                       if index+1 % 4 == 0
                         td
-                          label(for=type.id,style='cursor: pointer') #{type.name} #{index} 
+                          label(for=type.id,style='cursor: pointer') #{type.name} 
                         td
-                          input.flat(id=type.id,type='checkbox', value=type.id, name='monitoreo')
+                          each config in monitorconfig
+                            if type.id == config.t_monitor_config_id
+                              - check = true
+                              - break
+                          if check == true
+                            input.flat(id=type.id,type='checkbox', value=type.id, name='monitoreo', checked)
+                          else
+                            input.flat(id=type.id,type='checkbox', value=type.id, name='monitoreo')
                     else
                       td
-                        label(for=type.id,style='cursor: pointer') #{type.name} #{index}
+                        label(for=type.id,style='cursor: pointer') #{type.name} 
                       td
-                        input.flat(id=type.id,type='checkbox', value=type.id, name='monitoreo')
+                        each config in monitorconfig
+                          if type.id == config.t_monitor_config_id
+                            - check = true
+                            - break
+                        if check == true
+                          input.flat(id=type.id,type='checkbox', value=type.id, name='monitoreo', checked)
+                        else
+                          input.flat(id=type.id,type='checkbox', value=type.id, name='monitoreo')
             .row
               .ln_solid
                 .x_content
