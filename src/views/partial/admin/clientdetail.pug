@@ -49,26 +49,27 @@ block container
                 i.fa.fa-chevron-up
           .clearfix
         .x_content
-          table.table.table-bordered
-            thead
-              tr
-                th #
-                th ID de Usuario
-                th Nombres
-                th Apellidos
-                th Correo Electrónico
-                th Rol
-                th Fecha de Creación
-            tbody
-              each user,index in users
+          .table-responsive
+            table.table.table-bordered
+              thead
                 tr
-                  th(scope='row') #{index + 1}
-                  td #{user.userid}
-                  td #{user.name}
-                  td #{user.lastname}
-                  td #{user.email}
-                  td #{user.rol_name}
-                  td #{user.cdatetime}
+                  th #
+                  th ID de Usuario
+                  th Nombres
+                  th Apellidos
+                  th Correo Electrónico
+                  th Rol
+                  th Fecha de Creación
+              tbody
+                each user,index in users
+                  tr
+                    th(scope='row') #{index + 1}
+                    td #{user.userid}
+                    td #{user.name}
+                    td #{user.lastname}
+                    td #{user.email}
+                    td #{user.rol_name}
+                    td #{user.cdatetime}
   .row
     .col-md-12.col-sm-12.col-xs-12
       a.btn.btn-default(href='/admin/clients') Regresar

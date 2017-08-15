@@ -14,7 +14,8 @@
     "nodemailer": "^2.7.0",
     "promise": "^8.0.1",
     "pug": "^2.0.0-rc.2",
-    "sync-mysql": "^3.0.1"
+    "sync-mysql": "^3.0.1",
+    "xlsx": "^0.11.2"
   },
   "repository": {},
   "engines": {

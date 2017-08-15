@@ -9,7 +9,7 @@ block container
         .x_content
           form#demo-form2.form-horizontal(action='/admin/create',method='post')
             h4 Información general del cliente
-            p(style='text-align: justify') Los siguientes campos representan información oficial de la minera, por favor llene los datos correctamente.
+            p(style='text-align: justify') Los siguientes campos representan información oficial de la compañía, por favor llene los datos correctamente.
             .form-group
               label.control-label.col-md-3.col-sm-3.col-xs-12(for='ruc')
                 | RUC 
@@ -24,7 +24,7 @@ block container
                 input#companyname.form-control.col-md-7.col-xs-12(type='text', name='companyname')
             br
             h4 Información de la cuenta
-            p(style='text-align: justify') Esta cuenta tendrá privilegios administradores y no podrá ser eliminada.
+            p(style='text-align: justify') Esta será la cuenta primaria y tendrá privilegios administrativos.
             .form-group
               label.control-label.col-md-3.col-sm-3.col-xs-12(for='userid')
                 | ID de Usuario 
