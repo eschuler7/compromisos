@@ -11,7 +11,7 @@ var connectionOptions = {
 	user: config().mysql.user,
 	database: config().mysql.database,
 	password: config().mysql.password,
-	debug: false
+	debug: true
 }
 
 var compromisosdb = {
@@ -81,7 +81,7 @@ var compromisosdb = {
 		},
 		login : function(userid, password) {
 			var conn = new mysql(connectionOptions);
-			const result = conn.query('select userid, name, lastname, tc.firsttime, t_company_ruc, tc.companyname, t_rol_rolid, changepwd from t_user tu left join t_company tc on tu.t_company_ruc=tc.ruc where userid=? and password=?',[userid, password]);
+			const result = conn.query('select tu.userid, tu.name, tu.lastname, tc.firsttime, tu.t_company_ruc, tc.companyname, tu.t_rol_rolid, changepwd from t_user tu left join t_company tc on tu.t_company_ruc=tc.ruc where userid=? and password=?',[userid, password]);
 			conn.dispose();
 			return result;
 		},
