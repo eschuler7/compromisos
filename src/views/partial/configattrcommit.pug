@@ -13,36 +13,66 @@ block container
             center
               table#datatable-responsive.table.dt-responsive.nowrap(cellspacing='0', width='100%')
                 each type, index in commitment
+                  - var check = false
                   if type.id != 'CM24' && type.id != 'CM25' && type.id != 'CM26' && type.id != 'CM27'
                     if index % 4 == 0
                       tr
                       if index % 4 == 0
-                        td
+                        td  
                           label(for=type.id,style='cursor: pointer') #{type.name}
                         td
-                          input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos')
+                          each config in commitmentconfig
+                            if type.id == config.t_commitment_config_id
+                              - check = true
+                              - break
+                          if check == true
+                            input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos', checked)
+                          else
+                            input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos')
                     else
                       td
                         label(for=type.id,style='cursor: pointer') #{type.name}
                       td
-                        input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos')
+                        each config in commitmentconfig
+                          if type.id == config.t_commitment_config_id
+                            - check = true
+                            - break
+                        if check == true
+                          input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos', checked)
+                        else
+                          input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos')
               table#datatable-responsive.table.dt-responsive.nowrap(cellspacing='0', width='100%')
                 caption(width='60%' style='text-align:center;')
                   strong(style='color: #71859A') ETAPAS
                 each type, index in commitment
+                  - var check = false
                   if type.id == 'CM24' || type.id == 'CM25'|| type.id == 'CM26'|| type.id == 'CM27'
                     if index+1 % 4 == 0
                       tr
-                      if index+1 % 4 == 0
+                      if index+1 % 4 == 0 
                         td
-                          label(for=type.id,style='cursor: pointer') #{type.name} #{index} 
+                          label(for=type.id,style='cursor: pointer') #{type.name}  
                         td
-                          input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos')
+                          each config in commitmentconfig
+                            if type.id == config.t_commitment_config_id
+                              - check = true
+                              - break
+                          if check == true
+                            input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos', checked)
+                          else
+                            input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos')
                     else
                       td
-                        label(for=type.id,style='cursor: pointer') #{type.name} #{index}
+                        label(for=type.id,style='cursor: pointer') #{type.name} 
                       td
-                        input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos')
+                        each config in commitmentconfig
+                          if type.id == config.t_commitment_config_id
+                            - check = true
+                            - break
+                        if check == true
+                          input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos', checked)
+                        else
+                          input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos')
             .row
               .ln_solid
                 .x_content
