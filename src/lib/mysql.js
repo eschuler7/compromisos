@@ -156,6 +156,12 @@ var compromisosdb = {
 		}
 	},
 	monitor : {
+		getMonitConfigByRuc : function(ruc) {
+			var conn = new mysql(connectionOptions);
+			const result = conn.query('select t_company_ruc,t_monitor_config_id,tmc.name from t_company_monitor tcm left join t_monitor_config tmc on tcm.t_monitor_config_id=tmc.id where t_company_ruc=?',[ruc]);
+			conn.dispose();
+			return result;
+		},
 		getMonitorTypes : function() {
 			var conn = new mysql(connectionOptions);
 			const result = conn.query('select id, name from t_monitor_config');

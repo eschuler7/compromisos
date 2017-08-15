@@ -61,7 +61,14 @@ router.get('/configattrmonit', function(req, res){
 	
 });
 router.get('/listallmonit', function(req, res){
-	res.render('partial/listallmonit');
+	var monitconfig;
+	try {
+		monitconfig = mysql.monitor.getMonitConfigByRuc(req.session.user.t_company_ruc);
+	} catch(e) {
+		console.log('[/listallmonit]',e);
+	}
+	res.render('partial/listallmonit',{monitconfig: monitconfig});
+
 });
 router.get('/massivemonit', function(req, res){
 	res.render('partial/massivemonit');
@@ -133,7 +140,7 @@ router.post('/configattrcommit', function(req, res){
 		var result = mysql.commitment.deleteCommitmentTypes(req.session.user.t_company_ruc);
 		
 		console.log('Insertando compromisos: ');
-		mysql.commitment.initCommitmentConfig(req.session.user.t_company_ruc,compromisos);	
+		mysql.commitment.updateCommitmentConfig(req.session.user.t_company_ruc,compromisos);	
 
 		res.redirect('/secure/configattrcommit');
 		
@@ -154,7 +161,7 @@ router.post('/configattrmonit', function(req, res){
 		var result = mysql.monitor.deleteMonitorTypes(req.session.user.t_company_ruc);
 		
 		console.log('Insertando monitoreo: ');
-		mysql.monitor.initMonitorConfig(req.session.user.t_company_ruc,monitoreo);		
+		mysql.monitor.updateMonitorConfig(req.session.user.t_company_ruc,monitoreo);		
 
 		res.redirect('/secure/configattrmonit');
 		
