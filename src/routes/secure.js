@@ -58,7 +58,6 @@ router.get('/configattrmonit', function(req, res){
 	var monitor = mysql.monitor.getMonitorTypes();
 	var monitorconfig = mysql.monitor.getMonitConfigByRuc(req.session.user.t_company_ruc);
 	res.render('partial/configattrmonit',{monitor: monitor,monitorconfig: monitorconfig});
-	
 });
 router.get('/listallmonit', function(req, res){
 	var monitconfig;
