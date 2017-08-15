@@ -60,11 +60,11 @@ router.post('/create',function(req, res){
 			// Registering user information
 			mysql.user.createUser(userid, computil.createHash(config().checksumhash,password), email, name, lastname, ruc, 'ROL1', 1);
 			// Init Dashboard Configuration
-			mysql.dashboard.initDashboardConfig(ruc);
+			//mysql.dashboard.updateDashboardConfig(ruc);
 			// Init Commitment Configuration
-			mysql.commitment.initCommitmentConfig(ruc);
+			//mysql.commitment.updateCommitmentConfig(ruc);
 			// Init Monitor Configuration
-			mysql.monitor.initMonitorConfig(ruc);
+			//mysql.monitor.updateMonitorConfig(ruc);
 
 			// Sending confirmation email
 			var htmlRegistrationTemplate = computil.loadEmailTemplate('security_registration');
