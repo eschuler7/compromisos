@@ -17,6 +17,7 @@ html
     link(href='/nprogress/nprogress.css', rel='stylesheet')
     // Datatable
     link(href='/datatables.net-bs/css/dataTables.bootstrap.min.css', rel='stylesheet')
+    link(href='/datatables.net-buttons-bs/css/buttons.bootstrap.min.css', rel='stylesheet')
     // Custom Theme Style
     link(href='/build/css/custom.min.css', rel='stylesheet')
     link(href='/compromisos/css/compromisos.css', rel='stylesheet')
@@ -93,18 +94,6 @@ html
                         li
                           a(href='/admin/clients') Clientes
             // /sidebar menu
-            // /menu footer buttons
-            if session.user.t_rol_rolid != 'ROL5'
-              .sidebar-footer.hidden-small
-                a(data-toggle='tooltip', data-placement='top', title='Dashboard', href='/secure/dashboard')
-                  span.fa.fa-bar-chart(aria-hidden='true')
-                a(data-toggle='tooltip', data-placement='top', title='Compromisos', href='/secure/listall')
-                  span.fa.fa-edit(aria-hidden='true')
-                a(data-toggle='tooltip', data-placement='top', title='Monitoreo', href='/secure/listallmonit')
-                  span.fa.fa-binoculars(aria-hidden='true')
-                a(data-toggle='tooltip', data-placement='top', title='Logout', href='javascript:logout()')
-                  span.glyphicon.glyphicon-off(aria-hidden='true')
-            // /menu footer buttons
         // top navigation
         .top_nav
           .nav_menu
@@ -167,6 +156,11 @@ html
     //Datatable
     script(src='/datatables.net/js/jquery.dataTables.min.js')
     script(src='/datatables.net-bs/js/dataTables.bootstrap.min.js')
+    script(src='/datatables.net-buttons/js/dataTables.buttons.min.js')
+    script(src='/datatables.net-buttons-bs/js/buttons.bootstrap.min.js')
+    script(src='/datatables.net-buttons/js/buttons.flash.min.js')
+    script(src='/datatables.net-buttons/js/buttons.html5.min.js')
+    script(src='/datatables.net-buttons/js/buttons.print.min.js')
     script(src='/build/js/custom.min.js')
     script.
       var logout = function() {

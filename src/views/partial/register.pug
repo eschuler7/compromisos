@@ -13,44 +13,16 @@ block container
           ul.nav.navbar-right.panel_toolbox
           .clearfix
         .x_content
-          form.form-horizontal.form-label-left(novalidate='')
-            p
-            .item.form-group
-              label.control-label.col-md-3.col-sm-3.col-xs-12(for='name')
-                | Código 
-                span.required *
-              .col-md-6.col-sm-6.col-xs-12
-                input#name.form-control.col-md-7.col-xs-12(name='codigo', placeholder='Código de compromiso', required='required', type='text')
-            .item.form-group
-              label.control-label.col-md-3.col-sm-3.col-xs-12(for='name')
-                | Proyecto 
-                span.required *
-              .col-md-6.col-sm-6.col-xs-12
-                input#name.form-control.col-md-7.col-xs-12(name='proyecto', placeholder='Código de Proyecto', required='required', type='text')
-            .item.form-group
-              label.control-label.col-md-3.col-sm-3.col-xs-12(for='name')
-                | Fuente 
-                span.required *
-              .col-md-6.col-sm-6.col-xs-12
-                input#name.form-control.col-md-7.col-xs-12(name='fuente', placeholder='Fuente', required='required', type='text')
-            .item.form-group
-              label.control-label.col-md-3.col-sm-3.col-xs-12(for='number')
-                | Capitulo 
-                span.required *
-              .col-md-6.col-sm-6.col-xs-12
-                input#number.form-control.col-md-7.col-xs-12(name='capitulo', required='required', type='number')
-            .item.form-group
-              label.control-label.col-md-3.col-sm-3.col-xs-12(for='name')
-                | Sección 
-                span.required *
-              .col-md-6.col-sm-6.col-xs-12
-                input#number.form-control.col-md-7.col-xs-12(name='seccion', placeholder='Sección de capítulo', required='required', type='text')
-            .item.form-group
-              label.control-label.col-md-3.col-sm-3.col-xs-12(for='number')
-                | Página 
-                span.required *
-              .col-md-6.col-sm-6.col-xs-12
-                input#number.form-control.col-md-7.col-xs-12(name='number', required='required', type='number')
+          form.form-horizontal.form-label-right(novalidate='')
+            
+            each config in commitmentconfig
+              if config.t_commitment_config_id == 'CM01' || config.t_commitment_config_id == 'CM02' || config.t_commitment_config_id == 'CM03'|| config.t_commitment_config_id == 'CM04'|| config.t_commitment_config_id == 'CM06'|| config.t_commitment_config_id == 'CM07'|| config.t_commitment_config_id == 'CM08'
+                .item.form-group
+                  label(for=config.t_commitment_config_id,style='cursor: pointer') 
+                    | #{config.name}
+                  .col-md-6.col-sm-6.col-xs-12
+                    input#name.form-control.col-md-7.col-xs-12(placeholder='#{config.name}', required='required', type='text') 
+            //COntinuar...      
             .item.form-group
               label Etapas a aplicar:
               p(style='padding: 5px;')

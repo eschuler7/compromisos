@@ -20,7 +20,9 @@ router.get('/dashboard',function(req, res){
 });
 
 router.get('/register',function(req, res){
-	res.render('partial/register');
+	var commitment = mysql.commitment.getCommitmentTypes();
+	var commitmentconfig = mysql.commitment.getComConfigByRuc(req.session.user.t_company_ruc);
+	res.render('partial/register',{commitment: commitment,commitmentconfig: commitmentconfig});
 });
 
 router.get('/select', function(req, res){
