@@ -7,10 +7,13 @@ var router = express.Router();
 var mysql = require('../lib/mysql');
 // Loading util library
 var computil = require('../lib/computil');
-//Loading Config
+// Loading Config
 var config = require('../lib/config');
-//Loading Email Library
+// Loading Email Library
 var compemail = require('../lib/email');
+// Loading file system handling middlewares
+var fs = require('fs');
+var path = require("path");
 
 // TODAS LAS LLAMADAS GET
 
@@ -66,6 +69,19 @@ router.post('/create',function(req, res){
 			//mysql.commitment.updateCommitmentConfig(ruc);
 			// Init Monitor Configuration
 			//mysql.monitor.updateMonitorConfig(ruc);
+			// Creating upload and download folders
+			var downloadpath = path.resolve('downloads') + '/' + ruc;
+			fs.mkdir(downloadpath, mask, function(err) {
+		        if (err) {
+		            console.log(err);
+		        }
+		    });
+			var uploadpath = path.resolve('uploads') + '/' + ruc;
+			fs.mkdir(uploadpath, mask, function(err) {
+		        if (err) {
+		            console.log(err);
+		        }
+		    });
 
 			// Sending confirmation email
 			var htmlRegistrationTemplate = computil.loadEmailTemplate('security_registration');

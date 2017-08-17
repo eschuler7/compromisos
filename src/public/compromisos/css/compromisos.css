@@ -11,7 +11,7 @@
     width: 100%;
     font-size: 1.25rem;
     /* 20px */
-    font-weight: 700;
+    font-weight: 200;
     text-overflow: ellipsis;
     white-space: nowrap;
     cursor: pointer;
@@ -32,7 +32,7 @@
 }
 
 .inputfile-6 + label {
-    color: #d3394c;
+    color: black;
 }
 
 .inputfile-6 + label {
@@ -45,6 +45,7 @@
 .inputfile-6.has-focus + label,
 .inputfile-6 + label:hover {
     border-color: #169F85;
+    background-color: #F7F7F7;
 }
 
 .inputfile-6 + label span,
