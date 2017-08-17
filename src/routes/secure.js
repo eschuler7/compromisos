@@ -5,6 +5,10 @@ var express = require('express');
 var router = express.Router();
 // Loading mysql library
 var mysql = require('../lib/mysql');
+// Excel middleware
+var Excel = require('exceljs');
+// Loading path library
+var path = require("path");
 
 // TODAS LAS LLAMADAS GET
 router.get('/dashboard',function(req, res){
@@ -81,8 +85,34 @@ router.get('/logout', function(req, res){
 	req.session.destroy();
 	res.redirect('/');
 });
+
 router.get('/template', function(req, res){
-	
+	try {
+		var workbook = new Excel.Workbook();
+		workbook.creator = 'SIGNEQ';
+		var worksheet = workbook.addWorksheet('Compromisos');
+
+		var comconfig = mysql.commitment.getComConfigByRuc(req.session.user.t_company_ruc);
+		var columns = [];
+		for (var i = 0; i < comconfig.length; i++) {
+			var column = {
+				header: comconfig[i].name,
+				key: comconfig[i].t_commitment_config_id
+			}
+			columns.push(column);
+		}
+		worksheet.columns = columns;
+		var downloadpath = path.resolve('downloads/' + req.session.user.t_company_ruc);
+		var filename = 'plantilla.xlsx';
+		var fullpath = downloadpath + '/' + filename;
+		workbook.xlsx.writeFile(fullpath)
+	    .then(function() {
+	    	res.attachment(filename);
+	        res.sendFile(fullpath);
+	    });
+	} catch(e) {
+		console.log('[/listall]',e);
+	}
 });
 
 // TODAS LAS LLAMADAS POST
