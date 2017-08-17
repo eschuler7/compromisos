@@ -14,13 +14,17 @@ block container
                 each conf in monitconfig
                   th #{conf.name}
             tbody
+          br
+          br
           .ln_solid(style='margin-top:5px')
           a.btn.btn-warning.btn-xs(href='/secure/registermonit') Nuevo monitoreo
 
     script.
       window.onload = function() {
         $('#tblmonitor').DataTable({
-          "lengthMenu": [[5, 15], [5, 15]],
+          dom: 'Bfrtip',
+          buttons: ['copy','csv','print'],
+          //"lengthMenu": [[5, 15], [5, 15]],
           language: {
             paginate: {
                 first:    'Inicio',

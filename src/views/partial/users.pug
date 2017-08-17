@@ -1,0 +1,87 @@
+extends ../../layouts/layout_admin.pug
+block container
+  .row
+    .col-md-12.col-sm-12.col-xs-12
+      .x_panel
+        .x_title
+          h2 Cartera de Clientes
+          .clearfix
+        .x_content
+          table#tblclients.table.table-striped.table-bordered.jambo_table
+            thead
+              tr
+                th RUC
+                th Cliente
+                th Usuarios
+                th Configuración Inicial
+                th Fecha de Registro
+                th Opciones
+            tbody
+              if clients
+                each client in clients
+                  tr
+                    td #{client.ruc}
+                    td #{client.companyname}
+                    td #{client.users}
+                    td
+                      if client.firsttime == 0
+                        span.label.label-success Completo
+                      else
+                        span.label.label-warning Incompleto
+                    td #{client.cdatetime}
+                    td
+                      a.btn.btn-primary.btn-xs(href='clientdetail/' + client.ruc)
+                        i.fa.fa-folder
+                        |  Ver
+                      //-a.btn.btn-info.btn-xs(href='clientedit/' + client.ruc)
+                        i.fa.fa-pencil
+                        |  Editar
+                      a.btn.btn-danger.btn-xs(href='javascript:deleteClient("' + client.ruc + '","' + client.companyname + '")')
+                        i.fa.fa-trash-o
+                        |  Eliminar
+          .ln_solid(style='margin-top:5px')
+          a.btn.btn-warning.btn-xs(href='/admin/createclient') Nuevo Cliente
+
+    #confirm_delete.modal.fade(tabindex='-1', role='dialog', data-backdrop='static', data-keyboard='false')
+      .modal-dialog(role='document')
+        .modal-content
+          .modal-header
+            //-button.close(type='button', data-dismiss='modal', aria-label='Close')
+              span(aria-hidden='true') &times;
+            h4#comfirm_delete_title.modal-title
+          form#frmConfirmDelete(action='/admin/deleteclient',method='post')
+            .modal-body
+              p Esta acción eliminará completamente el cliente así como también sus compromisos, monitoreos y toda su configuración. Después de haber sido eliminado no podrá dar marcha atrás.
+              center
+                strong ¿Desea continuar?
+              input(type='hidden',name='ruc')
+            .modal-footer
+              button.btn.btn-default.pull-left(type='button', data-dismiss='modal') Cancelar
+              |  
+              button.btn.btn-danger(type='submit') Continuar
+
+    script.
+      window.onload = function() {
+        $('#tblclients').DataTable({
+          "lengthMenu": [[5, 15], [5, 15]],
+          language: {
+            paginate: {
+                first:    'Inicio',
+                previous: 'Anterior',
+                next:     'Siguiente',
+                last:     'Fin'
+            },
+            info: 'Mostrando _START_ a _END_ de _TOTAL_ registro(s)',
+            infoEmpty: 'No se encontraron registros',
+            emptyTable: 'No tiene clientes registrados',
+            lengthMenu: 'Mostrar _MENU_ registro(s)',
+            search: 'Buscar:',
+            zeroRecords: 'No se encontraron registros coincidentes'
+          }
+        });
+      }
+      var deleteClient = function(ruc, companyname) {
+        $('#comfirm_delete_title').text('Eliminar Cliente ' + companyname);
+        $('#frmConfirmDelete input[name=ruc]').val(ruc);
+        $('#confirm_delete').modal('show');
+      }

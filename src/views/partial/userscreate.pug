@@ -1,0 +1,58 @@
+extends ../../layouts/layout_admin.pug
+block container
+  .row
+    .col-md-12.col-sm-12.col-xs-12
+      .x_panel
+        .x_title
+          h2 Formulario de Registro de usuarios
+          .clearfix
+        .x_content
+          form#demo-form2.form-horizontal(action='/partial/userscreate',method='post')
+            h4 Información general del usuario
+            p(style='text-align: justify') Los siguientes campos representan información oficial de la compañía, por favor ingrese los datos correctamente.
+            .form-group
+              label.control-label.col-md-3.col-sm-3.col-xs-12(for='userid')
+                | ID de Usuario 
+                span.required *
+              .col-md-3.col-sm-4.col-xs-12
+                input#userid.form-control.col-md-7.col-xs-12(type='text',name='userid')
+            .form-group
+              label.control-label.col-md-3.col-sm-3.col-xs-12(for='email')
+                | Correo Electrónico 
+                span.required *
+              .col-md-3.col-sm-4.col-xs-12
+                input#email.form-control.col-md-7.col-xs-12(type='email',name='email')
+            .form-group
+              label.control-label.col-md-3.col-sm-3.col-xs-12(for='name')
+                | Nombres 
+                span.required *
+              .col-md-4.col-sm-5.col-xs-12
+                input#name.form-control.col-md-7.col-xs-12(type='text', name='name')
+            .form-group
+              label.control-label.col-md-3.col-sm-3.col-xs-12(for='lastname')
+                | Apellidos 
+                span.required *
+              .col-md-4.col-sm-5.col-xs-12
+                input#lastname.form-control.col-md-7.col-xs-12(type='text',name='lastname')
+            .form-group
+              label.control-label.col-md-3.col-sm-3.col-xs-12(for='retype-password')
+                | Rol 
+                span.required *
+              .col-md-3.col-sm-4.col-xs-12
+                input#retype_password.form-control.col-md-7.col-xs-12(type='password', name='retype_password')
+            .form-group
+              label.control-label.col-md-3.col-sm-3.col-xs-12(for='password')
+                | Contraseña 
+                span.required *
+              .col-md-3.col-sm-4.col-xs-12
+                input#password.form-control.col-md-7.col-xs-12(type='password', name='password')
+            .form-group
+              label.control-label.col-md-3.col-sm-3.col-xs-12(for='retype-password')
+                | Confirmar Contraseña 
+                span.required *
+              .col-md-3.col-sm-4.col-xs-12
+                input#retype_password.form-control.col-md-7.col-xs-12(type='password', name='retype_password')
+            .ln_solid
+            .form-group
+              a.btn.btn-default.btn-sm(href='users') Cancelar
+              button.btn.btn-success.btn-sm(type='submit') Registrar Usuario

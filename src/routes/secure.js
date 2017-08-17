@@ -84,6 +84,12 @@ router.get('/logout', function(req, res){
 router.get('/template', function(req, res){
 	
 });
+router.get('/users', function(req, res){
+	res.render('partial/users');
+});
+router.get('/userscreate', function(req, res){
+	res.render('partial/userscreate');
+});
 
 // TODAS LAS LLAMADAS POST
 

@@ -41,6 +41,7 @@ router.get('/logout', function(req, res){
 	res.redirect('/');
 });
 
+
 // TODAS LAS LLAMADAS POST
 router.post('/create',function(req, res){
 	var ruc = req.body.ruc;

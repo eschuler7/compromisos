@@ -13,15 +13,17 @@ block container
                 each conf in comconfig
                   th #{conf.name}
             tbody
+          br
+          br
           .ln_solid(style='margin-top:5px')
           a.btn.btn-warning.btn-xs(href='/secure/register') Nuevo Compromiso
 
     script.
       window.onload = function() {
         $('#tblcommitments').DataTable({
-          //dom: 'Bfrtip',
+          dom: 'Bfrtip',
           buttons: ['copy','csv','print'],
-          "lengthMenu": [[5, 15], [5, 15]],
+          //"lengthMenu": [[5, 15], [5, 15]],
           language: {
             paginate: {
                 first:    'Inicio',

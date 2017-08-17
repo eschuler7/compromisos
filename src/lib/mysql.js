@@ -42,7 +42,7 @@ var compromisosdb = {
 		},
 		updateCompanyByRuc : function(ruc, companyname, unidad, proyecto) {
 			var conn = new mysql(connectionOptions);
-			const result = conn.query('update t_company set companyname=?,unidad=?,proyecto=?,udatetime=now() where ruc=?',[companyname, ruc, unidad, proyecto]);
+			const result = conn.query('update t_company set companyname=?,unidad=?,proyecto=?,udatetime=now() where ruc=?',[companyname, unidad, proyecto, ruc]);
 			conn.dispose();
 			return result;
 		},

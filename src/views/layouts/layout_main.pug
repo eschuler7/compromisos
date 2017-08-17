@@ -83,7 +83,16 @@ html
                           a(href='registermonit') Registrar monitoreo
                         li
                           a(href='configattrmonit') Configuración de atributos
-
+                    li
+                      a
+                        i.fa.fa-users
+                        |  Administrar 
+                        span.fa.fa-chevron-down
+                      ul.nav.child_menu
+                        li
+                          a(href='/secure/users') Usuarios
+                        li
+                          a Resetear configuración global
                   if session.user.t_rol_rolid == 'ROL5'
                     li
                       a
@@ -109,9 +118,14 @@ html
                     span.fa.fa-angle-down
                   ul.dropdown-menu.dropdown-usermenu.pull-right
                     li
+                      a(href='javascript:;') Manual de usuario
+                    li
+                      a(href='javascript:;') Contacto con soporte
+                    li
                       a(href='javascript:logout()')
                         i.fa.fa-sign-out.pull-right
-                        |  Log Out
+                        |  Cerrar sesión
+
         // /top navigation
         // page content
         .right_col(role='main')
