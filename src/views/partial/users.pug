@@ -1,4 +1,4 @@
-extends ../../layouts/layout_admin.pug
+extends ../layouts/layout_main.pug
 block container
   .row
     .col-md-12.col-sm-12.col-xs-12
@@ -40,7 +40,7 @@ block container
                         i.fa.fa-trash-o
                         |  Eliminar
           .ln_solid(style='margin-top:5px')
-          a.btn.btn-warning.btn-xs(href='/admin/createclient') Nuevo Cliente
+          a.btn.btn-warning.btn-xs(href='/secure/userscreate') Nuevo usuario
 
     #confirm_delete.modal.fade(tabindex='-1', role='dialog', data-backdrop='static', data-keyboard='false')
       .modal-dialog(role='document')
