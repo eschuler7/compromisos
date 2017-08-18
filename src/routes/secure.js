@@ -121,7 +121,13 @@ router.get('/template', function(req, res){
 	}
 });
 router.get('/users', function(req, res){
-	res.render('partial/users');
+	var users;
+	try {
+		users = mysql.user.getUsersByRuc(req.session.user.t_company_ruc);
+	} catch(e) {
+		console.log('[/users]',e);
+	}
+	res.render('partial/users', {users: users});
 });
 router.get('/userscreate', function(req, res){
 	res.render('partial/userscreate');
@@ -219,7 +225,7 @@ router.post('/userscreate', function(req, res){
 	var userid = req.body.userid;
 	var email = req.body.email;
 	var name = req.body.name;
-	var rol = 'ROL1';
+	var rol = req.body.rol;
 	var lastname = req.body.lastname;
 	var password = req.body.password;
 
@@ -247,5 +253,13 @@ router.post('/userscreate', function(req, res){
 	res.redirect('/secure/users');
 });
 
-
+router.post('/deleteUser', function(req, res){
+	var userid = req.body.userid;
+	try {
+		var result = mysql.user.deleteUserById(req.session.user.t_company_ruc,userid);
+	} catch(e) {
+		console.log('[/secure/deleteUser]','[rollback user]',e);
+	}
+	res.redirect('/secure/users');
+});
 module.exports = router;

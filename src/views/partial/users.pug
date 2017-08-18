@@ -7,7 +7,7 @@ block container
           h2 Acceso a usuarios
           .clearfix
         .x_content
-          table#tblclients.table.table-striped.table-bordered.jambo_table
+          table#tblusers.table.table-striped.table-bordered.jambo_table
             thead
               tr
                 th ID Usuario
@@ -15,45 +15,36 @@ block container
                 th Nombres
                 th Apellido
                 th Rol
+                th Acción
             tbody
-              if clients
-                each client in clients
+              if users
+                each user in users
                   tr
-                    td #{client.ruc}
-                    td #{client.companyname}
-                    td #{client.users}
+                    td #{user.userid}
+                    td #{user.email}
+                    td #{user.name}
+                    td #{user.lastname}
+                    td #{user.rol_name}
                     td
-                      if client.firsttime == 0
-                        span.label.label-success Completo
-                      else
-                        span.label.label-warning Incompleto
-                    td #{client.cdatetime}
-                    td
-                      a.btn.btn-primary.btn-xs(href='clientdetail/' + client.ruc)
-                        i.fa.fa-folder
-                        |  Ver
-                      //-a.btn.btn-info.btn-xs(href='clientedit/' + client.ruc)
-                        i.fa.fa-pencil
-                        |  Editar
-                      a.btn.btn-danger.btn-xs(href='javascript:deleteClient("' + client.ruc + '","' + client.companyname + '")')
+                      a.btn.btn-danger.btn-xs(href='javascript:deleteUser("' + user.userid +'")')
                         i.fa.fa-trash-o
                         |  Eliminar
           .ln_solid(style='margin-top:5px')
           a.btn.btn-warning.btn-xs(href='/secure/userscreate') Nuevo usuario
 
     #confirm_delete.modal.fade(tabindex='-1', role='dialog', data-backdrop='static', data-keyboard='false')
-      .modal-dialog(role='document')
+      .modal-dialog.modal-sm(role='document')
         .modal-content
           .modal-header
             //-button.close(type='button', data-dismiss='modal', aria-label='Close')
               span(aria-hidden='true') &times;
             h4#comfirm_delete_title.modal-title
-          form#frmConfirmDelete(action='/admin/deleteclient',method='post')
+          form#frmConfirmDelete(action='/secure/deleteUser',method='post')
             .modal-body
-              p Esta acción eliminará completamente el cliente así como también sus compromisos, monitoreos y toda su configuración. Después de haber sido eliminado no podrá dar marcha atrás.
+              p Esta acción eliminará el usuario selecionado.
               center
                 strong ¿Desea continuar?
-              input(type='hidden',name='ruc')
+              input(type='hidden',name='userid')
             .modal-footer
               button.btn.btn-default.pull-left(type='button', data-dismiss='modal') Cancelar
               |  
@@ -61,7 +52,7 @@ block container
 
     script.
       window.onload = function() {
-        $('#tblclients').DataTable({
+        $('#tblusers').DataTable({
           "lengthMenu": [[5, 15], [5, 15]],
           language: {
             paginate: {
@@ -79,8 +70,8 @@ block container
           }
         });
       }
-      var deleteClient = function(ruc, companyname) {
-        $('#comfirm_delete_title').text('Eliminar Cliente ' + companyname);
-        $('#frmConfirmDelete input[name=ruc]').val(ruc);
+      var deleteUser = function(userid) {
+        $('#comfirm_delete_title').text('Eliminar usuario ' + userid);
+        $('#frmConfirmDelete input[name=userid]').val(userid);
         $('#confirm_delete').modal('show');
       }

@@ -39,12 +39,12 @@ block container
                 | Rol 
                 span.required *
               .col-md-3.col-sm-4.col-xs-12
-                select#rol.form-control(required='')
-                      option(name='rol',value='') Seleccione un rol..
-                      option(name='rol',value='ROL1') Administrador
-                      option(name='rol',value='ROL2') Responsables de Unidades
-                      option(name='rol',value='ROL3') Terceros de Soporte
-                      option(name='rol',value='ROL4') Supervisores de Compromisos
+                select#rol.form-control(name='rol')
+                      option(value='') Seleccione un rol..
+                      option(value='ROL1') Administrador
+                      option(value='ROL2') Responsables de Unidades
+                      option(value='ROL3') Terceros de Soporte
+                      option(value='ROL4') Supervisores de Compromisos
             .form-group
               label.control-label.col-md-3.col-sm-3.col-xs-12(for='password')
                 | Contraseña 
