@@ -5,6 +5,12 @@ var express = require('express');
 var router = express.Router();
 // Loading mysql library
 var mysql = require('../lib/mysql');
+// Loading util library
+var computil = require('../lib/computil');
+// Loading Config
+var config = require('../lib/config');
+// Loading Email Library
+var compemail = require('../lib/email');
 // Excel middleware
 var Excel = require('exceljs');
 // Loading path library
@@ -210,4 +216,38 @@ router.post('/configattrmonit', function(req, res){
 		console.log('[/configattrmonit]',e);
 	}
 });
+
+router.post('/userscreate', function(req, res){
+	var userid = req.body.userid;
+	var email = req.body.email;
+	var name = req.body.name;
+	var rol = 'ROL1';
+	var lastname = req.body.lastname;
+	var password = req.body.password;
+
+	console.log(userid,email,name,lastname,rol);
+
+	try {
+		// Registering information
+		mysql.user.createUser(userid, computil.createHash(config().checksumhash,password), email, name, lastname, req.session.user.t_company_ruc, rol, 1);
+		
+		var htmlRegistrationTemplate = computil.loadEmailTemplate('security_newuser');
+		if(htmlRegistrationTemplate == '') {
+			console.log('[/userscreate]','[util email template]','La plantilla de correo no pudo ser cargada.');
+		} else {
+			htmlRegistrationTemplate = htmlRegistrationTemplate.replace('$COMPANY_NAME',req.session.user.companyname);
+			htmlRegistrationTemplate = htmlRegistrationTemplate.replace('$BASE_URL',config().baseUrl);
+			htmlRegistrationTemplate = htmlRegistrationTemplate.replace('$USERID',userid);
+			htmlRegistrationTemplate = htmlRegistrationTemplate.replace('$PASSWORD',password);
+			compemail.sendEmail(email,'Registro en NOLAN',htmlRegistrationTemplate);
+		}
+	} catch(e) {
+		console.log(e);
+		mysql.user.deleteUserById(req.session.user.t_company_ruc, userid);
+	}
+
+	res.redirect('/secure/users');
+});
+
+
 module.exports = router;

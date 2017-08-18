@@ -7,7 +7,7 @@ block container
           h2 Formulario de Registro de usuarios
           .clearfix
         .x_content
-          form#demo-form2.form-horizontal(action='/partial/userscreate',method='post')
+          form#demo-form2.form-horizontal(action='/secure/userscreate',method='post')
             h4 Información general del usuario
             p(style='text-align: justify') Los siguientes campos representan información oficial de la compañía, por favor ingrese los datos correctamente.
             .form-group
@@ -35,11 +35,16 @@ block container
               .col-md-4.col-sm-5.col-xs-12
                 input#lastname.form-control.col-md-7.col-xs-12(type='text',name='lastname')
             .form-group
-              label.control-label.col-md-3.col-sm-3.col-xs-12(for='retype-password')
+              label.control-label.col-md-3.col-sm-3.col-xs-12(for='rol')
                 | Rol 
                 span.required *
               .col-md-3.col-sm-4.col-xs-12
-                input#retype_password.form-control.col-md-7.col-xs-12(type='password', name='retype_password')
+                select#rol.form-control(required='')
+                      option(name='rol',value='') Seleccione un rol..
+                      option(name='rol',value='ROL1') Administrador
+                      option(name='rol',value='ROL2') Responsables de Unidades
+                      option(name='rol',value='ROL3') Terceros de Soporte
+                      option(name='rol',value='ROL4') Supervisores de Compromisos
             .form-group
               label.control-label.col-md-3.col-sm-3.col-xs-12(for='password')
                 | Contraseña 
