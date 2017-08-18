@@ -86,6 +86,45 @@ var admin = require('./routes/admin');
 app.use('/admin', admin);
 
 // Starting NodeJS Server
+// Excel middleware
+var Excel = require('exceljs');
+// Loading path library
+var path = require('path');
+// Loading mysql library
+var mysql = require('./lib/mysql');
 app.listen(app.get('port'), '0.0.0.0', function() {
 	console.log('Node.Js Server iniciado en el puerto ' + app.get('port'));
+	var workbook = new Excel.Workbook();
+	workbook.creator = 'SIGNEQ';
+	var worksheet = workbook.addWorksheet('Compromisos');
+
+	var comconfig = mysql.commitment.getComConfigByRuc('12345678908');
+	worksheet.mergeCells(1,1,1,comconfig.length);
+	worksheet.getCell('A1').value = 'Matriz Integrada de Compromisos de la Unidad de Mi Unidad';
+	var row = [];
+	for (var i = 0; i < comconfig.length; i++) {
+		row.push(comconfig[i].name);
+		worksheet.getColumn(i + 1).width = 20;
+	}
+	worksheet.addRow(row);
+
+	worksheet.eachRow(function(row, rowNumber) {
+	    row.eachCell(function(cell, colNumber) {
+		    cell.alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
+		    cell.border = {
+			    top: {style:'medium'},
+			    left: {style:'medium'},
+			    bottom: {style:'medium'},
+			    right: {style:'medium'}
+			};
+		});
+	});
+
+	var downloadpath = path.resolve('downloads/12345678908');
+	var filename = 'plantilla.xlsx';
+	var fullpath = downloadpath + '/' + filename;
+	workbook.xlsx.writeFile(fullpath)
+    .then(function() {
+    	console.log('archiv creado');
+    });
 });
