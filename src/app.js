@@ -86,6 +86,12 @@ var admin = require('./routes/admin');
 app.use('/admin', admin);
 
 // Starting NodeJS Server
+// Excel middleware
+var Excel = require('exceljs');
+// Loading path library
+var path = require('path');
+// Loading mysql library
+var mysql = require('./lib/mysql');
 app.listen(app.get('port'), '0.0.0.0', function() {
 	console.log('Node.Js Server iniciado en el puerto ' + app.get('port'));
 });

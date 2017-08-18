@@ -14,7 +14,7 @@ var compemail = require('../lib/email');
 // Excel middleware
 var Excel = require('exceljs');
 // Loading path library
-var path = require("path");
+var path = require('path');
 
 // TODAS LAS LLAMADAS GET
 router.get('/dashboard',function(req, res){
@@ -95,19 +95,34 @@ router.get('/logout', function(req, res){
 router.get('/template', function(req, res){
 	try {
 		var workbook = new Excel.Workbook();
-		workbook.creator = 'SIGNEQ';
+		workbook.creator = 'Nolan';
+		workbook.lastModifiedBy = 'Nolan';
+		workbook.created = new Date();
+		workbook.modified = new Date();
 		var worksheet = workbook.addWorksheet('Compromisos');
 
 		var comconfig = mysql.commitment.getComConfigByRuc(req.session.user.t_company_ruc);
-		var columns = [];
+		worksheet.mergeCells(1,1,1,comconfig.length);
+		worksheet.getCell('A1').value = 'Matriz Integrada de Compromisos de la Unidad de ' + req.session.user.unidad;
+		var row = [];
 		for (var i = 0; i < comconfig.length; i++) {
-			var column = {
-				header: comconfig[i].name,
-				key: comconfig[i].t_commitment_config_id
-			}
-			columns.push(column);
+			row.push(comconfig[i].name);
+			worksheet.getColumn(i + 1).width = 20;
 		}
-		worksheet.columns = columns;
+		worksheet.addRow(row);
+
+		worksheet.eachRow(function(row, rowNumber) {
+		    row.eachCell(function(cell, colNumber) {
+			    cell.alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
+			    cell.border = {
+				    top: {style:'medium'},
+				    left: {style:'medium'},
+				    bottom: {style:'medium'},
+				    right: {style:'medium'}
+				};
+			});
+		});
+
 		var downloadpath = path.resolve('downloads/' + req.session.user.t_company_ruc);
 		var filename = 'plantilla.xlsx';
 		var fullpath = downloadpath + '/' + filename;
