@@ -4,18 +4,17 @@ block container
     .col-md-12.col-sm-12.col-xs-12
       .x_panel
         .x_title
-          h2 Cartera de Clientes
+          h2 Acceso a usuarios
           .clearfix
         .x_content
           table#tblclients.table.table-striped.table-bordered.jambo_table
             thead
               tr
-                th RUC
-                th Cliente
-                th Usuarios
-                th Configuración Inicial
-                th Fecha de Registro
-                th Opciones
+                th ID Usuario
+                th Correo
+                th Nombres
+                th Apellido
+                th Rol
             tbody
               if clients
                 each client in clients

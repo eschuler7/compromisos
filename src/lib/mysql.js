@@ -69,13 +69,13 @@ var compromisosdb = {
 		},
 		deleteUserById : function(ruc, userid) {
 			var conn = new mysql(connectionOptions);
-			const result = conn.query('delete from t_user where ruc=? and userid=?',[ruc, userid]);
+			const result = conn.query('delete from t_user where t_company_ruc=? and userid=?',[ruc, userid]);
 			conn.dispose();
 			return result;
 		},
 		deleteUsersByRuc : function(ruc) {
 			var conn = new mysql(connectionOptions);
-			const result = conn.query("delete from t_user where ruc=?",[ruc]);
+			const result = conn.query("delete from t_user where t_company_ruc=?",[ruc]);
 			conn.dispose();
 			return result;
 		},
