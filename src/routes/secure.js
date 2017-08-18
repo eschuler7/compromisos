@@ -102,13 +102,26 @@ router.get('/template', function(req, res){
 		var worksheet = workbook.addWorksheet('Compromisos');
 
 		var comconfig = mysql.commitment.getComConfigByRuc(req.session.user.t_company_ruc);
-		worksheet.mergeCells(1,1,1,comconfig.length + 1);
+		worksheet.mergeCells(1,1,1,comconfig.length);
 		worksheet.getCell('A1').value = 'Matriz Integrada de Compromisos de la Unidad de ' + req.session.user.unidad;
 		var row = [];
 		for (var i = 0; i < comconfig.length; i++) {
 			row.push(comconfig[i].name);
+			worksheet.getColumn(i + 1).width = 20;
 		}
-		worksheet.addRow = row;
+		worksheet.addRow(row);
+
+		worksheet.eachRow(function(row, rowNumber) {
+		    row.eachCell(function(cell, colNumber) {
+			    cell.alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
+			    cell.border = {
+				    top: {style:'medium'},
+				    left: {style:'medium'},
+				    bottom: {style:'medium'},
+				    right: {style:'medium'}
+				};
+			});
+		});
 
 		var downloadpath = path.resolve('downloads/' + req.session.user.t_company_ruc);
 		var filename = 'plantilla.xlsx';
