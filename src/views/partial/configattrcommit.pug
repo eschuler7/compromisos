@@ -14,7 +14,7 @@ block container
               table#datatable-responsive.table.dt-responsive.nowrap(cellspacing='0', width='100%')
                 each type, index in commitment
                   - var check = false
-                  if type.id != 'CM28' && type.id != 'CM29' && type.id != 'CM30' && type.id != 'CM31'
+                  if type.id != 'CM30' && type.id != 'CM31' && type.id != 'CM32' && type.id != 'CM33'
                     if index % 4 == 0
                       tr
                       if index % 4 == 0
@@ -46,7 +46,7 @@ block container
                   strong(style='color: #71859A') ETAPAS
                 each type, index in commitment
                   - var check = false
-                  if type.id == 'CM28' || type.id == 'CM29'|| type.id == 'CM30'|| type.id == 'CM31'
+                  if type.id == 'CM30' || type.id == 'CM31'|| type.id == 'CM32'|| type.id == 'CM33'
                     if index+1 % 4 == 0
                       tr
                       if index+1 % 4 == 0 
