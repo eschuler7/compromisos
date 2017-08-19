@@ -71,13 +71,13 @@ router.post('/create',function(req, res){
 			//mysql.monitor.updateMonitorConfig(ruc);
 			// Creating upload and download folders
 			var downloadpath = path.resolve('downloads') + '/' + ruc;
-			fs.mkdir(downloadpath, mask, function(err) {
+			fs.mkdir(downloadpath, function(err) {
 		        if (err) {
 		            console.log(err);
 		        }
 		    });
 			var uploadpath = path.resolve('uploads') + '/' + ruc;
-			fs.mkdir(uploadpath, mask, function(err) {
+			fs.mkdir(uploadpath, function(err) {
 		        if (err) {
 		            console.log(err);
 		        }

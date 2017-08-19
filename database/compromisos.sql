@@ -87,7 +87,7 @@ insert into t_monitor_config(id,name,cdatetime,udatetime) values('MN31','Post-Ci
 
 
 -- Inserts iniciales para la tabla company / password: password$1
-insert into t_company values('12345678909','SIGNEQ',null,null,0,now(),now());
+insert into t_company values('12345678909','NOLAN',null,null,0,now(),now());
 insert into t_user values('jdelgado','ca1b02d4cff620b1dd6fccdf2a48714f','joandelgado18@gmail.com','Joan Martín','Delgado Bendezú','12345678909','ROL5',1,now(),now());
 insert into t_user values('eschuler','ca1b02d4cff620b1dd6fccdf2a48714f','eschulergodo7@gmail.com','Joan Martín','Delgado Bendezú','12345678909','ROL5',1,now(),now());
 
@@ -113,3 +113,5 @@ delete from t_monitor_config where id like 'MN%';
 
 select * from t_user;
 select userid, email, tu.name, lastname, t_rol_rolid, tr.name rol_name, tu.cdatetime, tu.udatetime from t_user tu left join t_rol tr on tu.t_rol_rolid=tr.rolid where tu.t_company_ruc=10101010101;
+select t_company_ruc,t_monitor_config_id,tmc.name from t_company_monitor tcm left join t_monitor_config tmc on tcm.t_monitor_config_id=tmc.id where t_company_ruc=10101010101;
+select t_company_ruc,t_dashboard_config_id,tdc.name from t_company_dashboard tcd left join t_dashboard_config tdc on tcd.t_dashboard_config_id=tdc.id where t_company_ruc=10101010101;
