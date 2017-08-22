@@ -230,8 +230,6 @@ router.post('/initConfig', function(req, res){
 		var result = mysql.company.updateFirstTime(req.session.user.t_company_ruc,0);
 		if(result.affectedRows == 1) {
 			req.session.user.firsttime = 0;
-<<<<<<< HEAD
-
 			try{
 				if(multiunidad=='Multiunidad')
 					var unidadinit = 'Multiunidad';
@@ -251,8 +249,6 @@ router.post('/initConfig', function(req, res){
 				console.log('[/initConfig]',e);
 			}
 			res.redirect('/secure/dashboard');
-=======
->>>>>>> 0ba4ffab27464eee93058d9502696fb4e437263d
 		}
 		res.redirect('/secure/dashboard');
 	} catch(e) {
@@ -362,9 +358,6 @@ router.post('/deleteUser', function(req, res){
 	}
 	res.redirect('/secure/users');
 });
-<<<<<<< HEAD
-module.exports = router;
-=======
 
 router.post('/resetConfigGlobal', function(req, res){
 	var ruc = req.body.ruc;
@@ -385,4 +378,3 @@ router.post('/resetConfigGlobal', function(req, res){
 });
 
 module.exports = router;
->>>>>>> 0ba4ffab27464eee93058d9502696fb4e437263d
