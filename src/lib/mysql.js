@@ -97,7 +97,7 @@ var compromisosdb = {
 			conn.dispose();
 			return result;
 		},
-		getUsersByRuc : function(ruc) {
+		getUsersByRuc : function() {
 			var conn = new mysql(connectionOptions);
 			const result = conn.query('select userid, email, tu.name, lastname, t_rol_rolid, tr.name rol_name, tu.cdatetime, tu.udatetime from t_user tu left join t_rol tr on tu.t_rol_rolid=tr.rolid where tu.t_company_ruc=?',[ruc]);
 			conn.dispose();

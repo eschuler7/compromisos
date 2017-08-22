@@ -9,7 +9,7 @@ block container
           .clearfix
         .x_content
           p(style='text-align: justify') Para realizar la carga masiva debe descargar la plantilla que se ha generado de acuerdo a las configuraciones iniciales que ha escogido durante el wizard de configuración inicial. Para modificar los campos del excel puede ir a configuración de atributos y seleccionar los campos que se mostrarán.
-          a.btn.btn-success.btn-xs(href='template')
+          a.btn.btn-success.btn-xs(href='downloadtemplate')
             i.fa.fa-download
             |  Descargar Plantilla
           a.btn.btn-info.btn-xs(href='#')
@@ -23,7 +23,7 @@ block container
           .clearfix
         .x_content
           p(style='text-align: justify') Cargue la plantilla de compromisos que descargó previamente con la información de todos sus compromisos.
-          form.form-horizontal(action='/admin/create',method='post')
+          form.form-horizontal(action='uploadtemplate',method='post',enctype='multipart/form-data')
             .row
               .col-md-12.col-sm-12.col-xs-12
                 input#template.inputfile.inputfile-6(type='file',name='template')
@@ -34,5 +34,5 @@ block container
                     |  Cargar Plantilla
             .ln_solid
             .form-group
-              a.btn.btn-default.btn-sm(href='clients') Cancelar
+              a.btn.btn-default.btn-sm(href='clients') Limpiar
               button.btn.btn-success.btn-sm.pull-right(type='submit') Siguiente

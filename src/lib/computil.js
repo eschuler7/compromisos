@@ -23,5 +23,9 @@ var loadEmailTemplate = function(templateName) {
 	return template;
 }
 
+var handleError = function(res, e) {
+	res.render('partial/msghandler/error',{error: e});
+}
+
 module.exports.createHash = createHash;
 module.exports.loadEmailTemplate = loadEmailTemplate;

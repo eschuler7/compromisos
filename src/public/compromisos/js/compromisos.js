@@ -12,7 +12,7 @@ $(document).ready(function(){
 			},
 			password : {
 				required : true,
-				minlength : 6
+				minlength : 8
 			}
 		},
 		messages : {
@@ -23,7 +23,7 @@ $(document).ready(function(){
 			},
 			password : {
 				required : 'Este campo es requerido',
-				minlength : 'Mínimo 6 caracteres'
+				minlength : 'Mínimo 8 caracteres'
 			}
 		},
 		submitHandler : function(form) {
@@ -34,32 +34,32 @@ $(document).ready(function(){
 		rules : {
 			password : {
 				required : true,
-				minlength : 6
+				minlength : 8
 			},
 			newpassword : {
 				required : true,
-				minlength : 6,
+				minlength : 8,
 				notEqualTo : '#password'
 			},
 			retype_newpassword : {
 				required : true,
-				minlength : 6,
+				minlength : 8,
 				equalTo : '#newpassword'
 			}
 		},
 		messages : {
 			password : {
 				required : 'Este campo es requerido',
-				minlength : 'Mínimo 6 caracteres'
+				minlength : 'Mínimo 8 caracteres'
 			},
 			newpassword : {
 				required : 'Este campo es requerido',
-				minlength : 'Mínimo 6 caracteres',
+				minlength : 'Mínimo 8 caracteres',
 				notEqualTo : 'No se puede reutilizar la contraseña'
 			},
 			retype_newpassword : {
 				required : 'Este campo es requerido',
-				minlength : 'Mínimo 6 caracteres',
+				minlength : 'Mínimo 8 caracteres',
 				equalTo : 'La contraseña no coincide'
 			}
 		},

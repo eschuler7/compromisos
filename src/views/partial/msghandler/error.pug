@@ -1,0 +1,20 @@
+extends ../../layouts/layout_main.pug
+block container
+  .row
+    .col-md-12.col-sm-12.col-xs-12
+      .x_panel
+        .x_title
+          h2 Error de ejecución
+          ul.nav.navbar-right.panel_toolbox
+          .clearfix
+        .x_content
+          .alert.alert-danger.alert-dismissible.fade.in(role='alert',style='color:white')
+            strong ¡Ups!
+            |  Ocurrió un error durante la ejecución de la transacción, por favor vuelva a intentarlo o póngase en contacto con el equipo de soporte.
+          |  Detalle del error:
+          .row
+            .col-md-12
+              textarea.col-md-12(style='resize: none',rows='4', disabled='',width='100%')
+                | #{error}
+          .ln_solid
+          a.btn.btn-default.btn-sm(href='javascript:history.back()') Regresar

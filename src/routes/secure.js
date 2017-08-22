@@ -15,6 +15,21 @@ var compemail = require('../lib/email');
 var Excel = require('exceljs');
 // Loading path library
 var path = require('path');
+// Loading multer to storage files
+var multer  = require('multer');
+
+// Configuring upload template storage
+var uploadsStorage = multer.diskStorage({
+  destination: function (req, file, cb) {
+  	var ruc = req.session.user.t_company_ruc;
+    cb(null, path.resolve('uploads/' + ruc));
+  },
+  filename: function (req, file, cb) {
+  	var userid = req.session.user.userid;
+    cb(null, userid + '-template.' + file.originalname.split('.')[file.originalname.split('.').length - 1]);
+  }
+});
+var udploadTemplate = multer({ storage: uploadsStorage });
 
 // TODAS LAS LLAMADAS GET
 router.get('/dashboard',function(req, res){
@@ -92,7 +107,7 @@ router.get('/logout', function(req, res){
 	res.redirect('/');
 });
 
-router.get('/template', function(req, res){
+router.get('/downloadtemplate', function(req, res){
 	try {
 		var workbook = new Excel.Workbook();
 		workbook.creator = 'Nolan';
@@ -124,11 +139,11 @@ router.get('/template', function(req, res){
 		});
 
 		var downloadpath = path.resolve('downloads/' + req.session.user.t_company_ruc);
-		var filename = 'plantilla.xlsx';
+		var filename = req.session.user.userid + '-plantilla.xlsx';
 		var fullpath = downloadpath + '/' + filename;
 		workbook.xlsx.writeFile(fullpath)
 	    .then(function() {
-	    	res.attachment(filename);
+	    	res.attachment('plantilla.xlsx');
 	        res.sendFile(fullpath);
 	    });
 	} catch(e) {
@@ -148,7 +163,37 @@ router.get('/userscreate', function(req, res){
 	res.render('partial/userscreate');
 });
 
+router.get('/prueba',function(req, res){
+	try {
+		mysql.user.getUsersByRuc();
+	} catch(e) {
+		res.render('partial/msghandler/error',{error: e});
+	}
+});
+
 // TODAS LAS LLAMADAS POST
+
+router.post('/uploadtemplate',udploadTemplate.single('template'), function(req,res){
+	try {
+		var workbook = new Excel.Workbook();
+		var uploadpath = path.resolve('uploads/' + req.session.user.t_company_ruc);
+		var filename = req.file.filename;
+		var fullpath = uploadpath + '/' + filename;
+		workbook.xlsx.readFile(fullpath)
+	    .then(function() {
+	        var worksheet = workbook.getWorksheet(1);
+	        var comconfig = mysql.commitment.getComConfigByRuc(req.session.user.t_company_ruc);
+	        if(worksheet.actualColumnCount == comconfig.length) {
+	        	console.log('Eureka!!');
+	        } else {
+	        	console.log('Buhhhh :(');
+	        }
+	    });
+	} catch(e) {
+		console.log(e);
+	}
+});
+
 
 router.post('/initConfig', function(req, res){
 	var razonsocial = req.body.razonsocial;
@@ -179,9 +224,9 @@ router.post('/initConfig', function(req, res){
 				console.log('Insertando dashboard: ');
 				mysql.dashboard.updateDashboardConfig(req.session.user.t_company_ruc,dashboard);
 				console.log('Insertando compromisos: ');
-				mysql.commitment.updateCommitmentConfig(req.session.user.t_company_ruc,compromisos);	
+				mysql.commitment.updateCommitmentConfig(req.session.user.t_company_ruc,compromisos);
 				console.log('Insertando monitoreo: ');
-				mysql.monitor.updateMonitorConfig(req.session.user.t_company_ruc,monitoreo);	
+				mysql.monitor.updateMonitorConfig(req.session.user.t_company_ruc,monitoreo);
 
 			}catch(e) {
 				console.log('[/initConfig]',e);
@@ -204,12 +249,12 @@ router.post('/configattrcommit', function(req, res){
 		console.log('resultado de etapascompromiso: ',etapascompromiso);
 		//sección Eliminar data
 		var result = mysql.commitment.deleteCommitmentTypes(req.session.user.t_company_ruc);
-		
+
 		console.log('Insertando compromisos: ');
-		mysql.commitment.updateCommitmentConfig(req.session.user.t_company_ruc,compromisos);	
+		mysql.commitment.updateCommitmentConfig(req.session.user.t_company_ruc,compromisos);
 
 		res.redirect('/secure/configattrcommit');
-		
+
 	} catch(e) {
 		console.log('[/configattrcommit]',e);
 	}
@@ -225,12 +270,12 @@ router.post('/configattrmonit', function(req, res){
 		console.log('resultado de etapasmonitoreo: ',etapasmonitoreo);
 		//sección Eliminar data
 		var result = mysql.monitor.deleteMonitorTypes(req.session.user.t_company_ruc);
-		
+
 		console.log('Insertando monitoreo: ');
-		mysql.monitor.updateMonitorConfig(req.session.user.t_company_ruc,monitoreo);		
+		mysql.monitor.updateMonitorConfig(req.session.user.t_company_ruc,monitoreo);
 
 		res.redirect('/secure/configattrmonit');
-		
+
 	} catch(e) {
 		console.log('[/configattrmonit]',e);
 	}
@@ -249,7 +294,7 @@ router.post('/userscreate', function(req, res){
 	try {
 		// Registering information
 		mysql.user.createUser(userid, computil.createHash(config().checksumhash,password), email, name, lastname, req.session.user.t_company_ruc, rol, 1);
-		
+
 		var htmlRegistrationTemplate = computil.loadEmailTemplate('security_newuser');
 		if(htmlRegistrationTemplate == '') {
 			console.log('[/userscreate]','[util email template]','La plantilla de correo no pudo ser cargada.');
