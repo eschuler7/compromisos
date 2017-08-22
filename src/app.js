@@ -85,6 +85,16 @@ app.use('/secure', secure);
 var admin = require('./routes/admin');
 app.use('/admin', admin);
 
+// Midleware custom error handler
+app.use(function(err, req, res, next){
+	console.log('[ERROR]','[' + req.originalUrl + ']','[' + req.method + ']','[Ajax:' + req.xhr + ']',err);
+	if(req.xhr) {
+		res.send('error');
+	} else {
+		res.render('partial/handlers/error');
+	}
+});
+
 // Starting NodeJS Server
 // Excel middleware
 var Excel = require('exceljs');

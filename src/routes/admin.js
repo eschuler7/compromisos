@@ -19,22 +19,14 @@ var path = require("path");
 
 router.get('/clients', function(req, res){
 	var companies;
-	try {
-		companies = mysql.company.listCompanies(req.session.user.t_company_ruc);
-	} catch(e) {
-		console.log('[/clients]',e);
-	}
+	companies = mysql.company.listCompanies(req.session.user.t_company_ruc);
 	res.render('partial/admin/clients',{clients: companies});
 });
 router.get('/clientdetail/:ruc', function(req, res){
 	var ruc = req.params.ruc;
-	try {
-		var client = mysql.company.getCompanyByRuc(ruc);
-		var users = mysql.user.getUsersByRuc(ruc);
-		res.render('partial/admin/clientdetail',{client:client[0],users:users});
-	} catch(e) {
-		console.log('[/clientdetail]',e);
-	}
+	var client = mysql.company.getCompanyByRuc(ruc);
+	var users = mysql.user.getUsersByRuc(ruc);
+	res.render('partial/admin/clientdetail',{client:client[0],users:users});
 });
 router.get('/createclient', function(req, res){
 	res.render('partial/admin/clientcreate');
@@ -46,7 +38,7 @@ router.get('/logout', function(req, res){
 
 
 // TODAS LAS LLAMADAS POST
-router.post('/create',function(req, res){
+router.post('/create',function(req, res, next){
 	var ruc = req.body.ruc;
 	var companyname = req.body.companyname;
 	var userid = req.body.userid;
@@ -55,11 +47,9 @@ router.post('/create',function(req, res){
 	var lastname = req.body.lastname;
 	var password = req.body.password;
 
-	console.log(ruc,companyname);
-
 	try {
 		// Registering company information
-		var result = mysql.company.createCompany(ruc, companyname);
+		var result = mysql.compny.createCompany(ruc, companyname);
 		if(result.affectedRows == 1) {
 			// Registering user information
 			mysql.user.createUser(userid, computil.createHash(config().checksumhash,password), email, name, lastname, ruc, 'ROL1', 1);
@@ -95,58 +85,35 @@ router.post('/create',function(req, res){
 				compemail.sendEmail(email,'Registro en Mis Compromisos',htmlRegistrationTemplate);
 			}
 		}
+		res.redirect('/admin/clients');
 	} catch(e) {
-		console.log('[/admin/create]',e);
-		try {
-			mysql.company.deleteCompanyByRuc(ruc);
-		} catch(e) {
-			console.log('[/admin/create]','[rollback company]',e);
-		}
+		mysql.company.deleteCompanyByRuc(ruc);
+		next(e);
 	}
-	res.redirect('/admin/clients');
 });
 router.post('/deleteclient', function(req, res){
 	var ruc = req.body.ruc;
-	try {
-		var result = mysql.company.deleteCompanyByRuc(ruc);
-	} catch(e) {
-		console.log('[/admin/deletecompany]','[rollback company]',e);
-	}
+	var result = mysql.company.deleteCompanyByRuc(ruc);
 	res.redirect('/admin/clients');
 });
 //Ajax call
 router.post('/validateruc', function(req, res){
 	var ruc = req.body.ruc;
-	try {
-		var result = mysql.company.validateRuc(ruc);
-		if(result.length > 0) {
-			res.send(false);
-		} else {
-			res.send(true);
-		}
-	} catch(e) {
-		console.log('[/validateruc]',e);
+	var result = mysql.company.validateRuc(ruc);
+	if(result.length > 0) {
+		res.send(false);
+	} else {
 		res.send(true);
 	}
 });
 // Ajax call
 router.post('/validateuserid', function(req, res){
 	var userid = req.body.userid;
-	try {
-		var result = mysql.user.validateUserId(userid);
-		if(result.length > 0) {
-			res.send(false);
-		} else {
-			res.send(true);
-		}
-	} catch(e) {
-		console.log('[/validateemail]',e);
+	var result = mysql.user.validateUserId(userid);
+	if(result.length > 0) {
+		res.send(false);
+	} else {
 		res.send(true);
 	}
-});
-router.post('/pruebita', function(req, res){
-	var pruebita = req.body.prueba;
-	console.log(pruebita);
-	res.end();
 });
 module.exports = router;

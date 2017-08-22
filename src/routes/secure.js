@@ -56,11 +56,7 @@ router.get('/select', function(req, res){
 
 router.get('/listall', function(req, res){
 	var comconfig;
-	try {
-		comconfig = mysql.commitment.getComConfigByRuc(req.session.user.t_company_ruc);
-	} catch(e) {
-		console.log('[/listall]',e);
-	}
+	comconfig = mysql.commitment.getComConfigByRuc(req.session.user.t_company_ruc);
 	res.render('partial/listall',{comconfig: comconfig});
 });
 
@@ -93,13 +89,8 @@ router.get('/configattrmonit', function(req, res){
 });
 router.get('/listallmonit', function(req, res){
 	var monitconfig;
-	try {
-		monitconfig = mysql.monitor.getMonitConfigByRuc(req.session.user.t_company_ruc);
-	} catch(e) {
-		console.log('[/listallmonit]',e);
-	}
+	monitconfig = mysql.monitor.getMonitConfigByRuc(req.session.user.t_company_ruc);
 	res.render('partial/listallmonit',{monitconfig: monitconfig});
-
 });
 router.get('/massivemonit', function(req, res){
 	res.render('partial/massivemonit');
@@ -113,90 +104,72 @@ router.get('/logout', function(req, res){
 });
 
 router.get('/downloadtemplate', function(req, res){
-	try {
-		var workbook = new Excel.Workbook();
-		workbook.creator = 'Nolan';
-		workbook.lastModifiedBy = 'Nolan';
-		workbook.created = new Date();
-		workbook.modified = new Date();
-		var worksheet = workbook.addWorksheet('Compromisos');
+	var workbook = new Excel.Workbook();
+	workbook.creator = 'Nolan';
+	workbook.lastModifiedBy = 'Nolan';
+	workbook.created = new Date();
+	workbook.modified = new Date();
+	var worksheet = workbook.addWorksheet('Compromisos');
 
-		var comconfig = mysql.commitment.getComConfigByRuc(req.session.user.t_company_ruc);
-		worksheet.mergeCells(1,1,1,comconfig.length);
-		worksheet.getCell('A1').value = 'Matriz Integrada de Compromisos de la Unidad de ' + req.session.user.unidad;
-		var row = [];
-		for (var i = 0; i < comconfig.length; i++) {
-			row.push(comconfig[i].name);
-			worksheet.getColumn(i + 1).width = 20;
-		}
-		worksheet.addRow(row);
-
-		worksheet.eachRow(function(row, rowNumber) {
-		    row.eachCell(function(cell, colNumber) {
-			    cell.alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
-			    cell.border = {
-				    top: {style:'medium'},
-				    left: {style:'medium'},
-				    bottom: {style:'medium'},
-				    right: {style:'medium'}
-				};
-			});
-		});
-
-		var downloadpath = path.resolve('downloads/' + req.session.user.t_company_ruc);
-		var filename = req.session.user.userid + '-plantilla.xlsx';
-		var fullpath = downloadpath + '/' + filename;
-		workbook.xlsx.writeFile(fullpath)
-	    .then(function() {
-	    	res.attachment('plantilla.xlsx');
-	        res.sendFile(fullpath);
-	    });
-	} catch(e) {
-		console.log('[/listall]',e);
+	var comconfig = mysql.commitment.getComConfigByRuc(req.session.user.t_company_ruc);
+	worksheet.mergeCells(1,1,1,comconfig.length);
+	worksheet.getCell('A1').value = 'Matriz Integrada de Compromisos de la Unidad de ' + req.session.user.unidad;
+	var row = [];
+	for (var i = 0; i < comconfig.length; i++) {
+		row.push(comconfig[i].name);
+		worksheet.getColumn(i + 1).width = 20;
 	}
+	worksheet.addRow(row);
+
+	worksheet.eachRow(function(row, rowNumber) {
+	    row.eachCell(function(cell, colNumber) {
+		    cell.alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
+		    cell.border = {
+			    top: {style:'medium'},
+			    left: {style:'medium'},
+			    bottom: {style:'medium'},
+			    right: {style:'medium'}
+			};
+		});
+	});
+
+	var downloadpath = path.resolve('downloads/' + req.session.user.t_company_ruc);
+	var filename = req.session.user.userid + '-plantilla.xlsx';
+	var fullpath = downloadpath + '/' + filename;
+	workbook.xlsx.writeFile(fullpath)
+    .then(function() {
+    	res.attachment('plantilla.xlsx');
+        res.sendFile(fullpath);
+    });
 });
+
 router.get('/users', function(req, res){
 	var users;
-	try {
-		users = mysql.user.getUsersByRuc(req.session.user.t_company_ruc);
-	} catch(e) {
-		console.log('[/users]',e);
-	}
+	users = mysql.user.getUsersByRuc(req.session.user.t_company_ruc);
 	res.render('partial/users', {users: users});
 });
+
 router.get('/userscreate', function(req, res){
 	res.render('partial/userscreate');
-});
-
-router.get('/prueba',function(req, res){
-	try {
-		mysql.user.getUsersByRuc();
-	} catch(e) {
-		res.render('partial/msghandler/error',{error: e});
-	}
 });
 
 // TODAS LAS LLAMADAS POST
 
 router.post('/uploadtemplate',udploadTemplate.single('template'), function(req,res){
-	try {
-		var workbook = new Excel.Workbook();
-		var uploadpath = path.resolve('uploads/' + req.session.user.t_company_ruc);
-		var filename = req.file.filename;
-		var fullpath = uploadpath + '/' + filename;
-		workbook.xlsx.readFile(fullpath)
-	    .then(function() {
-	        var worksheet = workbook.getWorksheet(1);
-	        var comconfig = mysql.commitment.getComConfigByRuc(req.session.user.t_company_ruc);
-	        if(worksheet.actualColumnCount == comconfig.length) {
-	        	console.log('Eureka!!');
-	        } else {
-	        	console.log('Buhhhh :(');
-	        }
-	    });
-	} catch(e) {
-		console.log(e);
-	}
+	var workbook = new Excel.Workbook();
+	var uploadpath = path.resolve('uploads/' + req.session.user.t_company_ruc);
+	var filename = req.file.filename;
+	var fullpath = uploadpath + '/' + filename;
+	workbook.xlsx.readFile(fullpath)
+    .then(function() {
+        var worksheet = workbook.getWorksheet(1);
+        var comconfig = mysql.commitment.getComConfigByRuc(req.session.user.t_company_ruc);
+        if(worksheet.actualColumnCount == comconfig.length) {
+        	console.log('Eureka!!');
+        } else {
+        	console.log('Buhhhh :(');
+        }
+    });
 });
 
 
@@ -213,7 +186,17 @@ router.post('/initConfig', function(req, res){
 	var compromisos = req.body.compromisos;
 	//sección monitoreo
 	var monitoreo = req.body.monitoreo;
-	try {
+	if(multiunidad=='Multiunidad')
+		var unidadinit = 'Multiunidad';
+	if(multiproyoper=='Multiproyecto')
+		var proyoper = 'Multiproyecto';
+	mysql.company.updateCompanyByRuc(req.session.user.t_company_ruc,razonsocial,unidadinit,proyoper);
+	mysql.dashboard.updateDashboardConfig(req.session.user.t_company_ruc,dashboard);
+	mysql.commitment.updateCommitmentConfig(req.session.user.t_company_ruc,compromisos);	
+	mysql.monitor.updateMonitorConfig(req.session.user.t_company_ruc,monitoreo);
+	var result = mysql.company.updateFirstTime(req.session.user.t_company_ruc,0);
+	if(result.affectedRows == 1) {
+		req.session.user.firsttime = 0;
 		if(multiunidad=='Multiunidad')
 			var unidadinit = 'Multiunidad';
 		if(multiproyoper=='Multiproyecto')
@@ -224,100 +207,45 @@ router.post('/initConfig', function(req, res){
 		console.log('Insertando dashboard: ');
 		mysql.dashboard.updateDashboardConfig(req.session.user.t_company_ruc,dashboard);
 		console.log('Insertando compromisos: ');
-		mysql.commitment.updateCommitmentConfig(req.session.user.t_company_ruc,compromisos);	
+		mysql.commitment.updateCommitmentConfig(req.session.user.t_company_ruc,compromisos);
 		console.log('Insertando monitoreo: ');
 		mysql.monitor.updateMonitorConfig(req.session.user.t_company_ruc,monitoreo);
-		var result = mysql.company.updateFirstTime(req.session.user.t_company_ruc,0);
-		if(result.affectedRows == 1) {
-			req.session.user.firsttime = 0;
-			try{
-				if(multiunidad=='Multiunidad')
-					var unidadinit = 'Multiunidad';
-				if(multiproyoper=='Multiproyecto')
-					var proyoper = 'Multiproyecto';
-				console.log('resultado de unidadinit: ',unidadinit);
-				console.log('Insertando Headers: ');
-				mysql.company.updateCompanyByRuc(req.session.user.t_company_ruc,razonsocial,unidadinit,proyoper);
-				console.log('Insertando dashboard: ');
-				mysql.dashboard.updateDashboardConfig(req.session.user.t_company_ruc,dashboard);
-				console.log('Insertando compromisos: ');
-				mysql.commitment.updateCommitmentConfig(req.session.user.t_company_ruc,compromisos);
-				console.log('Insertando monitoreo: ');
-				mysql.monitor.updateMonitorConfig(req.session.user.t_company_ruc,monitoreo);
-
-			}catch(e) {
-				console.log('[/initConfig]',e);
-			}
-			res.redirect('/secure/dashboard');
-		}
 		res.redirect('/secure/dashboard');
-	} catch(e) {
-		console.log('[/initConfig]',e);
 	}
+	res.redirect('/secure/dashboard');
 });
 
 router.post('/configattrcommit', function(req, res){
-	try {
-
-		//sección compromisos
-		var compromisos = req.body.compromisos;
-		console.log('resultado de compromisos: ',compromisos);
-		//sección etapascompromiso
-		var etapascompromiso = req.body.etapascompromiso;
-		console.log('resultado de etapascompromiso: ',etapascompromiso);
-		//sección Eliminar data
-		var result = mysql.commitment.deleteCommitmentTypes(req.session.user.t_company_ruc);
-
-		console.log('Insertando compromisos: ');
-		mysql.commitment.updateCommitmentConfig(req.session.user.t_company_ruc,compromisos);
-
-		res.redirect('/secure/configattrcommit');
-
-	} catch(e) {
-		console.log('[/configattrcommit]',e);
-	}
+	//sección compromisos
+	var compromisos = req.body.compromisos;
+	//sección etapascompromiso
+	var etapascompromiso = req.body.etapascompromiso;
+	//sección Eliminar data
+	var result = mysql.commitment.deleteCommitmentTypes(req.session.user.t_company_ruc);
+	mysql.commitment.updateCommitmentConfig(req.session.user.t_company_ruc,compromisos);
+	res.redirect('/secure/configattrcommit');
 });
 
 router.post('/configattrmonit', function(req, res){
-	try {
-
-		var monitoreo = req.body.monitoreo;
-		console.log('resultado de monitoreo: ',monitoreo);
-		//sección etapasmonitoreo
-		var etapasmonitoreo = req.body.etapasmonitoreo;
-		console.log('resultado de etapasmonitoreo: ',etapasmonitoreo);
-		//sección Eliminar data
-		var result = mysql.monitor.deleteMonitorTypes(req.session.user.t_company_ruc);
-
-		console.log('Insertando monitoreo: ');
-		mysql.monitor.updateMonitorConfig(req.session.user.t_company_ruc,monitoreo);
-
-		res.redirect('/secure/configattrmonit');
-
-	} catch(e) {
-		console.log('[/configattrmonit]',e);
-	}
+	var monitoreo = req.body.monitoreo;
+	//sección etapasmonitoreo
+	var etapasmonitoreo = req.body.etapasmonitoreo;
+	//sección Eliminar data
+	var result = mysql.monitor.deleteMonitorTypes(req.session.user.t_company_ruc);
+	mysql.monitor.updateMonitorConfig(req.session.user.t_company_ruc,monitoreo);
+	res.redirect('/secure/configattrmonit');
 });
 
 router.post('/configattrdashboard', function(req, res){
-	try {
-
-		//sección dashboard
-		var dashboard = req.body.dashboard;
-		console.log('resultado de dashboard: ',dashboard);
-		//sección Eliminar data
-		var result = mysql.dashboard.deleteDashboardTypes(req.session.user.t_company_ruc);
-		
-		console.log('Insertando dashboard: ');
-		mysql.dashboard.updateDashboardConfig(req.session.user.t_company_ruc,dashboard);	
-
-		res.redirect('/secure/configattrdashboard');
-		
-	} catch(e) {
-		console.log('[/configattrdashboard]',e);
-	}
+	//sección dashboard
+	var dashboard = req.body.dashboard;
+	//sección Eliminar data
+	var result = mysql.dashboard.deleteDashboardTypes(req.session.user.t_company_ruc);
+	mysql.dashboard.updateDashboardConfig(req.session.user.t_company_ruc,dashboard);	
+	res.redirect('/secure/configattrdashboard');
 });
-router.post('/userscreate', function(req, res){
+
+router.post('/userscreate', function(req, res, next){
 	var userid = req.body.userid;
 	var email = req.body.email;
 	var name = req.body.name;
@@ -325,15 +253,14 @@ router.post('/userscreate', function(req, res){
 	var lastname = req.body.lastname;
 	var password = req.body.password;
 
-	console.log(userid,email,name,lastname,rol);
-
 	try {
 		// Registering information
 		mysql.user.createUser(userid, computil.createHash(config().checksumhash,password), email, name, lastname, req.session.user.t_company_ruc, rol, 1);
 
 		var htmlRegistrationTemplate = computil.loadEmailTemplate('security_newuser');
 		if(htmlRegistrationTemplate == '') {
-			console.log('[/userscreate]','[util email template]','La plantilla de correo no pudo ser cargada.');
+			var error = new Error('La plantilla de correo no pudo ser cargada');
+			next(error);
 		} else {
 			htmlRegistrationTemplate = htmlRegistrationTemplate.replace('$COMPANY_NAME',req.session.user.companyname);
 			htmlRegistrationTemplate = htmlRegistrationTemplate.replace('$BASE_URL',config().baseUrl);
@@ -341,38 +268,27 @@ router.post('/userscreate', function(req, res){
 			htmlRegistrationTemplate = htmlRegistrationTemplate.replace('$PASSWORD',password);
 			compemail.sendEmail(email,'Registro en NOLAN',htmlRegistrationTemplate);
 		}
+		res.redirect('/secure/users');
 	} catch(e) {
-		console.log(e);
 		mysql.user.deleteUserById(req.session.user.t_company_ruc, userid);
+		next(e);
 	}
-
-	res.redirect('/secure/users');
 });
 
 router.post('/deleteUser', function(req, res){
 	var userid = req.body.userid;
-	try {
-		var result = mysql.user.deleteUserById(req.session.user.t_company_ruc,userid);
-	} catch(e) {
-		console.log('[/secure/deleteUser]','[rollback user]',e);
-	}
+	var result = mysql.user.deleteUserById(req.session.user.t_company_ruc,userid);
 	res.redirect('/secure/users');
 });
 
 router.post('/resetConfigGlobal', function(req, res){
 	var ruc = req.body.ruc;
-	try {
-		var result = mysql.company.deleteCompanyByRuc(ruc);
-		var result = mysql.dashboard.deleteDashboardTypes(req.session.user.t_company_ruc);
-		var result = mysql.commitment.deleteCommitmentTypes(req.session.user.t_company_ruc);
-		var result = mysql.monitor.deleteMonitorTypes(req.session.user.t_company_ruc);
-		var result = mysql.company.updateFirstTime(req.session.user.t_company_ruc,1);
-		req.session.destroy();
-		//res.redirect('/');
-	} catch(e) {
-		
-		console.log('[/secure/users]','[rollback company]',e);
-	}
+	var result = mysql.company.deleteCompanyByRuc(ruc);
+	var result = mysql.dashboard.deleteDashboardTypes(req.session.user.t_company_ruc);
+	var result = mysql.commitment.deleteCommitmentTypes(req.session.user.t_company_ruc);
+	var result = mysql.monitor.deleteMonitorTypes(req.session.user.t_company_ruc);
+	var result = mysql.company.updateFirstTime(req.session.user.t_company_ruc,1);
+	req.session.destroy();
 	res.redirect('/');
 	
 });
