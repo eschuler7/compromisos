@@ -94,6 +94,7 @@ insert into t_user values('eschuler','ca1b02d4cff620b1dd6fccdf2a48714f','eschule
 update t_company set firsttime=1 where ruc='10101010101';
 select * from t_company;
 select * from t_company_dashboard;
+select id, name from t_dashboard_config;
 delete from t_company_dashboard where t_company_ruc='10101010101';
 
 select * from t_company_commitment;
@@ -115,3 +116,5 @@ select * from t_user;
 select userid, email, tu.name, lastname, t_rol_rolid, tr.name rol_name, tu.cdatetime, tu.udatetime from t_user tu left join t_rol tr on tu.t_rol_rolid=tr.rolid where tu.t_company_ruc=10101010101;
 select t_company_ruc,t_monitor_config_id,tmc.name from t_company_monitor tcm left join t_monitor_config tmc on tcm.t_monitor_config_id=tmc.id where t_company_ruc=10101010101;
 select t_company_ruc,t_dashboard_config_id,tdc.name from t_company_dashboard tcd left join t_dashboard_config tdc on tcd.t_dashboard_config_id=tdc.id where t_company_ruc=10101010101;
+
+delete from t_user where t_company_ruc='10101010101' and userid not like 'eschulerg';

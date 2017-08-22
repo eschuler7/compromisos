@@ -1,182 +1,55 @@
 extends ../layouts/layout_main.pug
 block container
   .page-title
-    .title_left
-      h3 Registrar compromiso
     .title_right
   .clearfix
   .row
     .col-md-12
       .x_panel
         .x_title
-          h2 Información General
+          h2 Información del compromiso
           ul.nav.navbar-right.panel_toolbox
           .clearfix
         .x_content
-          form.form-horizontal.form-label-right(novalidate='')
+          form.form-horizontal(novalidate='')
             
             each config in commitmentconfig
-              if config.t_commitment_config_id == 'CM01' || config.t_commitment_config_id == 'CM02' || config.t_commitment_config_id == 'CM03'|| config.t_commitment_config_id == 'CM04'|| config.t_commitment_config_id == 'CM06'|| config.t_commitment_config_id == 'CM07'|| config.t_commitment_config_id == 'CM08'
-                .item.form-group
-                  label(for=config.t_commitment_config_id,style='cursor: pointer') 
-                    | #{config.name}
-                  .col-md-6.col-sm-6.col-xs-12
-                    input#name.form-control.col-md-7.col-xs-12(placeholder='#{config.name}', required='required', type='text') 
-            //COntinuar...      
-            .item.form-group
-              label Etapas a aplicar:
-              p(style='padding: 5px;')
-                input#applycommit1.flat(type='checkbox', name='applycommit[]', value='cons')
-                |  Construcción
-                br
-                input#applycommit2.flat(type='checkbox', name='applycommit[]', value='oper')
-                |  Operación
-                br
-                input#applycommit3.flat(type='checkbox', name='applycommit[]', value='cier')
-                |  Cierre
-                br
-                input#applycommit4.flat(type='checkbox', name='applycommit[]', value='pstc')
-                |  Post-Cierre
-                br
-  .row
-    .col-md-12          
-      .x_panel
-        .x_title
-          h2 Información detallada
-          ul.nav.navbar-right.panel_toolbox
-          .clearfix
-        .x_content
-          form.form-horizontal.form-label-left(novalidate='')
-            .item.form-group
-              label.control-label.col-md-3.col-sm-3.col-xs-12(for='heard')
-                | Fecha de Inicio:
-              .col-sm-2 
+              .form-group
+                label.control-label.col-md-3.col-sm-6.col-xs-12(for=config.t_commitment_config_id,style='cursor: pointer') 
+                  | #{config.name}
+                .col-md-6.col-sm-6.col-xs-12
+                  input.form-control.col-md-7.col-xs-6(id=config.t_commitment_config_id, placeholder=config.name, required='required', type='text')
+              if config.t_commitment_config_id == 'CM30' || config.t_commitment_config_id == 'CM31' || config.t_commitment_config_id == 'CM32'|| config.t_commitment_config_id == 'CM33'
+                tr
+                  td
+                    label.control-label.col-md-3.col-sm-6.col-xs-12(for=config.id,style='cursor: pointer') #{config.name}
+                  td
+                    input.flat(id=config.id,type='checkbox', value=config.id, name='compromisos')
+              if config.t_commitment_config_id == 'CM13'
                 .form-group
-                  #myDatepicker.input-group.date
-                    input.form-control(type='text')
-                    span.input-group-addon
-                      span.glyphicon.glyphicon-calendar
-            .item.form-group
-              label.control-label.col-md-3.col-sm-3.col-xs-12(for='heard')
-                | Temporalidad:
-              .col-md-6.col-sm-6.col-xs-12 
-                select#heard.form-control(required='')
-                  option(value='') Choose..
-                  option(value='Puntual') Puntual
-                  option(value='Permanente') Permanente
-            .item.form-group
-              label.control-label.col-md-3.col-sm-3.col-xs-12(for='name')
-                | Frecuencia 
-                span.required *
-              .col-md-6.col-sm-6.col-xs-12
-                select#heard.form-control(required='')
-                  option(value='') Choose..
-                  option(value='Unica') Unica
-                  option(value='Diaria') Diaria
-                  option(value='Semanal') Semanal
-                  option(value='Mensual') Mensual
-                  option(value='Trimestral') Trimestral
-                  option(value='Semestral') Semestral
-                  option(value='Anual') Anual
-                  option(value='Continuo') Continuo
-                  option(value='Indefinido') Indefinido
-            .item.form-group
-              label.control-label.col-md-3.col-sm-3.col-xs-12(for='name')
-                | Frecuencia propuesta de verificación 
-                span.required *
-              .col-md-6.col-sm-6.col-xs-12
-                select#heard.form-control(required='')
-                  option(value='') Choose..
-                  option(value='Unica') Unica
-                  option(value='Diaria') Diaria
-                  option(value='Semanal') Semanal
-                  option(value='Mensual') Mensual
-                  option(value='Trimestral') Trimestral
-                  option(value='Semestral') Semestral
-                  option(value='Anual') Anual
-                  option(value='Continuo') Continuo
-            .item.form-group
-              label.control-label.col-md-3.col-sm-3.col-xs-12(for='name')
-                | Aspecto ambiental 
-                span.required *
-              .col-md-6.col-sm-6.col-xs-12
-                input#name.form-control.col-md-7.col-xs-12(name='ambiental', placeholder='Aspecto ambiental', required='required', type='text')
-            .item.form-group
-              label.control-label.col-md-3.col-sm-3.col-xs-12(for='message')
-                | Compromiso textual 
-                span.required *
-              .col-md-6.col-sm-6.col-xs-12
-                textarea#message.form-control(name='textual', placeholder='Ingreso información del compromiso', required='required', type='text')
-            .item.form-group
-              label.control-label.col-md-3.col-sm-3.col-xs-12(for='name')
-                | Interpretación del compromiso 
-                span.required *
-              .col-md-6.col-sm-6.col-xs-12
-                textarea#message.form-control(name='interpretacion', placeholder='Interpretación del compromiso', required='required', type='text')
-            .item.form-group
-              label.control-label.col-md-3.col-sm-3.col-xs-12(for='name')
-                | Instalación/Componente 
-                span.required *
-              .col-md-6.col-sm-6.col-xs-12
-                input#name.form-control.col-md-7.col-xs-12(name='inst_comp', placeholder='Componente', required='required', type='text')
-            .item.form-group
-              label.control-label.col-md-3.col-sm-3.col-xs-12(for='name')
-                | Se encuentra en otro permiso o IGA? 
-                span.required *
-              .col-md-6.col-sm-6.col-xs-12
-                input#name.form-control.col-md-7.col-xs-12(name='permiso', placeholder='Ingrese compromiso relacionado', required='required', type='text')
-            .item.form-group
-              label.control-label.col-md-3.col-sm-3.col-xs-12(for='name')
-                | Forma de cumplimiento 
-                span.required *
-              .col-md-6.col-sm-6.col-xs-12
-                input#name.form-control.col-md-7.col-xs-12(name='formacumplimiento', placeholder='Forma de cumplimiento', required='required', type='text')
-            .item.form-group
-              label.control-label.col-md-3.col-sm-3.col-xs-12(for='name')
-                | Criticidad (Exposición durante la supervisión) 
-                span.required *
-              .col-md-6.col-sm-6.col-xs-12
-                select#heard.form-control(required='')
-                  option(value='') Choose..
-                  option(value='Alto') Alto
-                  option(value='Medio') Medio
-                  option(value='Bajo') Bajo
-            .item.form-group
-              label.control-label.col-md-3.col-sm-3.col-xs-12(for='name')
-                | Area responsable del compromiso 
-                span.required *
-              .col-md-6.col-sm-6.col-xs-12
-                input#name.form-control.col-md-7.col-xs-12(name='responsablecompromiso', placeholder='Responsable', required='required', type='text')
-            .item.form-group
-              label.control-label.col-md-3.col-sm-3.col-xs-12(for='name')
-                | Requisito legal asociado 
-                span.required *
-              .col-md-6.col-sm-6.col-xs-12
-                input#name.form-control.col-md-7.col-xs-12(name='reqlegal', placeholder='Requisito legal', required='required', type='text')
-  .row
-    .col-md-12          
-      .x_panel
-        .x_title
-          h2 Monitoreo
-          ul.nav.navbar-right.panel_toolbox
-          .clearfix
-        .x_content
-          //form.form-horizontal.form-label-left(novalidate='')
-          .container
-            .row
-              .col-sm-5
-                .item.form-group
-                  label.control-label.col-md-3.col-sm-3.col-xs-12(for='name')
-                    | Autoridad de reporte 
+                  label.control-label.col-md-3.col-sm-3.col-xs-12(for=config.id)
+                  | Fecha de Inicio:
+                  .col-sm-2 
+                    .form-group
+                      #myDatepicker.input-group.date
+                        input.form-control(type='text')
+                        span.input-group-addon
+                          span.glyphicon.glyphicon-calendar 
+              if config.t_commitment_config_id == 'CM12'
+                .form-group
+                  label.control-label.col-md-3.col-sm-3.col-xs-12(for=config.id)
+                    | Temporalidad:
+                  .col-md-6.col-sm-6.col-xs-12 
+                    select#heard.form-control(required='')
+                      option(value='') Choose..
+                      option(value='Puntual') Puntual
+                      option(value='Permanente') Permanente
+              if config.t_commitment_config_id == 'CM14'
+                .form-group
+                  label.control-label.col-md-3.col-sm-3.col-xs-12(for=config.id)
+                    | Frecuencia 
                     span.required *
-                  .col-md-6.col-sm-12.col-xs-12
-                    input#name.form-control.col-md-7.col-xs-12(name='autoridad', placeholder='Autoridad', required='required', type='text')
-              .col-sm-5
-                .item.form-group
-                  label.control-label.col-md-3.col-sm-3.col-xs-12(for='name')
-                    | Frecuencia de reporte 
-                    span.required *
-                  .col-md-6.col-sm-12.col-xs-12
+                  .col-md-6.col-sm-6.col-xs-12
                     select#heard.form-control(required='')
                       option(value='') Choose..
                       option(value='Unica') Unica
@@ -187,88 +60,63 @@ block container
                       option(value='Semestral') Semestral
                       option(value='Anual') Anual
                       option(value='Continuo') Continuo
-  .row
-    .col-md-6.col-sm-12.col-xs-12
-      .x_panel
-        .x_title
-          h2 Cumplimiento
-          ul.nav.navbar-right.panel_toolbox
-          .clearfix
-        .x_content
-          br
-          form.form-horizontal.form-label-left
-            .item.form-group
-              label.control-label.col-md-3.col-sm-3.col-xs-12(for='name')
-                | Evidencias de cumplimiento 
-                span.required *
-              .col-md-6.col-sm-6.col-xs-12
-                input#name.form-control.col-md-7.col-xs-12(name='evidencia', type='text')
-                a(href='', onclick="openDialogBox('fileID').....")
-                input#fileID(type='file', multiple='')            
-            .item.form-group
-              label.control-label.col-md-3.col-sm-3.col-xs-12(for='name')
-                | Estado del compromiso 
-                span.required *
-              .col-md-6.col-sm-6.col-xs-12
-                select#heard.form-control(required='')
-                  option(value='') Choose..
-                  option(value='Abierto') Abierto
-                  option(value='Cerrado') Cerrado
-                  option(value='proceso') En proceso
-                  option(value='Cancelado') Cancelado                        
-                  option(value='Diferido') Diferido
-                  option(value='Vencido') Vencido                                                
-            .item.form-group
-              label.control-label.col-md-3.col-sm-3.col-xs-12(for='name')
-                | Comentarios / Observaciones 
-                span.required *
-              .col-md-6.col-sm-6.col-xs-12
-                textarea#message.form-control(name='comentarios', placeholder='Comentarios', required='required', type='text')
-    // /form input mask
-    // form color picker
-    .col-md-6.col-sm-12.col-xs-12
-      .x_panel
-        .x_title
-          h2 Manejo Interno
-          ul.nav.navbar-right.panel_toolbox
-          .clearfix
-        .x_content
-          br
-          form.form-horizontal.form-label-left
-            .item.form-group
-              label.control-label.col-md-3.col-sm-3.col-xs-12(for='name')
-                | Revisado? 
-                span.required *
-              .col-md-6.col-sm-6.col-xs-12
-                select#heard.form-control(required='')
-                  option(value='') Choose..
-                  option(value='Si') Si
-                  option(value='No') No
-            .item.form-group
-              label.control-label.col-md-3.col-sm-3.col-xs-12(for='name')
-                | Modificado a solicitud de: 
-                span.required *
-              .col-md-6.col-sm-6.col-xs-12
-                select#heard.form-control(required='')
-                  option(value='') Choose..
-                  option(value='Si') Si
-                  option(value='No') No
-            .item.form-group
-              label.control-label.col-md-3.col-sm-3.col-xs-12(for='name')
-                | Evidencias (archivos)? 
-                span.required *
-              .col-md-6.col-sm-6.col-xs-12
-                select#heard.form-control(required='')
-                  option(value='') Choose..
-                  option(value='Si') Si
-                  option(value='No') No
-  .row
-    .col-md-12.col-sm-12.col-xs-12
-      .x_panel
-        .x_content
-          .form-group.pull-right
-            button.btn.btn-primary(type='submit') Cancel
-            button.btn.btn-success(type='submit') Submit
+                      option(value='Indefinido') Indefinido
+              if config.t_commitment_config_id == 'CM21'
+                .form-group
+                  label.control-label.col-md-3.col-sm-3.col-xs-12(for=config.id)
+                    | Frecuencia propuesta de verificación 
+                    span.required *
+                  .col-md-6.col-sm-6.col-xs-12
+                    select#heard.form-control(required='')
+                      option(value='') Choose..
+                      option(value='Unica') Unica
+                      option(value='Diaria') Diaria
+                      option(value='Semanal') Semanal
+                      option(value='Mensual') Mensual
+                      option(value='Trimestral') Trimestral
+                      option(value='Semestral') Semestral
+                      option(value='Anual') Anual
+                      option(value='Continuo') Continuo
+                      option(value='Indefinido') Indefinido
+              if config.t_commitment_config_id == 'CM12'
+                .form-group
+                  label.control-label.col-md-3.col-sm-3.col-xs-12(for=config.id)
+                    | Criticidad 
+                    span.required *
+                  .col-md-6.col-sm-6.col-xs-12
+                    select#heard.form-control(required='')
+                      option(value='') Choose..
+                      option(value='Alto') Alto
+                      option(value='Medio') Medio
+                      option(value='Bajo') Bajo                      
+              if config.t_commitment_config_id == 'CM17'
+                .form-group
+                  label.control-label.col-md-3.col-sm-3.col-xs-12(for=config.id)
+                    | Evidencias de cumplimiento 
+                    span.required *
+                  .col-md-6.col-sm-6.col-xs-12
+                    input.form-control.col-md-7.col-xs-12(id='filesize',name=config.name, type='text')
+                    a(href='', onclick="openDialogBox('fileID').....")
+                    input(id='fs',type='file', multiple='', onchange='fsize()')   
+              if config.t_commitment_config_id == 'CM18'
+                .form-group
+                  label.control-label.col-md-3.col-sm-3.col-xs-12(for=config.id)
+                    | Estado del compromiso 
+                    span.required *
+                  .col-md-6.col-sm-6.col-xs-12
+                    select#heard.form-control(required='')
+                      option(value='') Choose..
+                      option(value='Abierto') Abierto
+                      option(value='Cerrado') Cerrado
+                      option(value='proceso') En proceso
+                      option(value='Cancelado') Cancelado                        
+                      option(value='Diferido') Diferido
+                      option(value='Vencido') Vencido     
+            .row
+              .ln_solid
+              .form-group
+                a.btn.btn-default.btn-sm(href='listall') Cancelar
+                button.btn.btn-success.btn-sm.pull-right(type='submit') Registrar compromiso
   script(src='../jquery/dist/jquery.min.js')
   script(src='../moment/min/moment.min.js')
   script(src='../bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js')
@@ -277,6 +125,5 @@ block container
       defaultDate: new Date(),
       format: 'DD/MM/YYYY'
       });
-
 
 
