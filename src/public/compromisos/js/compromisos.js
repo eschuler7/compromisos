@@ -2,6 +2,10 @@ $.validator.addMethod("notEqualTo", function(value, element, param) {
 	return value != $(param).val();
 }, "Value must not be the same");
 
+$.validator.addMethod("validaterol", function(value, element, param) {
+	return value != param;
+}, "Debe seleccionar un rol");
+
 $(document).ready(function(){
 	$('#frmLogin').validate({
 		rules : {
@@ -78,6 +82,68 @@ $(document).ready(function(){
 			email : {
 				required : 'Este campo es requerido',
 				email : 'Ingrese un email válido'
+			}
+		},
+		submitHandler : function(form) {
+			form.submit();
+		}
+	});
+	$('#frmuserscreate').validate({
+		rules : {
+			userid : {
+				required : true,
+				maxlength : 20,
+				minlength : 5
+			},
+			email : {
+				required : true,
+				email : true
+			},
+			name : {
+				required : true,
+				maxlength : 20,
+				minlength : 2
+			},
+			lastname : {
+				required : true,
+				maxlength : 20,
+				minlength : 2
+			},
+			rol : {
+				required : true,
+				validaterol : 'ROL0'
+			},
+			password : {
+				required : true,
+				minlength : 8
+			}
+		},
+		messages : {
+			userid : {
+				required : 'Este campo es requerido',
+				maxlength : 'Máximo 20 caracteres',
+				minlength : 'Mínimo 5 caracteres'
+			},
+			email : {
+				required : 'Este campo es requerido',
+				email : 'Ingrese un email válido'
+			},
+			name : {
+				required : 'Este campo es requerido',
+				maxlength : 'Máximo 20 caracteres',
+				minlength : 'Mínimo 2 caracteres'
+			},
+			lastname : {
+				required : 'Este campo es requerido',
+				maxlength : 'Máximo 20 caracteres',
+				minlength : 'Mínimo 2 caracteres'
+			},
+			rol : {
+				required : 'Seleccione una opción',
+			},
+			password : {
+				required : 'Este campo es requerido',
+				minlength : 'Mínimo 8 caracteres'
 			}
 		},
 		submitHandler : function(form) {

@@ -55,6 +55,8 @@ html
                       ul.nav.child_menu
                         li
                           a(href='dashboard') Dashboard
+                        li
+                          a(href='configattrdashboard') Configuración de controles
                     li
                       a
                         i.fa.fa-edit
@@ -93,7 +95,7 @@ html
                         li
                           a(href='/secure/users') Usuarios
                         li
-                          a Resetear configuración global
+                          a(href='javascript:resetConfigGlobal()') Resetear configuración global
             // /sidebar menu
         // top navigation
         .top_nav
@@ -143,6 +145,22 @@ html
             button.btn.btn-default(type='button', data-dismiss='modal') Cancelar
             |  
             a.btn.btn-dark(href='logout') Continuar
+    //Modal eliminación global
+    #confirm_resetConfigGlobal.modal.fade(tabindex='-1', role='dialog', data-backdrop='static', data-keyboard='false')
+      .modal-dialog(role='document')
+        .modal-content
+          .modal-header
+            h4#confirm_resetConfigGlobal_title.modal-title Aviso de seguridad
+          form#frmConfirmresetConfigGlobal(action='/secure/resetConfigGlobal',method='post')
+            .modal-body
+              p Esta acción eliminará completamente la información almacenada y los usuarios asociados. La sesión se cerrará automáticamente.
+              center
+                strong ¿Desea continuar?
+              input(type='hidden',name='ruc')
+            .modal-footer
+              button.btn.btn-default.pull-left(type='button', data-dismiss='modal') Cancelar
+              |  
+              button.btn.btn-danger(type='submit') Continuar
 
     // jQuery
     script(src='/jquery/dist/jquery.min.js')
@@ -172,6 +190,12 @@ html
     script.
       var logout = function() {
         $('#confirm_logout').modal('show');
+
       }
+      var resetConfigGlobal = function(){
+        $('#confirm_resetConfigGlobal').modal('show');
+      }
+
+
 
 

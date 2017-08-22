@@ -7,7 +7,7 @@ block container
           h2 Formulario de Registro de usuarios
           .clearfix
         .x_content
-          form#demo-form2.form-horizontal(action='/secure/userscreate',method='post')
+          form#frmuserscreate.form-horizontal(action='/secure/userscreate',method='post')
             h4 Información general del usuario
             p(style='text-align: justify') Los siguientes campos representan información oficial de la compañía, por favor ingrese los datos correctamente.
             .form-group
@@ -40,7 +40,7 @@ block container
                 span.required *
               .col-md-3.col-sm-4.col-xs-12
                 select#rol.form-control(name='rol')
-                      option(value='') Seleccione un rol..
+                      option(value='ROL0') Seleccione un rol..
                       option(value='ROL1') Administrador
                       option(value='ROL2') Responsables de Unidades
                       option(value='ROL3') Terceros de Soporte
@@ -61,3 +61,5 @@ block container
             .form-group
               a.btn.btn-default.btn-sm(href='users') Cancelar
               button.btn.btn-success.btn-sm(type='submit') Registrar Usuario
+
+

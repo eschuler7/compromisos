@@ -46,9 +46,9 @@ var compromisosdb = {
 			conn.dispose();
 			return result;
 		},
-		updateFirstTime : function(ruc){
+		updateFirstTime : function(ruc, firsttime){
 			var conn = new mysql(connectionOptions);
-			const result = conn.query('update t_company set firsttime=0,udatetime=now() where ruc=?',[ruc]);
+			const result = conn.query('update t_company set firsttime=?,udatetime=now() where ruc=?',[firsttime, ruc]);
 			conn.dispose();
 			return result;
 		},
@@ -70,6 +70,12 @@ var compromisosdb = {
 		deleteUserById : function(ruc, userid) {
 			var conn = new mysql(connectionOptions);
 			const result = conn.query('delete from t_user where t_company_ruc=? and userid=?',[ruc, userid]);
+			conn.dispose();
+			return result;
+		},
+		deleteAllUserById : function(ruc, userid) {
+			var conn = new mysql(connectionOptions);
+			const result = conn.query('delete from t_user where t_company_ruc=? and userid not like ?',[ruc, userid]);
 			conn.dispose();
 			return result;
 		},
@@ -200,7 +206,16 @@ var compromisosdb = {
 			return result;
 		},
 		getDashboardConfigByRuc : function(ruc) {
-
+			var conn = new mysql(connectionOptions);
+			const result = conn.query('select t_company_ruc,t_dashboard_config_id,tdc.name from t_company_dashboard tcd left join t_dashboard_config tdc on tcd.t_dashboard_config_id=tdc.id where t_company_ruc=?',[ruc]);
+			conn.dispose();
+			return result;
+		},
+		deleteDashboardTypes : function(ruc) {
+			var conn = new mysql(connectionOptions);
+			const result = conn.query('delete from t_company_dashboard where t_company_ruc=?',[ruc]);
+			conn.dispose();
+			return result;
 		},
 		updateDashboardConfig : function(ruc,dashboard) {
 			var initconfig = dashboard;

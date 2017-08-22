@@ -76,6 +76,11 @@ router.get('/massive', function(req, res){
 	res.render('partial/massive');
 });
 
+router.get('/configattrdashboard', function(req, res){
+	var dashboard = mysql.dashboard.getDashboardTypes();
+	var dashboardconfig = mysql.dashboard.getDashboardConfigByRuc(req.session.user.t_company_ruc);
+	res.render('partial/configattrdashboard',{dashboard: dashboard,dashboardconfig: dashboardconfig});
+});
 router.get('/configattrcommit', function(req, res){
 	var commitment = mysql.commitment.getCommitmentTypes();
 	var commitmentconfig = mysql.commitment.getComConfigByRuc(req.session.user.t_company_ruc);
@@ -209,9 +214,23 @@ router.post('/initConfig', function(req, res){
 	//sección monitoreo
 	var monitoreo = req.body.monitoreo;
 	try {
-		var result = mysql.company.updateFirstTime(req.session.user.t_company_ruc);
+		if(multiunidad=='Multiunidad')
+			var unidadinit = 'Multiunidad';
+		if(multiproyoper=='Multiproyecto')
+			var proyoper = 'Multiproyecto';
+		console.log('resultado de unidadinit: ',unidadinit);
+		console.log('Insertando Headers: ');
+		mysql.company.updateCompanyByRuc(req.session.user.t_company_ruc,razonsocial,unidadinit,proyoper);
+		console.log('Insertando dashboard: ');
+		mysql.dashboard.updateDashboardConfig(req.session.user.t_company_ruc,dashboard);
+		console.log('Insertando compromisos: ');
+		mysql.commitment.updateCommitmentConfig(req.session.user.t_company_ruc,compromisos);	
+		console.log('Insertando monitoreo: ');
+		mysql.monitor.updateMonitorConfig(req.session.user.t_company_ruc,monitoreo);
+		var result = mysql.company.updateFirstTime(req.session.user.t_company_ruc,0);
 		if(result.affectedRows == 1) {
 			req.session.user.firsttime = 0;
+<<<<<<< HEAD
 
 			try{
 				if(multiunidad=='Multiunidad')
@@ -232,7 +251,10 @@ router.post('/initConfig', function(req, res){
 				console.log('[/initConfig]',e);
 			}
 			res.redirect('/secure/dashboard');
+=======
+>>>>>>> 0ba4ffab27464eee93058d9502696fb4e437263d
 		}
+		res.redirect('/secure/dashboard');
 	} catch(e) {
 		console.log('[/initConfig]',e);
 	}
@@ -281,6 +303,24 @@ router.post('/configattrmonit', function(req, res){
 	}
 });
 
+router.post('/configattrdashboard', function(req, res){
+	try {
+
+		//sección dashboard
+		var dashboard = req.body.dashboard;
+		console.log('resultado de dashboard: ',dashboard);
+		//sección Eliminar data
+		var result = mysql.dashboard.deleteDashboardTypes(req.session.user.t_company_ruc);
+		
+		console.log('Insertando dashboard: ');
+		mysql.dashboard.updateDashboardConfig(req.session.user.t_company_ruc,dashboard);	
+
+		res.redirect('/secure/configattrdashboard');
+		
+	} catch(e) {
+		console.log('[/configattrdashboard]',e);
+	}
+});
 router.post('/userscreate', function(req, res){
 	var userid = req.body.userid;
 	var email = req.body.email;
@@ -322,4 +362,27 @@ router.post('/deleteUser', function(req, res){
 	}
 	res.redirect('/secure/users');
 });
+<<<<<<< HEAD
 module.exports = router;
+=======
+
+router.post('/resetConfigGlobal', function(req, res){
+	var ruc = req.body.ruc;
+	try {
+		var result = mysql.company.deleteCompanyByRuc(ruc);
+		var result = mysql.dashboard.deleteDashboardTypes(req.session.user.t_company_ruc);
+		var result = mysql.commitment.deleteCommitmentTypes(req.session.user.t_company_ruc);
+		var result = mysql.monitor.deleteMonitorTypes(req.session.user.t_company_ruc);
+		var result = mysql.company.updateFirstTime(req.session.user.t_company_ruc,1);
+		req.session.destroy();
+		//res.redirect('/');
+	} catch(e) {
+		
+		console.log('[/secure/users]','[rollback company]',e);
+	}
+	res.redirect('/');
+	
+});
+
+module.exports = router;
+>>>>>>> 0ba4ffab27464eee93058d9502696fb4e437263d
