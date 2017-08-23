@@ -27,7 +27,7 @@ insert into t_commitment_config(id,name,columnasoc,cdatetime,udatetime) values('
 insert into t_commitment_config(id,name,columnasoc,cdatetime,udatetime) values('CM07','Aspecto asociado','aspambasoc',now(),now());
 insert into t_commitment_config(id,name,columnasoc,cdatetime,udatetime) values('CM08','Instalación/componente','instcompasoc',now(),now());
 insert into t_commitment_config(id,name,columnasoc,cdatetime,udatetime) values('CM09','Contenido original del compromiso','contorigcomp',now(),now());
-insert into t_commitment_config(id,name,columnasoc,cdatetime,udatetime) values('CM10','Resumen del compromiso','resumen',now(),now());
+insert into t_commitment_config(id,name,columnasoc,cdatetime,udatetime) values('CM10','Resumen del compromiso','resumencomp',now(),now());
 insert into t_commitment_config(id,name,columnasoc,cdatetime,udatetime) values('CM11','Antecedentes del compromiso','antecedentes',now(),now());
 insert into t_commitment_config(id,name,columnasoc,cdatetime,udatetime) values('CM12','Temporalidad','temporalidad',now(),now());
 insert into t_commitment_config(id,name,columnasoc,cdatetime,udatetime) values('CM13','Fecha de inicio','fechainicio',now(),now());

@@ -27,5 +27,14 @@ var handleError = function(res, e) {
 	res.render('partial/msghandler/error',{error: e});
 }
 
+var checktype = function(object) {
+    var cache = {};
+    var key;
+    return (key = typeof object) !== 'object' ? key
+            : cache[key = ({}).toString.call(object)]
+            || (cache[key] = key.slice(8, -1).toLowerCase());
+}
+
 module.exports.createHash = createHash;
 module.exports.loadEmailTemplate = loadEmailTemplate;
+module.exports.checktype = checktype;

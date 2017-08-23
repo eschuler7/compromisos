@@ -58,7 +58,6 @@ var compromisosdb = {
 			conn.dispose();
 			return result;
 		}
-
 	},
 	user : {
 		createUser : function(userid, password, email, name, lastname, ruc, rol, changepwd){
@@ -119,8 +118,19 @@ var compromisosdb = {
 		}
 	},
 	commitment : {
-		createCommitment : function() {
-
+		createCommitment : function(ruc, compcomm, comdata) {
+			// Dynamic query build
+			var columns = [];
+			var values = [];
+			for (var i = 0; i < compcomm.length; i++) {
+				columns.push(compcomm[i].columnasoc);
+				values.push('?');
+			}
+			var dynamicquery = 'insert into t_commitment(ruc,' + columns.toString() + ',cdatetime,udatetime,t_user_id) values(?,' + values.toString() + ',?,?,?	)';
+			var conn = new mysql(connectionOptions);
+			const result = conn.query(dynamicquery,comdata);
+			conn.dispose();
+			return result;
 		},
 		deleteCommitment : function () {
 
@@ -130,7 +140,14 @@ var compromisosdb = {
 		},
 		getComConfigByRuc : function(ruc) {
 			var conn = new mysql(connectionOptions);
-			const result = conn.query('select t_company_ruc,t_commitment_config_id,tco.name from t_company_commitment tcc left join t_commitment_config tco on tcc.t_commitment_config_id=tco.id where t_company_ruc=?',[ruc]);
+			const result = conn.query('select t_company_ruc,t_commitment_config_id,tco.name,tco.columnasoc from t_company_commitment tcc left join t_commitment_config tco on tcc.t_commitment_config_id=tco.id where t_company_ruc=?',[ruc]);
+			conn.dispose();
+			return result;
+		},
+		//Varía de getComConfigByRuc en que no tiene campo name ni ruc ni id, solo será usado para armar la query dinamica para el insert
+		getComConfigByRucForInsert : function(ruc) {
+			var conn = new mysql(connectionOptions);
+			const result = conn.query('select tco.columnasoc from t_company_commitment tcc left join t_commitment_config tco on tcc.t_commitment_config_id=tco.id where t_company_ruc=?',[ruc]);
 			conn.dispose();
 			return result;
 		},

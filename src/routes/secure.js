@@ -130,6 +130,7 @@ router.get('/downloadtemplate', function(req, res){
 			    bottom: {style:'medium'},
 			    right: {style:'medium'}
 			};
+			cell.name = comconfig[colNumber - 1].columnasoc;
 		});
 	});
 
@@ -163,15 +164,34 @@ router.post('/uploadtemplate',udploadTemplate.single('template'), function(req,r
 	workbook.xlsx.readFile(fullpath)
     .then(function() {
         var worksheet = workbook.getWorksheet(1);
-        var comconfig = mysql.commitment.getComConfigByRuc(req.session.user.t_company_ruc);
-        if(worksheet.actualColumnCount == comconfig.length) {
-        	console.log('Eureka!!');
+        var compcomm = mysql.commitment.getComConfigByRucForInsert(req.session.user.t_company_ruc);
+        if(worksheet.actualColumnCount == compcomm.length) {
+        	console.log('Antes de Rows');
+			var comdata = [];
+			comdata.push(req.session.user.t_company_ruc);
+        	worksheet.eachRow(function(row, rowNumber) {
+				if(rowNumber > 2) {
+					row.eachCell(function(cell, colNumber) {
+						if (computil.checktype(cell.value) == 'date') {
+							comdata.push((new Date(cell.value.valueOf() + cell.value.getTimezoneOffset() * 60000)).toString());
+						} else {
+							comdata.push(cell.value);
+						}
+					});
+				}
+			});
+			comdata.push(new Date());
+			comdata.push(new Date());
+			comdata.push(req.session.user.userid);
+			mysql.commitment.createCommitment(req.session.user.t_company_ruc, compcomm, comdata);
+			console.log('Después de Rows');
+			res.redirect('/secure/listall');
         } else {
-        	console.log('Buhhhh :(');
+        	console.log('Los campos no coinciden');
+        	res.redirect('/secure/listall');
         }
     });
 });
-
 
 router.post('/initConfig', function(req, res){
 	var razonsocial = req.body.razonsocial;
