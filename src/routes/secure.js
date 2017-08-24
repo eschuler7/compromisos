@@ -38,16 +38,16 @@ router.get('/dashboard',function(req, res){
 		var dashboard = mysql.dashboard.getDashboardTypes();
 		var commitment = mysql.commitment.getCommitmentTypes();
 		var monitor = mysql.monitor.getMonitorTypes();
-		res.render('partial/dashboard',{dashboard: dashboard, commitment: commitment, monitor: monitor});
+		res.render('partial/dashboard/dashboard',{dashboard: dashboard, commitment: commitment, monitor: monitor});
 	} else {
-		res.render('partial/dashboard');
+		res.render('partial/dashboard/dashboard');
 	}
 });
 
 router.get('/register',function(req, res){
 	var commitment = mysql.commitment.getCommitmentTypes();
 	var commitmentconfig = mysql.commitment.getComConfigByRuc(req.session.user.t_company_ruc);
-	res.render('partial/register',{commitment: commitment,commitmentconfig: commitmentconfig});
+	res.render('partial/commitment/register',{commitment: commitment,commitmentconfig: commitmentconfig});
 });
 
 router.get('/select', function(req, res){
@@ -57,7 +57,7 @@ router.get('/select', function(req, res){
 router.get('/listall', function(req, res){
 	var comconfig;
 	comconfig = mysql.commitment.getComConfigByRuc(req.session.user.t_company_ruc);
-	res.render('partial/listall',{comconfig: comconfig});
+	res.render('partial/commitment/listall',{comconfig: comconfig});
 });
 
 router.get('/update', function(req, res){
@@ -69,34 +69,34 @@ router.get('/home', function(req, res){
 });
 
 router.get('/massive', function(req, res){
-	res.render('partial/massive');
+	res.render('partial/commitment/massive');
 });
 
 router.get('/configattrdashboard', function(req, res){
 	var dashboard = mysql.dashboard.getDashboardTypes();
 	var dashboardconfig = mysql.dashboard.getDashboardConfigByRuc(req.session.user.t_company_ruc);
-	res.render('partial/configattrdashboard',{dashboard: dashboard,dashboardconfig: dashboardconfig});
+	res.render('partial/dashboard/configattrdashboard',{dashboard: dashboard,dashboardconfig: dashboardconfig});
 });
 router.get('/configattrcommit', function(req, res){
 	var commitment = mysql.commitment.getCommitmentTypes();
 	var commitmentconfig = mysql.commitment.getComConfigByRuc(req.session.user.t_company_ruc);
-	res.render('partial/configattrcommit',{commitment: commitment,commitmentconfig: commitmentconfig});
+	res.render('partial/commitment/configattrcommit',{commitment: commitment,commitmentconfig: commitmentconfig});
 });
 router.get('/configattrmonit', function(req, res){
 	var monitor = mysql.monitor.getMonitorTypes();
 	var monitorconfig = mysql.monitor.getMonitConfigByRuc(req.session.user.t_company_ruc);
-	res.render('partial/configattrmonit',{monitor: monitor,monitorconfig: monitorconfig});
+	res.render('partial/monitor/configattrmonit',{monitor: monitor,monitorconfig: monitorconfig});
 });
 router.get('/listallmonit', function(req, res){
 	var monitconfig;
 	monitconfig = mysql.monitor.getMonitConfigByRuc(req.session.user.t_company_ruc);
-	res.render('partial/listallmonit',{monitconfig: monitconfig});
+	res.render('partial/monitor/listallmonit',{monitconfig: monitconfig});
 });
 router.get('/massivemonit', function(req, res){
-	res.render('partial/massivemonit');
+	res.render('partial/monitor/massivemonit');
 });
 router.get('/registermonit', function(req, res){
-	res.render('partial/registermonit');
+	res.render('partial/monitor/registermonit');
 });
 router.get('/logout', function(req, res){
 	req.session.destroy();
@@ -180,8 +180,8 @@ router.post('/uploadtemplate',udploadTemplate.single('template'), function(req,r
 					});
 				}
 			});
-			comdata.push(new Date());
-			comdata.push(new Date());
+			comdata.push((new Date()).toString());
+			comdata.push((new Date()).toString());
 			comdata.push(req.session.user.userid);
 			mysql.commitment.createCommitment(req.session.user.t_company_ruc, compcomm, comdata);
 			console.log('Después de Rows');

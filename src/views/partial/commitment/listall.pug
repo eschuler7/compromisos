@@ -1,27 +1,26 @@
-extends ../layouts/layout_main.pug
+extends ../../layouts/layout_main.pug
 block container
   .row
     .col-md-12
       .x_panel
         .x_title
-          h2 Listado de monitoreo
-          ul.nav.navbar-right.panel_toolbox
+          h2 Listado de Compromisos
           .clearfix
         .x_content
-          table#tblmonitor.table.table-striped.table-bordered.jambo_table
+          table#tblcommitments.table.table-striped.table-bordered.jambo_table
             thead
               tr
-                each conf in monitconfig
+                each conf in comconfig
                   th #{conf.name}
             tbody
           br
           br
           .ln_solid(style='margin-top:5px')
-          a.btn.btn-warning.btn-xs(href='/secure/registermonit') Nuevo monitoreo
+          a.btn.btn-warning.btn-xs(href='/secure/register') Nuevo Compromiso
 
     script.
       window.onload = function() {
-        $('#tblmonitor').DataTable({
+        $('#tblcommitments').DataTable({
           dom: 'Bfrtip',
           buttons: ['copy','csv','print'],
           //"lengthMenu": [[5, 15], [5, 15]],
@@ -34,7 +33,7 @@ block container
             },
             info: 'Mostrando _START_ a _END_ de _TOTAL_ registro(s)',
             infoEmpty: 'No se encontraron registros',
-            emptyTable: 'No se encontraron registros',
+            emptyTable: 'No tiene compromisos registrados',
             lengthMenu: 'Mostrar _MENU_ registro(s)',
             search: 'Buscar:',
             zeroRecords: 'No se encontraron registros coincidentes'
