@@ -7,6 +7,21 @@ $.validator.addMethod("validaterol", function(value, element, param) {
 }, "Debe seleccionar un rol");
 
 $(document).ready(function(){
+	// Start Wizard Validations
+	$('#frmstep1').validate({
+		rules : {
+			razonsocial : {
+				required : true
+			},
+			unidadinit : {
+				required : true
+			},
+			proyoper : {
+				required : true
+			}
+		}
+	});
+	// End Wizard Validations
 	$('#frmLogin').validate({
 		rules : {
 			userid : {

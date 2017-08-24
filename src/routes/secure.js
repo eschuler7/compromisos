@@ -206,10 +206,6 @@ router.post('/initConfig', function(req, res){
 	var compromisos = req.body.compromisos;
 	//sección monitoreo
 	var monitoreo = req.body.monitoreo;
-	if(multiunidad=='Multiunidad')
-		var unidadinit = 'Multiunidad';
-	if(multiproyoper=='Multiproyecto')
-		var proyoper = 'Multiproyecto';
 	mysql.company.updateCompanyByRuc(req.session.user.t_company_ruc,razonsocial,unidadinit,proyoper);
 	mysql.dashboard.updateDashboardConfig(req.session.user.t_company_ruc,dashboard);
 	mysql.commitment.updateCommitmentConfig(req.session.user.t_company_ruc,compromisos);	
@@ -217,10 +213,6 @@ router.post('/initConfig', function(req, res){
 	var result = mysql.company.updateFirstTime(req.session.user.t_company_ruc,0);
 	if(result.affectedRows == 1) {
 		req.session.user.firsttime = 0;
-		if(multiunidad=='Multiunidad')
-			var unidadinit = 'Multiunidad';
-		if(multiproyoper=='Multiproyecto')
-			var proyoper = 'Multiproyecto';
 		console.log('resultado de unidadinit: ',unidadinit);
 		console.log('Insertando Headers: ');
 		mysql.company.updateCompanyByRuc(req.session.user.t_company_ruc,razonsocial,unidadinit,proyoper);

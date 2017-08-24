@@ -245,7 +245,7 @@ var compromisosdb = {
 				}
 			} else {
 				console.log('Valores de dashboard no Array: ',initconfig,ruc);
-				conn.query('insert into t_company_dashboard values(?,?)',[ruc,initconfig]);				
+				conn.query('insert into t_company_dashboard values(?,?)',[ruc,initconfig]);			
 			}
 			conn.dispose();
 		}

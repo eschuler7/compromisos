@@ -80,93 +80,81 @@ block container
               #step-2
                 form#frmstep2.frmstep1form-horizontal.form-label-left
                   span.section(style='color: #71859A') Paso 2 : Configuración inicial del Dashboard
-                  center
-                    table#datatable-responsive.table.dt-responsive.nowrap(cellspacing='0', width='80%')
-                      each type, index in dashboard
-                        if index % 4 == 0
-                          tr
-                          if index % 4 == 0
-                            td
-                              label(for=type.id,style='cursor: pointer') #{type.name}
-                            td
-                              input.flat(id=type.id,type='checkbox', value=type.id, name='dashboard')
-                        else
-                          td
-                            label(for=type.id,style='cursor: pointer') #{type.name}
-                          td
-                            input.flat(id=type.id,type='checkbox', value=type.id, name='dashboard')
+                  each type, index in dashboard
+                    if index % 4 === 0
+                      | <div class="row" style="width:99%">
+                      .col-md-1.col-sm-1.col-xs-1(style='text-align: right')
+                        input.flat(id=type.id,type='checkbox', value=type.id, name='dashboard')
+                      |  
+                      label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer') #{type.name}
+                      if index === dashboard.length - 1
+                        | </div>
+                    else
+                      if index % 4 === 3
+                        .col-md-1.col-sm-1.col-xs-1(style='text-align: right')
+                          input.flat(id=type.id,type='checkbox', value=type.id, name='dashboard')
+                        |  
+                        label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer') #{type.name}
+                        | </div>
+                      else
+                        .col-md-1.col-sm-1.col-xs-1(style='text-align: right')
+                          input.flat(id=type.id,type='checkbox', value=type.id, name='dashboard')
+                        |  
+                        label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer') #{type.name}
+                        if index === dashboard.length - 1
+                          | </div>
               #step-3
-                form#frmstep3.form-horizontal.form-label-left
+                form#frmstep3.form-label-left
                   span.section(style='color: #71859A') Paso 3 : Configuración inicial de la tabla de compromisos
-                  center
-                    table#datatable-responsive.table.dt-responsive.nowrap(cellspacing='0', width='80%')
-                      each type, index in commitment
-                        if type.id != 'CM30' && type.id != 'CM31' && type.id != 'CM32' && type.id != 'CM33'
-                          if index % 4 == 0
-                            tr
-                            if index % 4 == 0
-                              td
-                                label(for=type.id,style='cursor: pointer') #{type.name}
-                              td
-                                input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos')
-                          else
-                            td
-                              label(for=type.id,style='cursor: pointer') #{type.name}
-                            td
-                              input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos')
-                    table#datatable-responsive.table.dt-responsive.nowrap(cellspacing='0', width='80%')
-                      caption(width='60%' style='text-align:center;')
-                        strong(style='color: #71859A') ETAPAS
-                      each type, index in commitment
-                        if type.id == 'CM30' || type.id == 'CM31'|| type.id == 'CM32'|| type.id == 'CM33'
-                          if index+1 % 4 == 0
-                            tr
-                            if index+1 % 4 == 0
-                              td
-                                label(for=type.id,style='cursor: pointer') #{type.name}  
-                              td
-                                input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos')
-                          else
-                            td
-                              label(for=type.id,style='cursor: pointer') #{type.name} 
-                            td
-                              input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos')
+                  each type, index in commitment
+                    if index % 4 === 0
+                      | <div class="row" style="width:99%">
+                      .col-md-1.col-sm-1.col-xs-1(style='text-align: right')
+                        input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos')
+                      |  
+                      label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer') #{type.name}
+                      if index === commitment.length - 1
+                        | </div>
+                    else
+                      if index % 4 === 3
+                        .col-md-1.col-sm-1.col-xs-1(style='text-align: right')
+                          input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos')
+                        |  
+                        label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer') #{type.name}
+                        | </div>
+                      else
+                        .col-md-1.col-sm-1.col-xs-1(style='text-align: right')
+                          input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos')
+                        |  
+                        label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer') #{type.name}
+                        if index === commitment.length - 1
+                          | </div>
               #step-4
-                form#frmstep4.form-horizontal.form-label-left
+                form#frmstep4.form-label-left
                   span.section(style='color: #71859A') Paso 4 : Configuración inicial de la tabla de monitoreo
-                  center
-                    table#datatable-responsive.table.dt-responsive.nowrap(cellspacing='0', width='80%')
-                      each type, index in monitor
-                        if type.id != 'MN28' && type.id != 'MN29' && type.id != 'MN30' && type.id != 'MN31'
-                          if index % 4 == 0
-                            tr
-                            if index % 4 == 0
-                              td
-                                label(for=type.id,style='cursor: pointer') #{type.name}
-                              td
-                                input.flat(id=type.id,type='checkbox', value=type.id, name='monitoreo')
-                          else
-                            td
-                              label(for=type.id,style='cursor: pointer') #{type.name}
-                            td
-                              input.flat(id=type.id,type='checkbox', value=type.id, name='monitoreo')
-                    table#datatable-responsive.table.dt-responsive.nowrap(cellspacing='0', width='80%')
-                      caption(width='60%' style='text-align:center;')
-                        strong(style='color: #71859A') ETAPAS
-                      each type, index in monitor
-                        if type.id == 'MN28' || type.id == 'MN29'|| type.id == 'MN30'|| type.id == 'MN31'
-                          if index+1 % 4 == 04
-                            tr
-                            if index+1 % 4 == 0
-                              td
-                                label(for=type.id,style='cursor: pointer') #{type.name}  
-                              td
-                                input.flat(id=type.id,type='checkbox', value=type.id, name='monitoreo')
-                          else
-                            td
-                              label(for=type.id,style='cursor: pointer') #{type.name} 
-                            td
-                              input.flat(id=type.id,type='checkbox', value=type.id, name='monitoreo')
+                  each type, index in monitor
+                    if index % 4 === 0
+                      | <div class="row" style="width:99%">
+                      .col-md-1.col-sm-1.col-xs-1(style='text-align: right')
+                        input.flat(id=type.id,type='checkbox', value=type.id, name='monitoreo')
+                      |  
+                      label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer') #{type.name}
+                      if index === monitor.length - 1
+                        | </div>
+                    else
+                      if index % 4 === 3
+                        .col-md-1.col-sm-1.col-xs-1(style='text-align: right')
+                          input.flat(id=type.id,type='checkbox', value=type.id, name='monitoreo')
+                        |  
+                        label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer') #{type.name}
+                        | </div>
+                      else
+                        .col-md-1.col-sm-1.col-xs-1(style='text-align: right')
+                          input.flat(id=type.id,type='checkbox', value=type.id, name='monitoreo')
+                        |  
+                        label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer') #{type.name}
+                        if index === monitor.length - 1
+                          | </div>
 
     script.
       window.onload = function() {
@@ -177,6 +165,7 @@ block container
             labelPrevious:'Anterior',
             labelFinish:'Finalizar',
             buttonOrder: ['prev', 'next', 'finish'],
+            onLeaveStep: changeStep,
             onFinish: finishWizard
           });
           $('.buttonNext').addClass('btn btn-success');
@@ -184,6 +173,26 @@ block container
           $('.buttonFinish').addClass('btn btn-default');
           $('#config_init').modal('show');
         }
+        $('#multiunidad').on('ifChecked',function(){
+          $('#unidadinit').val($(this).val()).addClass('disabled').attr('disabled',true);
+        });
+        $('#multiunidad').on('ifUnchecked',function(){
+          $('#unidadinit').val('').removeClass('disabled').attr('disabled',false);
+        });
+
+        $('#multiproyoper').on('ifChecked',function(){
+          $('#proyoper').val($(this).val()).addClass('disabled').attr('disabled',true);
+        });
+        $('#multiproyoper').on('ifUnchecked',function(){
+          $('#proyoper').val('').removeClass('disabled').attr('disabled',false);
+        });
+      }
+      var changeStep = function(obj, context) {
+        var isStepValid = true;
+        if(!$('#frmstep' + context.fromStep).valid()){
+          isStepValid = false;
+        }
+        return isStepValid;
       }
       var finishWizard = function(){
         var $form = $('<form />', { action: '/secure/initConfig', method: 'POST' });
