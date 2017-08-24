@@ -49,16 +49,19 @@ router.post('/create',function(req, res, next){
 
 	try {
 		// Registering company information
-		var result = mysql.compny.createCompany(ruc, companyname);
+		var result = mysql.company.createCompany(ruc, companyname);
 		if(result.affectedRows == 1) {
 			// Registering user information
 			mysql.user.createUser(userid, computil.createHash(config().checksumhash,password), email, name, lastname, ruc, 'ROL1', 1);
 			// Init Dashboard Configuration
-			//mysql.dashboard.updateDashboardConfig(ruc);
+			var initDashboardConfig = ['DB01'];
+			mysql.dashboard.updateDashboardConfig(ruc,initDashboardConfig);
 			// Init Commitment Configuration
-			//mysql.commitment.updateCommitmentConfig(ruc);
+			var initCommitmentConfig = ['CM01','CM03','CM12','CM13','CM14','CM15','CM18'];
+			mysql.commitment.updateCommitmentConfig(ruc,initCommitmentConfig);
 			// Init Monitor Configuration
-			//mysql.monitor.updateMonitorConfig(ruc);
+			var initMonitorConfig = ['MN01'];
+			mysql.monitor.updateMonitorConfig(ruc,initMonitorConfig);
 			// Creating upload and download folders
 			var downloadpath = path.resolve('downloads') + '/' + ruc;
 			fs.mkdir(downloadpath, function(err) {

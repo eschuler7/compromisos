@@ -126,7 +126,7 @@ var compromisosdb = {
 				columns.push(compcomm[i].columnasoc);
 				values.push('?');
 			}
-			var dynamicquery = 'insert into t_commitment(ruc,' + columns.toString() + ',cdatetime,udatetime,t_user_id) values(?,' + values.toString() + ',?,?,?	)';
+			var dynamicquery = 'insert into t_commitment(ruc,' + columns.toString() + ',cdatetime,udatetime,t_user_userid) values(?,' + values.toString() + ',?,?,?	)';
 			var conn = new mysql(connectionOptions);
 			const result = conn.query(dynamicquery,comdata);
 			conn.dispose();

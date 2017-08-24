@@ -1,0 +1,82 @@
+extends ../layouts/layout_main.pug
+block container
+  .page-title
+    .title_left
+      h3 Editar atributos de compromisos
+  .clearfix
+  .row
+    .col-md-12
+      .x_panel
+        .clearfix
+        .x_content
+          form.form-horizontal.form-label-left(action='/secure/configattrcommit', method='POST')
+            center
+              table#datatable-responsive.table.dt-responsive.nowrap(cellspacing='0', width='100%')
+                each type, index in commitment
+                  - var check = false
+                  if type.id != 'CM30' && type.id != 'CM31' && type.id != 'CM32' && type.id != 'CM33'
+                    if index % 4 == 0
+                      tr
+                      if index % 4 == 0
+                        td  
+                          label(for=type.id,style='cursor: pointer') #{type.name}
+                        td
+                          each config in commitmentconfig
+                            if type.id == config.t_commitment_config_id
+                              - check = true
+                              - break
+                          if check == true
+                            input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos', checked)
+                          else
+                            input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos')
+                    else
+                      td
+                        label(for=type.id,style='cursor: pointer') #{type.name}
+                      td
+                        each config in commitmentconfig
+                          if type.id == config.t_commitment_config_id
+                            - check = true
+                            - break
+                        if check == true
+                          input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos', checked)
+                        else
+                          input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos')
+              table#datatable-responsive.table.dt-responsive.nowrap(cellspacing='0', width='100%')
+                caption(width='60%' style='text-align:center;')
+                  strong(style='color: #71859A') ETAPAS
+                each type, index in commitment
+                  - var check = false
+                  if type.id == 'CM30' || type.id == 'CM31'|| type.id == 'CM32'|| type.id == 'CM33'
+                    if index+1 % 4 == 0
+                      tr
+                      if index+1 % 4 == 0 
+                        td
+                          label(for=type.id,style='cursor: pointer') #{type.name}  
+                        td
+                          each config in commitmentconfig
+                            if type.id == config.t_commitment_config_id
+                              - check = true
+                              - break
+                          if check == true
+                            input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos', checked)
+                          else
+                            input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos')
+                    else
+                      td
+                        label(for=type.id,style='cursor: pointer') #{type.name} 
+                      td
+                        each config in commitmentconfig
+                          if type.id == config.t_commitment_config_id
+                            - check = true
+                            - break
+                        if check == true
+                          input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos', checked)
+                        else
+                          input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos')
+            .row
+              .ln_solid
+                .x_content
+                  .form-group.pull-right
+                    a.btn.btn-primary(href='/secure/configattrcommit') Cancel
+                    button.btn.btn-success(type='submit') Submit
+                  
