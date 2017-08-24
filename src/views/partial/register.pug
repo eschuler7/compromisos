@@ -25,93 +25,93 @@ block container
                     label.control-label.col-md-3.col-sm-6.col-xs-12(for=config.id,style='cursor: pointer') #{config.name}
                   td
                     input.flat(id=config.id,type='checkbox', value=config.id, name='compromisos')
-              if config.t_commitment_config_id == 'CM13'
-                .form-group
-                  label.control-label.col-md-3.col-sm-3.col-xs-12(for=config.id)
-                  | Fecha de Inicio:
-                  .col-sm-2 
+                if config.t_commitment_config_id == 'CM13'
+                  .form-group
+                    label.control-label.col-md-3.col-sm-3.col-xs-12(for=config.id)
+                    | Fecha de Inicio:
+                    .col-sm-2 
+                      .form-group
+                        #myDatepicker.input-group.date
+                          input.form-control(type='text')
+                          span.input-group-addon
+                            span.glyphicon.glyphicon-calendar 
+                  if config.t_commitment_config_id == 'CM12'
                     .form-group
-                      #myDatepicker.input-group.date
-                        input.form-control(type='text')
-                        span.input-group-addon
-                          span.glyphicon.glyphicon-calendar 
-              if config.t_commitment_config_id == 'CM12'
-                .form-group
-                  label.control-label.col-md-3.col-sm-3.col-xs-12(for=config.id)
-                    | Temporalidad:
-                  .col-md-6.col-sm-6.col-xs-12 
-                    select#heard.form-control(required='')
-                      option(value='') Choose..
-                      option(value='Puntual') Puntual
-                      option(value='Permanente') Permanente
-              if config.t_commitment_config_id == 'CM14'
-                .form-group
-                  label.control-label.col-md-3.col-sm-3.col-xs-12(for=config.id)
-                    | Frecuencia 
-                    span.required *
-                  .col-md-6.col-sm-6.col-xs-12
-                    select#heard.form-control(required='')
-                      option(value='') Choose..
-                      option(value='Unica') Unica
-                      option(value='Diaria') Diaria
-                      option(value='Semanal') Semanal
-                      option(value='Mensual') Mensual
-                      option(value='Trimestral') Trimestral
-                      option(value='Semestral') Semestral
-                      option(value='Anual') Anual
-                      option(value='Continuo') Continuo
-                      option(value='Indefinido') Indefinido
-              if config.t_commitment_config_id == 'CM21'
-                .form-group
-                  label.control-label.col-md-3.col-sm-3.col-xs-12(for=config.id)
-                    | Frecuencia propuesta de verificación 
-                    span.required *
-                  .col-md-6.col-sm-6.col-xs-12
-                    select#heard.form-control(required='')
-                      option(value='') Choose..
-                      option(value='Unica') Unica
-                      option(value='Diaria') Diaria
-                      option(value='Semanal') Semanal
-                      option(value='Mensual') Mensual
-                      option(value='Trimestral') Trimestral
-                      option(value='Semestral') Semestral
-                      option(value='Anual') Anual
-                      option(value='Continuo') Continuo
-                      option(value='Indefinido') Indefinido
-              if config.t_commitment_config_id == 'CM12'
-                .form-group
-                  label.control-label.col-md-3.col-sm-3.col-xs-12(for=config.id)
-                    | Criticidad 
-                    span.required *
-                  .col-md-6.col-sm-6.col-xs-12
-                    select#heard.form-control(required='')
-                      option(value='') Choose..
-                      option(value='Alto') Alto
-                      option(value='Medio') Medio
-                      option(value='Bajo') Bajo                      
-              if config.t_commitment_config_id == 'CM17'
-                .form-group
-                  label.control-label.col-md-3.col-sm-3.col-xs-12(for=config.id)
-                    | Evidencias de cumplimiento 
-                    span.required *
-                  .col-md-6.col-sm-6.col-xs-12
-                    input.form-control.col-md-7.col-xs-12(id='filesize',name=config.name, type='text')
-                    a(href='', onclick="openDialogBox('fileID').....")
-                    input(id='fs',type='file', multiple='', onchange='fsize()')   
-              if config.t_commitment_config_id == 'CM18'
-                .form-group
-                  label.control-label.col-md-3.col-sm-3.col-xs-12(for=config.id)
-                    | Estado del compromiso 
-                    span.required *
-                  .col-md-6.col-sm-6.col-xs-12
-                    select#heard.form-control(required='')
-                      option(value='') Choose..
-                      option(value='Abierto') Abierto
-                      option(value='Cerrado') Cerrado
-                      option(value='proceso') En proceso
-                      option(value='Cancelado') Cancelado                        
-                      option(value='Diferido') Diferido
-                      option(value='Vencido') Vencido     
+                      label.control-label.col-md-3.col-sm-3.col-xs-12(for=config.id)
+                        | Temporalidad:
+                      .col-md-6.col-sm-6.col-xs-12 
+                        select#heard.form-control(required='')
+                          option(value='') Choose..
+                          option(value='Puntual') Puntual
+                          option(value='Permanente') Permanente
+                    if config.t_commitment_config_id == 'CM14'
+                      .form-group
+                        label.control-label.col-md-3.col-sm-3.col-xs-12(for=config.id)
+                          | Frecuencia 
+                          span.required *
+                        .col-md-6.col-sm-6.col-xs-12
+                          select#heard.form-control(required='')
+                            option(value='') Choose..
+                            option(value='Unica') Unica
+                            option(value='Diaria') Diaria
+                            option(value='Semanal') Semanal
+                            option(value='Mensual') Mensual
+                            option(value='Trimestral') Trimestral
+                            option(value='Semestral') Semestral
+                            option(value='Anual') Anual
+                            option(value='Continuo') Continuo
+                            option(value='Indefinido') Indefinido
+                      if config.t_commitment_config_id == 'CM21'
+                      .form-group
+                        label.control-label.col-md-3.col-sm-3.col-xs-12(for=config.id)
+                          | Frecuencia propuesta de verificación 
+                          span.required *
+                        .col-md-6.col-sm-6.col-xs-12
+                          select#heard.form-control(required='')
+                            option(value='') Choose..
+                            option(value='Unica') Unica
+                            option(value='Diaria') Diaria
+                            option(value='Semanal') Semanal
+                            option(value='Mensual') Mensual
+                            option(value='Trimestral') Trimestral
+                            option(value='Semestral') Semestral
+                            option(value='Anual') Anual
+                            option(value='Continuo') Continuo
+                            option(value='Indefinido') Indefinido
+                        if config.t_commitment_config_id == 'CM12'
+                      .form-group
+                        label.control-label.col-md-3.col-sm-3.col-xs-12(for=config.id)
+                          | Criticidad 
+                          span.required *
+                        .col-md-6.col-sm-6.col-xs-12
+                          select#heard.form-control(required='')
+                            option(value='') Choose..
+                            option(value='Alto') Alto
+                            option(value='Medio') Medio
+                            option(value='Bajo') Bajo                      
+                          if config.t_commitment_config_id == 'CM17'
+                      .form-group
+                        label.control-label.col-md-3.col-sm-3.col-xs-12(for=config.id)
+                          | Evidencias de cumplimiento 
+                          span.required *
+                        .col-md-6.col-sm-6.col-xs-12
+                          input.form-control.col-md-7.col-xs-12(id='filesize',name=config.name, type='text')
+                          a(href='', onclick="openDialogBox('fileID').....")
+                          input(id='fs',type='file', multiple='', onchange='fsize()')   
+                            if config.t_commitment_config_id == 'CM18'
+                      .form-group
+                        label.control-label.col-md-3.col-sm-3.col-xs-12(for=config.id)
+                          | Estado del compromiso 
+                          span.required *
+                        .col-md-6.col-sm-6.col-xs-12
+                          select#heard.form-control(required='')
+                            option(value='') Choose..
+                            option(value='Abierto') Abierto
+                            option(value='Cerrado') Cerrado
+                            option(value='proceso') En proceso
+                            option(value='Cancelado') Cancelado                        
+                            option(value='Diferido') Diferido
+                            option(value='Vencido') Vencido     
             .row
               .ln_solid
               .form-group
