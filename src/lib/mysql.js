@@ -153,7 +153,7 @@ var compromisosdb = {
 		},
 		getCommitmentTypes : function() {
 			var conn = new mysql(connectionOptions);
-			const result = conn.query('select id, name from t_commitment_config');
+			const result = conn.query('select id, name, mandatory from t_commitment_config');
 			conn.dispose();
 			return result;
 		},

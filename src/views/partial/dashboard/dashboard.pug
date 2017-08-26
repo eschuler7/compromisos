@@ -107,28 +107,55 @@ block container
                 form#frmstep3.form-label-left
                   span.section(style='color: #71859A') Paso 3 : Configuración inicial de la tabla de compromisos
                   each type, index in commitment
-                    if index % 4 === 0
-                      | <div class="row" style="width:99%">
-                      .col-md-1.col-sm-1.col-xs-1(style='text-align: right')
-                        input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos')
-                      |  
-                      label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer') #{type.name}
-                      if index === commitment.length - 1
-                        | </div>
-                    else
-                      if index % 4 === 3
-                        .col-md-1.col-sm-1.col-xs-1(style='text-align: right')
-                          input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos')
-                        |  
-                        label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer') #{type.name}
-                        | </div>
-                      else
+                    if type.mandatory === 0
+                      if index % 4 === 0
+                        | <div class="row" style="width:99%">
                         .col-md-1.col-sm-1.col-xs-1(style='text-align: right')
                           input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos')
                         |  
                         label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer') #{type.name}
                         if index === commitment.length - 1
                           | </div>
+                      else
+                        if index % 4 === 3
+                          .col-md-1.col-sm-1.col-xs-1(style='text-align: right')
+                            input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos')
+                          |  
+                          label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer') #{type.name}
+                          | </div>
+                        else
+                          .col-md-1.col-sm-1.col-xs-1(style='text-align: right')
+                            input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos')
+                          |  
+                          label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer') #{type.name}
+                          if index === commitment.length - 1
+                            | </div>
+                    else if type.mandatory === 1
+                      if index % 4 === 0
+                        | <div class="row" style="width:99%">
+                        .col-md-1.col-sm-1.col-xs-1(style='text-align: right')
+                          input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos', checked='checked', disabled='disabled')
+                          
+                        |  
+                        label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer') #{type.name}
+                        if index === commitment.length - 1
+                          | </div>
+                      else
+                        if index % 4 === 3
+                          .col-md-1.col-sm-1.col-xs-1(style='text-align: right')
+                            input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos', checked='checked', disabled='disabled')
+                            
+                          |  
+                          label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer') #{type.name}
+                          | </div>
+                        else
+                          .col-md-1.col-sm-1.col-xs-1(style='text-align: right')
+                            input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos', checked='checked', disabled='disabled')
+
+                          |  
+                          label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer') #{type.name}
+                          if index === commitment.length - 1
+                            | </div>
               #step-4
                 form#frmstep4.form-label-left
                   span.section(style='color: #71859A') Paso 4 : Configuración inicial de la tabla de monitoreo
@@ -201,6 +228,7 @@ block container
         $("#frmstep3 :input").appendTo($form);
         $("#frmstep4 :input").appendTo($form);
         $form.appendTo('body');
+        $('input').removeAttr('disabled');
         $form.submit();
       }
       var closewizard = function() {

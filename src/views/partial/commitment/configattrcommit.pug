@@ -14,11 +14,24 @@ block container
               table#datatable-responsive.table.dt-responsive.nowrap(cellspacing='0', width='100%')
                 each type, index in commitment
                   - var check = false
-                  if type.id != 'CM30' && type.id != 'CM31' && type.id != 'CM32' && type.id != 'CM33'
-                    if index % 4 == 0
-                      tr
+                  if type.mandatory === 0
+                    if type.id != 'CM30' && type.id != 'CM31' && type.id != 'CM32' && type.id != 'CM33'
                       if index % 4 == 0
-                        td  
+                        tr
+                        if index % 4 == 0
+                          td  
+                            label(for=type.id,style='cursor: pointer') #{type.name}
+                          td
+                            each config in commitmentconfig
+                              if type.id == config.t_commitment_config_id
+                                - check = true
+                                - break
+                            if check == true
+                              input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos', checked)
+                            else
+                              input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos')
+                      else
+                        td
                           label(for=type.id,style='cursor: pointer') #{type.name}
                         td
                           each config in commitmentconfig
@@ -29,18 +42,35 @@ block container
                             input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos', checked)
                           else
                             input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos')
-                    else
-                      td
-                        label(for=type.id,style='cursor: pointer') #{type.name}
-                      td
-                        each config in commitmentconfig
-                          if type.id == config.t_commitment_config_id
-                            - check = true
-                            - break
-                        if check == true
-                          input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos', checked)
-                        else
-                          input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos')
+                  else if type.mandatory === 1
+                    if type.id != 'CM30' && type.id != 'CM31' && type.id != 'CM32' && type.id != 'CM33'
+                      if index % 4 == 0
+                        tr
+                        if index % 4 == 0
+                          td  
+                            label(for=type.id,style='cursor: pointer') #{type.name}
+                          td
+                            each config in commitmentconfig
+                              if type.id == config.t_commitment_config_id
+                                - check = true
+                                - break
+                            if check == true
+                              input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos', checked='checked', disabled='disabled')
+                            else
+                              input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos')
+                      else
+                        td
+                          label(for=type.id,style='cursor: pointer') #{type.name}
+                        td
+                          each config in commitmentconfig
+                            if type.id == config.t_commitment_config_id
+                              - check = true
+                              - break
+                          if check == true
+                            input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos', checked='checked', disabled='disabled')
+                          else
+                            input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos')
+
               table#datatable-responsive.table.dt-responsive.nowrap(cellspacing='0', width='100%')
                 caption(width='60%' style='text-align:center;')
                   strong(style='color: #71859A') ETAPAS

@@ -216,11 +216,11 @@ router.post('/initConfig', function(req, res){
 		console.log('resultado de unidadinit: ',unidadinit);
 		console.log('Insertando Headers: ');
 		mysql.company.updateCompanyByRuc(req.session.user.t_company_ruc,razonsocial,unidadinit,proyoper);
-		console.log('Insertando dashboard: ');
+		console.log('Insertando dashboard: ', dashboard);
 		mysql.dashboard.updateDashboardConfig(req.session.user.t_company_ruc,dashboard);
-		console.log('Insertando compromisos: ');
+		console.log('Insertando compromisos: ', compromisos);
 		mysql.commitment.updateCommitmentConfig(req.session.user.t_company_ruc,compromisos);
-		console.log('Insertando monitoreo: ');
+		console.log('Insertando monitoreo: ',monitoreo);
 		mysql.monitor.updateMonitorConfig(req.session.user.t_company_ruc,monitoreo);
 		res.redirect('/secure/dashboard');
 	}

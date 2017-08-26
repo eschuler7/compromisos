@@ -18,39 +18,39 @@ insert into t_dashboard_config(id,name,cdatetime,udatetime) values('DB09','Compr
 insert into t_dashboard_config(id,name,cdatetime,udatetime) values('DB10','Compromisos que requieren ser modificados',now(),now());
 
 -- Inserts iniciales para la tabla commitments
-insert into t_commitment_config(id,name,columnasoc,cdatetime,udatetime) values('CM01','Número correlativo','nrocorrelativo',now(),now());
-insert into t_commitment_config(id,name,columnasoc,cdatetime,udatetime) values('CM02','Origen compromiso','origencompromiso',now(),now());
-insert into t_commitment_config(id,name,columnasoc,cdatetime,udatetime) values('CM03','Código global','codigoglobal',now(),now());
-insert into t_commitment_config(id,name,columnasoc,cdatetime,udatetime) values('CM04','Capítulo','capitulo',now(),now());
-insert into t_commitment_config(id,name,columnasoc,cdatetime,udatetime) values('CM05','Sección','seccion',now(),now());
-insert into t_commitment_config(id,name,columnasoc,cdatetime,udatetime) values('CM06','Página','pagina',now(),now());
-insert into t_commitment_config(id,name,columnasoc,cdatetime,udatetime) values('CM07','Aspecto asociado','aspambasoc',now(),now());
-insert into t_commitment_config(id,name,columnasoc,cdatetime,udatetime) values('CM08','Instalación/componente','instcompasoc',now(),now());
-insert into t_commitment_config(id,name,columnasoc,cdatetime,udatetime) values('CM09','Contenido original del compromiso','contorigcomp',now(),now());
-insert into t_commitment_config(id,name,columnasoc,cdatetime,udatetime) values('CM10','Resumen del compromiso','resumencomp',now(),now());
-insert into t_commitment_config(id,name,columnasoc,cdatetime,udatetime) values('CM11','Antecedentes del compromiso','antecedentes',now(),now());
-insert into t_commitment_config(id,name,columnasoc,cdatetime,udatetime) values('CM12','Temporalidad','temporalidad',now(),now());
-insert into t_commitment_config(id,name,columnasoc,cdatetime,udatetime) values('CM13','Fecha de inicio','fechainicio',now(),now());
-insert into t_commitment_config(id,name,columnasoc,cdatetime,udatetime) values('CM14','Frecuencia','frecuencia',now(),now());
-insert into t_commitment_config(id,name,columnasoc,cdatetime,udatetime) values('CM15','Criticidad','criticidad',now(),now());
-insert into t_commitment_config(id,name,columnasoc,cdatetime,udatetime) values('CM16','Tipo de evidencia de cumplimiento','tipoevidencia',now(),now());
-insert into t_commitment_config(id,name,columnasoc,cdatetime,udatetime) values('CM17','Evidencia de cumplimiento','evidencia',now(),now());
-insert into t_commitment_config(id,name,columnasoc,cdatetime,udatetime) values('CM18','Estado de cumplimiento','estadocumplimiento',now(),now());
-insert into t_commitment_config(id,name,columnasoc,cdatetime,udatetime) values('CM19','Acción sobre el compromiso','accioncompromiso',now(),now());
-insert into t_commitment_config(id,name,columnasoc,cdatetime,udatetime) values('CM20','Detalle de acción','detalleaccion',now(),now());
-insert into t_commitment_config(id,name,columnasoc,cdatetime,udatetime) values('CM21','Frecuencia de verificación','frecuenciaverificacion',now(),now());
-insert into t_commitment_config(id,name,columnasoc,cdatetime,udatetime) values('CM22','Area responsable','arearesponsable',now(),now());
-insert into t_commitment_config(id,name,columnasoc,cdatetime,udatetime) values('CM23','Correos de notificación','correosnotificacion',now(),now());
-insert into t_commitment_config(id,name,columnasoc,cdatetime,udatetime) values('CM24','Notificación de inactividad','notificacioninactividad',now(),now());
-insert into t_commitment_config(id,name,columnasoc,cdatetime,udatetime) values('CM25','Nombre de revisor','nombrerevisor',now(),now());
-insert into t_commitment_config(id,name,columnasoc,cdatetime,udatetime) values('CM26','Fecha de revisión','fecharevision',now(),now());
-insert into t_commitment_config(id,name,columnasoc,cdatetime,udatetime) values('CM27','Referencia técnica o legal de cumplimiento','referencialegal',now(),now());
-insert into t_commitment_config(id,name,columnasoc,cdatetime,udatetime) values('CM28','Presupuesto','presupuesto',now(),now());
-insert into t_commitment_config(id,name,columnasoc,cdatetime,udatetime) values('CM29','Notas adicionales','comentarios',now(),now());
-insert into t_commitment_config(id,name,columnasoc,cdatetime,udatetime) values('CM30','Construcción','construccion',now(),now());
-insert into t_commitment_config(id,name,columnasoc,cdatetime,udatetime) values('CM31','Operación','operacion',now(),now());
-insert into t_commitment_config(id,name,columnasoc,cdatetime,udatetime) values('CM32','Cierre','cierre',now(),now());
-insert into t_commitment_config(id,name,columnasoc,cdatetime,udatetime) values('CM33','Post-cierre','postcierre',now(),now());
+insert into t_commitment_config(id,name,columnasoc,mandatory,cdatetime,udatetime) values('CM01','Número correlativo','nrocorrelativo',1,now(),now());
+insert into t_commitment_config(id,name,columnasoc,mandatory,cdatetime,udatetime) values('CM02','Origen compromiso','origencompromiso',0,now(),now());
+insert into t_commitment_config(id,name,columnasoc,mandatory,cdatetime,udatetime) values('CM03','Código global','codigoglobal',1,now(),now());
+insert into t_commitment_config(id,name,columnasoc,mandatory,cdatetime,udatetime) values('CM04','Capítulo','capitulo',0,now(),now());
+insert into t_commitment_config(id,name,columnasoc,mandatory,cdatetime,udatetime) values('CM05','Sección','seccion',0,now(),now());
+insert into t_commitment_config(id,name,columnasoc,mandatory,cdatetime,udatetime) values('CM06','Página','pagina',0,now(),now());
+insert into t_commitment_config(id,name,columnasoc,mandatory,cdatetime,udatetime) values('CM07','Aspecto asociado','aspambasoc',0,now(),now());
+insert into t_commitment_config(id,name,columnasoc,mandatory,cdatetime,udatetime) values('CM08','Instalación/componente','instcompasoc',0,now(),now());
+insert into t_commitment_config(id,name,columnasoc,mandatory,cdatetime,udatetime) values('CM09','Contenido original del compromiso','contorigcomp',0,now(),now());
+insert into t_commitment_config(id,name,columnasoc,mandatory,cdatetime,udatetime) values('CM10','Resumen del compromiso','resumencomp',0,now(),now());
+insert into t_commitment_config(id,name,columnasoc,mandatory,cdatetime,udatetime) values('CM11','Antecedentes del compromiso','antecedentes',0,now(),now());
+insert into t_commitment_config(id,name,columnasoc,mandatory,cdatetime,udatetime) values('CM12','Temporalidad','temporalidad',1,now(),now());
+insert into t_commitment_config(id,name,columnasoc,mandatory,cdatetime,udatetime) values('CM13','Fecha de inicio','fechainicio',1,now(),now());
+insert into t_commitment_config(id,name,columnasoc,mandatory,cdatetime,udatetime) values('CM14','Frecuencia','frecuencia',1,now(),now());
+insert into t_commitment_config(id,name,columnasoc,mandatory,cdatetime,udatetime) values('CM15','Criticidad','criticidad',1,now(),now());
+insert into t_commitment_config(id,name,columnasoc,mandatory,cdatetime,udatetime) values('CM16','Tipo de evidencia de cumplimiento','tipoevidencia',0,now(),now());
+insert into t_commitment_config(id,name,columnasoc,mandatory,cdatetime,udatetime) values('CM17','Evidencia de cumplimiento','evidencia',0,now(),now());
+insert into t_commitment_config(id,name,columnasoc,mandatory,cdatetime,udatetime) values('CM18','Estado de cumplimiento','estadocumplimiento',1,now(),now());
+insert into t_commitment_config(id,name,columnasoc,mandatory,cdatetime,udatetime) values('CM19','Acción sobre el compromiso','accioncompromiso',0,now(),now());
+insert into t_commitment_config(id,name,columnasoc,mandatory,cdatetime,udatetime) values('CM20','Detalle de acción','detalleaccion',0,now(),now());
+insert into t_commitment_config(id,name,columnasoc,mandatory,cdatetime,udatetime) values('CM21','Frecuencia de verificación','frecuenciaverificacion',0,now(),now());
+insert into t_commitment_config(id,name,columnasoc,mandatory,cdatetime,udatetime) values('CM22','Area responsable','arearesponsable',0,now(),now());
+insert into t_commitment_config(id,name,columnasoc,mandatory,cdatetime,udatetime) values('CM23','Correos de notificación','correosnotificacion',0,now(),now());
+insert into t_commitment_config(id,name,columnasoc,mandatory,cdatetime,udatetime) values('CM24','Notificación de inactividad','notificacioninactividad',0,now(),now());
+insert into t_commitment_config(id,name,columnasoc,mandatory,cdatetime,udatetime) values('CM25','Nombre de revisor','nombrerevisor',0,now(),now());
+insert into t_commitment_config(id,name,columnasoc,mandatory,cdatetime,udatetime) values('CM26','Fecha de revisión','fecharevision',0,now(),now());
+insert into t_commitment_config(id,name,columnasoc,mandatory,cdatetime,udatetime) values('CM27','Referencia técnica o legal de cumplimiento','referencialegal',0,now(),now());
+insert into t_commitment_config(id,name,columnasoc,mandatory,cdatetime,udatetime) values('CM28','Presupuesto','presupuesto',0,now(),now());
+insert into t_commitment_config(id,name,columnasoc,mandatory,cdatetime,udatetime) values('CM29','Notas adicionales','comentarios',0,now(),now());
+insert into t_commitment_config(id,name,columnasoc,mandatory,cdatetime,udatetime) values('CM30','Construcción','construccion',0,now(),now());
+insert into t_commitment_config(id,name,columnasoc,mandatory,cdatetime,udatetime) values('CM31','Operación','operacion',0,now(),now());
+insert into t_commitment_config(id,name,columnasoc,mandatory,cdatetime,udatetime) values('CM32','Cierre','cierre',0,now(),now());
+insert into t_commitment_config(id,name,columnasoc,mandatory,cdatetime,udatetime) values('CM33','Post-cierre','postcierre',0,now(),now());
 
 -- Inserts iniciales para la tabla monitor
 insert into t_monitor_config(id,name,cdatetime,udatetime) values('MN01','Número correlativo',now(),now());
@@ -108,6 +108,7 @@ select t_company_ruc,t_monitor_config_id,tmc.name from t_company_monitor tcm lef
 
 -- Eliminar data de las tablas de configuración de atributos
 select * from t_commitment_config;
+select id, name, mandatory from t_commitment_config;
 delete from t_commitment_config where id like 'CM%';
 select * from t_monitor_config;
 delete from t_monitor_config where id like 'MN%';
