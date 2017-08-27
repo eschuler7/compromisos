@@ -11,6 +11,9 @@ prod: &default
     auth:
       user: joandelgado18@gmail.com
       pass: pcmxskzxujkforgq
+    from:
+      name: NOLAN
+      email: joandelgado18@gmail.com
   mysql:
     host: bluemix-sandbox-dal-9-portal.1.dblayer.com
     user: admin

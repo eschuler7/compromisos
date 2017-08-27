@@ -25,7 +25,7 @@ var email = {
 	sendEmail : function(email, subject, htmlbody) {
 		var transporter = initTransporter();
 		var mailOptions = {
-		    from: '"MIS COMPROMISOS" <joandelgado18@gmail.com>',
+		    from: smtp.from.name + ' <' + smtp.from.email + '>',
 		    to: email,
 		    subject: subject,
 		    html: htmlbody
