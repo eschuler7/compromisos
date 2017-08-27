@@ -85,7 +85,7 @@ router.post('/create',function(req, res, next){
 				htmlRegistrationTemplate = htmlRegistrationTemplate.replace('$BASE_URL',config().baseUrl);
 				htmlRegistrationTemplate = htmlRegistrationTemplate.replace('$USERID',userid);
 				htmlRegistrationTemplate = htmlRegistrationTemplate.replace('$PASSWORD',password);
-				compemail.sendEmail(email,'Registro en Mis Compromisos',htmlRegistrationTemplate);
+				compemail.sendEmail(email,'Registro en NOLAN',htmlRegistrationTemplate);
 			}
 		}
 		res.redirect('/admin/clients');

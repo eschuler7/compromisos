@@ -210,19 +210,18 @@ router.post('/initConfig', function(req, res){
 	mysql.dashboard.updateDashboardConfig(req.session.user.t_company_ruc,dashboard);
 	mysql.commitment.updateCommitmentConfig(req.session.user.t_company_ruc,compromisos);	
 	mysql.monitor.updateMonitorConfig(req.session.user.t_company_ruc,monitoreo);
+	console.log('resultado de unidadinit: ',unidadinit);
+	console.log('Insertando Headers: ');
+	mysql.company.updateCompanyByRuc(req.session.user.t_company_ruc,razonsocial,unidadinit,proyoper);
+	console.log('Insertando dashboard: ', dashboard);
+	mysql.dashboard.updateDashboardConfig(req.session.user.t_company_ruc,dashboard);
+	console.log('Insertando compromisos: ', compromisos);
+	mysql.commitment.updateCommitmentConfig(req.session.user.t_company_ruc,compromisos);
+	console.log('Insertando monitoreo: ',monitoreo);
+	mysql.monitor.updateMonitorConfig(req.session.user.t_company_ruc,monitoreo);
 	var result = mysql.company.updateFirstTime(req.session.user.t_company_ruc,0);
 	if(result.affectedRows == 1) {
 		req.session.user.firsttime = 0;
-		console.log('resultado de unidadinit: ',unidadinit);
-		console.log('Insertando Headers: ');
-		mysql.company.updateCompanyByRuc(req.session.user.t_company_ruc,razonsocial,unidadinit,proyoper);
-		console.log('Insertando dashboard: ', dashboard);
-		mysql.dashboard.updateDashboardConfig(req.session.user.t_company_ruc,dashboard);
-		console.log('Insertando compromisos: ', compromisos);
-		mysql.commitment.updateCommitmentConfig(req.session.user.t_company_ruc,compromisos);
-		console.log('Insertando monitoreo: ',monitoreo);
-		mysql.monitor.updateMonitorConfig(req.session.user.t_company_ruc,monitoreo);
-		res.redirect('/secure/dashboard');
 	}
 	res.redirect('/secure/dashboard');
 });
