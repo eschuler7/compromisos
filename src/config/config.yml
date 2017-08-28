@@ -37,3 +37,6 @@ dev:
     auth:
       user: joandelgado18@gmail.com
       pass: xtyecjonhrbllmno
+    from:
+      name: NOLAN
+      email: joandelgado18@gmail.com
