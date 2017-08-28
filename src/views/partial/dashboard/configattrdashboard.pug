@@ -1,90 +1,83 @@
-extends ../layouts/layout_main.pug
+extends ../../layouts/layout_main.pug
 block container
-  .page-title
-    .title_left
-      h3 Editar atributos de control
-  .clearfix
   .row
     .col-md-12
       .x_panel
-        .clearfix
+        .x_title
+          h2 Configuración de atributos
+          .clearfix
         .x_content
-          form.form-horizontal.form-label-left(action='/secure/configattrdashboard', method='POST')
-            center
-              table#datatable-responsive.table.dt-responsive.nowrap(cellspacing='0', width='100%')
-                each type, index in dashboard
-                  - var check = false
-                  if type.mandatory === 1
-                    if index % 4 === 0
-                      | <div class="row" style="width:99%">
-                      .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
-                        input.flat(id=type.id,type='checkbox', value=type.id, name='dashboard', checked='checked', disabled='disabled')
-                      |  
-                      label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
-                      if index === dashboard.length - 1
-                        | </div>
-                    else
-                      if index % 4 === 3
-                        .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
-                          input.flat(id=type.id,type='checkbox', value=type.id, name='dashboard', checked='checked', disabled='disabled')
-                        |  
-                        label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
-                        | </div>
-                      else
-                        .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
-                          input.flat(id=type.id,type='checkbox', value=type.id, name='dashboard', checked='checked', disabled='disabled')
-                        |  
-                        label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
-                        if index === dashboard.length - 1
-                          | </div>
+          form.form-label-left(action='/secure/configattrdashboard', method='POST')
+            each type, index in dashboard
+              - var check = false
+              if type.mandatory === 1
+                if index % 4 === 0
+                  | <div class="row" style="width:99%">
+                  .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
+                    input.flat(id=type.id,type='checkbox', value=type.id, name='dashboard', checked='checked', disabled='disabled')
+                  |  
+                  label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
+                  if index === dashboard.length - 1
+                    | </div>
+                else
+                  if index % 4 === 3
+                    .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
+                      input.flat(id=type.id,type='checkbox', value=type.id, name='dashboard', checked='checked', disabled='disabled')
+                    |  
+                    label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
+                    | </div>
                   else
-                    if index % 4 === 0
-                      | <div class="row" style="width:99%">
-                      .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
-                        each config in dashboardconfig
-                          if type.id == config.t_dashboard_config_id
-                            - check = true
-                            - break
-                        if check == true
-                          input.flat(id=type.id,type='checkbox', value=type.id, name='dashboard', checked)
-                        else
-                          input.flat(id=type.id,type='checkbox', value=type.id, name='dashboard')
-                      |  
-                      label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer') #{type.name}
-                      if index === dashboard.length - 1
-                        | </div>
+                    .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
+                      input.flat(id=type.id,type='checkbox', value=type.id, name='dashboard', checked='checked', disabled='disabled')
+                    |  
+                    label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
+                    if index === dashboard.length - 1
+                      | </div>
+              else
+                if index % 4 === 0
+                  | <div class="row" style="width:99%">
+                  .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
+                    each config in dashboardconfig
+                      if type.id == config.t_dashboard_config_id
+                        - check = true
+                        - break
+                    if check == true
+                      input.flat(id=type.id,type='checkbox', value=type.id, name='dashboard', checked)
                     else
-                      if index % 4 === 3
-                        .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
-                          each config in dashboardconfig
-                            if type.id == config.t_dashboard_config_id
-                              - check = true
-                              - break
-                          if check == true
-                            input.flat(id=type.id,type='checkbox', value=type.id, name='dashboard', checked)
-                          else
-                            input.flat(id=type.id,type='checkbox', value=type.id, name='dashboard')
-                        |  
-                        label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
-                        | </div>
+                      input.flat(id=type.id,type='checkbox', value=type.id, name='dashboard')
+                  |  
+                  label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer') #{type.name}
+                  if index === dashboard.length - 1
+                    | </div>
+                else
+                  if index % 4 === 3
+                    .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
+                      each config in dashboardconfig
+                        if type.id == config.t_dashboard_config_id
+                          - check = true
+                          - break
+                      if check == true
+                        input.flat(id=type.id,type='checkbox', value=type.id, name='dashboard', checked)
                       else
-                        .col-md-1.col-sm-1.col-xs-1(style='text-align: right')
-                          each config in dashboardconfig
-                            if type.id == config.t_dashboard_config_id
-                              - check = true
-                              - break
-                          if check == true
-                            input.flat(id=type.id,type='checkbox', value=type.id, name='dashboard', checked)
-                          else
-                            input.flat(id=type.id,type='checkbox', value=type.id, name='dashboard')
-                        |  
-                        label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
-                        if index === dashboard.length - 1
-                          | </div>
-            .row
-              .ln_solid
-                .x_content
-                  .form-group.pull-right
-                    a.btn.btn-primary(href='/secure/configattrdashboard') Cancel
-                    button.btn.btn-success(type='submit') Submit
+                        input.flat(id=type.id,type='checkbox', value=type.id, name='dashboard')
+                    |  
+                    label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
+                    | </div>
+                  else
+                    .col-md-1.col-sm-1.col-xs-1(style='text-align: right')
+                      each config in dashboardconfig
+                        if type.id == config.t_dashboard_config_id
+                          - check = true
+                          - break
+                      if check == true
+                        input.flat(id=type.id,type='checkbox', value=type.id, name='dashboard', checked)
+                      else
+                        input.flat(id=type.id,type='checkbox', value=type.id, name='dashboard')
+                    |  
+                    label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
+                    if index === dashboard.length - 1
+                      | </div>
+            .ln_solid
+            a.btn.btn-primary(href='/secure/configattrdashboard') Cancel
+            button.btn.btn-success(type='submit') Guardar
                   
