@@ -1,83 +1,80 @@
 extends ../../layouts/layout_main.pug
 block container
-  .page-title
-    .title_left
-      h3 Editar atributos de monitoreo
-  .clearfix
   .row
     .col-md-12
       .x_panel
-        .clearfix
+        .x_title
+          h2 Configuración de atributos
+          .clearfix
         .x_content
-          form.form-horizontal.form-label-left(action='/secure/configattrmonit', method='POST')
-            center
-              table#datatable-responsive.table.dt-responsive.nowrap(cellspacing='0', width='100%')
-                each type, index in monitor
-                  - var check = false
-                  if type.id != 'MN28' && type.id != 'MN29' && type.id != 'MN30' && type.id != 'MN31'
-                    if index % 4 == 0
-                      tr
-                      if index % 4 == 0
-                        td
-                          label(for=type.id,style='cursor: pointer') #{type.name}
-                        td
-                          each config in monitorconfig
-                            if type.id == config.t_monitor_config_id
-                              - check = true
-                              - break
-                          if check == true
-                            input.flat(id=type.id,type='checkbox', value=type.id, name='monitoreo', checked)
-                          else
-                            input.flat(id=type.id,type='checkbox', value=type.id, name='monitoreo')
+          form.form-label-left(action='/secure/configattrmonit', method='POST')
+            each type, index in monitor
+              if type.mandatory === 1
+                if index % 4 === 0
+                  | <div class="row">
+                  .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
+                    input.flat(id=type.id,type='checkbox', value=type.id, name='monitoreo', checked='checked', disabled='disabled')
+                  |  
+                  label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
+                  if index === monitor.length - 1
+                    | </div>
+                else
+                  if index % 4 === 3
+                    .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
+                      input.flat(id=type.id,type='checkbox', value=type.id, name='monitoreo', checked='checked', disabled='disabled')
+                    |  
+                    label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
+                    | </div>
+                  else
+                    .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
+                      input.flat(id=type.id,type='checkbox', value=type.id, name='monitoreo', checked='checked', disabled='disabled')
+                    |  
+                    label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
+                    if index === monitor.length - 1
+                      | </div>
+              else
+                if index % 4 === 0
+                  | <div class="row">
+                  .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
+                    each config in monitorconfig
+                      if type.id == config.t_monitor_config_id
+                        - check = true
+                        - break
+                    if check == true
+                      input.flat(id=type.id,type='checkbox', value=type.id, name='monitoreo', checked)
                     else
-                      td
-                        label(for=type.id,style='cursor: pointer') #{type.name}
-                      td
-                        each config in monitorconfig
-                          if type.id == config.t_monitor_config_id
-                            - check = true
-                            - break
-                        if check == true
-                          input.flat(id=type.id,type='checkbox', value=type.id, name='monitoreo', checked)
-                        else
-                          input.flat(id=type.id,type='checkbox', value=type.id, name='monitoreo')
-                
-              table#datatable-responsive.table.dt-responsive.nowrap(cellspacing='0', width='100%')
-                caption(width='60%' style='text-align:center;')
-                  strong(style='color: #71859A') ETAPAS
-                each type, index in monitor
-                  - var check = false
-                  if type.id == 'MN28' || type.id == 'MN29'|| type.id == 'MN30'|| type.id == 'MN31'
-                    if index+1 % 4 == 0
-                      tr
-                      if index+1 % 4 == 0
-                        td
-                          label(for=type.id,style='cursor: pointer') #{type.name} 
-                        td
-                          each config in monitorconfig
-                            if type.id == config.t_monitor_config_id
-                              - check = true
-                              - break
-                          if check == true
-                            input.flat(id=type.id,type='checkbox', value=type.id, name='monitoreo', checked)
-                          else
-                            input.flat(id=type.id,type='checkbox', value=type.id, name='monitoreo')
-                    else
-                      td
-                        label(for=type.id,style='cursor: pointer') #{type.name} 
-                      td
-                        each config in monitorconfig
-                          if type.id == config.t_monitor_config_id
-                            - check = true
-                            - break
-                        if check == true
-                          input.flat(id=type.id,type='checkbox', value=type.id, name='monitoreo', checked)
-                        else
-                          input.flat(id=type.id,type='checkbox', value=type.id, name='monitoreo')
-            .row
-              .ln_solid
-                .x_content
-                  .form-group.pull-right
-                    a.btn.btn-primary(href='/secure/configattrmonit') Cancel
-                    button.btn.btn-success(type='submit') Submit
-                    
+                      input.flat(id=type.id,type='checkbox', value=type.id, name='monitoreo')
+                  |  
+                  label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
+                  if index === monitor.length - 1
+                    | </div>
+                else
+                  if index % 4 === 3
+                    .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
+                      each config in monitorconfig
+                        if type.id == config.t_monitor_config_id
+                          - check = true
+                          - break
+                      if check == true
+                        input.flat(id=type.id,type='checkbox', value=type.id, name='monitoreo', checked)
+                      else
+                        input.flat(id=type.id,type='checkbox', value=type.id, name='monitoreo')
+                    |  
+                    label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
+                    | </div>
+                  else
+                    .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
+                      each config in monitorconfig
+                        if type.id == config.t_monitor_config_id
+                          - check = true
+                          - break
+                      if check == true
+                        input.flat(id=type.id,type='checkbox', value=type.id, name='monitoreo', checked)
+                      else
+                        input.flat(id=type.id,type='checkbox', value=type.id, name='monitoreo')
+                    |  
+                    label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
+                    if index === monitor.length - 1
+                      | </div>
+            .ln_solid
+            button.btn.btn-success(type='submit') Guardar

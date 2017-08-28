@@ -1,100 +1,80 @@
 extends ../../layouts/layout_main.pug
 block container
-  .page-title
-    .title_left
-      h3 Editar atributos de compromisos
-  .clearfix
   .row
     .col-md-12
       .x_panel
-        .clearfix
+        .x_title
+          h2 Configuración de atributos
+          .clearfix
         .x_content
-          form.form-horizontal.form-label-left(action='/secure/configattrcommit', method='POST')
-            center
-              table#datatable-responsive.table.dt-responsive.nowrap(cellspacing='0', width='100%')
-                each type, index in commitment
-                  - var check = false
-                  if type.mandatory === 1
-                    if type.id != 'CM30' && type.id != 'CM31' && type.id != 'CM32' && type.id != 'CM33'
-                      if index % 4 == 0
-                        tr
-                        if index % 4 == 0
-                          td  
-                            label(for=type.id,style='cursor: pointer') #{type.name}
-                          td
-                            input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos', checked='checked', disabled='disabled')
-                            input.flat(id=type.id,type='hidden', value=type.id, name='compromisos')
-                      else
-                        td
-                          label(for=type.id,style='cursor: pointer') #{type.name}
-                        td
-                          input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos', checked='checked', disabled='disabled')
-                          input.flat(id=type.id,type='hidden', value=type.id, name='compromisos')
+          form.form-label-left(action='/secure/configattrcommit', method='POST')
+            each type, index in commitment
+              if type.mandatory === 1
+                if index % 4 === 0
+                  | <div class="row">
+                  .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
+                    input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos', checked='checked', disabled='disabled')
+                  |  
+                  label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
+                  if index === commitment.length - 1
+                    | </div>
+                else
+                  if index % 4 === 3
+                    .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
+                      input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos', checked='checked', disabled='disabled')
+                    |  
+                    label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
+                    | </div>
                   else
-                    if type.id != 'CM30' && type.id != 'CM31' && type.id != 'CM32' && type.id != 'CM33'
-                      if index % 4 == 0
-                        tr
-                        if index % 4 == 0
-                          td  
-                            label(for=type.id,style='cursor: pointer') #{type.name}
-                          td
-                            each config in commitmentconfig
-                              if type.id == config.t_commitment_config_id
-                                - check = true
-                                - break
-                            if check == true
-                              input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos', checked='checked')
-                            else
-                              input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos')
-                      else
-                        td
-                          label(for=type.id,style='cursor: pointer') #{type.name}
-                        td
-                          each config in commitmentconfig
-                            if type.id == config.t_commitment_config_id
-                              - check = true
-                              - break
-                          if check == true
-                            input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos', checked='checked')
-                          else
-                            input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos')
-
-              table#datatable-responsive.table.dt-responsive.nowrap(cellspacing='0', width='100%')
-                caption(width='60%' style='text-align:center;')
-                  strong(style='color: #71859A') ETAPAS
-                each type, index in commitment
-                  - var check = false
-                  if type.id == 'CM30' || type.id == 'CM31'|| type.id == 'CM32'|| type.id == 'CM33'
-                    if index+1 % 4 == 0
-                      tr
-                      if index+1 % 4 == 0 
-                        td
-                          label(for=type.id,style='cursor: pointer') #{type.name}  
-                        td
-                          each config in commitmentconfig
-                            if type.id == config.t_commitment_config_id
-                              - check = true
-                              - break
-                          if check == true
-                            input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos', checked='checked')
-                          else
-                            input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos')
+                    .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
+                      input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos', checked='checked', disabled='disabled')
+                    |  
+                    label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
+                    if index === commitment.length - 1
+                      | </div>
+              else
+                if index % 4 === 0
+                  | <div class="row">
+                  .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
+                    each config in commitmentconfig
+                      if type.id == config.t_commitment_config_id
+                        - check = true
+                        - break
+                    if check == true
+                      input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos', checked='checked')
                     else
-                      td
-                        label(for=type.id,style='cursor: pointer') #{type.name} 
-                      td
-                        each config in commitmentconfig
-                          if type.id == config.t_commitment_config_id
-                            - check = true
-                            - break
-                        if check == true
-                          input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos', checked='checked')
-                        else
-                          input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos')
-            .row
-              .ln_solid
-                .x_content
-                  .form-group.pull-right
-                    a.btn.btn-primary(href='/secure/configattrcommit') Cancel
-                    button.btn.btn-success(type='submit') Submit
-                  
+                      input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos')
+                  |  
+                  label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
+                  if index === commitment.length - 1
+                    | </div>
+                else
+                  if index % 4 === 3
+                    .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
+                      each config in commitmentconfig
+                        if type.id == config.t_commitment_config_id
+                          - check = true
+                          - break
+                      if check == true
+                        input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos', checked='checked')
+                      else
+                        input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos')
+                    |  
+                    label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
+                    | </div>
+                  else
+                    .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
+                      each config in commitmentconfig
+                        if type.id == config.t_commitment_config_id
+                          - check = true
+                          - break
+                      if check == true
+                        input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos', checked='checked')
+                      else
+                        input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos')
+                    |  
+                    label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
+                    if index === commitment.length - 1
+                      | </div>
+            .ln_solid
+            button.btn.btn-success(type='submit') Guardar

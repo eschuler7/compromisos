@@ -12,7 +12,7 @@ block container
               - var check = false
               if type.mandatory === 1
                 if index % 4 === 0
-                  | <div class="row" style="width:99%">
+                  | <div class="row">
                   .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
                     input.flat(id=type.id,type='checkbox', value=type.id, name='dashboard', checked='checked', disabled='disabled')
                   |  
@@ -35,7 +35,7 @@ block container
                       | </div>
               else
                 if index % 4 === 0
-                  | <div class="row" style="width:99%">
+                  | <div class="row">
                   .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
                     each config in dashboardconfig
                       if type.id == config.t_dashboard_config_id
@@ -78,6 +78,5 @@ block container
                     if index === dashboard.length - 1
                       | </div>
             .ln_solid
-            a.btn.btn-primary(href='/secure/configattrdashboard') Cancel
             button.btn.btn-success(type='submit') Guardar
                   
