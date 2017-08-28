@@ -84,30 +84,30 @@ block container
                     if type.mandatory === 1
                       if index % 4 === 0
                         | <div class="row" style="width:99%">
-                        .col-md-1.col-sm-1.col-xs-1(style='text-align: right')
+                        .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
                           input.flat(id=type.id,type='checkbox', value=type.id, name='dashboard', checked='checked', disabled='disabled')
                         |  
-                        label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer') #{type.name}
+                        label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
                         if index === dashboard.length - 1
                           | </div>
                       else
                         if index % 4 === 3
-                          .col-md-1.col-sm-1.col-xs-1(style='text-align: right')
+                          .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
                             input.flat(id=type.id,type='checkbox', value=type.id, name='dashboard', checked='checked', disabled='disabled')
                           |  
-                          label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer') #{type.name}
+                          label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
                           | </div>
                         else
-                          .col-md-1.col-sm-1.col-xs-1(style='text-align: right')
+                          .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
                             input.flat(id=type.id,type='checkbox', value=type.id, name='dashboard', checked='checked', disabled='disabled')
                           |  
-                          label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer') #{type.name}
+                          label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
                           if index === dashboard.length - 1
                             | </div>
                     else
                       if index % 4 === 0
                         | <div class="row" style="width:99%">
-                        .col-md-1.col-sm-1.col-xs-1(style='text-align: right')
+                        .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
                           input.flat(id=type.id,type='checkbox', value=type.id, name='dashboard')
                         |  
                         label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer') #{type.name}
@@ -115,16 +115,16 @@ block container
                           | </div>
                       else
                         if index % 4 === 3
-                          .col-md-1.col-sm-1.col-xs-1(style='text-align: right')
+                          .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
                             input.flat(id=type.id,type='checkbox', value=type.id, name='dashboard')
                           |  
-                          label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer') #{type.name}
+                          label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
                           | </div>
                         else
                           .col-md-1.col-sm-1.col-xs-1(style='text-align: right')
-                            input.flat(id=type.id,type='checkbox', value=type.id, name='dashboard')
+                            input.flat(id=type.id,type='checkbox', value=type.id, name='dashboard;min-height:30px')
                           |  
-                          label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer') #{type.name}
+                          label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
                           if index === dashboard.length - 1
                             | </div>
               #step-3
@@ -134,50 +134,49 @@ block container
                     if type.mandatory === 1
                       if index % 4 === 0
                         | <div class="row" style="width:99%">
-                        .col-md-1.col-sm-1.col-xs-1(style='text-align: right')
+                        .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
                           input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos', checked='checked', disabled='disabled')
                         |  
-                        label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer') #{type.name}
+                        label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
                         if index === commitment.length - 1
                           | </div>
                       else
                         if index % 4 === 3
-                          .col-md-1.col-sm-1.col-xs-1(style='text-align: right')
+                          .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
                             input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos', checked='checked', disabled='disabled')
                           |  
-                          label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer') #{type.name}
+                          label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
                           | </div>
                         else
-                          .col-md-1.col-sm-1.col-xs-1(style='text-align: right')
+                          .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
                             input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos', checked='checked', disabled='disabled')
                           |  
-                          label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer') #{type.name}
+                          label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
                           if index === commitment.length - 1
                             | </div>
                     else
                       if index % 4 === 0
                         | <div class="row" style="width:99%">
-                        .col-md-1.col-sm-1.col-xs-1(style='text-align: right')
+                        .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
                           input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos')
-                          
                         |  
-                        label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer') #{type.name}
+                        label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
                         if index === commitment.length - 1
                           | </div>
                       else
                         if index % 4 === 3
-                          .col-md-1.col-sm-1.col-xs-1(style='text-align: right')
+                          .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
                             input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos')
                             
                           |  
-                          label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer') #{type.name}
+                          label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
                           | </div>
                         else
-                          .col-md-1.col-sm-1.col-xs-1(style='text-align: right')
+                          .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
                             input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos')
 
                           |  
-                          label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer') #{type.name}
+                          label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
                           if index === commitment.length - 1
                             | </div>
               #step-4
@@ -187,47 +186,47 @@ block container
                     if type.mandatory === 1
                       if index % 4 === 0
                         | <div class="row" style="width:99%">
-                        .col-md-1.col-sm-1.col-xs-1(style='text-align: right')
+                        .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
                           input.flat(id=type.id,type='checkbox', value=type.id, name='monitoreo', checked='checked', disabled='disabled')
                         |  
-                        label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer') #{type.name}
+                        label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
                         if index === monitor.length - 1
                           | </div>
                       else
                         if index % 4 === 3
-                          .col-md-1.col-sm-1.col-xs-1(style='text-align: right')
+                          .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
                             input.flat(id=type.id,type='checkbox', value=type.id, name='monitoreo', checked='checked', disabled='disabled')
                           |  
-                          label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer') #{type.name}
+                          label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
                           | </div>
                         else
-                          .col-md-1.col-sm-1.col-xs-1(style='text-align: right')
+                          .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
                             input.flat(id=type.id,type='checkbox', value=type.id, name='monitoreo', checked='checked', disabled='disabled')
                           |  
-                          label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer') #{type.name}
+                          label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
                           if index === monitor.length - 1
                             | </div>
                     else
                       if index % 4 === 0
                         | <div class="row" style="width:99%">
-                        .col-md-1.col-sm-1.col-xs-1(style='text-align: right')
+                        .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
                           input.flat(id=type.id,type='checkbox', value=type.id, name='monitoreo')
                         |  
-                        label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer') #{type.name}
+                        label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
                         if index === monitor.length - 1
                           | </div>
                       else
                         if index % 4 === 3
-                          .col-md-1.col-sm-1.col-xs-1(style='text-align: right')
+                          .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
                             input.flat(id=type.id,type='checkbox', value=type.id, name='monitoreo')
                           |  
-                          label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer') #{type.name}
+                          label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
                           | </div>
                         else
-                          .col-md-1.col-sm-1.col-xs-1(style='text-align: right')
+                          .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
                             input.flat(id=type.id,type='checkbox', value=type.id, name='monitoreo')
                           |  
-                          label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer') #{type.name}
+                          label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
                           if index === monitor.length - 1
                             | </div>
 

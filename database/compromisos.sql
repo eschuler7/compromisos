@@ -85,7 +85,6 @@ insert into t_monitor_config values('MN29','Operación',null,0,now(),now());
 insert into t_monitor_config values('MN30','Cierre',null,0,now(),now());
 insert into t_monitor_config values('MN31','Post-Cierre',null,0,now(),now());
 
-
 -- Inserts iniciales para la tabla company / password: password$1
 insert into t_company values('12345678909','NOLAN',null,null,0,now(),now());
 insert into t_user values('jdelgado','ca1b02d4cff620b1dd6fccdf2a48714f','joandelgado18@gmail.com','Joan Martín','Delgado Bendezú','12345678909','ROL5',1,now(),now());
