@@ -14,6 +14,7 @@ block container
                   | <div class="row">
                   .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
                     input.flat(id=type.id,type='checkbox', value=type.id, name='monitoreo', checked='checked', disabled='disabled')
+                    input.flat(id=type.id,type='hidden', value=type.id, name='monitoreo')
                   |  
                   label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
                   if index === monitor.length - 1
@@ -22,12 +23,14 @@ block container
                   if index % 4 === 3
                     .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
                       input.flat(id=type.id,type='checkbox', value=type.id, name='monitoreo', checked='checked', disabled='disabled')
+                      input.flat(id=type.id,type='hidden', value=type.id, name='monitoreo')
                     |  
                     label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
                     | </div>
                   else
                     .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
                       input.flat(id=type.id,type='checkbox', value=type.id, name='monitoreo', checked='checked', disabled='disabled')
+                      input.flat(id=type.id,type='hidden', value=type.id, name='monitoreo')
                     |  
                     label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
                     if index === monitor.length - 1
@@ -41,7 +44,7 @@ block container
                         - check = true
                         - break
                     if check == true
-                      input.flat(id=type.id,type='checkbox', value=type.id, name='monitoreo', checked)
+                      input.flat(id=type.id,type='checkbox', value=type.id, name='monitoreo', checked='checked')
                     else
                       input.flat(id=type.id,type='checkbox', value=type.id, name='monitoreo')
                   |  
@@ -56,7 +59,7 @@ block container
                           - check = true
                           - break
                       if check == true
-                        input.flat(id=type.id,type='checkbox', value=type.id, name='monitoreo', checked)
+                        input.flat(id=type.id,type='checkbox', value=type.id, name='monitoreo', checked='checked')
                       else
                         input.flat(id=type.id,type='checkbox', value=type.id, name='monitoreo')
                     |  
@@ -69,7 +72,7 @@ block container
                           - check = true
                           - break
                       if check == true
-                        input.flat(id=type.id,type='checkbox', value=type.id, name='monitoreo', checked)
+                        input.flat(id=type.id,type='checkbox', value=type.id, name='monitoreo', checked='checked')
                       else
                         input.flat(id=type.id,type='checkbox', value=type.id, name='monitoreo')
                     |  
