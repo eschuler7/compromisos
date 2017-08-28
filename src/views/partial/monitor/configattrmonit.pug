@@ -9,6 +9,7 @@ block container
         .x_content
           form.form-label-left(action='/secure/configattrmonit', method='POST')
             each type, index in monitor
+              - var check = false
               if type.mandatory === 1
                 if index % 4 === 0
                   | <div class="row">
