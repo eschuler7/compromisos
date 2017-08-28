@@ -23,11 +23,13 @@ block container
                             label(for=type.id,style='cursor: pointer') #{type.name}
                           td
                             input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos', checked='checked', disabled='disabled')
+                            input.flat(id=type.id,type='hidden', value=type.id, name='compromisos')
                       else
                         td
                           label(for=type.id,style='cursor: pointer') #{type.name}
                         td
                           input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos', checked='checked', disabled='disabled')
+                          input.flat(id=type.id,type='hidden', value=type.id, name='compromisos')
                   else
                     if type.id != 'CM30' && type.id != 'CM31' && type.id != 'CM32' && type.id != 'CM33'
                       if index % 4 == 0
@@ -41,7 +43,7 @@ block container
                                 - check = true
                                 - break
                             if check == true
-                              input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos', checked='checked', disabled='disabled')
+                              input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos', checked='checked')
                             else
                               input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos')
                       else
@@ -53,7 +55,7 @@ block container
                               - check = true
                               - break
                           if check == true
-                            input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos', checked='checked', disabled='disabled')
+                            input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos', checked='checked')
                           else
                             input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos')
 
@@ -74,7 +76,7 @@ block container
                               - check = true
                               - break
                           if check == true
-                            input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos', checked)
+                            input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos', checked='checked')
                           else
                             input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos')
                     else
@@ -86,7 +88,7 @@ block container
                             - check = true
                             - break
                         if check == true
-                          input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos', checked)
+                          input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos', checked='checked')
                         else
                           input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos')
             .row
