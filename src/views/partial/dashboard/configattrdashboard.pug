@@ -15,6 +15,7 @@ block container
                   | <div class="row">
                   .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
                     input.flat(id=type.id,type='checkbox', value=type.id, name='dashboard', checked='checked', disabled='disabled')
+                    input.flat(id=type.id,type='hidden', value=type.id, name='dashboard')
                   |  
                   label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
                   if index === dashboard.length - 1
@@ -23,12 +24,14 @@ block container
                   if index % 4 === 3
                     .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
                       input.flat(id=type.id,type='checkbox', value=type.id, name='dashboard', checked='checked', disabled='disabled')
+                      input.flat(id=type.id,type='hidden', value=type.id, name='dashboard')
                     |  
                     label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
                     | </div>
                   else
                     .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
                       input.flat(id=type.id,type='checkbox', value=type.id, name='dashboard', checked='checked', disabled='disabled')
+                      input.flat(id=type.id,type='hidden', value=type.id, name='dashboard')
                     |  
                     label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
                     if index === dashboard.length - 1
