@@ -153,7 +153,7 @@ var compromisosdb = {
 		},
 		getCommitmentTypes : function() {
 			var conn = new mysql(connectionOptions);
-			const result = conn.query('select id, name, mandatory from t_commitment_config');
+			const result = conn.query('select id, name, columnasoc, mandatory from t_commitment_config');
 			conn.dispose();
 			return result;
 		},
@@ -218,7 +218,7 @@ var compromisosdb = {
 	dashboard : {
 		getDashboardTypes : function() {
 			var conn = new mysql(connectionOptions);
-			const result = conn.query('select id, name, mandatory from t_dashboard_config');
+			const result = conn.query('select id, name, columnasoc, mandatory from t_dashboard_config');
 			conn.dispose();
 			return result;
 		},
