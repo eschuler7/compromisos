@@ -19,9 +19,7 @@ html
     .login_wrapper
       .animate.form.login_form
         section.login_content
-          form#frmLogin(method='POST',action='/login')
-            br 
-            br  
+          form#frmLogin(method='POST',action='/login', style='margin-top:100px')
             center
               div(style='width:98%')
                 //-input.form-control(type='text', placeholder='RUC', name='ruc')
@@ -49,4 +47,4 @@ html
     script(src='compromisos/js/compromisos.js')
     script(src='compromisos/js/jquery.backstretch.min.js')
     script.
-      $.backstretch('compromisos/img/Nolan.png');
+      $.backstretch('compromisos/img/Nolan.png', {fade: 700});
