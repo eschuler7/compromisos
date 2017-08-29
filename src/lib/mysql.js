@@ -11,7 +11,7 @@ var connectionOptions = {
 	user: config().mysql.user,
 	database: config().mysql.database,
 	password: config().mysql.password,
-	debug: false
+	debug: true
 }
 
 var compromisosdb = {
@@ -102,7 +102,7 @@ var compromisosdb = {
 			conn.dispose();
 			return result;
 		},
-		getUsersByRuc : function() {
+		getUsersByRuc : function(ruc) {
 			var conn = new mysql(connectionOptions);
 			const result = conn.query('select userid, email, tu.name, lastname, t_rol_rolid, tr.name rol_name, tu.cdatetime, tu.udatetime from t_user tu left join t_rol tr on tu.t_rol_rolid=tr.rolid where tu.t_company_ruc=?',[ruc]);
 			conn.dispose();
@@ -118,7 +118,18 @@ var compromisosdb = {
 		}
 	},
 	commitment : {
-		createCommitment : function(ruc, compcomm, comdata) {
+		getCommitmentsByRuc : function(ruc, compcomm) {
+			var columns = [];
+			for (var i = 0; i < compcomm.length; i++) {
+				columns.push(compcomm[i].columnasoc);
+			}
+			var dynamicquery = 'select ' + columns.toString() + ' from t_commitment where ruc=?';
+			var conn = new mysql(connectionOptions);
+			const result = conn.query(dynamicquery,[ruc]);
+			conn.dispose();
+			return result;
+		},
+		createCommitment : function(ruc, compcomm, comdatatotal) {
 			// Dynamic query build
 			var columns = [];
 			var values = [];
@@ -126,11 +137,13 @@ var compromisosdb = {
 				columns.push(compcomm[i].columnasoc);
 				values.push('?');
 			}
-			var dynamicquery = 'insert into t_commitment(ruc,' + columns.toString() + ',cdatetime,udatetime,t_user_userid) values(?,' + values.toString() + ',?,?,?	)';
+			var dynamicquery = 'insert into t_commitment(ruc,' + columns.toString() + ',cdatetime,udatetime,t_user_userid) values(?,' + values.toString() + ',now(),now(),?)';
 			var conn = new mysql(connectionOptions);
-			const result = conn.query(dynamicquery,comdata);
+			for (var i = 0; i < comdatatotal.length; i++) {
+				console.log(comdatatotal[i]);
+				conn.query(dynamicquery,comdatatotal[i]);
+			}
 			conn.dispose();
-			return result;
 		},
 		deleteCommitment : function () {
 

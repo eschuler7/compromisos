@@ -13,6 +13,10 @@ block container
                 each conf in comconfig
                   th #{conf.name}
             tbody
+              each commitment in commitments
+                tr
+                  each column in comconfig
+                    td #{commitment[column.columnasoc]}
           br
           br
           .ln_solid(style='margin-top:5px')
@@ -21,9 +25,9 @@ block container
     script.
       window.onload = function() {
         $('#tblcommitments').DataTable({
-          dom: 'Bfrtip',
-          buttons: ['copy','csv','print'],
-          //"lengthMenu": [[5, 15], [5, 15]],
+          //dom: 'Bfrtip',
+          //buttons: ['copy','csv','print'],
+          lengthMenu: [[5, 15], [5, 15]],
           language: {
             paginate: {
                 first:    'Inicio',

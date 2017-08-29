@@ -17,19 +17,34 @@ var Excel = require('exceljs');
 var path = require('path');
 // Loading multer to storage files
 var multer  = require('multer');
+// Format dates to custom string formats
+var dateFormat = require('dateformat');
 
 // Configuring upload template storage
-var uploadsStorage = multer.diskStorage({
+var uploadsComStorage = multer.diskStorage({
   destination: function (req, file, cb) {
     var ruc = req.session.user.t_company_ruc;
     cb(null, path.resolve('uploads/' + ruc));
   },
   filename: function (req, file, cb) {
-    var userid = req.session.user.userid;
-    cb(null, userid + '-template.' + file.originalname.split('.')[file.originalname.split('.').length - 1]);
+
+  	var userid = req.session.user.userid;
+    cb(null, userid + '-commitment-template.' + file.originalname.split('.')[file.originalname.split('.').length - 1]);
+
   }
 });
-var udploadTemplate = multer({ storage: uploadsStorage });
+var udploadComTemplate = multer({ storage: uploadsComStorage });
+var uploadsMonStorage = multer.diskStorage({
+  destination: function (req, file, cb) {
+  	var ruc = req.session.user.t_company_ruc;
+    cb(null, path.resolve('uploads/' + ruc));
+  },
+  filename: function (req, file, cb) {
+  	var userid = req.session.user.userid;
+    cb(null, userid + '-monitor-template.' + file.originalname.split('.')[file.originalname.split('.').length - 1]);
+  }
+});
+var udploadMonTemplate = multer({ storage: uploadsMonStorage });
 
 // TODAS LAS LLAMADAS GET
 router.get('/dashboard',function(req, res){
@@ -55,9 +70,11 @@ router.get('/select', function(req, res){
 });
 
 router.get('/listall', function(req, res){
-    var comconfig;
-    comconfig = mysql.commitment.getComConfigByRuc(req.session.user.t_company_ruc);
-    res.render('partial/commitment/listall',{comconfig: comconfig});
+
+	var comconfig = mysql.commitment.getComConfigByRuc(req.session.user.t_company_ruc);
+	var commitments = mysql.commitment.getCommitmentsByRuc(req.session.user.t_company_ruc,comconfig);
+	res.render('partial/commitment/listall',{comconfig: comconfig, commitments: commitments});
+
 });
 
 router.get('/update', function(req, res){
@@ -156,16 +173,26 @@ router.get('/userscreate', function(req, res){
 
 // TODAS LAS LLAMADAS POST
 
+
 router.post('/uploadtemplate',udploadTemplate.single('template'), function(req,res){
     var workbook = new Excel.Workbook();
     var uploadpath = path.resolve('uploads/' + req.session.user.t_company_ruc);
     var filename = req.file.filename;
     var fullpath = uploadpath + '/' + filename;
     workbook.xlsx.readFile(fullpath)
+
+router.post('/uploadcomtemplate',udploadComTemplate.single('template'), function(req,res){
+	var workbook = new Excel.Workbook();
+	var uploadpath = path.resolve('uploads/' + req.session.user.t_company_ruc);
+	var filename = req.file.filename;
+	var fullpath = uploadpath + '/' + filename;
+	workbook.xlsx.readFile(fullpath)
+
     .then(function() {
         var worksheet = workbook.getWorksheet(1);
         var compcomm = mysql.commitment.getComConfigByRucForInsert(req.session.user.t_company_ruc);
         if(worksheet.actualColumnCount == compcomm.length) {
+
             console.log('Antes de Rows');
             var comdata = [];
             comdata.push(req.session.user.t_company_ruc);
@@ -186,6 +213,65 @@ router.post('/uploadtemplate',udploadTemplate.single('template'), function(req,r
             mysql.commitment.createCommitment(req.session.user.t_company_ruc, compcomm, comdata);
             console.log('Después de Rows');
             res.redirect('/secure/listall');
+
+        	console.log('Antes de Rows');
+			var comdatatotal = [];
+        	worksheet.eachRow(function(row, rowNumber) {
+				if(rowNumber > 2) {
+					var comdata = [];
+					comdata.push(req.session.user.t_company_ruc);
+					row.eachCell(function(cell, colNumber) {
+						console.log(computil.checktype(cell.value));
+						if (computil.checktype(cell.value) == 'date') {
+							comdata.push(dateFormat((new Date(cell.value.valueOf() + cell.value.getTimezoneOffset() * 60000)),'yyyy-mm-dd'));
+						} else {
+							comdata.push(cell.value);
+						}
+					});
+					comdata.push(req.session.user.userid);
+					comdatatotal.push(comdata);
+				}
+			});
+			mysql.commitment.createCommitment(req.session.user.t_company_ruc, compcomm, comdatatotal);
+			res.redirect('/secure/listall');
+        } else {
+        	console.log('Los campos no coinciden');
+        	res.redirect('/secure/listall');
+        }
+    });
+});
+
+router.post('/uploadmontemplate',udploadMonTemplate.single('template'), function(req,res){
+	var workbook = new Excel.Workbook();
+	var uploadpath = path.resolve('uploads/' + req.session.user.t_company_ruc);
+	var filename = req.file.filename;
+	var fullpath = uploadpath + '/' + filename;
+	workbook.xlsx.readFile(fullpath)
+    .then(function() {
+        var worksheet = workbook.getWorksheet(1);
+        var compcomm = mysql.monitor.getComConfigByRucForInsert(req.session.user.t_company_ruc);
+        if(worksheet.actualColumnCount == compcomm.length) {
+        	console.log('Antes de Rows');
+			var comdatatotal = [];
+        	worksheet.eachRow(function(row, rowNumber) {
+				if(rowNumber > 2) {
+					var comdata = [];
+					comdata.push(req.session.user.t_company_ruc);
+					row.eachCell(function(cell, colNumber) {
+						console.log(computil.checktype(cell.value));
+						if (computil.checktype(cell.value) == 'date') {
+							comdata.push(dateFormat((new Date(cell.value.valueOf() + cell.value.getTimezoneOffset() * 60000)),'yyyy-mm-dd'));
+						} else {
+							comdata.push(cell.value);
+						}
+					});
+					comdata.push(req.session.user.userid);
+					comdatatotal.push(comdata);
+				}
+			});
+			mysql.commitment.createCommitment(req.session.user.t_company_ruc, compcomm, comdatatotal);
+			res.redirect('/secure/listall');
+
         } else {
             console.log('Los campos no coinciden');
             res.redirect('/secure/listall');
@@ -194,36 +280,33 @@ router.post('/uploadtemplate',udploadTemplate.single('template'), function(req,r
 });
 
 router.post('/initConfig', function(req, res){
-    var razonsocial = req.body.razonsocial;
-    var unidadinit = req.body.unidadinit;
-    var proyoper = req.body.proyoper;
-    var multiunidad = req.body.multiunidad;
-    var multiproyoper = req.body.multiproyoper;
 
-    //sección dashboard
-    var dashboard = req.body.dashboard;
-    //sección compromisos
-    var compromisos = req.body.compromisos;
-    //sección monitoreo
-    var monitoreo = req.body.monitoreo;
-    mysql.company.updateCompanyByRuc(req.session.user.t_company_ruc,razonsocial,unidadinit,proyoper);
-    mysql.dashboard.updateDashboardConfig(req.session.user.t_company_ruc,dashboard);
-    mysql.commitment.updateCommitmentConfig(req.session.user.t_company_ruc,compromisos);    
-    mysql.monitor.updateMonitorConfig(req.session.user.t_company_ruc,monitoreo);
-    console.log('resultado de unidadinit: ',unidadinit);
-    console.log('Insertando Headers: ');
-    mysql.company.updateCompanyByRuc(req.session.user.t_company_ruc,razonsocial,unidadinit,proyoper);
-    console.log('Insertando dashboard: ', dashboard);
-    mysql.dashboard.updateDashboardConfig(req.session.user.t_company_ruc,dashboard);
-    console.log('Insertando compromisos: ', compromisos);
-    mysql.commitment.updateCommitmentConfig(req.session.user.t_company_ruc,compromisos);
-    console.log('Insertando monitoreo: ',monitoreo);
-    mysql.monitor.updateMonitorConfig(req.session.user.t_company_ruc,monitoreo);
-    var result = mysql.company.updateFirstTime(req.session.user.t_company_ruc,0);
-    if(result.affectedRows == 1) {
-        req.session.user.firsttime = 0;
-    }
-    res.redirect('/secure/dashboard');
+	var razonsocial = req.body.razonsocial;
+	var unidadinit = req.body.unidadinit;
+	var proyoper = req.body.proyoper;
+	var multiunidad = req.body.multiunidad;
+	var multiproyoper = req.body.multiproyoper;
+
+	//sección dashboard
+	var dashboard = req.body.dashboard;
+	//sección compromisos
+	var compromisos = req.body.compromisos;
+	//sección monitoreo
+	var monitoreo = req.body.monitoreo;
+	mysql.company.updateCompanyByRuc(req.session.user.t_company_ruc,razonsocial,unidadinit,proyoper);
+	mysql.dashboard.updateDashboardConfig(req.session.user.t_company_ruc,dashboard);
+	mysql.commitment.updateCommitmentConfig(req.session.user.t_company_ruc,compromisos);	
+	mysql.monitor.updateMonitorConfig(req.session.user.t_company_ruc,monitoreo);
+	mysql.company.updateCompanyByRuc(req.session.user.t_company_ruc,razonsocial,unidadinit,proyoper);
+	mysql.dashboard.updateDashboardConfig(req.session.user.t_company_ruc,dashboard);
+	mysql.commitment.updateCommitmentConfig(req.session.user.t_company_ruc,compromisos);
+	mysql.monitor.updateMonitorConfig(req.session.user.t_company_ruc,monitoreo);
+	var result = mysql.company.updateFirstTime(req.session.user.t_company_ruc,0);
+	if(result.affectedRows == 1) {
+		req.session.user.firsttime = 0;
+	}
+	res.redirect('/secure/dashboard');
+
 });
 
 router.post('/configattrcommit', function(req, res){
