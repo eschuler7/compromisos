@@ -110,7 +110,7 @@ select t_company_ruc,t_monitor_config_id,tmc.name from t_company_monitor tcm lef
 -- Eliminar data de las tablas de configuración de atributos
 select * from t_commitment_config;
 select id, name, columnasoc, mandatory from t_commitment_config;
-delete from t_commitment_config where id like 'CM%';
+delete from t_commitment_config where id like 'CM3%';
 select * from t_monitor_config;
 delete from t_monitor_config where id like 'MN%';
 
