@@ -191,6 +191,10 @@ $(document).ready(function(){
 				required : true,
 				validatecheckbox : 'None'
 			},
+			accioncompromiso : {
+				required : true,
+				validatecheckbox : 'None'
+			},
 			contorigcomp : {
 				required : true,
 				minlength : 20,
@@ -210,6 +214,9 @@ $(document).ready(function(){
 				required : 'Seleccione una opción',
 			},
 			frecuenciaverificacion : {
+				required : 'Seleccione una opción',
+			},
+			accioncompromiso : {
 				required : 'Seleccione una opción',
 			},
 			contorigcomp : {

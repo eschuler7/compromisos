@@ -47,10 +47,10 @@ insert into t_commitment_config values('CM26','Fecha de revisión','fecharevisio
 insert into t_commitment_config values('CM27','Referencia técnica o legal de cumplimiento','referencialegal',0,now(),now());
 insert into t_commitment_config values('CM28','Presupuesto','presupuesto',0,now(),now());
 insert into t_commitment_config values('CM29','Notas adicionales','comentarios',0,now(),now());
-insert into t_commitment_config values('CM30','Construcción','construccion',0,now(),now());
-insert into t_commitment_config values('CM31','Operación','operacion',0,now(),now());
-insert into t_commitment_config values('CM32','Cierre','cierre',0,now(),now());
-insert into t_commitment_config values('CM33','Post-cierre','postcierre',0,now(),now());
+insert into t_commitment_config values('CM30','Construcción','construccion',1,now(),now());
+insert into t_commitment_config values('CM31','Operación','operacion',1,now(),now());
+insert into t_commitment_config values('CM32','Cierre','cierre',1,now(),now());
+insert into t_commitment_config values('CM33','Post-cierre','postcierre',1,now(),now());
 
 -- Inserts iniciales para la tabla monitor
 insert into t_monitor_config values('MN01','Número correlativo',null,1,now(),now());
@@ -109,7 +109,7 @@ select t_company_ruc,t_monitor_config_id,tmc.name from t_company_monitor tcm lef
 
 -- Eliminar data de las tablas de configuración de atributos
 select * from t_commitment_config;
-select id, name, mandatory from t_commitment_config;
+select id, name, columnasoc, mandatory from t_commitment_config;
 delete from t_commitment_config where id like 'CM%';
 select * from t_monitor_config;
 delete from t_monitor_config where id like 'MN%';
@@ -120,3 +120,6 @@ select t_company_ruc,t_monitor_config_id,tmc.name from t_company_monitor tcm lef
 select t_company_ruc,t_dashboard_config_id,tdc.name from t_company_dashboard tcd left join t_dashboard_config tdc on tcd.t_dashboard_config_id=tdc.id where t_company_ruc=10101010101;
 
 delete from t_user where t_company_ruc='10101010101' and userid not like 'eschulerg';
+
+select t_company_ruc,t_commitment_config_id,tco.name,tco.columnasoc from t_company_commitment tcc left join t_commitment_config tco on tcc.t_commitment_config_id=tco.id where t_company_ruc=10101010101;
+select tco.columnasoc from t_company_commitment tcc left join t_commitment_config tco on tcc.t_commitment_config_id=tco.id where t_company_ruc=10101010101;

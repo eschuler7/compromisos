@@ -21,124 +21,131 @@ block container
                       | #{config.name}
                     .col-md-6.col-sm-6.col-xs-12
                       textarea.form-control.col-md-7.col-xs-6(id=config.t_commitment_config_id, placeholder=config.name, required='required', type='text', name=config.columnasoc)
-                  .row
-                  br
+
                 when 'CM10'
                   .form-group
                     label.control-label.col-md-3.col-sm-6.col-xs-12(for=config.t_commitment_config_id,style='cursor: pointer') 
                       | #{config.name}
                     .col-md-6.col-sm-6.col-xs-12
                       textarea.form-control.col-md-7.col-xs-6(id=config.t_commitment_config_id, placeholder=config.name, required='required', type='text', name=config.columnasoc)
-                  .row
-                  br
+
                 when 'CM11'
                   .form-group
                     label.control-label.col-md-3.col-sm-6.col-xs-12(for=config.t_commitment_config_id,style='cursor: pointer') 
                       | #{config.name}
                     .col-md-6.col-sm-6.col-xs-12
                       textarea.form-control.col-md-7.col-xs-6(id=config.t_commitment_config_id, placeholder=config.name, required='required', type='text', name=config.columnasoc)
-                  .row
-                  br
+
                 when 'CM12'
                   .form-group
-                  label.control-label.col-md-3.col-sm-3.col-xs-12(for=config.id)
-                    | Temporalidad:
-                  .col-sm-2 
-                    select#temporalidad.form-control(name=config.columnasoc)
-                      option(value='None') Choose..
-                      option(value='Puntual') Puntual
-                      option(value='Permanente') Permanente
-                  .row
-                  br
+                    label.control-label.col-md-3.col-sm-3.col-xs-12(for=config.id)
+                      | Temporalidad:
+                    .col-sm-2 
+                      select#temporalidad.form-control(name=config.columnasoc)
+                        option(value='None') Seleccionar..
+                        option(value='Puntual') Puntual
+                        option(value='Permanente') Permanente
+
                 when 'CM13'
                   .form-group
-                  label.control-label.col-md-3.col-sm-3.col-xs-12(for=config.id)
-                    | Fecha de Inicio:
-                  .col-sm-2 
-                    .form-group
-                      #myDatepicker.input-group.date
-                        input.form-control(name=config.columnasoc)
-                        span.input-group-addon
-                          span.glyphicon.glyphicon-calendar 
-                  .row
+                    label.control-label.col-md-3.col-sm-3.col-xs-12(for=config.id)
+                      | Fecha de Inicio:
+                    .col-sm-2 
+                      .form-group
+                        #myDatepicker.input-group.date
+                          input.form-control(type='text', name=config.columnasoc)
+                          span.input-group-addon
+                            span.glyphicon.glyphicon-calendar 
+
                 when 'CM14'
                   .form-group
-                  label.control-label.col-md-3.col-sm-3.col-xs-12(for=config.id)
-                    | Frecuencia 
-                    span.required *
-                  .col-sm-2
-                    select#frecuencia.form-control(name=config.columnasoc)
-                      option(value='None') Choose..
-                      option(value='Unica') Unica
-                      option(value='Diaria') Diaria
-                      option(value='Semanal') Semanal
-                      option(value='Mensual') Mensual
-                      option(value='Trimestral') Trimestral
-                      option(value='Semestral') Semestral
-                      option(value='Anual') Anual
-                      option(value='Continuo') Continuo
-                      option(value='Indefinido') Indefinido 
-                  .row
-                  br
+                    label.control-label.col-md-3.col-sm-3.col-xs-12(for=config.id)
+                      | Frecuencia 
+                      span.required *
+                    .col-sm-2
+                      select#frecuencia.form-control(name=config.columnasoc)
+                        option(value='None') Seleccionar..
+                        option(value='Unica') Unica
+                        option(value='Diaria') Diaria
+                        option(value='Semanal') Semanal
+                        option(value='Mensual') Mensual
+                        option(value='Trimestral') Trimestral
+                        option(value='Semestral') Semestral
+                        option(value='Anual') Anual
+                        option(value='Continuo') Continuo
+                        option(value='Indefinido') Indefinido 
+
                 when 'CM15'
                   .form-group
-                  label.control-label.col-md-3.col-sm-3.col-xs-12(for=config.id)
-                    | Criticidad 
-                    span.required *
-                  .col-sm-2
-                    select#criticidad.form-control(name=config.columnasoc)
-                      option(value='None') Choose..
-                      option(value='Alto') Alto
-                      option(value='Medio') Medio
-                      option(value='Bajo') Bajo
-                  .row
-                  br
+                    label.control-label.col-md-3.col-sm-3.col-xs-12(for=config.id)
+                      | Criticidad 
+                      span.required *
+                    .col-sm-2
+                      select#criticidad.form-control(name=config.columnasoc)
+                        option(value='None') Seleccionar..
+                        option(value='Alto') Alto
+                        option(value='Medio') Medio
+                        option(value='Bajo') Bajo
+
                 when 'CM17'
                   .form-group
-                  label.control-label.col-md-3.col-sm-3.col-xs-12(for=config.id)
-                    | Evidencias de cumplimiento 
-                    span.required *
-                  .col-md-6.col-sm-6.col-xs-12
-                    input.form-control.col-md-7.col-xs-12(id='filesize', name=config.columnasoc, type='text')
-                    a(href='', onclick="openDialogBox('fileID').....")
-                    input(id='fs',type='file', multiple='', onchange='fsize()')   
-                  .row
-                  br
+                    label.control-label.col-md-3.col-sm-3.col-xs-12(for=config.id)
+                      | Evidencias de cumplimiento 
+                      span.required *
+                    .col-md-6.col-sm-6.col-xs-12
+                      input.form-control.col-md-7.col-xs-12(id='filesize', name=config.columnasoc, type='text')
+                      a(href='', onclick="openDialogBox('fileID').....")
+                      input(id='fs',type='file', multiple='', onchange='fsize()')   
+
                 when 'CM18'
                   .form-group
-                  label.control-label.col-md-3.col-sm-3.col-xs-12(for=config.id)
-                    | Estado del compromiso 
-                    span.required *
-                  .col-sm-2
-                    select#estadocommit.form-control(name=config.columnasoc)
-                      option(value='None') Choose..
-                      option(value='Abierto') Abierto
-                      option(value='Cerrado') Cerrado
-                      option(value='proceso') En proceso
-                      option(value='Cancelado') Cancelado                        
-                      option(value='Diferido') Diferido
-                      option(value='Vencido') Vencido   
-                  .row
-                  br
+                    label.control-label.col-md-3.col-sm-3.col-xs-12(for=config.id)
+                      | Estado del compromiso 
+                      span.required *
+                    .col-sm-2
+                      select#estadocommit.form-control(name=config.columnasoc)
+                        option(value='None') Seleccionar..
+                        option(value='Abierto') Abierto
+                        option(value='Cerrado') Cerrado
+                        option(value='proceso') En proceso
+                        option(value='Cancelado') Cancelado                        
+                        option(value='Diferido') Diferido
+                        option(value='Vencido') Vencido   
+
+                when 'CM19'
+                  .form-group
+                    label.control-label.col-md-3.col-sm-3.col-xs-12(for=config.id)
+                      | Estado del compromiso 
+                      span.required *
+                    .col-sm-2
+                      select#accioncompromiso.form-control(name=config.columnasoc)
+                        option(value='None') Seleccionar..
+                        option(value='Si') Si
+                        option(value='No') No
+
                 when 'CM21'
                   .form-group
-                  label.control-label.col-md-3.col-sm-3.col-xs-12(for=config.id)
-                    | Frecuencia propuesta de verificación 
-                    span.required *
-                  .col-sm-2
-                    select#frecuenciaverif.form-control(name=config.columnasoc)
-                      option(value='None') Choose..
-                      option(value='Unica') Unica
-                      option(value='Diaria') Diaria
-                      option(value='Semanal') Semanal
-                      option(value='Mensual') Mensual
-                      option(value='Trimestral') Trimestral
-                      option(value='Semestral') Semestral
-                      option(value='Anual') Anual
-                      option(value='Continuo') Continuo
-                      option(value='Indefinido') Indefinido
-                  .row
-                  br
+                    label.control-label.col-md-3.col-sm-3.col-xs-12(for=config.id)
+                      | Frecuencia propuesta de verificación 
+                      span.required *
+                    .col-sm-2
+                      select#frecuenciaverif.form-control(name=config.columnasoc)
+                        option(value='None') Seleccionar..
+                        option(value='Unica') Unica
+                        option(value='Diaria') Diaria
+                        option(value='Semanal') Semanal
+                        option(value='Mensual') Mensual
+                        option(value='Trimestral') Trimestral
+                        option(value='Semestral') Semestral
+                        option(value='Anual') Anual
+                        option(value='Continuo') Continuo
+                        option(value='Indefinido') Indefinido
+                when 'CM29'
+                  .form-group
+                    label.control-label.col-md-3.col-sm-6.col-xs-12(for=config.t_commitment_config_id,style='cursor: pointer') 
+                      | #{config.name}
+                    .col-md-6.col-sm-6.col-xs-12
+                      textarea.form-control.col-md-7.col-xs-6(id=config.t_commitment_config_id, placeholder=config.name, required='required', type='text', name=config.columnasoc)
                 when 'CM30'
                   .form-group
                   tr
