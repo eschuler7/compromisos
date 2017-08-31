@@ -359,12 +359,22 @@ router.post('/register', function(req, res){
     comdata.push(req.session.user.t_company_ruc);
     for (var i = 0; i < comconfig.length; i++) {
         var item = req.body[comconfig[i].columnasoc];
-        
+        console.log('valor del item',item);
         if (computil.checktype(item) == 'date' || comconfig[i].columnasoc.startsWith('fecha')) {
             comdata.push(dateFormat((new Date(item),'yyyy-mm-dd')));
         } else {
-            comdata.push(item);
+            if (comconfig[i].columnasoc == 'undefined') {
+                comdata.push(' ');
+            } else {
+                if (comconfig[i].t_commitment_config_id == 'CM30' || comconfig[i].t_commitment_config_id == 'CM31'||comconfig[i].t_commitment_config_id == 'CM32'||comconfig[i].t_commitment_config_id == 'CM33'){
+                    comdata.push('Si');
+                }
+                else {
+                    comdata.push(item);
+                }    
+            }
         }
+        
     }
     
     comdata.push(req.session.user.userid);

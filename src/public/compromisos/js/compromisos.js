@@ -191,6 +191,10 @@ $(document).ready(function(){
 				required : true,
 				validatecheckbox : 'None'
 			},
+			/*correosnotificacion : {
+				required : false,
+				email : true
+			},*/
 			accioncompromiso : {
 				required : true,
 				validatecheckbox : 'None'
@@ -216,6 +220,9 @@ $(document).ready(function(){
 			frecuenciaverificacion : {
 				required : 'Seleccione una opción',
 			},
+			/*correosnotificacion : {
+				email : 'Ingrese un email válido'
+			},*/
 			accioncompromiso : {
 				required : 'Seleccione una opción',
 			},

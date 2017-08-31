@@ -20,21 +20,21 @@ block container
                     label.control-label.col-md-3.col-sm-6.col-xs-12(for=config.t_commitment_config_id,style='cursor: pointer') 
                       | #{config.name}
                     .col-md-6.col-sm-6.col-xs-12
-                      textarea.form-control.col-md-7.col-xs-6(id=config.t_commitment_config_id, placeholder=config.name, required='required', type='text', name=config.columnasoc)
+                      textarea.form-control.col-md-7.col-xs-6(id=config.t_commitment_config_id, placeholder=config.name, type='text', name=config.columnasoc)
 
                 when 'CM10'
                   .form-group
                     label.control-label.col-md-3.col-sm-6.col-xs-12(for=config.t_commitment_config_id,style='cursor: pointer') 
                       | #{config.name}
                     .col-md-6.col-sm-6.col-xs-12
-                      textarea.form-control.col-md-7.col-xs-6(id=config.t_commitment_config_id, placeholder=config.name, required='required', type='text', name=config.columnasoc)
+                      textarea.form-control.col-md-7.col-xs-6(id=config.t_commitment_config_id, placeholder=config.name, type='text', name=config.columnasoc)
 
                 when 'CM11'
                   .form-group
                     label.control-label.col-md-3.col-sm-6.col-xs-12(for=config.t_commitment_config_id,style='cursor: pointer') 
                       | #{config.name}
                     .col-md-6.col-sm-6.col-xs-12
-                      textarea.form-control.col-md-7.col-xs-6(id=config.t_commitment_config_id, placeholder=config.name, required='required', type='text', name=config.columnasoc)
+                      textarea.form-control.col-md-7.col-xs-6(id=config.t_commitment_config_id, placeholder=config.name, type='text', name=config.columnasoc)
 
                 when 'CM12'
                   .form-group
@@ -52,7 +52,7 @@ block container
                       | Fecha de Inicio:
                     .col-sm-2 
                       .form-group
-                        #myDatepicker.input-group.date
+                        #fechainicio.input-group.date
                           input.form-control(type='text', name=config.columnasoc)
                           span.input-group-addon
                             span.glyphicon.glyphicon-calendar 
@@ -86,6 +86,16 @@ block container
                         option(value='Alto') Alto
                         option(value='Medio') Medio
                         option(value='Bajo') Bajo
+                when 'CM16'
+                  .form-group
+                    label.control-label.col-md-3.col-sm-3.col-xs-12(for=config.id)
+                      | Tipo de evidencia 
+                      span.required *
+                    .col-sm-2
+                      select#tipoevidencia.form-control(name=config.columnasoc)
+                        option(value='None') Seleccionar..
+                        option(value='Manual') Manual
+                        option(value='Fisica') Física
 
                 when 'CM17'
                   .form-group
@@ -115,7 +125,7 @@ block container
                 when 'CM19'
                   .form-group
                     label.control-label.col-md-3.col-sm-3.col-xs-12(for=config.id)
-                      | Estado del compromiso 
+                      | Acción sobre el compromiso 
                       span.required *
                     .col-sm-2
                       select#accioncompromiso.form-control(name=config.columnasoc)
@@ -140,17 +150,35 @@ block container
                         option(value='Anual') Anual
                         option(value='Continuo') Continuo
                         option(value='Indefinido') Indefinido
+                when 'CM23'
+                  .form-group
+                    label.control-label.col-md-3.col-sm-6.col-xs-12(for=config.t_commitment_config_id, style='cursor: pointer') 
+                      | #{config.name}
+                    .col-md-6.col-sm-6.col-xs-12
+                      input.form-control.col-md-7.col-xs-6(id=config.t_commitment_config_id, placeholder='example@gmail.com,hotmail@outlook.com', type='email', name=config.columnasoc, multiple)
+                when 'CM26'
+                  .form-group
+                    label.control-label.col-md-3.col-sm-3.col-xs-12(for=config.id)
+                      | Fecha de verificación:
+                    .col-sm-2 
+                      .form-group
+                        #fechaverif.input-group.date
+                          input.form-control(type='text', name=config.columnasoc)
+                          span.input-group-addon
+                            span.glyphicon.glyphicon-calendar 
+
                 when 'CM29'
                   .form-group
                     label.control-label.col-md-3.col-sm-6.col-xs-12(for=config.t_commitment_config_id,style='cursor: pointer') 
                       | #{config.name}
                     .col-md-6.col-sm-6.col-xs-12
-                      textarea.form-control.col-md-7.col-xs-6(id=config.t_commitment_config_id, placeholder=config.name, required='required', type='text', name=config.columnasoc)
+                      textarea.form-control.col-md-7.col-xs-6(id=config.t_commitment_config_id, placeholder=config.name, type='text', name=config.columnasoc)
+
                 when 'CM30'
                   .form-group
                   tr
                   td
-                    label.control-label.col-md-3.col-sm-6.col-xs-12(for=config.id,style='cursor: pointer') Etapa #{config.name}
+                    label.control-label.col-md-3.col-sm-6.col-xs-12(for=config.id,style='cursor: pointer')  #{config.name}
                   td
                     input.flat(id=config.id,type='checkbox', value=config.id, name=config.columnasoc)
                   .row
@@ -158,7 +186,7 @@ block container
                   .form-group
                   tr
                   td
-                    label.control-label.col-md-3.col-sm-6.col-xs-12(for=config.id,style='cursor: pointer') Etapa #{config.name}
+                    label.control-label.col-md-3.col-sm-6.col-xs-12(for=config.id,style='cursor: pointer')  #{config.name}
                   td
                     input.flat(id=config.id,type='checkbox', value=config.id, name=config.columnasoc)
                   .row
@@ -166,7 +194,7 @@ block container
                   .form-group
                   tr
                   td
-                    label.control-label.col-md-3.col-sm-6.col-xs-12(for=config.id,style='cursor: pointer') Etapa #{config.name}
+                    label.control-label.col-md-3.col-sm-6.col-xs-12(for=config.id,style='cursor: pointer')  #{config.name}
                   td
                     input.flat(id=config.id,type='checkbox', value=config.id, name=config.columnasoc)
                   .row
@@ -174,7 +202,7 @@ block container
                   .form-group
                   tr
                   td
-                    label.control-label.col-md-3.col-sm-6.col-xs-12(for=config.id,style='cursor: pointer') Etapa #{config.name}
+                    label.control-label.col-md-3.col-sm-6.col-xs-12(for=config.id,style='cursor: pointer')  #{config.name}
                   td
                     input.flat(id=config.id,type='checkbox', value=config.id, name=config.columnasoc)
                   .row
@@ -183,18 +211,22 @@ block container
                     label.control-label.col-md-3.col-sm-6.col-xs-12(for=config.t_commitment_config_id,style='cursor: pointer') 
                       | #{config.name}
                     .col-md-6.col-sm-6.col-xs-12
-                      input.form-control.col-md-7.col-xs-6(id=config.t_commitment_config_id, placeholder=config.name, required='required', type='text', name=config.columnasoc) 
+                      input.form-control.col-md-7.col-xs-6(id=config.t_commitment_config_id, placeholder=config.name, type='text', name=config.columnasoc) 
             .ln_solid
             .form-group
               a.btn.btn-default.btn-sm(href='listall') Cancelar
               button.btn.btn-success.btn-sm.pull-right(type='submit') Registrar compromiso
-  script(src='../jquery/dist/jquery.min.js')
-  script(src='../moment/min/moment.min.js')
+  script(src='/jquery/dist/jquery.min.js')
+  script(src='/moment/min/moment.min.js')
   script(src='../bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js')
   script.
-    $('#myDatepicker').datetimepicker({
+    $('#fechainicio').datetimepicker({
       defaultDate: new Date(),
       format: 'DD/MM/YYYY'
+      
       });
-
-
+    $('#fechaverif').datetimepicker({
+      defaultDate: new Date(),
+      format: 'DD/MM/YYYY'
+     });
+    

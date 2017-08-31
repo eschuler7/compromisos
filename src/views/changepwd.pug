@@ -20,8 +20,8 @@ html
       .animate.form.login_form
         section.login_content
           form#frmChangePwd(method='POST',action='/changepwd')
-            h1 
-              |  Cambio de Contraseña
+            br
+            br
             center
               div(style='width:98%')
                 input(type='hidden',name='userid',value=userid)
@@ -36,3 +36,6 @@ html
     script(src='../jquery/dist/jquery.min.js')
     script(src='https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js')
     script(src='compromisos/js/compromisos.js')
+    script(src='compromisos/js/jquery.backstretch.min.js')
+    script.
+      $.backstretch('compromisos/img/Nolan.png', {fade: 700});
