@@ -14,12 +14,6 @@ prod: &default
     from:
       name: NOLAN
       email: joandelgado18@gmail.com
-  mysql:
-    host: bluemix-sandbox-dal-9-portal.1.dblayer.com
-    user: admin
-    password: BLDYTBJYRVUBXLDG
-    database: compromisos
-    port: 29030
 dev:
   <<: *default
   port: 8080
@@ -29,6 +23,7 @@ dev:
     password: mysql
     database: compromisos
     port: 3306
+    debug: false
   baseUrl: http://localhost:8080
   smtp:
     host: smtp.gmail.com
@@ -40,3 +35,13 @@ dev:
     from:
       name: NOLAN
       email: joandelgado18@gmail.com
+  objectstorage:
+    region: dalas
+    useInternal: false
+    projectId: eccd3e5be79a49e6aaf39803f3ba0afb
+    userId: 8ee69971224c4bd598264fcf5a1f9b35
+    username: admin_fec7b1ae06f77932821e8e13b0dfa17ec45a01d1
+    password: fMv,n=.hCvacJ^22
+    auth:
+      interfaceName: public
+

@@ -11,6 +11,8 @@ var computil = require('../lib/computil');
 var config = require('../lib/config');
 // Loading Email Library
 var compemail = require('../lib/email');
+// Loading Email Library
+var objectstorage = require('../lib/objectstorage');
 // Loading file system handling middlewares
 var fs = require('fs');
 var path = require("path");
@@ -75,6 +77,8 @@ router.post('/create',function(req, res, next){
 		            console.log(err);
 		        }
 		    });
+		    // Creating object storage
+		    objectstorage.container.createContainer(ruc);
 
 			// Sending confirmation email
 			var htmlRegistrationTemplate = computil.loadEmailTemplate('security_registration');

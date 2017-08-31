@@ -1,17 +1,26 @@
 'use strict';
 // Loading mysql library
 var mysql = require('sync-mysql');
-
+var parseDbUrl = require("parse-database-url");
 //Loading config library
 var config = require('./config');
 
-var connectionOptions = {
-	host: config().mysql.host,
-	port: config().mysql.port,
-	user: config().mysql.user,
-	database: config().mysql.database,
-	password: config().mysql.password,
-	debug: true
+var connectionOptions;
+if(process.env.VCAP_SERVICES) {
+	var vcapServices = JSON.parse(process.env.VCAP_SERVICES);
+	if(vcapServices['compose-for-mysql']){
+		mysql = vcapServices['compose-for-mysql'][0].credentials;
+		connectionOptions = parseDbUrl(mysql.uri);
+	}
+} else {
+	connectionOptions = {
+		host: config().mysql.host,
+		port: config().mysql.port,
+		user: config().mysql.user,
+		database: config().mysql.database,
+		password: config().mysql.password,
+		debug: config().mysql.debug
+	}
 }
 
 var compromisosdb = {
