@@ -1,6 +1,7 @@
 'use strict';
 // Loading package cloud for bluemix
 var pkgcloud = require('pkgcloud-bluemix-objectstorage');
+var pkgcloudStorage = require('multer-storage-pkgcloud');
 //Loading config library
 var config = require('./config');
 
@@ -44,6 +45,7 @@ if(process.env.VCAP_SERVICES) {
 	osconfig.auth.identity.password.user.password = config().objectstorage.password;
 	osconfig.auth.scope.project.id = config().objectstorage.projectId;
 }
+
 var storageClient = pkgcloud.storage.createClient(osconfig);
 
 var objectstorage = {
@@ -64,7 +66,7 @@ var objectstorage = {
 				}
 			});
 		},
-		deleteContainer : function(ruc) {
+		destroyContainer : function(ruc) {
 			storageClient.auth(function(error){
 				if(error) {
 					console.log('Hubo un error en la conexión con el Object Storage:', error);
@@ -88,7 +90,16 @@ var objectstorage = {
 		uploadFile : function(ruc, file) {
 
 		}
-	}
+	},
+	getMulterObjectStorage : pkgcloudStorage({
+	  client: storageClient,
+	  destination: function (req, file, cb) {
+	    cb(null, {
+	      container: req.session.user.t_company_ruc,
+	      remote: file.originalname
+	    })
+	  }
+	})
 };
 
 module.exports = objectstorage;

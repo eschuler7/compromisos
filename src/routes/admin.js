@@ -11,7 +11,7 @@ var computil = require('../lib/computil');
 var config = require('../lib/config');
 // Loading Email Library
 var compemail = require('../lib/email');
-// Loading Email Library
+// Loading Object Storage Library
 var objectstorage = require('../lib/objectstorage');
 // Loading file system handling middlewares
 var fs = require('fs');
@@ -89,7 +89,7 @@ router.post('/create',function(req, res, next){
 				htmlRegistrationTemplate = htmlRegistrationTemplate.replace('$BASE_URL',config().baseUrl);
 				htmlRegistrationTemplate = htmlRegistrationTemplate.replace('$USERID',userid);
 				htmlRegistrationTemplate = htmlRegistrationTemplate.replace('$PASSWORD',password);
-				compemail.sendEmail(email,'Registro en NOLAN',htmlRegistrationTemplate);
+				//compemail.sendEmail(email,'Registro en NOLAN',htmlRegistrationTemplate);
 			}
 		}
 		res.redirect('/admin/clients');
@@ -101,6 +101,8 @@ router.post('/create',function(req, res, next){
 router.post('/deleteclient', function(req, res){
 	var ruc = req.body.ruc;
 	var result = mysql.company.deleteCompanyByRuc(ruc);
+	// Destroying object storage
+	objectstorage.container.destroyContainer(ruc);
 	res.redirect('/admin/clients');
 });
 //Ajax call

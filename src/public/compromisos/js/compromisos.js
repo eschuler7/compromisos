@@ -243,7 +243,7 @@ $(document).ready(function(){
 	var inputs = document.querySelectorAll( '.inputfile' );
 	Array.prototype.forEach.call( inputs, function( input )
 	{
-		var label	 = input.nextElementSibling,
+		var label = input.nextElementSibling,
 			labelVal = label.innerHTML;
 
 		input.addEventListener( 'change', function( e )

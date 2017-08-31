@@ -19,8 +19,10 @@ var path = require('path');
 var multer  = require('multer');
 // Format dates to custom string formats
 var dateFormat = require('dateformat');
+// Loading Object Storage Library
+var objectstorage = require('../lib/objectstorage');
 
-// Configuring upload template storage
+// Configuring upload disk storage
 var uploadsComStorage = multer.diskStorage({
   destination: function (req, file, cb) {
     var ruc = req.session.user.t_company_ruc;
@@ -44,7 +46,21 @@ var uploadsMonStorage = multer.diskStorage({
 });
 var udploadMonTemplate = multer({ storage: uploadsMonStorage });
 
+// Configuring upload cloud object storage
+var uploadEvidences = multer({storage: objectstorage.getMulterObjectStorage});
+
 // TODAS LAS LLAMADAS GET
+//////////////////////////////////////// PRUEBAS ///////////////////////////////////////
+// Loading fs library
+var fs = require('fs');
+router.get('/prueba', function(req, res){
+    res.render('partial/commitment/prueba');
+});
+router.post('/upload', uploadEvidences.array('evidencias'), function(req, res){
+    res.render('partial/commitment/prueba');
+});
+//////////////////////////////////////// FIN DE PRUEBAS ///////////////////////////////////////
+
 router.get('/dashboard',function(req, res){
     var ft = req.session.user.firsttime;
     if(ft == 1) {

@@ -36,12 +36,11 @@ dev:
       name: NOLAN
       email: joandelgado18@gmail.com
   objectstorage:
-    region: dalas
+    region: dallas
     useInternal: false
     projectId: eccd3e5be79a49e6aaf39803f3ba0afb
-    userId: 8ee69971224c4bd598264fcf5a1f9b35
-    username: admin_fec7b1ae06f77932821e8e13b0dfa17ec45a01d1
-    password: fMv,n=.hCvacJ^22
+    userId: f8068241cf9e47d5ab5c5af11d9fc81f
+    username: admin_89d2ac1e14ef3f6a9ac0a529a03736342096f417
+    password: e8CMPj-C7.eN7*O6
     auth:
       interfaceName: public
-
