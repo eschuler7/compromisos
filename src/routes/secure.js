@@ -363,8 +363,8 @@ router.post('/register', function(req, res){
         if (computil.checktype(item) == 'date' || comconfig[i].columnasoc.startsWith('fecha')) {
             comdata.push(dateFormat((new Date(item),'yyyy-mm-dd')));
         } else {
-            if (comconfig[i].columnasoc == 'undefined') {
-                comdata.push(' ');
+            if (!item) {
+                comdata.push(null);
             } else {
                 if (comconfig[i].t_commitment_config_id == 'CM30' || comconfig[i].t_commitment_config_id == 'CM31'||comconfig[i].t_commitment_config_id == 'CM32'||comconfig[i].t_commitment_config_id == 'CM33'){
                     comdata.push('Si');
