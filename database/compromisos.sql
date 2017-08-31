@@ -7,10 +7,10 @@ insert into t_rol values('ROL4','Supervisores','Supervisores de Compromisos',0,1
 insert into t_rol values('ROL5','Super Admin','SIGN EQ Super Admin User',0,1,1,1,now(),now());
 -- Inserts iniciales para la tabla dashboard
 insert into t_dashboard_config values('DB01','Total Compromisos',1,now(),now());
-insert into t_dashboard_config values('DB02','Compromisos que requieren acción',0,now(),now());
+insert into t_dashboard_config values('DB02','Compromisos que requieren acción',1,now(),now());
 insert into t_dashboard_config values('DB03','Compromisos en cumplimiento',0,now(),now());
 insert into t_dashboard_config values('DB04','Compromisos en cumplimiento con sustento',0,now(),now());
-insert into t_dashboard_config values('DB05','Compromisos incumplidos',0,now(),now());
+insert into t_dashboard_config values('DB05','Compromisos incumplidos',1,now(),now());
 insert into t_dashboard_config values('DB06','Compromisos incumplidos con un plan de acción',0,now(),now());
 insert into t_dashboard_config values('DB07','Compromisos sin un plan de acción',0,now(),now());
 insert into t_dashboard_config values('DB08','Compromisos críticos incumplidos',0,now(),now());
@@ -27,13 +27,13 @@ insert into t_commitment_config values('CM06','Página','pagina',0,now(),now());
 insert into t_commitment_config values('CM07','Aspecto asociado','aspambasoc',0,now(),now());
 insert into t_commitment_config values('CM08','Instalación/componente','instcompasoc',0,now(),now());
 insert into t_commitment_config values('CM09','Contenido original del compromiso','contorigcomp',0,now(),now());
-insert into t_commitment_config values('CM10','Resumen del compromiso','resumencomp',0,now(),now());
+insert into t_commitment_config values('CM10','Resumen del compromiso','resumencomp',1,now(),now());
 insert into t_commitment_config values('CM11','Antecedentes del compromiso','antecedentes',0,now(),now());
 insert into t_commitment_config values('CM12','Temporalidad','temporalidad',1,now(),now());
 insert into t_commitment_config values('CM13','Fecha de inicio','fechainicio',1,now(),now());
 insert into t_commitment_config values('CM14','Frecuencia','frecuencia',1,now(),now());
 insert into t_commitment_config values('CM15','Criticidad','criticidad',1,now(),now());
-insert into t_commitment_config values('CM16','Tipo de evidencia de cumplimiento','tipoevidencia',0,now(),now());
+insert into t_commitment_config values('CM16','Tipo de evidencia de cumplimiento','tipoevidencia',1,now(),now());
 insert into t_commitment_config values('CM17','Evidencia de cumplimiento','evidencia',0,now(),now());
 insert into t_commitment_config values('CM18','Estado de cumplimiento','estadocumplimiento',1,now(),now());
 insert into t_commitment_config values('CM19','Acción sobre el compromiso','accioncompromiso',0,now(),now());
@@ -46,11 +46,11 @@ insert into t_commitment_config values('CM25','Nombre de revisor','nombrerevisor
 insert into t_commitment_config values('CM26','Fecha de revisión','fecharevision',0,now(),now());
 insert into t_commitment_config values('CM27','Referencia técnica o legal de cumplimiento','referencialegal',0,now(),now());
 insert into t_commitment_config values('CM28','Presupuesto','presupuesto',0,now(),now());
-insert into t_commitment_config values('CM29','Notas adicionales','comentarios',0,now(),now());
-insert into t_commitment_config values('CM30','Construcción','construccion',0,now(),now());
-insert into t_commitment_config values('CM31','Operación','operacion',0,now(),now());
-insert into t_commitment_config values('CM32','Cierre','cierre',0,now(),now());
-insert into t_commitment_config values('CM33','Post-cierre','postcierre',0,now(),now());
+insert into t_commitment_config values('CM29','Notas adicionales','comentarios',1,now(),now());
+insert into t_commitment_config values('CM30','Etapa construcción','construccion',1,now(),now());
+insert into t_commitment_config values('CM31','Etapa operación','operacion',1,now(),now());
+insert into t_commitment_config values('CM32','Etapa cierre','cierre',1,now(),now());
+insert into t_commitment_config values('CM33','Etapa post-cierre','postcierre',1,now(),now());
 
 -- Inserts iniciales para la tabla monitor
 insert into t_monitor_config values('MN01','Número correlativo',null,1,now(),now());
@@ -80,10 +80,10 @@ insert into t_monitor_config values('MN24','Fecha de actualización/revisión de
 insert into t_monitor_config values('MN25','Referencia técnica o legal de cumplimiento',null,0,now(),now());
 insert into t_monitor_config values('MN26','Presupuesto',null,0,now(),now());
 insert into t_monitor_config values('MN27','Comentarios y notas',null,0,now(),now());
-insert into t_monitor_config values('MN28','Construcción',null,0,now(),now());
-insert into t_monitor_config values('MN29','Operación',null,0,now(),now());
-insert into t_monitor_config values('MN30','Cierre',null,0,now(),now());
-insert into t_monitor_config values('MN31','Post-Cierre',null,0,now(),now());
+insert into t_monitor_config values('MN28','Etapa construcción',null,0,now(),now());
+insert into t_monitor_config values('MN29','Etapa operación',null,0,now(),now());
+insert into t_monitor_config values('MN30','Etapa cierre',null,0,now(),now());
+insert into t_monitor_config values('MN31','Etapa post-Cierre',null,0,now(),now());
 
 -- Inserts iniciales para la tabla company / password: password$1
 insert into t_company values('12345678909','NOLAN',null,null,0,now(),now());
@@ -95,6 +95,8 @@ select * from t_company;
 select * from t_company_dashboard;
 select id, name from t_dashboard_config;
 delete from t_company_dashboard where t_company_ruc='10101010101';
+alter table t_commitment MODIFY COLUMN accioncompromiso varchar(2);
+select * from t_commitment;
 
 select * from t_company_commitment;
 select * from t_commitment_config;
@@ -109,8 +111,8 @@ select t_company_ruc,t_monitor_config_id,tmc.name from t_company_monitor tcm lef
 
 -- Eliminar data de las tablas de configuración de atributos
 select * from t_commitment_config;
-select id, name, mandatory from t_commitment_config;
-delete from t_commitment_config where id like 'CM%';
+select id, name, columnasoc, mandatory from t_commitment_config;
+delete from t_commitment_config where id like 'CM3%';
 select * from t_monitor_config;
 delete from t_monitor_config where id like 'MN%';
 
@@ -120,3 +122,6 @@ select t_company_ruc,t_monitor_config_id,tmc.name from t_company_monitor tcm lef
 select t_company_ruc,t_dashboard_config_id,tdc.name from t_company_dashboard tcd left join t_dashboard_config tdc on tcd.t_dashboard_config_id=tdc.id where t_company_ruc=10101010101;
 
 delete from t_user where t_company_ruc='10101010101' and userid not like 'eschulerg';
+
+select t_company_ruc,t_commitment_config_id,tco.name,tco.columnasoc from t_company_commitment tcc left join t_commitment_config tco on tcc.t_commitment_config_id=tco.id where t_company_ruc=10101010101;
+select tco.columnasoc from t_company_commitment tcc left join t_commitment_config tco on tcc.t_commitment_config_id=tco.id where t_company_ruc=10101010101;

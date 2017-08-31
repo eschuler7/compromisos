@@ -154,6 +154,19 @@ var compromisosdb = {
 			}
 			conn.dispose();
 		},
+		createSingleCommitment : function(ruc, compcomm, comdata) {
+			// Dynamic query build
+			var columns = [];
+			var values = [];
+			for (var i = 0; i < compcomm.length; i++) {
+				columns.push(compcomm[i].columnasoc);
+				values.push('?');
+			}
+			var dynamicquery = 'insert into t_commitment(ruc,' + columns.toString() + ',cdatetime,udatetime,t_user_userid) values(?,' + values.toString() + ',now(),now(),?)';
+			var conn = new mysql(connectionOptions);
+			conn.query(dynamicquery,comdata);
+			conn.dispose();
+		},
 		deleteCommitment : function () {
 
 		},
@@ -240,7 +253,7 @@ var compromisosdb = {
 	dashboard : {
 		getDashboardTypes : function() {
 			var conn = new mysql(connectionOptions);
-			const result = conn.query('select id, name, columnasoc, mandatory from t_dashboard_config');
+			const result = conn.query('select id, name, mandatory from t_dashboard_config');
 			conn.dispose();
 			return result;
 		},

@@ -191,6 +191,14 @@ $(document).ready(function(){
 				required : true,
 				validatecheckbox : 'None'
 			},
+			/*correosnotificacion : {
+				required : false,
+				email : true
+			},*/
+			accioncompromiso : {
+				required : true,
+				validatecheckbox : 'None'
+			},
 			contorigcomp : {
 				required : true,
 				minlength : 20,
@@ -210,6 +218,12 @@ $(document).ready(function(){
 				required : 'Seleccione una opción',
 			},
 			frecuenciaverificacion : {
+				required : 'Seleccione una opción',
+			},
+			/*correosnotificacion : {
+				email : 'Ingrese un email válido'
+			},*/
+			accioncompromiso : {
 				required : 'Seleccione una opción',
 			},
 			contorigcomp : {
