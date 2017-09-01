@@ -84,11 +84,40 @@ var objectstorage = {
 		}
 	},
 	file : {
-		downloadFile : function(ruc, filename) {
-
+		getFiles : function(ruc) {
+			storageClient.auth(function(error){
+				if(error) {
+					console.log('Hubo un error en la conexión con el Object Storage:', error);
+				} else {
+					storageClient.getFiles(ruc, function(err, files){
+						if(err) {
+							console.log('No se pudo obtener los archivos',ruc);
+							console.log(err);
+						} else {
+							console.log('File:', files);
+							return files;
+						}
+					});
+				}
+			});
 		},
-		uploadFile : function(ruc, file) {
-
+		downloadFile : function(ruc, filename, res) {
+			storageClient.auth(function(error){
+				if(error) {
+					console.log('Hubo un error en la conexión con el Object Storage:', error);
+				} else {
+					client.download({
+					    container: 'my-container',
+					    remote: 'my-file'
+					}, function(err, result) {
+					    if(err) {
+					    	console.log('Hubo un error en la descarga:',err);
+					    } else {
+					    	console.log('Descarga Correcta:',result);
+					    }
+					}).pipe(res);
+				}
+			});
 		}
 	},
 	getMulterObjectStorage : pkgcloudStorage({
