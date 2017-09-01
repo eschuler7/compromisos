@@ -138,6 +138,17 @@ var compromisosdb = {
 			conn.dispose();
 			return result;
 		},
+		getCommitmentsByCorrelative : function(ruc, compcomm, nrocorrelativo) {
+			var columns = [];
+			for (var i = 0; i < compcomm.length; i++) {
+				columns.push(compcomm[i].columnasoc);
+			}
+			var dynamicquery = 'select ' + columns.toString() + ' from t_commitment where ruc=? and nrocorrelativo=?';
+			var conn = new mysql(connectionOptions);
+			const result = conn.query(dynamicquery,[ruc,nrocorrelativo]);
+			conn.dispose();
+			return result;
+		},
 		createCommitment : function(ruc, compcomm, comdatatotal) {
 			// Dynamic query build
 			var columns = [];
@@ -167,8 +178,11 @@ var compromisosdb = {
 			conn.query(dynamicquery,comdata);
 			conn.dispose();
 		},
-		deleteCommitment : function () {
-
+		deleteCommitmentByCorrelative : function (ruc,nrocorrelativo) {
+			var conn = new mysql(connectionOptions);
+			const result = conn.query('delete from t_commitment where ruc=? and nrocorrelativo=?;',[ruc, nrocorrelativo]);
+			conn.dispose();
+			return result;
 		},
 		updateCommitment : function() {
 

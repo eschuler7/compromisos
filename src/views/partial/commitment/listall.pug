@@ -12,13 +12,47 @@ block container
               tr
                 each conf in comconfig
                   th #{conf.name}
+                th Opciones
             tbody
               each commitment in commitments
                 tr
                   each column in comconfig
                     td #{commitment[column.columnasoc]}
+                  td
+                    table
+                      tr
+                        td
+                          a.btn.btn-primary.btn-xs(href='commitdetail/' + commitment.nrocorrelativo)
+                            i.fa.fa-folder
+                            |  Ver
+                        td
+                          a.btn.btn-info.btn-xs(href='commitedit/' + commitment.nrocorrelativo)
+                            i.fa.fa-pencil
+                            |  Editar
+                        td
+                          a.btn.btn-danger.btn-xs(href='javascript:deletecommit("' + commitment.nrocorrelativo + '")')
+                            i.fa.fa-trash-o
+                            |  Eliminar
           .ln_solid(style='margin-top:5px')
           a.btn.btn-warning.btn-xs(href='/secure/register') Nuevo Compromiso
+
+    #confirm_delete.modal.fade(tabindex='-1', role='dialog', data-backdrop='static', data-keyboard='false')
+      .modal-dialog(role='document')
+        .modal-content
+          .modal-header
+            //-button.close(type='button', data-dismiss='modal', aria-label='Close')
+              span(aria-hidden='true') &times;
+            h4#comfirm_delete_title.modal-title
+          form#frmConfirmDelete(action='/secure/deletecommit',method='post')
+            .modal-body
+              p Esta acción eliminará el compromiso seleccionado
+              center
+                strong ¿Desea continuar?
+              input(type='hidden',name='nrocorrelativo')
+            .modal-footer
+              button.btn.btn-default.pull-left(type='button', data-dismiss='modal') Cancelar
+              |  
+              button.btn.btn-danger(type='submit') Continuar
 
     script.
       window.onload = function() {
@@ -41,4 +75,9 @@ block container
             zeroRecords: 'No se encontraron registros coincidentes'
           }
         });
+      }
+      var deletecommit = function(nrocorrelativo) {
+        $('#comfirm_delete_title').text('Eliminar compromiso con nro correlativo  ' + nrocorrelativo);
+        $('#frmConfirmDelete input[name=nrocorrelativo]').val(nrocorrelativo);
+        $('#confirm_delete').modal('show');
       }

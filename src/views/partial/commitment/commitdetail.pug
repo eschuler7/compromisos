@@ -1,0 +1,28 @@
+extends ../../layouts/layout_main.pug
+block container
+  .page-title
+    .title_right
+  .clearfix
+  .row
+    .col-md-12
+      .x_panel
+        .x_title
+          h2 Detalle del compromiso
+          ul.nav.navbar-right.panel_toolbox
+          .clearfix
+        .x_content
+            each config in commitmentconfig
+              .row
+                label.control-label.col-md-3.col-sm-6.col-xs-12(for=config.t_commitment_config_id) 
+                  | #{config.name}
+                .col-md-6.col-sm-6.col-xs-12
+                  p(style='font-size: 15px') #{commitment[config.columnasoc]} 
+            .ln_solid
+            .row
+              .col-md-12.col-sm-12.col-xs-12
+                a.btn.btn-default(href='/secure/listall') Regresar
+  script(src='/jquery/dist/jquery.min.js')
+  script(src='/moment/min/moment.min.js')
+  script(src='../bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js')
+
+    

@@ -96,7 +96,7 @@ select * from t_company_dashboard;
 select id, name from t_dashboard_config;
 delete from t_company_dashboard where t_company_ruc='10101010101';
 alter table t_commitment MODIFY COLUMN accioncompromiso varchar(2);
-select * from t_commitment;
+select * from t_commitment where ruc='10101010101' and nrocorrelativo='1';
 
 select * from t_company_commitment;
 select * from t_commitment_config;
@@ -109,6 +109,8 @@ select * from t_company_monitor;
 delete from t_company_monitor where t_company_ruc='10101010101';
 select t_company_ruc,t_monitor_config_id,tmc.name from t_company_monitor tcm left join t_monitor_config tmc on tcm.t_monitor_config_id=tmc.id where t_company_ruc='10101010101';
 
+
+delete from t_commitment where ruc='10101010101' and nrocorrelativo='1';
 -- Eliminar data de las tablas de configuración de atributos
 select * from t_commitment_config;
 select id, name, columnasoc, mandatory from t_commitment_config;

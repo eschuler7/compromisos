@@ -81,8 +81,11 @@ router.get('/register',function(req, res){
     res.render('partial/commitment/register',{commitment: commitment,commitmentconfig: commitmentconfig});
 });
 
-router.get('/select', function(req, res){
-    res.render('partial/select');
+router.get('/commitdetail/:nrocorrelativo', function(req, res){
+    var nrocorrelativo = req.params.nrocorrelativo;
+    var commitmentconfig = mysql.commitment.getComConfigByRuc(req.session.user.t_company_ruc);
+    var commitment = mysql.commitment.getCommitmentsByCorrelative(req.session.user.t_company_ruc,commitmentconfig,nrocorrelativo);
+    res.render('partial/commitment/commitdetail',{nrocorrelativo:nrocorrelativo,commitment:commitment[0],commitmentconfig: commitmentconfig});
 });
 
 router.get('/listall', function(req, res){
@@ -399,6 +402,13 @@ router.post('/register', function(req, res){
     console.log('valores del comdata :',comdata);
     mysql.commitment.createSingleCommitment(req.session.user.t_company_ruc, comconfig, comdata);
     console.log('valores del comdata final:',comdata);
+    res.redirect('/secure/listall');
+
+});
+
+router.post('/deletecommit', function(req, res){
+    var nrocorrelativo = req.body.nrocorrelativo;
+    var result = mysql.commitment.deleteCommitmentByCorrelative(req.session.user.t_company_ruc,nrocorrelativo);
     res.redirect('/secure/listall');
 
 });
