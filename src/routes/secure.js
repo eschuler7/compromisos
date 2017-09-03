@@ -88,6 +88,13 @@ router.get('/commitdetail/:nrocorrelativo', function(req, res){
     res.render('partial/commitment/commitdetail',{nrocorrelativo:nrocorrelativo,commitment:commitment[0],commitmentconfig: commitmentconfig});
 });
 
+router.get('/commitedit/:nrocorrelativo', function(req, res){
+    var nrocorrelativo = req.params.nrocorrelativo;
+    var commitmentconfig = mysql.commitment.getComConfigByRuc(req.session.user.t_company_ruc);
+    var commitment = mysql.commitment.getCommitmentsByCorrelative(req.session.user.t_company_ruc,commitmentconfig,nrocorrelativo);
+    res.render('partial/commitment/commitedit',{nrocorrelativo:nrocorrelativo,commitment:commitment[0],commitmentconfig: commitmentconfig});
+});
+
 router.get('/listall', function(req, res){
     var comconfig = mysql.commitment.getComConfigByRuc(req.session.user.t_company_ruc);
     var commitments = mysql.commitment.getCommitmentsByRuc(req.session.user.t_company_ruc,comconfig);
