@@ -117,9 +117,9 @@ html
                     span.fa.fa-angle-down
                   ul.dropdown-menu.dropdown-usermenu.pull-right
                     li
-                      a(href='javascript:;') Manual de usuario
+                      a(href='/compromisos/docs/Manual.pdf') Manual de usuario
                     li
-                      a(href='javascript:;') Contacto con soporte
+                      a(href='javascript:emailToSoporte()') Contacto con soporte 
                     li
                       a(href='javascript:logout()')
                         i.fa.fa-sign-out.pull-right
@@ -167,6 +167,23 @@ html
               |  
               button.btn.btn-danger(type='submit') Continuar
 
+    //Modal contacte soporte
+    #confirm_soporte.modal.fade(tabindex='-1', role='dialog', data-backdrop='static', data-keyboard='false')
+      .modal-dialog.modal-lg(role='document')
+        .modal-content
+          .modal-header
+            h4#confirm_emailToSoporte.modal-title Contactando al soporte ...
+          form#frmemailToSoporte(action='/secure/emailToSoporte',method='post')
+            .modal-body
+              textarea.form-control.col-md-7.col-xs-6(placeholder='Ingrese información de la consulta o problema', type='text', name='email')
+              //input(type='hidden',name='ruc')
+            .row
+            br
+            .modal-footer
+              button.btn.btn-default.pull-left(type='button', data-dismiss='modal') Cancelar
+              |  
+              button.btn.btn-danger(type='submit') Enviar
+
     // jQuery
     script(src='/jquery/dist/jquery.min.js')
     // Bootstrap
@@ -201,6 +218,8 @@ html
         $('#confirm_resetConfigGlobal').modal('show');
       }
 
-
-
-
+      var emailToSoporte = function() {
+        $('#confirm_emailToSoporte').text('Notificación a soporte');
+        //$('#emailToSoporte input[name=ruc]').val(ruc);
+        $('#confirm_soporte').modal('show');
+      }

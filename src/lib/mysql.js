@@ -116,6 +116,12 @@ var compromisosdb = {
 			const result = conn.query('select userid, email, tu.name, lastname, t_rol_rolid, tr.name rol_name, tu.cdatetime, tu.udatetime from t_user tu left join t_rol tr on tu.t_rol_rolid=tr.rolid where tu.t_company_ruc=?',[ruc]);
 			conn.dispose();
 			return result;
+		},
+		getEmailByID : function(userid) {
+			var conn = new mysql(connectionOptions);
+			const result = conn.query('select email from t_user where userid=?',[userid]);
+			conn.dispose();
+			return result;
 		}
 	},
 	rol : {

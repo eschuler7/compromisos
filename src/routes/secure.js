@@ -90,6 +90,13 @@ router.get('/commitdetail/:nrocorrelativo', function(req, res){
     res.render('partial/commitment/commitdetail',{nrocorrelativo:nrocorrelativo,commitment:commitment[0],commitmentconfig: commitmentconfig});
 });
 
+router.get('/commitedit/:nrocorrelativo', function(req, res){
+    var nrocorrelativo = req.params.nrocorrelativo;
+    var commitmentconfig = mysql.commitment.getComConfigByRuc(req.session.user.t_company_ruc);
+    var commitment = mysql.commitment.getCommitmentsByCorrelative(req.session.user.t_company_ruc,commitmentconfig,nrocorrelativo);
+    res.render('partial/commitment/commitedit',{nrocorrelativo:nrocorrelativo,commitment:commitment[0],commitmentconfig: commitmentconfig});
+});
+
 router.get('/listall', function(req, res){
     var comconfig = mysql.commitment.getComConfigByRuc(req.session.user.t_company_ruc);
     var commitments = mysql.commitment.getCommitmentsByRuc(req.session.user.t_company_ruc,comconfig);
@@ -415,5 +422,33 @@ router.post('/deletecommit', function(req, res){
 
 });
 
+router.post('/emailToSoporte', function(req, res, next){
+    
+    var userid = req.session.user.userid;
+    var reception = mysql.user.getEmailByID(userid);
+    var inbox = 'eschulergodo7@gmail.com';
+    var emailtext = req.body.email;
+    
+    console.log('valor de recption',reception);
+
+    try {
+        // Sending information
+        
+        var htmlRegistrationTemplate = computil.loadEmailTemplate('security_support');
+        if(htmlRegistrationTemplate == '') {
+            var error = new Error('La plantilla de correo no pudo ser cargada');
+            next(error);
+        } else {
+            htmlRegistrationTemplate = htmlRegistrationTemplate.replace('$USERID',userid);
+            htmlRegistrationTemplate = htmlRegistrationTemplate.replace('$COMPANY_NAME',req.session.user.companyname);
+            htmlRegistrationTemplate = htmlRegistrationTemplate.replace('$EMAILTEXT',emailtext);
+            htmlRegistrationTemplate = htmlRegistrationTemplate.replace('$RECEPTION',reception[0].email);
+            compemail.sendEmail(inbox,'Consulta de soporte a NOLAN',htmlRegistrationTemplate);
+        }
+        res.redirect('/secure/dashboard');
+    } catch(e) {
+        next(e);
+    }
+});
 module.exports = router;
 
