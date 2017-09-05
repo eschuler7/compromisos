@@ -420,5 +420,33 @@ router.post('/deletecommit', function(req, res){
 
 });
 
+router.post('/emailToSoporte', function(req, res, next){
+    
+    var userid = req.session.user.userid;
+    var reception = mysql.user.getEmailByID(userid);
+    var inbox = 'eschulergodo7@gmail.com';
+    var emailtext = req.body.email;
+    
+    console.log('valor de recption',reception);
+
+    try {
+        // Sending information
+        
+        var htmlRegistrationTemplate = computil.loadEmailTemplate('security_support');
+        if(htmlRegistrationTemplate == '') {
+            var error = new Error('La plantilla de correo no pudo ser cargada');
+            next(error);
+        } else {
+            htmlRegistrationTemplate = htmlRegistrationTemplate.replace('$USERID',userid);
+            htmlRegistrationTemplate = htmlRegistrationTemplate.replace('$COMPANY_NAME',req.session.user.companyname);
+            htmlRegistrationTemplate = htmlRegistrationTemplate.replace('$EMAILTEXT',emailtext);
+            htmlRegistrationTemplate = htmlRegistrationTemplate.replace('$RECEPTION',reception[0].email);
+            compemail.sendEmail(inbox,'Consulta de soporte a NOLAN',htmlRegistrationTemplate);
+        }
+        res.redirect('/secure/dashboard');
+    } catch(e) {
+        next(e);
+    }
+});
 module.exports = router;
 

@@ -211,7 +211,7 @@ block container
                     label.control-label.col-md-3.col-sm-6.col-xs-12(for=config.t_commitment_config_id,style='cursor: pointer') 
                       | #{config.name}
                     .col-md-6.col-sm-6.col-xs-12
-                      input.form-control.col-md-7.col-xs-6(id=config.t_commitment_config_id, placeholder=config.name, type='text', name=config.columnasoc) 
+                      input.form-control.col-md-7.col-xs-6(id=config.t_commitment_config_id, placeholder=config.name, type='text', name=config.columnasoc, value=commitment[config.columnasoc]) 
             .ln_solid
             .form-group
               a.btn.btn-default.btn-sm(href='listall') Cancelar

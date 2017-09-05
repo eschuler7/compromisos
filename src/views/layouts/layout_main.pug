@@ -176,8 +176,9 @@ html
           form#frmemailToSoporte(action='/secure/emailToSoporte',method='post')
             .modal-body
               textarea.form-control.col-md-7.col-xs-6(placeholder='Ingrese información de la consulta o problema', type='text', name='email')
-              input(type='hidden',name='ruc')
+              //input(type='hidden',name='ruc')
             .row
+            br
             .modal-footer
               button.btn.btn-default.pull-left(type='button', data-dismiss='modal') Cancelar
               |  
