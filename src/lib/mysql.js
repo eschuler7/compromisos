@@ -192,8 +192,19 @@ var compromisosdb = {
 			conn.dispose();
 			return result;
 		},
-		updateCommitment : function() {
+		updateSingleCommitment : function(ruc, compcomm, comdata) {
+			// Dynamic query build
+			var columns = [];
+			var values = [];
+			for (var i = 0; i < compcomm.length; i++) {
+				columns.push(compcomm[i].columnasoc);
+				values.push('?');
+			}
 
+			var dynamicquery = 'update t_commitment set (ruc,' + columns.toString() + ',udatetime,nrocorrelativo)=(?,' + values.toString() + ',now()) where nrocorrelativo=?'
+			var conn = new mysql(connectionOptions);
+			conn.query(dynamicquery,comdata);
+			conn.dispose();
 		},
 		getComConfigByRuc : function(ruc) {
 			var conn = new mysql(connectionOptions);
