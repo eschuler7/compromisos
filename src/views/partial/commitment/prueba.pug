@@ -20,3 +20,15 @@ block container
             .ln_solid
             .form-group
               button.btn.btn-success.btn-sm.pull-right(type='submit') Subir
+          br
+          table.table.table-striped
+            thead
+              tr
+                th Archivo
+                th Acción
+            tbody
+              each file in files
+                tr
+                  td #{file.name}
+                  td
+                    a.btn.btn-success.btn-sm(href='/secure/downloadevidence/' + file.name) Descargar Archivo

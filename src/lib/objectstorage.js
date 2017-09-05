@@ -84,7 +84,7 @@ var objectstorage = {
 		}
 	},
 	file : {
-		getFiles : function(ruc) {
+		getFiles : function(ruc, res) {
 			storageClient.auth(function(error){
 				if(error) {
 					console.log('Hubo un error en la conexión con el Object Storage:', error);
@@ -95,7 +95,7 @@ var objectstorage = {
 							console.log(err);
 						} else {
 							console.log('File:', files);
-							return files;
+							res.render('partial/commitment/prueba', {files:files});
 						}
 					});
 				}
@@ -106,7 +106,7 @@ var objectstorage = {
 				if(error) {
 					console.log('Hubo un error en la conexión con el Object Storage:', error);
 				} else {
-					client.download({
+					storageClient.download({
 					    container: 'my-container',
 					    remote: 'my-file'
 					}, function(err, result) {

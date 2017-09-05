@@ -54,12 +54,14 @@ var uploadEvidences = multer({storage: objectstorage.getMulterObjectStorage});
 // Loading fs library
 var fs = require('fs');
 router.get('/prueba', function(req, res){
-    var files = objectstorage.file.getFiles(req.session.user.t_company_ruc);
-    console.log(files);
-    res.render('partial/commitment/prueba');
+    var files = objectstorage.file.getFiles(req.session.user.t_company_ruc, res);
 });
 router.post('/upload', uploadEvidences.array('evidencias'), function(req, res){
     res.redirect('/secure/prueba');
+});
+router.get('/downloadevidence/:filename', function(req, res){
+    var filename = req.params.filename;
+    objectstorage.file.downloadFile(req.session.user.t_company_ruc, filename, res);
 });
 //////////////////////////////////////// FIN DE PRUEBAS ///////////////////////////////////////
 
