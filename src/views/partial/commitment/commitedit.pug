@@ -40,11 +40,12 @@ block container
                   .form-group
                     label.control-label.col-md-3.col-sm-3.col-xs-12(for=config.id)
                       | Temporalidad:
-                    .col-sm-2 
-                      select#temporalidad.form-control(type='select', name=config.columnasoc) 
-                        option(value='None') Seleccionar..
-                        option(value='Puntual') Puntual
-                        option(value='Permanente') Permanente
+                    .col-sm-2
+                      - console.log('valor temproalidad ',commitment[config.columnasoc])
+                      select#temporalidad.form-control(name=config.columnasoc, value=commitment[config.columnasoc]) 
+                        option(value='None', selected= true) Seleccionar..
+                        option(value='Puntual', selected= commitment[config.columnasoc] == 'Puntual') Puntual
+                        option(value='Permanente', selected= commitment[config.columnasoc] == 'Permanente') Permanente
 
                 when 'CM13'
                   .form-group
@@ -64,16 +65,16 @@ block container
                       span.required *
                     .col-sm-2
                       select#frecuencia.form-control(name=config.columnasoc) #{commitment[config.columnasoc]}
-                        option(value='None') Seleccionar..
-                        option(value='Unica') Unica
-                        option(value='Diaria') Diaria
-                        option(value='Semanal') Semanal
-                        option(value='Mensual') Mensual
-                        option(value='Trimestral') Trimestral
-                        option(value='Semestral') Semestral
-                        option(value='Anual') Anual
-                        option(value='Continuo') Continuo
-                        option(value='Indefinido') Indefinido 
+                        option(value='None', selected= true) Seleccionar..
+                        option(value='Unica', selected= commitment[config.columnasoc] == 'Unica') Unica
+                        option(value='Diaria', selected= commitment[config.columnasoc] =='Diaria') Diaria
+                        option(value='Semanal', selected= commitment[config.columnasoc] =='Semanal') Semanal
+                        option(value='Mensual', selected= commitment[config.columnasoc] =='Mensual') Mensual
+                        option(value='Trimestral', selected= commitment[config.columnasoc] =='Trimestral',) Trimestral
+                        option(value='Semestral', selected= commitment[config.columnasoc] =='Semestral') Semestral
+                        option(value='Anual', selected= commitment[config.columnasoc] =='Anual') Anual
+                        option(value='Continuo', selected= commitment[config.columnasoc] =='Continuo') Continuo
+                        option(value='Indefinido', selected= commitment[config.columnasoc] =='Indefinido') Indefinido 
 
                 when 'CM15'
                   .form-group
@@ -82,10 +83,10 @@ block container
                       span.required *
                     .col-sm-2
                       select#criticidad.form-control(name=config.columnasoc)
-                        option(value='None') Seleccionar..
-                        option(value='Alto') Alto
-                        option(value='Medio') Medio
-                        option(value='Bajo') Bajo
+                        option(value='None', selected= true) Seleccionar..
+                        option(value='Alto', selected= commitment[config.columnasoc] =='Alto') Alto
+                        option(value='Medio', selected= commitment[config.columnasoc] =='Medio') Medio
+                        option(value='Bajo', selected= commitment[config.columnasoc] =='Bajo') Bajo
                 when 'CM16'
                   .form-group
                     label.control-label.col-md-3.col-sm-3.col-xs-12(for=config.id)
@@ -93,9 +94,9 @@ block container
                       span.required *
                     .col-sm-2
                       select#tipoevidencia.form-control(name=config.columnasoc) #{commitment[config.columnasoc]}
-                        option(value='None') Seleccionar..
-                        option(value='Manual') Manual
-                        option(value='Fisica') Física
+                        option(value='None', selected= true) Seleccionar..
+                        option(value='Manual', selected= commitment[config.columnasoc] =='Manual') Manual
+                        option(value='Fisica', selected= commitment[config.columnasoc] =='Fisica') Física
 
                 when 'CM17'
                   .form-group
@@ -114,13 +115,13 @@ block container
                       span.required *
                     .col-sm-2
                       select#estadocommit.form-control(name=config.columnasoc) #{commitment[config.columnasoc]}
-                        option(value='None') Seleccionar..
-                        option(value='Abierto') Abierto
-                        option(value='Cerrado') Cerrado
-                        option(value='proceso') En proceso
-                        option(value='Cancelado') Cancelado                        
-                        option(value='Diferido') Diferido
-                        option(value='Vencido') Vencido   
+                        option(value='None', selected= true) Seleccionar..
+                        option(value='Abierto', selected= commitment[config.columnasoc] =='Abierto') Abierto
+                        option(value='Cerrado', selected= commitment[config.columnasoc] =='Cerrado') Cerrado
+                        option(value='Proceso', selected= commitment[config.columnasoc] =='Proceso') En proceso
+                        option(value='Cancelado', selected= commitment[config.columnasoc] =='Cancelado') Cancelado                        
+                        option(value='Diferido', selected= commitment[config.columnasoc] =='Diferido') Diferido
+                        option(value='Vencido', selected= commitment[config.columnasoc] =='Vencido') Vencido   
 
                 when 'CM19'
                   .form-group
@@ -129,9 +130,9 @@ block container
                       span.required *
                     .col-sm-2
                       select#accioncompromiso.form-control(name=config.columnasoc) #{commitment[config.columnasoc]}
-                        option(value='None') Seleccionar..
-                        option(value='Si') Si
-                        option(value='No') No
+                        option(value='None', selected= true) Seleccionar..
+                        option(value='Si', selected= commitment[config.columnasoc] =='Si') Si
+                        option(value='No', selected= commitment[config.columnasoc] =='No') No
 
                 when 'CM21'
                   .form-group
@@ -140,22 +141,23 @@ block container
                       span.required *
                     .col-sm-2
                       select#frecuenciaverif.form-control(name=config.columnasoc) #{commitment[config.columnasoc]}
-                        option(value='None') Seleccionar..
-                        option(value='Unica') Unica
-                        option(value='Diaria') Diaria
-                        option(value='Semanal') Semanal
-                        option(value='Mensual') Mensual
-                        option(value='Trimestral') Trimestral
-                        option(value='Semestral') Semestral
-                        option(value='Anual') Anual
-                        option(value='Continuo') Continuo
-                        option(value='Indefinido') Indefinido
+                        option(value='None', selected= true) Seleccionar..
+                        option(value='Unica', selected= commitment[config.columnasoc] == 'Unica') Unica
+                        option(value='Diaria', selected= commitment[config.columnasoc] =='Diaria') Diaria
+                        option(value='Semanal', selected= commitment[config.columnasoc] =='Semanal') Semanal
+                        option(value='Mensual', selected= commitment[config.columnasoc] =='Mensual') Mensual
+                        option(value='Trimestral', selected= commitment[config.columnasoc] =='Trimestral',) Trimestral
+                        option(value='Semestral', selected= commitment[config.columnasoc] =='Semestral') Semestral
+                        option(value='Anual', selected= commitment[config.columnasoc] =='Anual') Anual
+                        option(value='Continuo', selected= commitment[config.columnasoc] =='Continuo') Continuo
+                        option(value='Indefinido', selected= commitment[config.columnasoc] =='Indefinido') Indefinido 
+
                 when 'CM23'
                   .form-group
                     label.control-label.col-md-3.col-sm-6.col-xs-12(for=config.t_commitment_config_id, style='cursor: pointer') 
                       | #{config.name}
                     .col-md-6.col-sm-6.col-xs-12
-                      input.form-control.col-md-7.col-xs-6(id=config.t_commitment_config_id, placeholder='example@gmail.com,hotmail@outlook.com', type='email', name=config.columnasoc, multiple) 
+                      input.form-control.col-md-7.col-xs-6(id=config.t_commitment_config_id, placeholder='example@gmail.com,hotmail@outlook.com', type='email', name=config.columnasoc, multiple, value=commitment[config.columnasoc]) 
                 when 'CM26'
                   .form-group
                     label.control-label.col-md-3.col-sm-3.col-xs-12(for=config.id)
@@ -180,7 +182,10 @@ block container
                   td
                     label.control-label.col-md-3.col-sm-6.col-xs-12(for=config.id,style='cursor: pointer')  #{config.name}
                   td
-                    input.flat(id=config.id,type='checkbox', value=config.id, name=config.columnasoc) 
+                    if commitment[config.columnasoc] == 'Si'
+                      input.flat(id=config.id,type='checkbox', value=config.id, name=config.columnasoc, checked='checked')
+                    else
+                      input.flat(id=config.id,type='checkbox', value=config.id, name=config.columnasoc)
                   .row
                 when 'CM31'
                   .form-group
@@ -188,7 +193,10 @@ block container
                   td
                     label.control-label.col-md-3.col-sm-6.col-xs-12(for=config.id,style='cursor: pointer')  #{config.name}
                   td
-                    input.flat(id=config.id,type='checkbox', value=config.id, name=config.columnasoc) 
+                    if commitment[config.columnasoc] == 'Si'
+                      input.flat(id=config.id,type='checkbox', value=config.id, name=config.columnasoc, checked='checked')
+                    else
+                      input.flat(id=config.id,type='checkbox', value=config.id, name=config.columnasoc)
                   .row
                 when 'CM32'
                   .form-group
@@ -196,7 +204,10 @@ block container
                   td
                     label.control-label.col-md-3.col-sm-6.col-xs-12(for=config.id,style='cursor: pointer')  #{config.name}
                   td
-                    input.flat(id=config.id,type='checkbox', value=config.id, name=config.columnasoc) 
+                    if commitment[config.columnasoc] == 'Si'
+                      input.flat(id=config.id,type='checkbox', value=config.id, name=config.columnasoc, checked='checked')
+                    else
+                      input.flat(id=config.id,type='checkbox', value=config.id, name=config.columnasoc)
                   .row
                 when 'CM33'
                   .form-group
@@ -204,7 +215,10 @@ block container
                   td
                     label.control-label.col-md-3.col-sm-6.col-xs-12(for=config.id,style='cursor: pointer')  #{config.name}
                   td
-                    input.flat(id=config.id,type='checkbox', value=config.id, name=config.columnasoc) 
+                    if commitment[config.columnasoc] == 'Si'
+                      input.flat(id=config.id,type='checkbox', value=config.id, name=config.columnasoc, checked='checked')
+                    else
+                      input.flat(id=config.id,type='checkbox', value=config.id, name=config.columnasoc)
                   .row
                 default
                   .form-group
@@ -214,11 +228,11 @@ block container
                       input.form-control.col-md-7.col-xs-6(id=config.t_commitment_config_id, placeholder=config.name, type='text', name=config.columnasoc, value=commitment[config.columnasoc]) 
             .ln_solid
             .form-group
-              a.btn.btn-default.btn-sm(href='listall') Cancelar
+              a.btn.btn-default.btn-sm(href='/secure/listall') Cancelar
               button.btn.btn-success.btn-sm.pull-right(type='submit') Editar compromiso
   script(src='/jquery/dist/jquery.min.js')
   script(src='/moment/min/moment.min.js')
-  script(src='../bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js')
+  script(src='/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js')
   script.
     $('#fechainicio').datetimepicker({
       defaultDate: new Date(),
