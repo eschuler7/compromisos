@@ -47,7 +47,7 @@ var uploadsMonStorage = multer.diskStorage({
 var udploadMonTemplate = multer({ storage: uploadsMonStorage });
 
 // Configuring upload cloud object storage
-var uploadEvidences = multer({storage: objectstorage.getMulterObjectStorage});
+var uploadEvidences = multer({storage: objectstorage.getEvidenceObjectStorage});
 
 // TODAS LAS LLAMADAS GET
 //////////////////////////////////////// PRUEBAS ///////////////////////////////////////
@@ -56,7 +56,11 @@ var fs = require('fs');
 router.get('/prueba', function(req, res){
     var files = objectstorage.file.getFiles(req.session.user.t_company_ruc, res);
 });
-router.post('/upload', uploadEvidences.array('evidencia'), function(req, res){
+router.post('/upload', function(req, res, next){
+    var correlativo = 'prueba2';
+    req.correlativo = correlativo;
+    next();
+}, uploadEvidences.array('evidencia'), function(req, res){
     res.redirect('/secure/prueba');
 });
 router.get('/downloadevidence/:filename', function(req, res){

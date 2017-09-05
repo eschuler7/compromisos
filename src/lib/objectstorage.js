@@ -84,12 +84,12 @@ var objectstorage = {
 		}
 	},
 	file : {
-		/*getFiles : function(ruc, res) {
+		getFiles : function(ruc, res) {
 			storageClient.auth(function(error){
 				if(error) {
 					console.log('Hubo un error en la conexión con el Object Storage:', error);
 				} else {
-					storageClient.getFiles(ruc, function(err, files){
+					storageClient._getFiles(ruc, {prefix:'prueba2/'},function(err, files){
 						if(err) {
 							console.log('No se pudo obtener los archivos',ruc);
 							console.log(err);
@@ -100,7 +100,7 @@ var objectstorage = {
 					});
 				}
 			});
-		},*/
+		},
 		downloadFile : function(ruc, filename, res) {
 			storageClient.auth(function(error){
 				if(error) {
@@ -115,12 +115,12 @@ var objectstorage = {
 			});
 		}
 	},
-	getMulterObjectStorage : pkgcloudStorage({
+	getEvidenceObjectStorage : pkgcloudStorage({
 	  client: storageClient,
 	  destination: function (req, file, cb) {
 	    cb(null, {
 	      container: req.session.user.t_company_ruc,
-	      remote: file.originalname
+	      remote: req.correlativo + '/' + file.originalname
 	    })
 	  }
 	})
