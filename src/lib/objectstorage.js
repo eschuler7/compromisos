@@ -84,7 +84,7 @@ var objectstorage = {
 		}
 	},
 	file : {
-		getFiles : function(ruc, res) {
+		/*getFiles : function(ruc, res) {
 			storageClient.auth(function(error){
 				if(error) {
 					console.log('Hubo un error en la conexión con el Object Storage:', error);
@@ -100,22 +100,17 @@ var objectstorage = {
 					});
 				}
 			});
-		},
+		},*/
 		downloadFile : function(ruc, filename, res) {
 			storageClient.auth(function(error){
 				if(error) {
 					console.log('Hubo un error en la conexión con el Object Storage:', error);
 				} else {
-					storageClient.download({
-					    container: 'my-container',
-					    remote: 'my-file'
-					}, function(err, result) {
-					    if(err) {
-					    	console.log('Hubo un error en la descarga:',err);
-					    } else {
-					    	console.log('Descarga Correcta:',result);
-					    }
-					}).pipe(res);
+					var download = storageClient.download({
+		                container: ruc,
+		                remote: filename
+		            });
+		            download.pipe(res);
 				}
 			});
 		}

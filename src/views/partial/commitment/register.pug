@@ -11,7 +11,7 @@ block container
           ul.nav.navbar-right.panel_toolbox
           .clearfix
         .x_content
-          form#frmregisterCommit.form-horizontal(action='/secure/register',method='post')
+          form#frmregisterCommit.form-horizontal(action='/secure/register',method='post',enctype='multipart/form-data')
             
             each config in commitmentconfig
               case config.t_commitment_config_id
@@ -103,9 +103,12 @@ block container
                       | Evidencias de cumplimiento 
                       span.required *
                     .col-md-6.col-sm-6.col-xs-12
-                      input.form-control.col-md-7.col-xs-12(id='filesize', name=config.columnasoc, type='text')
-                      a(href='', onclick="openDialogBox('fileID').....")
-                      input(id='fs',type='file', multiple='', onchange='fsize()')   
+                      input#template.inputfile.inputfile-6(type='file',name='evidencias',data-multiple-caption='{count} archivos seleccionados',multiple)
+                      label(for='template',width='100%')
+                        span
+                        strong
+                          i.fa.fa-upload
+                          |  Seleccionar
 
                 when 'CM18'
                   .form-group
@@ -214,7 +217,7 @@ block container
                       input.form-control.col-md-7.col-xs-6(id=config.t_commitment_config_id, placeholder=config.name, type='text', name=config.columnasoc) 
             .ln_solid
             .form-group
-              a.btn.btn-default.btn-sm(href='listall') Cancelar
+              a.btn.btn-default.btn-sm(href='/secure/listall') Cancelar
               button.btn.btn-success.btn-sm.pull-right(type='submit') Registrar compromiso
   script(src='/jquery/dist/jquery.min.js')
   script(src='/moment/min/moment.min.js')

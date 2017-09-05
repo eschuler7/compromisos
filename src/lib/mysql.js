@@ -136,7 +136,8 @@ var compromisosdb = {
 		getCommitmentsByRuc : function(ruc, compcomm) {
 			var columns = [];
 			for (var i = 0; i < compcomm.length; i++) {
-				columns.push(compcomm[i].columnasoc);
+				if (compcomm[i].columnasoc != 'evidencia')
+					columns.push(compcomm[i].columnasoc);
 			}
 			var dynamicquery = 'select ' + columns.toString() + ' from t_commitment where ruc=?';
 			var conn = new mysql(connectionOptions);
@@ -144,10 +145,11 @@ var compromisosdb = {
 			conn.dispose();
 			return result;
 		},
-		getCommitmentsByCorrelative : function(ruc, compcomm, nrocorrelativo) {
+		getCommitmentByCorrelative : function(ruc, compcomm, nrocorrelativo) {
 			var columns = [];
 			for (var i = 0; i < compcomm.length; i++) {
-				columns.push(compcomm[i].columnasoc);
+				if (compcomm[i].columnasoc != 'evidencia')
+					columns.push(compcomm[i].columnasoc);
 			}
 			var dynamicquery = 'select ' + columns.toString() + ' from t_commitment where ruc=? and nrocorrelativo=?';
 			var conn = new mysql(connectionOptions);

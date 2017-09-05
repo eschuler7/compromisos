@@ -56,7 +56,7 @@ var fs = require('fs');
 router.get('/prueba', function(req, res){
     var files = objectstorage.file.getFiles(req.session.user.t_company_ruc, res);
 });
-router.post('/upload', uploadEvidences.array('evidencias'), function(req, res){
+router.post('/upload', uploadEvidences.array('evidencia'), function(req, res){
     res.redirect('/secure/prueba');
 });
 router.get('/downloadevidence/:filename', function(req, res){
@@ -86,14 +86,14 @@ router.get('/register',function(req, res){
 router.get('/commitdetail/:nrocorrelativo', function(req, res){
     var nrocorrelativo = req.params.nrocorrelativo;
     var commitmentconfig = mysql.commitment.getComConfigByRuc(req.session.user.t_company_ruc);
-    var commitment = mysql.commitment.getCommitmentsByCorrelative(req.session.user.t_company_ruc,commitmentconfig,nrocorrelativo);
+    var commitment = mysql.commitment.getCommitmentByCorrelative(req.session.user.t_company_ruc,commitmentconfig,nrocorrelativo);
     res.render('partial/commitment/commitdetail',{nrocorrelativo:nrocorrelativo,commitment:commitment[0],commitmentconfig: commitmentconfig});
 });
 
 router.get('/commitedit/:nrocorrelativo', function(req, res){
     var nrocorrelativo = req.params.nrocorrelativo;
     var commitmentconfig = mysql.commitment.getComConfigByRuc(req.session.user.t_company_ruc);
-    var commitment = mysql.commitment.getCommitmentsByCorrelative(req.session.user.t_company_ruc,commitmentconfig,nrocorrelativo);
+    var commitment = mysql.commitment.getCommitmentByCorrelative(req.session.user.t_company_ruc,commitmentconfig,nrocorrelativo);
     res.render('partial/commitment/commitedit',{nrocorrelativo:nrocorrelativo,commitment:commitment[0],commitmentconfig: commitmentconfig});
 });
 
@@ -379,12 +379,10 @@ router.post('/resetConfigGlobal', function(req, res){
     
 });
 
-router.post('/register', function(req, res){
-    
+router.post('/register', uploadEvidences.array('evidencia'),function(req, res){
     //insert dinamico
     var comconfig = mysql.commitment.getComConfigByRuc(req.session.user.t_company_ruc);
     
-    console.log('valores del comconfig :',comconfig);
     var comdata = [];
     comdata.push(req.session.user.t_company_ruc);
     for (var i = 0; i < comconfig.length; i++) {
@@ -401,18 +399,14 @@ router.post('/register', function(req, res){
                 }
                 else {
                     comdata.push(item);
-                }    
+                }
             }
         }
-        
     }
     
     comdata.push(req.session.user.userid);
-    console.log('valores del comdata :',comdata);
     mysql.commitment.createSingleCommitment(req.session.user.t_company_ruc, comconfig, comdata);
-    console.log('valores del comdata final:',comdata);
     res.redirect('/secure/listall');
-
 });
 
 router.post('/deletecommit', function(req, res){

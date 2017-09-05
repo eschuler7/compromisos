@@ -57,9 +57,9 @@ html
                         span.fa.fa-chevron-down
                       ul.nav.child_menu
                         li
-                          a(href='dashboard') Dashboard
+                          a(href='/secure/dashboard') Dashboard
                         li
-                          a(href='configattrdashboard') Configuración de controles
+                          a(href='/secure/configattrdashboard') Configuración de controles
                     li
                       a
                         i.fa.fa-edit
@@ -67,15 +67,13 @@ html
                         span.fa.fa-chevron-down
                       ul.nav.child_menu
                         li
-                          a(href='listall') Mis compromisos
+                          a(href='/secure/listall') Mis compromisos
                         li
-                          a(href='massive') Carga masiva
+                          a(href='/secure/massive') Carga masiva
                         li
-                          a(href='prueba') Prueba Object Storage
+                          a(href='/secure/register') Registrar compromiso
                         li
-                          a(href='register') Registrar compromiso
-                        li
-                          a(href='configattrcommit') Configuración de atributos
+                          a(href='/secure/configattrcommit') Configuración de atributos
                     li
                       a
                         i.fa.fa-binoculars
@@ -83,13 +81,13 @@ html
                         span.fa.fa-chevron-down
                       ul.nav.child_menu
                         li
-                          a(href='listallmonit') Monitoreo
+                          a(href='/secure/listallmonit') Monitoreo
                         li
-                          a(href='massivemonit') Carga masiva
+                          a(href='/secure/massivemonit') Carga masiva
                         li
-                          a(href='registermonit') Registrar monitoreo
+                          a(href='/secure/registermonit') Registrar monitoreo
                         li
-                          a(href='configattrmonit') Configuración de atributos
+                          a(href='/secure/configattrmonit') Configuración de atributos
                   if session.user.t_rol_rolid == 'ROL1'
                     li
                       a
