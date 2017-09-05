@@ -11,10 +11,13 @@ block container
           ul.nav.navbar-right.panel_toolbox
           .clearfix
         .x_content
-          form#frmregisterCommit.form-horizontal(action='/secure/register',method='post')
-            
+          form#frmregisterCommit.form-horizontal(action='/secure/updateCommit', method='post')
+            input#comdata(type='hidden', name='comdata')
+
             each config in commitmentconfig
               case config.t_commitment_config_id
+                when 'CM01'
+                  input(type='hidden', name=config.columnasoc, value=commitment[config.columnasoc])
                 when 'CM09'
                   .form-group
                     label.control-label.col-md-3.col-sm-6.col-xs-12(for=config.t_commitment_config_id,style='cursor: pointer') 
@@ -41,7 +44,6 @@ block container
                     label.control-label.col-md-3.col-sm-3.col-xs-12(for=config.id)
                       | Temporalidad:
                     .col-sm-2
-                      - console.log('valor temproalidad ',commitment[config.columnasoc])
                       select#temporalidad.form-control(name=config.columnasoc, value=commitment[config.columnasoc]) 
                         option(value='None', selected= true) Seleccionar..
                         option(value='Puntual', selected= commitment[config.columnasoc] == 'Puntual') Puntual
@@ -64,7 +66,7 @@ block container
                       | Frecuencia 
                       span.required *
                     .col-sm-2
-                      select#frecuencia.form-control(name=config.columnasoc) #{commitment[config.columnasoc]}
+                      select#frecuencia.form-control(name=config.columnasoc) 
                         option(value='None', selected= true) Seleccionar..
                         option(value='Unica', selected= commitment[config.columnasoc] == 'Unica') Unica
                         option(value='Diaria', selected= commitment[config.columnasoc] =='Diaria') Diaria
@@ -78,7 +80,7 @@ block container
 
                 when 'CM15'
                   .form-group
-                    label.control-label.col-md-3.col-sm-3.col-xs-12(for=config.id) #{commitment[config.columnasoc]}
+                    label.control-label.col-md-3.col-sm-3.col-xs-12(for=config.id) 
                       | Criticidad 
                       span.required *
                     .col-sm-2
@@ -93,7 +95,7 @@ block container
                       | Tipo de evidencia 
                       span.required *
                     .col-sm-2
-                      select#tipoevidencia.form-control(name=config.columnasoc) #{commitment[config.columnasoc]}
+                      select#tipoevidencia.form-control(name=config.columnasoc) 
                         option(value='None', selected= true) Seleccionar..
                         option(value='Manual', selected= commitment[config.columnasoc] =='Manual') Manual
                         option(value='Fisica', selected= commitment[config.columnasoc] =='Fisica') Física
@@ -114,7 +116,7 @@ block container
                       | Estado del compromiso 
                       span.required *
                     .col-sm-2
-                      select#estadocommit.form-control(name=config.columnasoc) #{commitment[config.columnasoc]}
+                      select#estadocommit.form-control(name=config.columnasoc) 
                         option(value='None', selected= true) Seleccionar..
                         option(value='Abierto', selected= commitment[config.columnasoc] =='Abierto') Abierto
                         option(value='Cerrado', selected= commitment[config.columnasoc] =='Cerrado') Cerrado
@@ -129,7 +131,7 @@ block container
                       | Acción sobre el compromiso 
                       span.required *
                     .col-sm-2
-                      select#accioncompromiso.form-control(name=config.columnasoc) #{commitment[config.columnasoc]}
+                      select#accioncompromiso.form-control(name=config.columnasoc) 
                         option(value='None', selected= true) Seleccionar..
                         option(value='Si', selected= commitment[config.columnasoc] =='Si') Si
                         option(value='No', selected= commitment[config.columnasoc] =='No') No
@@ -140,7 +142,7 @@ block container
                       | Frecuencia propuesta de verificación 
                       span.required *
                     .col-sm-2
-                      select#frecuenciaverif.form-control(name=config.columnasoc) #{commitment[config.columnasoc]}
+                      select#frecuenciaverif.form-control(name=config.columnasoc) 
                         option(value='None', selected= true) Seleccionar..
                         option(value='Unica', selected= commitment[config.columnasoc] == 'Unica') Unica
                         option(value='Diaria', selected= commitment[config.columnasoc] =='Diaria') Diaria
@@ -238,11 +240,17 @@ block container
       defaultDate: new Date(),
       format: 'DD/MM/YYYY'
       
-      });
+    });
     $('#fechaverif').datetimepicker({
       defaultDate: new Date(),
       format: 'DD/MM/YYYY'
-     });
+    });
     
+    $( 'input' ).change(function() {
+      var tmp = ((tmpval = $('#comdata').val()) == '') ? tmpval : tmpval + ',';
+      $('#comdata').val(tmp + this.name);
+      console.log('comdata modificado',comdata);
+      
+    });
     
 

@@ -444,5 +444,42 @@ router.post('/emailToSoporte', function(req, res, next){
         next(e);
     }
 });
+
+router.post('/updateCommit', uploadEvidences.array('evidencia'),function(req, res){
+    //insert dinamico
+    console.log(req.body.comdata.split(','));
+    /*var comconfig = mysql.commitment.getComConfigByRuc(req.session.user.t_company_ruc);
+    //var comdetail = mysql.commitment.getCommitmentByCorrelative(nrocorrelativo);
+
+    var comdata = [];
+    comdata.push(req.session.user.t_company_ruc);
+
+    for (var i = 0; i < comconfig.length; i++) {
+        var item = req.body[comconfig[i].columnasoc];
+        console.log('valor del item',item);
+        
+        
+        if (computil.checktype(item) == 'date' || comconfig[i].columnasoc.startsWith('fecha')) {
+            comdata.push(dateFormat((new Date(item),'yyyy-mm-dd')));
+        } else {
+            if (!item) {
+                comdata.push(null);
+            } else {
+                if (comconfig[i].t_commitment_config_id == 'CM30' || comconfig[i].t_commitment_config_id == 'CM31'||comconfig[i].t_commitment_config_id == 'CM32'||comconfig[i].t_commitment_config_id == 'CM33'){
+                    comdata.push('Si');
+                }
+                else {
+                    comdata.push(item);
+                }
+            }
+        }
+
+    }
+    
+    comdata.push(nrocorrelativo);
+    mysql.commitment.updateSingleCommitment(req.session.user.t_company_ruc, comconfig, comdata);
+    */
+    res.redirect('/secure/listall');
+});
 module.exports = router;
 
