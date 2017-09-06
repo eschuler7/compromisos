@@ -455,38 +455,46 @@ router.post('/emailToSoporte', function(req, res, next){
 
 router.post('/updateCommit', uploadEvidences.array('evidencia'),function(req, res){
     //insert dinamico
-    console.log(req.body.comdata.split(','));
-    /*var comconfig = mysql.commitment.getComConfigByRuc(req.session.user.t_company_ruc);
+    //var comedit = [];
+    var comdata = req.body.comdata.split(',');
+    var cominput = [];
+    var nrocorrelativo = req.body.nrocorrelativo;
+    console.log('valor de comadata',comdata);
+    console.log('valor de nrocorrelativo',nrocorrelativo);
+    console.log('valor de cominput',cominput);
+    //var comconfig = mysql.commitment.getComConfigByRuc(req.session.user.t_company_ruc);
     //var comdetail = mysql.commitment.getCommitmentByCorrelative(nrocorrelativo);
 
-    var comdata = [];
-    comdata.push(req.session.user.t_company_ruc);
+    //comedit.push(req.session.user.t_company_ruc);
 
-    for (var i = 0; i < comconfig.length; i++) {
-        var item = req.body[comconfig[i].columnasoc];
+    for (var i = 0; i < comdata.length; i++) {
+        var item = comdata[i];
+        //var cominput = req.body[comdata[i].value];
         console.log('valor del item',item);
-        
-        
-        if (computil.checktype(item) == 'date' || comconfig[i].columnasoc.startsWith('fecha')) {
-            comdata.push(dateFormat((new Date(item),'yyyy-mm-dd')));
-        } else {
-            if (!item) {
-                comdata.push(null);
-            } else {
-                if (comconfig[i].t_commitment_config_id == 'CM30' || comconfig[i].t_commitment_config_id == 'CM31'||comconfig[i].t_commitment_config_id == 'CM32'||comconfig[i].t_commitment_config_id == 'CM33'){
-                    comdata.push('Si');
-                }
-                else {
-                    comdata.push(item);
-                }
-            }
-        }
 
+        if (!item) {
+            cominput.push(null);
+        } else {
+            if (computil.checktype(req.body[item]) == 'date' || item.startsWith('fecha')) {
+                cominput.push(dateFormat((new Date(item),'yyyy-mm-dd')));
+            } else {
+                if (req.body[item] == 'on' ){
+                    cominput.push('Si');
+                } else {
+                    //cominput.push(item);
+                    cominput.push(req.body[item]);
+                }
+
+            }
+
+        }
     }
     
-    comdata.push(nrocorrelativo);
-    mysql.commitment.updateSingleCommitment(req.session.user.t_company_ruc, comconfig, comdata);
-    */
+    //comedit.push(nrocorrelativo);
+    //console.log('valor del item',comedit);
+    console.log('valor del cominput',cominput);
+    mysql.commitment.updateSingleCommitment(req.session.user.t_company_ruc, comdata,cominput,nrocorrelativo);
+    
     res.redirect('/secure/listall');
 });
 module.exports = router;
