@@ -246,11 +246,21 @@ block container
       format: 'DD/MM/YYYY'
     });
     
-    $( 'input' ).change(function() {
-      var tmp = ((tmpval = $('#comdata').val()) == '') ? tmpval : tmpval + ',';
-      $('#comdata').val(tmp + this.name);
+    $( 'input').change(function() {
+      var comdata = validateinfo(this.name);
+      $('#comdata').val(comdata);
       console.log('comdata modificado',comdata);
-      
     });
-    
+    $( 'textarea').change(function() {
+      var comdata = validateinfo(this.name);
+      $('#comdata').val(comdata);
+      console.log('comdata modificado',comdata);
+    });
+    function validateinfo(value){
+      var comdata = $('#comdata').val();
+      if (comdata.indexOf(value) == -1) {
+        comdata = (comdata == '') ? comdata + value : comdata + ',' + value;
+      }
+      return comdata;
+    }
 
