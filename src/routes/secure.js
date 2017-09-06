@@ -52,7 +52,6 @@ var uploadEvidences = multer({storage: objectstorage.getEvidenceObjectStorage});
 // TODAS LAS LLAMADAS GET
 //////////////////////////////////////// PRUEBAS ///////////////////////////////////////
 // Loading fs library
-var fs = require('fs');
 router.get('/prueba', function(req, res){
     var files = objectstorage.file.getFiles(req.session.user.t_company_ruc, res);
 });
@@ -383,10 +382,15 @@ router.post('/resetConfigGlobal', function(req, res){
     
 });
 
-router.post('/register', uploadEvidences.array('evidencia'),function(req, res){
+router.post('/register', function(req, res, next){
+    // obteniendo correlativo
+    var correlativo = mysql.commitment.getNextCorrelative(req.session.user.t_company_ruc);
+    console.log('Correlativo antes de guardar archivos', correlativo[0].correlativo);
+    req.correlativo = correlativo[0].correlativo;
+    next();
+},uploadEvidences.array('evidencias'),function(req, res){
     //insert dinamico
     var comconfig = mysql.commitment.getComConfigByRuc(req.session.user.t_company_ruc);
-    
     var comdata = [];
     comdata.push(req.session.user.t_company_ruc);
     for (var i = 0; i < comconfig.length; i++) {

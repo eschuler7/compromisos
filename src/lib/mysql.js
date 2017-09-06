@@ -136,7 +136,7 @@ var compromisosdb = {
 		getCommitmentsByRuc : function(ruc, compcomm) {
 			var columns = [];
 			for (var i = 0; i < compcomm.length; i++) {
-				if (compcomm[i].columnasoc != 'evidencia')
+				if (compcomm[i].columnasoc != 'evidencias')
 					columns.push(compcomm[i].columnasoc);
 			}
 			var dynamicquery = 'select ' + columns.toString() + ' from t_commitment where ruc=?';
@@ -244,6 +244,12 @@ var compromisosdb = {
 				conn.query('insert into t_company_commitment(t_company_ruc,t_commitment_config_id) values(?,?)',[ruc,initconfig]);
 			}
 			conn.dispose();
+		},
+		getNextCorrelative : function(ruc) {
+			var conn = new mysql(connectionOptions);
+			const result = conn.query('select if(max(nrocorrelativo) is null, 1, max(nrocorrelativo) + 1) as correlativo from t_commitment where ruc=?',[ruc]);
+			conn.dispose();
+			return result;
 		}
 	},
 	monitor : {

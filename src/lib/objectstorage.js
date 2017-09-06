@@ -84,15 +84,16 @@ var objectstorage = {
 		}
 	},
 	file : {
-		getFiles : function(ruc, res) {
+		/*getFiles : function(ruc, codigoglobal, res) {
 			storageClient.auth(function(error){
 				if(error) {
 					console.log('Hubo un error en la conexión con el Object Storage:', error);
+					res.send('Error');
 				} else {
-					storageClient._getFiles(ruc, {prefix:'prueba2/'},function(err, files){
+					storageClient._getFiles(ruc, {prefix: codigoglobal + '/'},function(err, files){
 						if(err) {
-							console.log('No se pudo obtener los archivos',ruc);
-							console.log(err);
+							console.log('[ERROR]','[objectstorage]');
+							res.send('Error');
 						} else {
 							console.log('File:', files);
 							res.render('partial/commitment/prueba', {files:files});
@@ -100,15 +101,15 @@ var objectstorage = {
 					});
 				}
 			});
-		},
-		downloadFile : function(ruc, filename, res) {
+		},*/
+		downloadFile : function(ruc, codigoglobal, filename, res) {
 			storageClient.auth(function(error){
 				if(error) {
 					console.log('Hubo un error en la conexión con el Object Storage:', error);
 				} else {
 					var download = storageClient.download({
 		                container: ruc,
-		                remote: filename
+		                remote: codigoglobal + '/' + filename
 		            });
 		            download.pipe(res);
 				}
@@ -118,10 +119,12 @@ var objectstorage = {
 	getEvidenceObjectStorage : pkgcloudStorage({
 	  client: storageClient,
 	  destination: function (req, file, cb) {
+	  	console.log('Correlativo mientras guarda archivos',req.correlativo);
 	    cb(null, {
 	      container: req.session.user.t_company_ruc,
 	      remote: req.correlativo + '/' + file.originalname
-	    })
+	    });
+	    req.correlativo = req.correlativo;
 	  }
 	})
 };

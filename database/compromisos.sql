@@ -33,24 +33,23 @@ insert into t_commitment_config values('CM12','Temporalidad','temporalidad',1,no
 insert into t_commitment_config values('CM13','Fecha de inicio','fechainicio',1,now(),now());
 insert into t_commitment_config values('CM14','Frecuencia','frecuencia',1,now(),now());
 insert into t_commitment_config values('CM15','Criticidad','criticidad',1,now(),now());
-insert into t_commitment_config values('CM16','Tipo de evidencia de cumplimiento','tipoevidencia',1,now(),now());
-insert into t_commitment_config values('CM17','Evidencia de cumplimiento','evidencia',0,now(),now());
-insert into t_commitment_config values('CM18','Estado de cumplimiento','estadocumplimiento',1,now(),now());
-insert into t_commitment_config values('CM19','Acción sobre el compromiso','accioncompromiso',0,now(),now());
-insert into t_commitment_config values('CM20','Detalle de acción','detalleaccion',0,now(),now());
-insert into t_commitment_config values('CM21','Frecuencia de verificación','frecuenciaverificacion',0,now(),now());
-insert into t_commitment_config values('CM22','Area responsable','arearesponsable',0,now(),now());
-insert into t_commitment_config values('CM23','Correos de notificación','correosnotificacion',0,now(),now());
-insert into t_commitment_config values('CM24','Notificación de inactividad','notificacioninactividad',0,now(),now());
-insert into t_commitment_config values('CM25','Nombre de revisor','nombrerevisor',0,now(),now());
-insert into t_commitment_config values('CM26','Fecha de revisión','fecharevision',0,now(),now());
-insert into t_commitment_config values('CM27','Referencia técnica o legal de cumplimiento','referencialegal',0,now(),now());
-insert into t_commitment_config values('CM28','Presupuesto','presupuesto',0,now(),now());
-insert into t_commitment_config values('CM29','Notas adicionales','comentarios',1,now(),now());
-insert into t_commitment_config values('CM30','Etapa construcción','construccion',1,now(),now());
-insert into t_commitment_config values('CM31','Etapa operación','operacion',1,now(),now());
-insert into t_commitment_config values('CM32','Etapa cierre','cierre',1,now(),now());
-insert into t_commitment_config values('CM33','Etapa post-cierre','postcierre',1,now(),now());
+insert into t_commitment_config values('CM16','Evidencias','evidencias',1,now(),now());
+insert into t_commitment_config values('CM17','Estado de cumplimiento','estadocumplimiento',1,now(),now());
+insert into t_commitment_config values('CM18','Acción sobre el compromiso','accioncompromiso',0,now(),now());
+insert into t_commitment_config values('CM19','Detalle de acción','detalleaccion',0,now(),now());
+insert into t_commitment_config values('CM20','Frecuencia de verificación','frecuenciaverificacion',0,now(),now());
+insert into t_commitment_config values('CM21','Area responsable','arearesponsable',0,now(),now());
+insert into t_commitment_config values('CM22','Correos de notificación','correosnotificacion',0,now(),now());
+insert into t_commitment_config values('CM23','Notificación de inactividad','notificacioninactividad',0,now(),now());
+insert into t_commitment_config values('CM24','Nombre de revisor','nombrerevisor',0,now(),now());
+insert into t_commitment_config values('CM25','Fecha de revisión','fecharevision',0,now(),now());
+insert into t_commitment_config values('CM26','Referencia técnica o legal de cumplimiento','referencialegal',0,now(),now());
+insert into t_commitment_config values('CM27','Presupuesto','presupuesto',0,now(),now());
+insert into t_commitment_config values('CM28','Notas adicionales','comentarios',1,now(),now());
+insert into t_commitment_config values('CM29','Construcción','construccion',1,now(),now());
+insert into t_commitment_config values('CM30','Operación','operacion',1,now(),now());
+insert into t_commitment_config values('CM31','Cierre','cierre',1,now(),now());
+insert into t_commitment_config values('CM32','Post-cierre','postcierre',1,now(),now());
 
 -- Inserts iniciales para la tabla monitor
 insert into t_monitor_config values('MN01','Número correlativo',null,1,now(),now());
@@ -129,3 +128,6 @@ select t_company_ruc,t_commitment_config_id,tco.name,tco.columnasoc from t_compa
 select tco.columnasoc from t_company_commitment tcc left join t_commitment_config tco on tcc.t_commitment_config_id=tco.id where t_company_ruc=10101010101;
 
 select * from t_commitment where nrocorrelativo='100';
+
+select if(max(nrocorrelativo) is null, 1, max(nrocorrelativo) + 1) as correlativo
+from t_commitment where ruc='12345678908';
