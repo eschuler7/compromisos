@@ -209,15 +209,19 @@ block container
               button.btn.btn-success.btn-sm.pull-right(type='submit') Registrar compromiso
   script(src='/jquery/dist/jquery.min.js')
   script(src='/moment/min/moment.min.js')
-  script(src='../bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js')
+  //script(src='/moment/locale/es.js')  
+  script(src='/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js')
+  //script(src='/bootstrap-datetimepicker/build/js/locales/bootstrap-datetimepicker.es.js', charset='UTF-8')
   script.
     $('#fechainicio').datetimepicker({
       defaultDate: new Date(),
-      format: 'DD/MM/YYYY'
-      
-      });
+      format: 'DD/MM/YYYY',
+
+         
+    });
     $('#fechaverif').datetimepicker({
       defaultDate: new Date(),
       format: 'DD/MM/YYYY'
-     });
+      
+    });
     
