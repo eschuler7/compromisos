@@ -1,10 +1,7 @@
 extends ../../layouts/layout_main.pug
 block container
-  .page-title
-    .title_right
-  .clearfix
   .row
-    .col-md-12
+    .col-md-12.col-sm-12.col-xs-12
       .x_panel
         .x_title
           h2 Editar información del compromiso
@@ -92,25 +89,21 @@ block container
                 when 'CM16'
                   .form-group
                     label.control-label.col-md-3.col-sm-3.col-xs-12(for=config.id)
-                      | Tipo de evidencia 
-                      span.required *
-                    .col-sm-2
-                      select#tipoevidencia.form-control(name=config.columnasoc) 
-                        option(value='None', selected= true) Seleccionar..
-                        option(value='Manual', selected= commitment[config.columnasoc] =='Manual') Manual
-                        option(value='Fisica', selected= commitment[config.columnasoc] =='Fisica') Física
+                      | Evidencias
+                    .col-md-6.col-sm-6.col-xs-12
+                      .row
+                        .col-md-12
+                          textarea.form-control.col-md-12(id=config.t_commitment_config_id, placeholder='Ingrese una evidencia textual o comentario sobre las evidencias físicas', type='text', name='evidencia_descripcion')
+                      .row
+                        .col-md-12
+                          input#template.inputfile.inputfile-6(type='file',name=config.columnasoc,data-multiple-caption='{count} archivos seleccionados',multiple)
+                          label(for='template',width='100%', style='margin-top: 10px')
+                            span
+                            strong
+                              i.fa.fa-upload
+                              |  Evidencias
 
                 when 'CM17'
-                  .form-group
-                    label.control-label.col-md-3.col-sm-3.col-xs-12(for=config.id)
-                      | Evidencias de cumplimiento 
-                      span.required *
-                    .col-md-6.col-sm-6.col-xs-12
-                      input.form-control.col-md-7.col-xs-12(id='filesize', name=config.columnasoc, type='text')
-                      a(href='', onclick="openDialogBox('fileID').....")
-                      input(id='fs',type='file', multiple='', onchange='fsize()')   
-
-                when 'CM18'
                   .form-group
                     label.control-label.col-md-3.col-sm-3.col-xs-12(for=config.id)
                       | Estado del compromiso 
@@ -125,7 +118,7 @@ block container
                         option(value='Diferido', selected= commitment[config.columnasoc] =='Diferido') Diferido
                         option(value='Vencido', selected= commitment[config.columnasoc] =='Vencido') Vencido   
 
-                when 'CM19'
+                when 'CM18'
                   .form-group
                     label.control-label.col-md-3.col-sm-3.col-xs-12(for=config.id)
                       | Acción sobre el compromiso 
@@ -136,7 +129,7 @@ block container
                         option(value='Si', selected= commitment[config.columnasoc] =='Si') Si
                         option(value='No', selected= commitment[config.columnasoc] =='No') No
 
-                when 'CM21'
+                when 'CM20'
                   .form-group
                     label.control-label.col-md-3.col-sm-3.col-xs-12(for=config.id)
                       | Frecuencia propuesta de verificación 
@@ -154,13 +147,13 @@ block container
                         option(value='Continuo', selected= commitment[config.columnasoc] =='Continuo') Continuo
                         option(value='Indefinido', selected= commitment[config.columnasoc] =='Indefinido') Indefinido 
 
-                when 'CM23'
+                when 'CM22'
                   .form-group
                     label.control-label.col-md-3.col-sm-6.col-xs-12(for=config.t_commitment_config_id, style='cursor: pointer') 
                       | #{config.name}
                     .col-md-6.col-sm-6.col-xs-12
                       input.form-control.col-md-7.col-xs-6(id=config.t_commitment_config_id, placeholder='example@gmail.com,hotmail@outlook.com', type='email', name=config.columnasoc, multiple, value=commitment[config.columnasoc]) 
-                when 'CM26'
+                when 'CM25'
                   .form-group
                     label.control-label.col-md-3.col-sm-3.col-xs-12(for=config.id)
                       | Fecha de verificación:
@@ -171,13 +164,24 @@ block container
                           span.input-group-addon
                             span.glyphicon.glyphicon-calendar 
 
-                when 'CM29'
+                when 'CM28'
                   .form-group
                     label.control-label.col-md-3.col-sm-6.col-xs-12(for=config.t_commitment_config_id,style='cursor: pointer') 
                       | #{config.name}
                     .col-md-6.col-sm-6.col-xs-12
                       textarea.form-control.col-md-7.col-xs-6(id=config.t_commitment_config_id, placeholder=config.name, type='text', name=config.columnasoc) #{commitment[config.columnasoc]}
 
+                when 'CM29'
+                  .form-group
+                  tr
+                  td
+                    label.control-label.col-md-3.col-sm-6.col-xs-12(for=config.id,style='cursor: pointer')  #{config.name}
+                  td
+                    if commitment[config.columnasoc] == 'Si'
+                      input.flat(id=config.id,type='checkbox', value=config.id, name=config.columnasoc, checked='checked')
+                    else
+                      input.flat(id=config.id,type='checkbox', value=config.id, name=config.columnasoc)
+                  .row
                 when 'CM30'
                   .form-group
                   tr
@@ -201,17 +205,6 @@ block container
                       input.flat(id=config.id,type='checkbox', value=config.id, name=config.columnasoc)
                   .row
                 when 'CM32'
-                  .form-group
-                  tr
-                  td
-                    label.control-label.col-md-3.col-sm-6.col-xs-12(for=config.id,style='cursor: pointer')  #{config.name}
-                  td
-                    if commitment[config.columnasoc] == 'Si'
-                      input.flat(id=config.id,type='checkbox', value=config.id, name=config.columnasoc, checked='checked')
-                    else
-                      input.flat(id=config.id,type='checkbox', value=config.id, name=config.columnasoc)
-                  .row
-                when 'CM33'
                   .form-group
                   tr
                   td

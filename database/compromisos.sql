@@ -129,5 +129,5 @@ select tco.columnasoc from t_company_commitment tcc left join t_commitment_confi
 
 select * from t_commitment where nrocorrelativo='100';
 
-select if(max(nrocorrelativo) is null, 1, max(nrocorrelativo) + 1) as correlativo
-from t_commitment where ruc='12345678908';
+select if(max(nrocorrelativo) is null, 1, max(nrocorrelativo) + 1) as correlativo from t_commitment where ruc='12345678908';
+select * from t_commitment_evidence;

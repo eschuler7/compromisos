@@ -52,7 +52,7 @@ var uploadEvidences = multer({storage: objectstorage.getEvidenceObjectStorage});
 // TODAS LAS LLAMADAS GET
 //////////////////////////////////////// PRUEBAS ///////////////////////////////////////
 // Loading fs library
-router.get('/prueba', function(req, res){
+/*router.get('/prueba', function(req, res){
     var files = objectstorage.file.getFiles(req.session.user.t_company_ruc, res);
 });
 router.post('/upload', function(req, res, next){
@@ -65,7 +65,7 @@ router.post('/upload', function(req, res, next){
 router.get('/downloadevidence/:filename', function(req, res){
     var filename = req.params.filename;
     objectstorage.file.downloadFile(req.session.user.t_company_ruc, filename, res);
-});
+});*/
 //////////////////////////////////////// FIN DE PRUEBAS ///////////////////////////////////////
 
 router.get('/dashboard',function(req, res){
@@ -90,7 +90,8 @@ router.get('/commitdetail/:nrocorrelativo', function(req, res){
     var nrocorrelativo = req.params.nrocorrelativo;
     var commitmentconfig = mysql.commitment.getComConfigByRuc(req.session.user.t_company_ruc);
     var commitment = mysql.commitment.getCommitmentByCorrelative(req.session.user.t_company_ruc,commitmentconfig,nrocorrelativo);
-    res.render('partial/commitment/commitdetail',{nrocorrelativo:nrocorrelativo,commitment:commitment[0],commitmentconfig: commitmentconfig});
+    var commitmentevidence = mysql.evidence.getEvidences(req.session.user.t_company_ruc, nrocorrelativo);
+    res.render('partial/commitment/commitdetail',{nrocorrelativo:nrocorrelativo,commitment:commitment[0],commitmentconfig: commitmentconfig, commitmentevidence: commitmentevidence});
 });
 
 router.get('/commitedit/:nrocorrelativo', function(req, res){
@@ -198,6 +199,12 @@ router.get('/users', function(req, res){
 
 router.get('/userscreate', function(req, res){
     res.render('partial/userscreate');
+});
+
+router.get('/downloadevidence/:correlativo/:filename', function(req, res){
+    var correlativo = req.params.correlativo;
+    var filename = req.params.filename;
+    objectstorage.file.downloadFile(req.session.user.t_company_ruc, correlativo, filename, res);
 });
 
 // TODAS LAS LLAMADAS POST
@@ -394,26 +401,50 @@ router.post('/register', function(req, res, next){
     var comdata = [];
     comdata.push(req.session.user.t_company_ruc);
     for (var i = 0; i < comconfig.length; i++) {
-        var item = req.body[comconfig[i].columnasoc];
-        console.log('valor del item',item);
-        if (computil.checktype(item) == 'date' || comconfig[i].columnasoc.startsWith('fecha')) {
-            comdata.push(dateFormat((new Date(item),'yyyy-mm-dd')));
-        } else {
-            if (!item) {
-                comdata.push(null);
+        if(comconfig[i].columnasoc != 'evidencias') {
+            if (comconfig[i].columnasoc == 'nrocorrelativo') {
+                comdata.push(req.correlativo);
             } else {
-                if (comconfig[i].t_commitment_config_id == 'CM30' || comconfig[i].t_commitment_config_id == 'CM31'||comconfig[i].t_commitment_config_id == 'CM32'||comconfig[i].t_commitment_config_id == 'CM33'){
-                    comdata.push('Si');
+                var item = req.body[comconfig[i].columnasoc];
+                if (!item) {
+                    comdata.push(null);
+                } else {
+                    if (computil.checktype(item) == 'date' || comconfig[i].columnasoc.startsWith('fecha')) {
+                        comdata.push(dateFormat((new Date(item),'yyyy-mm-dd')));
+                    } else {
+                        if (comconfig[i].t_commitment_config_id == 'CM29' || comconfig[i].t_commitment_config_id == 'CM30'||comconfig[i].t_commitment_config_id == 'CM31'||comconfig[i].t_commitment_config_id == 'CM32'){
+                            comdata.push('Si');
+                        }
+                        else {
+                            comdata.push(item);
+                        }
+                    }
                 }
-                else {
-                    comdata.push(item);
-                }
+
             }
         }
     }
-    
     comdata.push(req.session.user.userid);
-    mysql.commitment.createSingleCommitment(req.session.user.t_company_ruc, comconfig, comdata);
+    var result = mysql.commitment.createSingleCommitment(req.session.user.t_company_ruc, comconfig, comdata);
+    if(result.affectedRows == 1) {
+        var description = req.body.evidencia_descripcion;
+        var files = '';
+        if(req.files) {
+            console.log(req.files);
+            for (var i = 0; i < req.files.length; i++) {
+                if(i == 0) {
+                    files += req.files[i].originalname;
+                } else {
+                    files += ',' + req.files[i].originalname;
+                }
+            }
+        }
+        if(req.file) {
+            console.log(req.file);
+            files = req.file.originalname;
+        }
+        mysql.evidence.registerEvidences(description, files, req.correlativo, req.session.user.t_company_ruc);
+    }
     res.redirect('/secure/listall');
 });
 

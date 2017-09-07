@@ -1,10 +1,7 @@
 extends ../../layouts/layout_main.pug
 block container
-  .page-title
-    .title_right
-  .clearfix
   .row
-    .col-md-12
+    .col-md-12.col-sm-12.col-xs-12
       .x_panel
         .x_title
           h2 Detalle del compromiso
@@ -12,16 +9,39 @@ block container
           .clearfix
         .x_content
             each config in commitmentconfig
-              .row
-                label.control-label.col-md-3.col-sm-6.col-xs-12(for=config.t_commitment_config_id) 
-                  | #{config.name}
-                .col-md-6.col-sm-6.col-xs-12
-                  p(style='font-size: 15px') #{commitment[config.columnasoc]} 
+              case config.t_commitment_config_id
+                when 'CM16'
+                  .row
+                    label.control-label.col-md-3.col-sm-5.col-xs-12(for=config.t_commitment_config_id) 
+                      | #{config.name}
+                    .col-md-7.col-sm-7.col-xs-12
+                      table.table.table-bordered
+                        thead
+                          th Descripción
+                          th Archivos
+                          th Fecha de Creación
+                        tbody
+                          each evidence in commitmentevidence
+                            tr
+                              td #{evidence.description}
+                              td 
+                                - var ftmp = evidence.files.split(',')
+                                each tmp in ftmp
+                                  a(href='/secure/downloadevidence/' + commitment.nrocorrelativo + '/' + tmp)
+                                    u #{tmp}
+                                  br
+                              td #{evidence.cdatetime}
+                default
+                  .row
+                    label.control-label.col-md-3.col-sm-5.col-xs-12(for=config.t_commitment_config_id) 
+                      | #{config.name}
+                    .col-md-7.col-sm-7.col-xs-12
+                      p(style='font-size: 15px') #{commitment[config.columnasoc]}
             .ln_solid
             .row
               .col-md-12.col-sm-12.col-xs-12
                 a.btn.btn-default(href='/secure/listall') Regresar
-                a.btn.btn-default(href='/secure/commitedit') Editar compromiso
+                a.btn.btn-default(href='/secure/commitedit/' + commitment.nrocorrelativo) Editar compromiso
   script(src='/jquery/dist/jquery.min.js')
   script(src='/moment/min/moment.min.js')
   script(src='../bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js')

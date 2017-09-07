@@ -148,7 +148,7 @@ var compromisosdb = {
 		getCommitmentByCorrelative : function(ruc, compcomm, nrocorrelativo) {
 			var columns = [];
 			for (var i = 0; i < compcomm.length; i++) {
-				if (compcomm[i].columnasoc != 'evidencia')
+				if (compcomm[i].columnasoc != 'evidencias')
 					columns.push(compcomm[i].columnasoc);
 			}
 			var dynamicquery = 'select ' + columns.toString() + ' from t_commitment where ruc=? and nrocorrelativo=?';
@@ -178,13 +178,16 @@ var compromisosdb = {
 			var columns = [];
 			var values = [];
 			for (var i = 0; i < compcomm.length; i++) {
-				columns.push(compcomm[i].columnasoc);
-				values.push('?');
+				if(compcomm[i].columnasoc != 'evidencias'){
+					columns.push(compcomm[i].columnasoc);
+					values.push('?');
+				}
 			}
 			var dynamicquery = 'insert into t_commitment(ruc,' + columns.toString() + ',cdatetime,udatetime,t_user_userid) values(?,' + values.toString() + ',now(),now(),?)';
 			var conn = new mysql(connectionOptions);
-			conn.query(dynamicquery,comdata);
+			var result = conn.query(dynamicquery,comdata);
 			conn.dispose();
+			return result;
 		},
 		deleteCommitmentByCorrelative : function (ruc,nrocorrelativo) {
 			var conn = new mysql(connectionOptions);
@@ -249,6 +252,20 @@ var compromisosdb = {
 		getNextCorrelative : function(ruc) {
 			var conn = new mysql(connectionOptions);
 			const result = conn.query('select if(max(nrocorrelativo) is null, 1, max(nrocorrelativo) + 1) as correlativo from t_commitment where ruc=?',[ruc]);
+			conn.dispose();
+			return result;
+		}
+	},
+	evidence : {
+		registerEvidences : function(description, files, correlativo, ruc) {
+			var conn = new mysql(connectionOptions);
+			const result = conn.query('insert into t_commitment_evidence(description,files,cdatetime,t_commitment_nrocorrelativo,t_commitment_ruc) values(?,?,now(),?,?)',[description, files, correlativo, ruc]);
+			conn.dispose();
+			return result;
+		},
+		getEvidences : function(ruc, correlativo) {
+			var conn = new mysql(connectionOptions);
+			const result = conn.query('select * from t_commitment_evidence where t_commitment_nrocorrelativo=? and t_commitment_ruc=?',[correlativo, ruc]);
 			conn.dispose();
 			return result;
 		}

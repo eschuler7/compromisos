@@ -102,14 +102,14 @@ var objectstorage = {
 				}
 			});
 		},*/
-		downloadFile : function(ruc, codigoglobal, filename, res) {
+		downloadFile : function(ruc, correlativo, filename, res) {
 			storageClient.auth(function(error){
 				if(error) {
 					console.log('Hubo un error en la conexión con el Object Storage:', error);
 				} else {
 					var download = storageClient.download({
 		                container: ruc,
-		                remote: codigoglobal + '/' + filename
+		                remote: correlativo + '/' + filename
 		            });
 		            download.pipe(res);
 				}
