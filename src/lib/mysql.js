@@ -184,6 +184,8 @@ var compromisosdb = {
 				}
 			}
 			var dynamicquery = 'insert into t_commitment(ruc,' + columns.toString() + ',cdatetime,udatetime,t_user_userid) values(?,' + values.toString() + ',now(),now(),?)';
+			console.log(dynamicquery);
+			console.log(comdata);
 			var conn = new mysql(connectionOptions);
 			var result = conn.query(dynamicquery,comdata);
 			conn.dispose();
@@ -199,7 +201,9 @@ var compromisosdb = {
 			// Dynamic query build
 			var columns = [];
 			for (var i = 0; i < comdata.length; i++) {
-				columns.push(comdata[i] + '=?');
+				if(compcomm[i].columnasoc != 'evidencias'){
+					columns.push(comdata[i] + '=?');
+				}
 			}
 			//columns.push(nrocorrelativo);
 			cominput.push(ruc);
@@ -257,15 +261,21 @@ var compromisosdb = {
 		}
 	},
 	evidence : {
-		registerEvidences : function(description, files, correlativo, ruc) {
+		registerEvidences : function(evicorrelativo, description, files, comcorrelativo, ruc) {
 			var conn = new mysql(connectionOptions);
-			const result = conn.query('insert into t_commitment_evidence(description,files,cdatetime,t_commitment_nrocorrelativo,t_commitment_ruc) values(?,?,now(),?,?)',[description, files, correlativo, ruc]);
+			const result = conn.query('insert into t_commitment_evidence(id, description,files,cdatetime,t_commitment_nrocorrelativo,t_commitment_ruc) values(?,?,?,now(),?,?)',[evicorrelativo, description, files, comcorrelativo, ruc]);
 			conn.dispose();
 			return result;
 		},
 		getEvidences : function(ruc, correlativo) {
 			var conn = new mysql(connectionOptions);
 			const result = conn.query('select * from t_commitment_evidence where t_commitment_nrocorrelativo=? and t_commitment_ruc=?',[correlativo, ruc]);
+			conn.dispose();
+			return result;
+		},
+		getNextCorrelative : function(ruc, comcorrelativo) {
+			var conn = new mysql(connectionOptions);
+			const result = conn.query('select if(max(id) is null, 1, max(id) + 1) as correlativo from t_commitment_evidence where t_commitment_ruc=? and t_commitment_nrocorrelativo',[ruc]);
 			conn.dispose();
 			return result;
 		}
