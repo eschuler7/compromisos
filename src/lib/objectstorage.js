@@ -102,14 +102,14 @@ var objectstorage = {
 				}
 			});
 		},*/
-		downloadFile : function(ruc, correlativo, filename, res) {
+		downloadFile : function(ruc, tipo, correlativo, filename, res) {
 			storageClient.auth(function(error){
 				if(error) {
 					console.log('Hubo un error en la conexión con el Object Storage:', error);
 				} else {
 					var download = storageClient.download({
 		                container: ruc,
-		                remote: correlativo + '/' + filename
+		                remote: tipo + '/' + correlativo + '/' + filename
 		            });
 		            download.pipe(res);
 				}
@@ -119,12 +119,12 @@ var objectstorage = {
 	getEvidenceObjectStorage : pkgcloudStorage({
 	  client: storageClient,
 	  destination: function (req, file, cb) {
-	  	console.log('Correlativo mientras guarda archivos',req.correlativo);
 	    cb(null, {
 	      container: req.session.user.t_company_ruc,
-	      remote: req.correlativo + '/' + file.originalname
+	      remote: req.type + '/' + req.comcorrelativo + '/' + req.evicorrelativo + '/' + file.originalname
 	    });
-	    req.correlativo = req.correlativo;
+	    //req.comcorrelativo = req.correlativo;
+	    //req.evicorrelativo = req.correlativo;
 	  }
 	})
 };

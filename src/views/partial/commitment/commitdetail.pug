@@ -21,16 +21,19 @@ block container
                           th Archivos
                           th Fecha de Creación
                         tbody
-                          each evidence in commitmentevidence
-                            tr
-                              td #{evidence.description}
-                              td 
-                                - var ftmp = evidence.files.split(',')
-                                each tmp in ftmp
-                                  a(href='/secure/downloadevidence/' + commitment.nrocorrelativo + '/' + tmp)
-                                    u #{tmp}
-                                  br
-                              td #{evidence.cdatetime}
+                          if commitmentevidence.length > 0
+                            each evidence in commitmentevidence
+                              tr
+                                td #{evidence.description}
+                                td 
+                                  - var ftmp = evidence.files.split(',')
+                                  each tmp in ftmp
+                                    a(href='/secure/downloadevidence/' + commitment.nrocorrelativo + '/' + tmp)
+                                      u #{tmp}
+                                    br
+                                td #{evidence.cdatetime}
+                          else
+                            td(colspan=3) No existe evidencias registradas
                 default
                   .row
                     label.control-label.col-md-3.col-sm-5.col-xs-12(for=config.t_commitment_config_id) 

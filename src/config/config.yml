@@ -23,7 +23,7 @@ dev:
     password: mysql
     database: compromisos
     port: 3306
-    debug: false
+    debug: true
   baseUrl: http://localhost:8080
   smtp:
     host: smtp.gmail.com
