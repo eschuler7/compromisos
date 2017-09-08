@@ -201,15 +201,24 @@ var compromisosdb = {
 			// Dynamic query build
 			var columns = [];
 			for (var i = 0; i < comdata.length; i++) {
-				if(compcomm[i].columnasoc != 'evidencias'){
+				if(comdata[i] != 'evidencias' && comdata[i] != 'evidencia_descripcion'){
+					console.log(comdata[i]);
 					columns.push(comdata[i] + '=?');
 				}
 			}
 			//columns.push(nrocorrelativo);
+
 			cominput.push(ruc);
 			cominput.push(nrocorrelativo);
 			console.log('valor columns',columns);
-			var dynamicquery = 'update t_commitment set '+ columns.toString() + ',udatetime=now() where ruc=? and nrocorrelativo=?'
+			console.log('valor de cominput',cominput);
+			if (columns.length < 1) {
+				var dynamicquery = 'update t_commitment set udatetime=now() where ruc=? and nrocorrelativo=?'
+			} 
+			else {
+				var dynamicquery = 'update t_commitment set '+ columns.toString() + ',udatetime=now() where ruc=? and nrocorrelativo=?'
+			}
+
 			var conn = new mysql(connectionOptions);
 			conn.query(dynamicquery,cominput);
 			conn.dispose();

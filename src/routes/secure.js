@@ -485,13 +485,14 @@ router.post('/emailToSoporte', function(req, res, next){
     }
 });
 
-router.post('/updateCommit', function(req,res,next){
+router.post('/updateCommit/:nrocorrelativo', function(req,res,next){
     req.type='commitment';
-    req.comcorrelativo = req.body.nrocorrelativo;
+    req.comcorrelativo = req.params.nrocorrelativo;
+    console.log('jojo',req.params.nrocorrelativo);
     var correlativoevi = mysql.evidence.getNextCorrelative(req.session.user.t_company_ruc, req.comcorrelativo); // correlativo para evidencias
     req.evicorrelativo = correlativoevi[0].correlativo;
     next();
-},uploadEvidences.array('evidencia'),function(req, res){
+},uploadEvidences.array('evidencias'),function(req, res){
     //insert dinamico
     //var comedit = [];
     var comdata = req.body.comdata.split(',');
@@ -499,14 +500,14 @@ router.post('/updateCommit', function(req,res,next){
     var nrocorrelativo = req.body.nrocorrelativo;
     console.log('valor de comadata',comdata);
     console.log('valor de nrocorrelativo',nrocorrelativo);
-    console.log('valor de cominput',cominput);
+    
     //var comconfig = mysql.commitment.getComConfigByRuc(req.session.user.t_company_ruc);
     //var comdetail = mysql.commitment.getCommitmentByCorrelative(nrocorrelativo);
 
     //comedit.push(req.session.user.t_company_ruc);
 
     for (var i = 0; i < comdata.length; i++) {
-        if(comconfig[i].columnasoc != 'evidencias') {
+        if(comdata[i] != 'evidencias' && comdata[i] != 'evidencia_descripcion' ) {
             var item = comdata[i];
             if (!item) {
                 cominput.push(null);
@@ -529,18 +530,23 @@ router.post('/updateCommit', function(req,res,next){
     mysql.commitment.updateSingleCommitment(req.session.user.t_company_ruc, comdata,cominput,nrocorrelativo);
     
     // Registrando evidencias
-    var description = req.body.evidencia_descripcion;
-    var files = '';
-    if(req.files.length > 0) {
-        console.log(req.files);
-        for (var i = 0; i < req.files.length; i++) {
-            if(i == 0) {
-                files += req.files[i].originalname;
-            } else {
-                files += ',' + req.files[i].originalname;
+    if(comdata.includes('evidencia_descripcion') || comdata.includes('evidencias')) {
+
+        var description = req.body.evidencia_descripcion;
+        if(description != '' || req.files.length > 0) {
+            var files = '';
+            for (var i = 0; i < req.files.length; i++) {
+                if(i == 0) {
+                    files += req.files[i].originalname;
+                } else {
+                    files += ',' + req.files[i].originalname;
+                }
             }
+            if(description == '')
+                description = 'Sin comentarios';
+            console.log(req.evicorrelativo, description, files, nrocorrelativo, req.session.user.t_company_ruc);
+            mysql.evidence.registerEvidences(req.evicorrelativo, description, files, nrocorrelativo, req.session.user.t_company_ruc);
         }
-        mysql.evidence.registerEvidences(req.evicorrelativo, description, files, req.comcorrelativo, req.session.user.t_company_ruc);
     }
 
     res.redirect('/secure/listall');

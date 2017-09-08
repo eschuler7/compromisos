@@ -26,11 +26,14 @@ block container
                               tr
                                 td #{evidence.description}
                                 td 
-                                  - var ftmp = evidence.files.split(',')
-                                  each tmp in ftmp
-                                    a(href='/secure/downloadevidence/' + commitment.nrocorrelativo + '/' + tmp)
-                                      u #{tmp}
-                                    br
+                                  if evidence.files
+                                    - var ftmp = evidence.files.split(',')
+                                    each tmp in ftmp
+                                      a(href='/secure/downloadevidence/' + commitment.nrocorrelativo + '/' + tmp)
+                                        u #{tmp}
+                                      br
+                                  else 
+                                    |  No existe archivo adjunto 
                                 td #{evidence.cdatetime}
                           else
                             td(colspan=3) No existe evidencias registradas

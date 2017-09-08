@@ -8,7 +8,7 @@ block container
           ul.nav.navbar-right.panel_toolbox
           .clearfix
         .x_content
-          form#frmregisterCommit.form-horizontal(action='/secure/updateCommit', method='post')
+          form#frmregisterCommit.form-horizontal(action='/secure/updateCommit/' + commitment.nrocorrelativo, method='post',enctype='multipart/form-data')
             input#comdata(type='hidden', name='comdata')
 
             each config in commitmentconfig
@@ -224,7 +224,7 @@ block container
             .ln_solid
             .form-group
               a.btn.btn-default.btn-sm(href='/secure/listall') Cancelar
-              button.btn.btn-success.btn-sm.pull-right(type='submit') Editar compromiso
+              button.btn.btn-success.btn-sm.pull-right(type='submit') Guardar compromiso
   script(src='/jquery/dist/jquery.min.js')
   script(src='/moment/min/moment.min.js')
   script(src='/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js')
