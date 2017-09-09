@@ -8,6 +8,7 @@ block container
           ul.nav.navbar-right.panel_toolbox
           .clearfix
         .x_content
+          - var evidencias = true
           form#frmregisterCommit.form-horizontal(action='/secure/updateCommit/' + commitment.nrocorrelativo, method='post',enctype='multipart/form-data')
             input#comdata(type='hidden', name='comdata')
 
@@ -38,7 +39,7 @@ block container
 
                 when 'CM12'
                   .form-group
-                    label.control-label.col-md-3.col-sm-3.col-xs-12(for=config.id)
+                    label.control-label.col-md-3.col-sm-3.col-xs-12
                       | Temporalidad:
                     .col-sm-2
                       select#temporalidad.form-control(name=config.columnasoc, value=commitment[config.columnasoc]) 
@@ -48,7 +49,7 @@ block container
 
                 when 'CM13'
                   .form-group
-                    label.control-label.col-md-3.col-sm-3.col-xs-12(for=config.id)
+                    label.control-label.col-md-3.col-sm-3.col-xs-12(for=config.t_commitment_config_id)
                       | Fecha de Inicio:
                     .col-sm-2 
                       .form-group
@@ -59,11 +60,11 @@ block container
 
                 when 'CM14'
                   .form-group
-                    label.control-label.col-md-3.col-sm-3.col-xs-12(for=config.id)
+                    label.control-label.col-md-3.col-sm-3.col-xs-12
                       | Frecuencia 
                       span.required *
                     .col-sm-2
-                      select#frecuencia.form-control(name=config.columnasoc) 
+                      select#frecuencia.form-control(name=config.columnasoc)
                         option(value='None', selected= true) Seleccionar..
                         option(value='Unica', selected= commitment[config.columnasoc] == 'Unica') Unica
                         option(value='Diaria', selected= commitment[config.columnasoc] =='Diaria') Diaria
@@ -77,7 +78,7 @@ block container
 
                 when 'CM15'
                   .form-group
-                    label.control-label.col-md-3.col-sm-3.col-xs-12(for=config.id) 
+                    label.control-label.col-md-3.col-sm-3.col-xs-12
                       | Criticidad 
                       span.required *
                     .col-sm-2
@@ -88,7 +89,7 @@ block container
                         option(value='Bajo', selected= commitment[config.columnasoc] =='Bajo') Bajo
                 when 'CM16'
                   .form-group
-                    label.control-label.col-md-3.col-sm-3.col-xs-12(for=config.id)
+                    label.control-label.col-md-3.col-sm-3.col-xs-12(for=config.t_commitment_config_id)
                       | Evidencias
                     .col-md-6.col-sm-6.col-xs-12
                       .row
@@ -105,7 +106,7 @@ block container
 
                 when 'CM17'
                   .form-group
-                    label.control-label.col-md-3.col-sm-3.col-xs-12(for=config.id)
+                    label.control-label.col-md-3.col-sm-3.col-xs-12
                       | Estado del compromiso 
                       span.required *
                     .col-sm-2
@@ -120,7 +121,7 @@ block container
 
                 when 'CM18'
                   .form-group
-                    label.control-label.col-md-3.col-sm-3.col-xs-12(for=config.id)
+                    label.control-label.col-md-3.col-sm-3.col-xs-12
                       | Acción sobre el compromiso 
                       span.required *
                     .col-sm-2
@@ -131,7 +132,7 @@ block container
 
                 when 'CM20'
                   .form-group
-                    label.control-label.col-md-3.col-sm-3.col-xs-12(for=config.id)
+                    label.control-label.col-md-3.col-sm-3.col-xs-12
                       | Frecuencia propuesta de verificación 
                       span.required *
                     .col-sm-2
@@ -170,30 +171,45 @@ block container
                       | #{config.name}
                     .col-md-6.col-sm-6.col-xs-12
                       textarea.form-control.col-md-7.col-xs-6(id=config.t_commitment_config_id, placeholder=config.name, type='text', name=config.columnasoc) #{commitment[config.columnasoc]}
-
                 when 'CM29'
-                  .form-group
-                  tr
-                  td
-                    label.control-label.col-md-3.col-sm-6.col-xs-12(for=config.id,style='cursor: pointer')  #{config.name}
-                  td
-                    if commitment[config.columnasoc] == 'Si'
-                      input.flat(id=config.id,type='checkbox', value=config.id, name=config.columnasoc, checked='checked')
-                    else
-                      input.flat(id=config.id,type='checkbox', value=config.id, name=config.columnasoc)
-                  .row
                 when 'CM30'
-                  .form-group
-                  tr
-                  td
-                    label.control-label.col-md-3.col-sm-6.col-xs-12(for=config.id,style='cursor: pointer')  #{config.name}
-                  td
-                    if commitment[config.columnasoc] == 'Si'
-                      input.flat(id=config.id,type='checkbox', value=config.id, name=config.columnasoc, checked='checked')
-                    else
-                      input.flat(id=config.id,type='checkbox', value=config.id, name=config.columnasoc)
-                  .row
                 when 'CM31'
+                when 'CM32'
+                  if evidencias
+                    .form-group
+                      label.control-label.col-md-3.col-sm-6.col-xs-12 Etapas
+                      .col-md-6.col-sm-6.col-xs-12
+                        .checkbox(style='padding-top:0px')
+                          label
+                            if commitment[config.columnasoc] == 'Si'
+                              input.flat(id='construccion',type='checkbox', value='CM29', name='construccion', checked='checked')
+                            else
+                              input.flat(id='construccion',type='checkbox', value='CM29', name='construccion')
+                            |  Construcción
+                        .checkbox(style='padding-top:0px')
+                          label
+                            if commitment[config.columnasoc] == 'Si'
+                              input.flat(id='operacion',type='checkbox', value='CM30', name='operacion', checked='checked')
+                            else
+                              input.flat(id='operacion',type='checkbox', value='CM30', name='operacion')
+                            |  Operación
+                        .checkbox(style='padding-top:0px')
+                          label
+                            if commitment[config.columnasoc] == 'Si'
+                              input#cierre.flat(type='checkbox', value='CM31', name='cierre', checked='checked')
+                            else
+                              input#cierre.flat(type='checkbox', value='CM31', name='cierre')
+                            |  Cierre
+                        .checkbox(style='padding-top:0px')
+                          label
+                            if commitment[config.columnasoc] == 'Si'
+                              input.flat(id='postcierre',type='checkbox', value='CM32', name='postcierre', checked='checked')
+                            else
+                              input.flat(id='postcierre',type='checkbox', value='CM32', name='postcierre')
+                            |  Post - Cierre
+                    - evidencias = false
+
+                //-when 'CM29'
                   .form-group
                   tr
                   td
@@ -204,7 +220,29 @@ block container
                     else
                       input.flat(id=config.id,type='checkbox', value=config.id, name=config.columnasoc)
                   .row
-                when 'CM32'
+                //-when 'CM30'
+                  .form-group
+                  tr
+                  td
+                    label.control-label.col-md-3.col-sm-6.col-xs-12(for=config.id,style='cursor: pointer')  #{config.name}
+                  td
+                    if commitment[config.columnasoc] == 'Si'
+                      input.flat(id=config.id,type='checkbox', value=config.id, name=config.columnasoc, checked='checked')
+                    else
+                      input.flat(id=config.id,type='checkbox', value=config.id, name=config.columnasoc)
+                  .row
+                //-when 'CM31'
+                  .form-group
+                  tr
+                  td
+                    label.control-label.col-md-3.col-sm-6.col-xs-12(for=config.id,style='cursor: pointer')  #{config.name}
+                  td
+                    if commitment[config.columnasoc] == 'Si'
+                      input.flat(id=config.id,type='checkbox', value=config.id, name=config.columnasoc, checked='checked')
+                    else
+                      input.flat(id=config.id,type='checkbox', value=config.id, name=config.columnasoc)
+                  .row
+                //-when 'CM32'
                   .form-group
                   tr
                   td
@@ -229,26 +267,52 @@ block container
   script(src='/moment/min/moment.min.js')
   script(src='/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js')
   script.
-    $('#fechainicio').datetimepicker({
-      defaultDate: new Date(),
-      format: 'DD/MM/YYYY'
-      
+    window.onload = function() {
+      $('#comdata').val('');
+      $('input[type=checkbox]').on('ifChanged',function(event){
+        var comdata = validateinfo(this.name);
+        $('#comdata').val(comdata);
+        console.log('comdata modificado',comdata);
+      });
+    }
+    if($('#fechainicio')){
+      $('#fechainicio').datetimepicker({
+        defaultDate: new Date(),
+        format: 'DD/MM/YYYY'
+      });
+      $('#fechainicio').on('dp.change', function(e){ 
+        var comdata = validateinfo('fechainicio');
+        $('#comdata').val(comdata);
+        console.log('comdata modificado',comdata);
+      });
+    }
+    if($('#fechaverif')){
+      $('#fechaverif').datetimepicker({
+        defaultDate: new Date(),
+        format: 'DD/MM/YYYY'
+      });
+      $('#fechaverif').on('dp.change', function(e){
+        var comdata = validateinfo('fechaverif');
+        $('#comdata').val(comdata);
+        console.log('comdata modificado',comdata);
+      });
+    }
+    $('input[type=text]').change(function() {
+      var comdata = validateinfo(this.name);
+      $('#comdata').val(comdata);
+      console.log('comdata modificado',comdata);
     });
-    $('#fechaverif').datetimepicker({
-      defaultDate: new Date(),
-      format: 'DD/MM/YYYY'
+    $('select').change(function(){
+      var comdata = validateinfo(this.name);
+      $('#comdata').val(comdata);
+      console.log('comdata modificado',comdata);
+    });
+    $('textarea').change(function() {
+      var comdata = validateinfo(this.name);
+      $('#comdata').val(comdata);
+      console.log('comdata modificado',comdata);
     });
     
-    $( 'input').change(function() {
-      var comdata = validateinfo(this.name);
-      $('#comdata').val(comdata);
-      console.log('comdata modificado',comdata);
-    });
-    $( 'textarea').change(function() {
-      var comdata = validateinfo(this.name);
-      $('#comdata').val(comdata);
-      console.log('comdata modificado',comdata);
-    });
     function validateinfo(value){
       var comdata = $('#comdata').val();
       if (comdata.indexOf(value) == -1) {

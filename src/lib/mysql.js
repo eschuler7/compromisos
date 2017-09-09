@@ -184,8 +184,6 @@ var compromisosdb = {
 				}
 			}
 			var dynamicquery = 'insert into t_commitment(ruc,' + columns.toString() + ',cdatetime,udatetime,t_user_userid) values(?,' + values.toString() + ',now(),now(),?)';
-			console.log(dynamicquery);
-			console.log(comdata);
 			var conn = new mysql(connectionOptions);
 			var result = conn.query(dynamicquery,comdata);
 			conn.dispose();

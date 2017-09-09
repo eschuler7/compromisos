@@ -398,7 +398,6 @@ router.post('/register', function(req, res, next){
     req.evicorrelativo = 1;
     next();
 },uploadEvidences.array('evidencias'),function(req, res){
-    console.log('Evidencias', req.body.evidencia_descripcion);
     var comconfig = mysql.commitment.getComConfigByRuc(req.session.user.t_company_ruc);
     var comdata = [];
     comdata.push(req.session.user.t_company_ruc);
