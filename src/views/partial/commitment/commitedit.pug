@@ -54,7 +54,7 @@ block container
                     .col-sm-2 
                       .form-group
                         #fechainicio.input-group.date
-                          input.form-control(type='text', name=config.columnasoc) 
+                          input.form-control(type='text', name=config.columnasoc, value=commitment[config.columnasoc]) 
                           span.input-group-addon
                             span.glyphicon.glyphicon-calendar 
 
@@ -156,12 +156,12 @@ block container
                       input.form-control.col-md-7.col-xs-6(id=config.t_commitment_config_id, placeholder='example@gmail.com,hotmail@outlook.com', type='email', name=config.columnasoc, multiple, value=commitment[config.columnasoc]) 
                 when 'CM25'
                   .form-group
-                    label.control-label.col-md-3.col-sm-3.col-xs-12(for=config.id)
+                    label.control-label.col-md-3.col-sm-3.col-xs-12
                       | Fecha de verificación:
                     .col-sm-2 
                       .form-group
                         #fechaverif.input-group.date
-                          input.form-control(type='text', name=config.columnasoc) 
+                          input.form-control(type='text', name=config.columnasoc, value=commitment[config.columnasoc]) 
                           span.input-group-addon
                             span.glyphicon.glyphicon-calendar 
 
@@ -181,78 +181,33 @@ block container
                       .col-md-6.col-sm-6.col-xs-12
                         .checkbox(style='padding-top:0px')
                           label
-                            if commitment[config.columnasoc] == 'Si'
+                            if commitment.construccion == 'Si'
                               input.flat(id='construccion',type='checkbox', value='CM29', name='construccion', checked='checked')
                             else
                               input.flat(id='construccion',type='checkbox', value='CM29', name='construccion')
                             |  Construcción
                         .checkbox(style='padding-top:0px')
                           label
-                            if commitment[config.columnasoc] == 'Si'
+                            if commitment.operacion == 'Si'
                               input.flat(id='operacion',type='checkbox', value='CM30', name='operacion', checked='checked')
                             else
                               input.flat(id='operacion',type='checkbox', value='CM30', name='operacion')
                             |  Operación
                         .checkbox(style='padding-top:0px')
                           label
-                            if commitment[config.columnasoc] == 'Si'
-                              input#cierre.flat(type='checkbox', value='CM31', name='cierre', checked='checked')
+                            if commitment.cierre == 'Si'
+                              input.flat(id='cierre',type='checkbox', value='CM31', name='cierre', checked='checked')
                             else
-                              input#cierre.flat(type='checkbox', value='CM31', name='cierre')
+                              input.flat(id='cierre',type='checkbox', value='CM31', name='cierre')
                             |  Cierre
                         .checkbox(style='padding-top:0px')
                           label
-                            if commitment[config.columnasoc] == 'Si'
+                            if commitment.postcierre == 'Si'
                               input.flat(id='postcierre',type='checkbox', value='CM32', name='postcierre', checked='checked')
                             else
                               input.flat(id='postcierre',type='checkbox', value='CM32', name='postcierre')
                             |  Post - Cierre
                     - evidencias = false
-
-                //-when 'CM29'
-                  .form-group
-                  tr
-                  td
-                    label.control-label.col-md-3.col-sm-6.col-xs-12(for=config.id,style='cursor: pointer')  #{config.name}
-                  td
-                    if commitment[config.columnasoc] == 'Si'
-                      input.flat(id=config.id,type='checkbox', value=config.id, name=config.columnasoc, checked='checked')
-                    else
-                      input.flat(id=config.id,type='checkbox', value=config.id, name=config.columnasoc)
-                  .row
-                //-when 'CM30'
-                  .form-group
-                  tr
-                  td
-                    label.control-label.col-md-3.col-sm-6.col-xs-12(for=config.id,style='cursor: pointer')  #{config.name}
-                  td
-                    if commitment[config.columnasoc] == 'Si'
-                      input.flat(id=config.id,type='checkbox', value=config.id, name=config.columnasoc, checked='checked')
-                    else
-                      input.flat(id=config.id,type='checkbox', value=config.id, name=config.columnasoc)
-                  .row
-                //-when 'CM31'
-                  .form-group
-                  tr
-                  td
-                    label.control-label.col-md-3.col-sm-6.col-xs-12(for=config.id,style='cursor: pointer')  #{config.name}
-                  td
-                    if commitment[config.columnasoc] == 'Si'
-                      input.flat(id=config.id,type='checkbox', value=config.id, name=config.columnasoc, checked='checked')
-                    else
-                      input.flat(id=config.id,type='checkbox', value=config.id, name=config.columnasoc)
-                  .row
-                //-when 'CM32'
-                  .form-group
-                  tr
-                  td
-                    label.control-label.col-md-3.col-sm-6.col-xs-12(for=config.id,style='cursor: pointer')  #{config.name}
-                  td
-                    if commitment[config.columnasoc] == 'Si'
-                      input.flat(id=config.id,type='checkbox', value=config.id, name=config.columnasoc, checked='checked')
-                    else
-                      input.flat(id=config.id,type='checkbox', value=config.id, name=config.columnasoc)
-                  .row
                 default
                   .form-group
                     label.control-label.col-md-3.col-sm-6.col-xs-12(for=config.t_commitment_config_id,style='cursor: pointer') 
