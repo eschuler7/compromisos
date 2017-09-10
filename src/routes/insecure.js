@@ -77,10 +77,43 @@ router.post('/changepwd',function(req, res){
 });
 
 router.post('/resetpwd',function(req, res){
-	var ruc = req.body.ruc;
-	var email = req.body.email;
-	console.log(ruc,email);
-	res.end();
+	var userid = req.body.userid;
+	try {
+		// Registering company information
+		var result = mysql.user.validateUserId(userid);
+		if(result.length == 1) {
+			// Registering user information
+			var password = computil.randomCode(8);
+			var resultforgot = mysql.user.resetForgotPassword(req.body.userid, computil.createHash(config().checksumhash,password));
+			
+			if (resultforgot.affectedRows == 1) {
+				// Sending confirmation email
+				var emailTO = mysql.user.getEmailByID(userid);
+				console.log(req.body.userid,emailTO);
+				var htmlRegistrationTemplate = computil.loadEmailTemplate('security_forgotPassword');
+				if(htmlRegistrationTemplate == '') {
+					console.log('[/resetpwd]','[util email template]','La plantilla de correo no pudo ser cargada.');
+				} else {
+					htmlRegistrationTemplate = htmlRegistrationTemplate.replace('$USERID',userid);
+					htmlRegistrationTemplate = htmlRegistrationTemplate.replace('$PASSWORD',password);
+					htmlRegistrationTemplate = htmlRegistrationTemplate.replace('$BASE_URL',config().baseUrl);
+					compemail.sendEmail(emailTO[0].email,'Cambio de contreña en NOLAN',htmlRegistrationTemplate);
+					res.render('msg',{msg:{title:'¡ Cambio de contraseña exitoso !', body:'El cambio de contraseña fue satisfactorio, por favor inicie sesión con sus nuevos datos.'}});
+				}
+				
+			} else {
+				res.render('error',{err:{title:'Error',body:'Se produjo un error durante el cambio de contraseña, por favor intente nuevamente en unos minutos.'}});
+
+			}
+		} else {
+			res.render('error',{err:{title:'Error',body:'Usuario no se encuentra registrado'}});
+
+		}
+	} catch(e) {
+		console.log('[POST]','[/resetpwd]',e);
+		res.render('error',{err:{title:'Error',body:'Se produjo un error durante el cambio de contraseña, por favor intente nuevamente en unos minutos.'}});
+	}
+	
 });
 
 router.post('/signup',function(req, res){
