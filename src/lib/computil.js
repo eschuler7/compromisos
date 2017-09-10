@@ -35,6 +35,17 @@ var checktype = function(object) {
             || (cache[key] = key.slice(8, -1).toLowerCase());
 }
 
+var randomCode = function(long) {
+	var stringChain = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+	var code = '';
+	for (var x=0; x < long; x++) {
+		var ale = Math.floor(Math.random()*stringChain.length);
+		code += stringChain.substr(ale, 1);
+	}
+	return code;
+}
+
 module.exports.createHash = createHash;
 module.exports.loadEmailTemplate = loadEmailTemplate;
 module.exports.checktype = checktype;
+module.exports.randomCode = randomCode;

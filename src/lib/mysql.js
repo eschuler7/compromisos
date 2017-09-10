@@ -111,6 +111,12 @@ var compromisosdb = {
 			conn.dispose();
 			return result;
 		},
+		resetForgotPassword : function(userid, password) {
+			var conn = new mysql(connectionOptions);
+			const result = conn.query('update t_user set password=?,changepwd=1,udatetime=now() where userid=?',[password,userid]);
+			conn.dispose();
+			return result;
+		},
 		getUsersByRuc : function(ruc) {
 			var conn = new mysql(connectionOptions);
 			const result = conn.query('select userid, email, tu.name, lastname, t_rol_rolid, tr.name rol_name, tu.cdatetime, tu.udatetime from t_user tu left join t_rol tr on tu.t_rol_rolid=tr.rolid where tu.t_company_ruc=?',[ruc]);
