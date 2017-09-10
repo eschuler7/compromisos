@@ -26,8 +26,8 @@ insert into t_commitment_config values('CM05','Sección','seccion',0,now(),now()
 insert into t_commitment_config values('CM06','Página','pagina',0,now(),now());
 insert into t_commitment_config values('CM07','Aspecto asociado','aspambasoc',0,now(),now());
 insert into t_commitment_config values('CM08','Instalación/componente','instcompasoc',0,now(),now());
-insert into t_commitment_config values('CM09','Contenido original del compromiso','contorigcomp',0,now(),now());
-insert into t_commitment_config values('CM10','Resumen del compromiso','resumencomp',1,now(),now());
+insert into t_commitment_config values('CM09','Contenido original del compromiso','contorigcomp',1,now(),now());
+insert into t_commitment_config values('CM10','Resumen del compromiso','resumencomp',0,now(),now());
 insert into t_commitment_config values('CM11','Antecedentes del compromiso','antecedentes',0,now(),now());
 insert into t_commitment_config values('CM12','Temporalidad','temporalidad',1,now(),now());
 insert into t_commitment_config values('CM13','Fecha de inicio','fechainicio',1,now(),now());
@@ -52,37 +52,40 @@ insert into t_commitment_config values('CM31','Cierre','cierre',1,now(),now());
 insert into t_commitment_config values('CM32','Post-cierre','postcierre',1,now(),now());
 
 -- Inserts iniciales para la tabla monitor
-insert into t_monitor_config values('MN01','Número correlativo',null,1,now(),now());
-insert into t_monitor_config values('MN02','Origen del monitoreo',null,0,now(),now());
-insert into t_monitor_config values('MN03','Capítulo',null,0,now(),now());
-insert into t_monitor_config values('MN04','Sección',null,0,now(),now());
-insert into t_monitor_config values('MN05','Página',null,0,now(),now());
-insert into t_monitor_config values('MN06','Aspecto ambiental asociado',null,0,now(),now());
-insert into t_monitor_config values('MN07','Referencia del punto de medición',null,0,now(),now());
-insert into t_monitor_config values('MN08','Nombre de la estación',null,0,now(),now());
-insert into t_monitor_config values('MN09','Parámetros',null,0,now(),now());
-insert into t_monitor_config values('MN10','Metodología',null,0,now(),now());
-insert into t_monitor_config values('MN11','Texto literal del monitoreo',null,0,now(),now());
-insert into t_monitor_config values('MN12','Antecedentes del monitoreo',null,0,now(),now());
-insert into t_monitor_config values('MN13','Frecuencia de monitoreo',null,0,now(),now());
-insert into t_monitor_config values('MN14','Reporte de monitoreo',null,0,now(),now());
-insert into t_monitor_config values('MN15','Autoridad a reportar',null,0,now(),now());
-insert into t_monitor_config values('MN16','Frecuencia de reporte',null,0,now(),now());
-insert into t_monitor_config values('MN17','Estado de cumplimiento',null,0,now(),now());
-insert into t_monitor_config values('MN18','Revisión del monitoreo (por senior)',null,0,now(),now());
-insert into t_monitor_config values('MN19','Acción sobre el compromiso',null,0,now(),now());
-insert into t_monitor_config values('MN20','Frecuencia de verificación del monitoreo',null,0,now(),now());
-insert into t_monitor_config values('MN21','Área responsable',null,0,now(),now());
-insert into t_monitor_config values('MN22','Correos de notificación',null,0,now(),now());
-insert into t_monitor_config values('MN23','Anticipación de notificación',null,0,now(),now());
-insert into t_monitor_config values('MN24','Fecha de actualización/revisión del monitoreo',null,0,now(),now());
-insert into t_monitor_config values('MN25','Referencia técnica o legal de cumplimiento',null,0,now(),now());
-insert into t_monitor_config values('MN26','Presupuesto',null,0,now(),now());
-insert into t_monitor_config values('MN27','Comentarios y notas',null,0,now(),now());
-insert into t_monitor_config values('MN28','Etapa construcción',null,0,now(),now());
-insert into t_monitor_config values('MN29','Etapa operación',null,0,now(),now());
-insert into t_monitor_config values('MN30','Etapa cierre',null,0,now(),now());
-insert into t_monitor_config values('MN31','Etapa post-Cierre',null,0,now(),now());
+insert into t_monitor_config values('MN01','Número correlativo','nrocorrelativo',1,now(),now());
+insert into t_monitor_config values('MN02','Origen del monitoreo','origenmonitoreo',0,now(),now());
+insert into t_monitor_config values('MN03','Código global','codigoglobal',1,now(),now());
+insert into t_monitor_config values('MN04','Capítulo','capitulo',0,now(),now());
+insert into t_monitor_config values('MN05','Sección','seccion',0,now(),now());
+insert into t_monitor_config values('MN06','Página','pagina',0,now(),now());
+insert into t_monitor_config values('MN07','Aspecto ambiental asociado','aspecasoc',0,now(),now());
+insert into t_monitor_config values('MN08','Referencia del punto de medición','refermedicion',0,now(),now());
+insert into t_monitor_config values('MN09','Nombre de la estación','nombreestacion',0,now(),now());
+insert into t_monitor_config values('MN10','Parámetros','parametros',0,now(),now());
+insert into t_monitor_config values('MN11','Metodología','metodologia',0,now(),now());
+insert into t_monitor_config values('MN12','Texto literal del monitoreo','textliteral',1,now(),now());
+insert into t_monitor_config values('MN13','Antecedentes del monitoreo','antecmonitoreo',0,now(),now());
+insert into t_monitor_config values('MN14','Fecha de inicio','fechainicio',1,now(),now());
+insert into t_monitor_config values('MN15','Frecuencia de monitoreo','frecmonitoreo',1,now(),now());
+insert into t_monitor_config values('MN16','Reporte de monitoreo','repormonitoreo',0,now(),now());
+insert into t_monitor_config values('MN17','Autoridad a reportar','autoridad',0,now(),now());
+insert into t_monitor_config values('MN18','Frecuencia de reporte','frecreporte',1,now(),now());
+insert into t_monitor_config values('MN19','Evidencias','evidencias',1,now(),now());
+insert into t_monitor_config values('MN20','Estado de cumplimiento','cumplimiento',1,now(),now());
+insert into t_monitor_config values('MN21','Revisión del monitoreo (por senior)','revision',0,now(),now());
+insert into t_monitor_config values('MN22','Acción sobre el monitoreo','accionmonitoreo',0,now(),now());
+insert into t_monitor_config values('MN23','Frecuencia de verificación del monitoreo','frecverificacion',1,now(),now());
+insert into t_monitor_config values('MN24','Área responsable','responsable',0,now(),now());
+insert into t_monitor_config values('MN25','Correos de notificación','notificacion',0,now(),now());
+insert into t_monitor_config values('MN26','Anticipación de notificación','anticnotificacion',1,now(),now());
+insert into t_monitor_config values('MN27','Fecha de actualización/revisión del monitoreo','fecharevision',0,now(),now());
+insert into t_monitor_config values('MN28','Referencia técnica o legal de cumplimiento','referenciatecnica',0,now(),now());
+insert into t_monitor_config values('MN29','Presupuesto','presupuesto',0,now(),now());
+insert into t_monitor_config values('MN30','Comentarios y notas','comentarios',1,now(),now());
+insert into t_monitor_config values('MN31','Construcción','construccion',1,now(),now());
+insert into t_monitor_config values('MN32','Operación','operacion',1,now(),now());
+insert into t_monitor_config values('MN33','Cierre','cierre',1,now(),now());
+insert into t_monitor_config values('MN34','Post-Cierre','postcierre',1,now(),now());
 
 -- Inserts iniciales para la tabla company / password: password$1
 insert into t_company values('12345678909','NOLAN',null,null,0,now(),now());
@@ -110,6 +113,7 @@ select t_company_ruc,t_monitor_config_id,tmc.name from t_company_monitor tcm lef
 
 
 delete from t_commitment where ruc='10101010101' and nrocorrelativo='1';
+delete from t_monitor where ruc='10101010101' and nrocorrelativo='1';
 -- Eliminar data de las tablas de configuración de atributos
 select * from t_commitment_config;
 select id, name, columnasoc, mandatory from t_commitment_config;

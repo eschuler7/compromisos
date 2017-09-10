@@ -5,7 +5,6 @@ block container
       .x_panel
         .x_title
           h2 Listado de monitoreo
-          ul.nav.navbar-right.panel_toolbox
           .clearfix
         .x_content
           table#tblmonitor.table.table-striped.table-bordered.jambo_table
@@ -13,6 +12,7 @@ block container
               tr
                 each conf in monitconfig
                   th #{conf.name}
+                th Opciones
             tbody
               each monitor in monitors
                 tr

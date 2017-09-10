@@ -298,9 +298,11 @@ var compromisosdb = {
 	},
 	monitor : {
 		getMonitorsByRuc : function(ruc, monconf) {
+			console.log('valor monconf', monconf);
 			var columns = [];
 			for (var i = 0; i < monconf.length; i++) {
 				if (monconf[i].columnasoc != 'evidencias')
+					console.log('valor',monconf[i].columnasoc);
 					if(monconf[i].columnasoc.startsWith('fecha')) {
 						columns.push("DATE_FORMAT(" + monconf[i].columnasoc + ",'%d/%m/%Y') as " + monconf[i].columnasoc);
 					} else {
@@ -362,13 +364,13 @@ var compromisosdb = {
 		},
 		getMonitorConfigByRuc : function(ruc) {
 			var conn = new mysql(connectionOptions);
-			const result = conn.query('select t_company_ruc,t_monitor_config_id,tmc.name from t_company_monitor tcm left join t_monitor_config tmc on tcm.t_monitor_config_id=tmc.id where t_company_ruc=?',[ruc]);
+			const result = conn.query('select t_company_ruc,t_monitor_config_id,tmc.name,tmc.columnasoc from t_company_monitor tcm left join t_monitor_config tmc on tcm.t_monitor_config_id=tmc.id where t_company_ruc=?',[ruc]);
 			conn.dispose();
 			return result;
 		},
 		getMonitorTypes : function() {
 			var conn = new mysql(connectionOptions);
-			const result = conn.query('select id, name, mandatory from t_monitor_config');
+			const result = conn.query('select id, name, columnasoc, mandatory from t_monitor_config');
 			conn.dispose();
 			return result;
 		},

@@ -113,13 +113,13 @@ router.get('/configattrcommit', function(req, res){
 });
 router.get('/configattrmonit', function(req, res){
     var monitor = mysql.monitor.getMonitorTypes();
-    var monitorconfig = mysql.monitor.getMonitConfigByRuc(req.session.user.t_company_ruc);
+    var monitorconfig = mysql.monitor.getMonitorConfigByRuc(req.session.user.t_company_ruc);
     res.render('partial/monitor/configattrmonit',{monitor: monitor,monitorconfig: monitorconfig});
 });
 router.get('/listallmonit', function(req, res){
-    var monitconfig;
-    monitconfig = mysql.monitor.getMonitConfigByRuc(req.session.user.t_company_ruc);
-    res.render('partial/monitor/listallmonit',{monitconfig: monitconfig});
+    var monitconfig = mysql.monitor.getMonitorConfigByRuc(req.session.user.t_company_ruc);
+    var monitors = mysql.monitor.getMonitorsByRuc(req.session.user.t_company_ruc,monitconfig);
+    res.render('partial/monitor/listallmonit',{monitconfig: monitconfig, monitors: monitors });
 });
 router.get('/massivemonit', function(req, res){
     res.render('partial/monitor/massivemonit');
