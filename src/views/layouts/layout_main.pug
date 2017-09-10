@@ -37,15 +37,19 @@ html
               .profile_pic
                 img.img-circle.profile_img(src='/images/img.jpg', alt='...')
               .profile_info
-                h2 #{session.user.companyname}
-                span Unidad
+                h2(style='margin-bottom: 5px') #{session.user.companyname}
+                div(style='color:#BAB8B8')
+                  |  #{session.user.unidad}
+                div(style='color:#BAB8B8')
+                  |  #{session.user.proyecto}
+                
               .clearfix
             // /menu profile quick info
             br
             // sidebar menu
             #sidebar-menu.main_menu_side.hidden-print.main_menu
               .menu_section
-                h3 General
+                h3 MENU DE OPCIONES
                 ul.nav.side-menu
                   if session.user.t_rol_rolid != 'ROL5'
                     li

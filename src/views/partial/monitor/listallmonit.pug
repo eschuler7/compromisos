@@ -14,9 +14,45 @@ block container
                 each conf in monitconfig
                   th #{conf.name}
             tbody
+              each monitor in monitors
+                tr
+                  each column in monitconfig
+                    td #{monitor[column.columnasoc]}
+                  td
+                    table
+                      tr
+                        td
+                          a.btn.btn-primary.btn-xs(href='monitdetail/' + monitor.nrocorrelativo)
+                            i.fa.fa-folder
+                            |  Ver
+                        td
+                          a.btn.btn-info.btn-xs(href='monitedit/' + monitor.nrocorrelativo)
+                            i.fa.fa-pencil
+                            |  Editar
+                        td
+                          a.btn.btn-danger.btn-xs(href='javascript:deletemonitor("' + monitor.nrocorrelativo + '")')
+                            i.fa.fa-trash-o
+                            |  Eliminar
           .ln_solid(style='margin-top:5px')
-          a.btn.btn-warning.btn-xs(href='/secure/registermonit') Nuevo monitoreo
+          a.btn.btn-warning.btn-xs(href='/secure/registermonit') Nuevo Monitoreo
 
+    #confirm_delete.modal.fade(tabindex='-1', role='dialog', data-backdrop='static', data-keyboard='false')
+      .modal-dialog(role='document')
+        .modal-content
+          .modal-header
+            //-button.close(type='button', data-dismiss='modal', aria-label='Close')
+              span(aria-hidden='true') &times;
+            h4#comfirm_delete_title.modal-title
+          form#frmConfirmDelete(action='/secure/deletemonitor',method='post')
+            .modal-body
+              p Esta acción eliminará el monitoreo seleccionado
+              center
+                strong ¿Desea continuar?
+              input(type='hidden',name='nrocorrelativo')
+            .modal-footer
+              button.btn.btn-default.pull-left(type='button', data-dismiss='modal') Cancelar
+              |  
+              button.btn.btn-danger(type='submit') Continuar
     script.
       window.onload = function() {
         $('#tblmonitor').DataTable({
@@ -38,4 +74,9 @@ block container
             zeroRecords: 'No se encontraron registros coincidentes'
           }
         });
+      }
+      var deletemonitor = function(nrocorrelativo) {
+        $('#comfirm_delete_title').text('Eliminar monitoreo con nro correlativo  ' + nrocorrelativo);
+        $('#frmConfirmDelete input[name=nrocorrelativo]').val(nrocorrelativo);
+        $('#confirm_delete').modal('show');
       }

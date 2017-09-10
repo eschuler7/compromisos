@@ -171,7 +171,7 @@ var compromisosdb = {
 			conn.dispose();
 			return result;
 		},
-		createCommitment : function(ruc, compcomm, comdatatotal) {
+		createCommitment : function(compcomm, comdatatotal) {
 			// Dynamic query build
 			var columns = [];
 			var values = [];
@@ -182,12 +182,11 @@ var compromisosdb = {
 			var dynamicquery = 'insert into t_commitment(ruc,' + columns.toString() + ',cdatetime,udatetime,t_user_userid) values(?,' + values.toString() + ',now(),now(),?)';
 			var conn = new mysql(connectionOptions);
 			for (var i = 0; i < comdatatotal.length; i++) {
-				console.log(comdatatotal[i]);
 				conn.query(dynamicquery,comdatatotal[i]);
 			}
 			conn.dispose();
 		},
-		createSingleCommitment : function(ruc, compcomm, comdata) {
+		createSingleCommitment : function(compcomm, comdata) {
 			// Dynamic query build
 			var columns = [];
 			var values = [];
@@ -298,7 +297,70 @@ var compromisosdb = {
 		}
 	},
 	monitor : {
-		getMonitConfigByRuc : function(ruc) {
+		getMonitorsByRuc : function(ruc, monconf) {
+			var columns = [];
+			for (var i = 0; i < monconf.length; i++) {
+				if (monconf[i].columnasoc != 'evidencias')
+					if(monconf[i].columnasoc.startsWith('fecha')) {
+						columns.push("DATE_FORMAT(" + monconf[i].columnasoc + ",'%d/%m/%Y') as " + monconf[i].columnasoc);
+					} else {
+						columns.push(monconf[i].columnasoc);
+					}
+			}
+			var dynamicquery = 'select ' + columns.toString() + ' from t_monitor where ruc=?';
+			var conn = new mysql(connectionOptions);
+			const result = conn.query(dynamicquery,[ruc]);
+			conn.dispose();
+			return result;
+		},
+		getMonitorByCorrelative : function(ruc, monconf, nrocorrelativo) {
+			var columns = [];
+			for (var i = 0; i < monconf.length; i++) {
+				if (monconf[i].columnasoc != 'evidencias')
+					if(monconf[i].columnasoc.startsWith('fecha')) {
+						columns.push("DATE_FORMAT(" + monconf[i].columnasoc + ",'%d/%m/%Y') as " + monconf[i].columnasoc);
+					} else {
+						columns.push(monconf[i].columnasoc);
+					}
+			}
+			var dynamicquery = 'select ' + columns.toString() + ' from t_monitor where ruc=? and nrocorrelativo=?';
+			var conn = new mysql(connectionOptions);
+			const result = conn.query(dynamicquery,[ruc,nrocorrelativo]);
+			conn.dispose();
+			return result;
+		},
+		createMonitor : function(monconfig, mondatatotal) {
+			// Dynamic query build
+			var columns = [];
+			var values = [];
+			for (var i = 0; i < monconfig.length; i++) {
+				columns.push(monconfig[i].columnasoc);
+				values.push('?');
+			}
+			var dynamicquery = 'insert into t_monitor(ruc,' + columns.toString() + ',cdatetime,udatetime,t_user_userid) values(?,' + values.toString() + ',now(),now(),?)';
+			var conn = new mysql(connectionOptions);
+			for (var i = 0; i < mondatatotal.length; i++) {
+				conn.query(dynamicquery,mondatatotal[i]);
+			}
+			conn.dispose();
+		},
+		createSingleMonitor : function(monconfig, mondata) {
+			// Dynamic query build
+			var columns = [];
+			var values = [];
+			for (var i = 0; i < monconfig.length; i++) {
+				if(monconfig[i].columnasoc != 'evidencias'){
+					columns.push(monconfig[i].columnasoc);
+					values.push('?');
+				}
+			}
+			var dynamicquery = 'insert into t_monitor(ruc,' + columns.toString() + ',cdatetime,udatetime,t_user_userid) values(?,' + values.toString() + ',now(),now(),?)';
+			var conn = new mysql(connectionOptions);
+			var result = conn.query(dynamicquery,mondata);
+			conn.dispose();
+			return result;
+		},
+		getMonitorConfigByRuc : function(ruc) {
 			var conn = new mysql(connectionOptions);
 			const result = conn.query('select t_company_ruc,t_monitor_config_id,tmc.name from t_company_monitor tcm left join t_monitor_config tmc on tcm.t_monitor_config_id=tmc.id where t_company_ruc=?',[ruc]);
 			conn.dispose();

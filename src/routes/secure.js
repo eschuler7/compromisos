@@ -256,7 +256,7 @@ router.post('/uploadmontemplate',udploadMonTemplate.single('template'), function
                     comdatatotal.push(comdata);
                 }
             });
-            mysql.commitment.createCommitment(req.session.user.t_company_ruc, compcomm, comdatatotal);
+            mysql.commitment.createCommitment(compcomm, comdatatotal);
             res.redirect('/secure/listall');
         } else {
             console.log('Los campos no coinciden');
@@ -411,9 +411,8 @@ router.post('/register', function(req, res, next){
             }
         }
     }
-
     comdata.push(req.session.user.userid);
-    var result = mysql.commitment.createSingleCommitment(req.session.user.t_company_ruc, comconfig, comdata);
+    var result = mysql.commitment.createSingleCommitment(comconfig, comdata);
     if(result.affectedRows == 1) {
         var description = req.body.evidencia_descripcion;
         if(description != '' || req.files.length > 0) {
