@@ -46,12 +46,12 @@ block container
                         option(value='Permanente') Permanente
 
                 when 'CM13'
-                  .form-group
+                  .form-group(style='margin-bottom: 0px')
                     label.control-label.col-md-3.col-sm-3.col-xs-12(for=config.id)
                       | Fecha de Inicio
                     .col-sm-2 
                       .form-group
-                        #fechainicio.input-group.date
+                        #fechainicio.input-group.date(style='margin-bottom: 0px')
                           input.form-control(type='text', name=config.columnasoc)
                           span.input-group-addon
                             span.glyphicon.glyphicon-calendar 
@@ -152,12 +152,12 @@ block container
                     .col-md-6.col-sm-6.col-xs-12
                       input.form-control.col-md-7.col-xs-6(id=config.t_commitment_config_id, placeholder='example@gmail.com,hotmail@outlook.com', type='email', name=config.columnasoc, multiple)
                 when 'CM25'
-                  .form-group
+                  .form-group(style='margin-bottom: 0px')
                     label.control-label.col-md-3.col-sm-3.col-xs-12(for=config.id)
                       | Fecha de verificación:
                     .col-sm-2 
                       .form-group
-                        #fechaverif.input-group.date
+                        #fechaverif.input-group.date(style='margin-bottom: 0px')
                           input.form-control(type='text', name=config.columnasoc)
                           span.input-group-addon
                             span.glyphicon.glyphicon-calendar 
@@ -205,20 +205,17 @@ block container
               a.btn.btn-default.btn-sm(href='/secure/listall') Cancelar
               button.btn.btn-success.btn-sm.pull-right(type='submit') Registrar compromiso
   script(src='/jquery/dist/jquery.min.js')
-  script(src='/moment/min/moment.min.js')
-  //script(src='/moment/locale/es.js')  
+  script(src='/moment/min/moment-with-locales.min.js')
   script(src='/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js')
-  //script(src='/bootstrap-datetimepicker/build/js/locales/bootstrap-datetimepicker.es.js', charset='UTF-8')
   script.
     $('#fechainicio').datetimepicker({
       defaultDate: new Date(),
       format: 'DD/MM/YYYY',
-
-         
+      locale: 'es'
     });
     $('#fechaverif').datetimepicker({
       defaultDate: new Date(),
-      format: 'DD/MM/YYYY'
-      
+      format: 'DD/MM/YYYY',
+      locale: 'es'
     });
     

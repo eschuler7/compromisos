@@ -137,7 +137,11 @@ var compromisosdb = {
 			var columns = [];
 			for (var i = 0; i < compcomm.length; i++) {
 				if (compcomm[i].columnasoc != 'evidencias')
-					columns.push(compcomm[i].columnasoc);
+					if(compcomm[i].columnasoc.startsWith('fecha')) {
+						columns.push("DATE_FORMAT(" + compcomm[i].columnasoc + ",'%d/%m/%Y') as " + compcomm[i].columnasoc);
+					} else {
+						columns.push(compcomm[i].columnasoc);
+					}
 			}
 			var dynamicquery = 'select ' + columns.toString() + ' from t_commitment where ruc=?';
 			var conn = new mysql(connectionOptions);
@@ -149,7 +153,11 @@ var compromisosdb = {
 			var columns = [];
 			for (var i = 0; i < compcomm.length; i++) {
 				if (compcomm[i].columnasoc != 'evidencias')
-					columns.push(compcomm[i].columnasoc);
+					if(compcomm[i].columnasoc.startsWith('fecha')) {
+						columns.push("DATE_FORMAT(" + compcomm[i].columnasoc + ",'%d/%m/%Y') as " + compcomm[i].columnasoc);
+					} else {
+						columns.push(compcomm[i].columnasoc);
+					}
 			}
 			var dynamicquery = 'select ' + columns.toString() + ' from t_commitment where ruc=? and nrocorrelativo=?';
 			var conn = new mysql(connectionOptions);
@@ -204,12 +212,8 @@ var compromisosdb = {
 					columns.push(comdata[i] + '=?');
 				}
 			}
-			//columns.push(nrocorrelativo);
-
 			cominput.push(ruc);
 			cominput.push(nrocorrelativo);
-			console.log('valor columns',columns);
-			console.log('valor de cominput',cominput);
 			if (columns.length < 1) {
 				var dynamicquery = 'update t_commitment set udatetime=now() where ruc=? and nrocorrelativo=?'
 			} 

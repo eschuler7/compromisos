@@ -49,25 +49,6 @@ var udploadMonTemplate = multer({ storage: uploadsMonStorage });
 // Configuring upload cloud object storage
 var uploadEvidences = multer({storage: objectstorage.getEvidenceObjectStorage});
 
-// TODAS LAS LLAMADAS GET
-//////////////////////////////////////// PRUEBAS ///////////////////////////////////////
-// Loading fs library
-/*router.get('/prueba', function(req, res){
-    var files = objectstorage.file.getFiles(req.session.user.t_company_ruc, res);
-});
-router.post('/upload', function(req, res, next){
-    var correlativo = 'prueba2';
-    req.correlativo = correlativo;
-    next();
-}, uploadEvidences.array('evidencia'), function(req, res){
-    res.redirect('/secure/prueba');
-});
-router.get('/downloadevidence/:filename', function(req, res){
-    var filename = req.params.filename;
-    objectstorage.file.downloadFile(req.session.user.t_company_ruc, filename, res);
-});*/
-//////////////////////////////////////// FIN DE PRUEBAS ///////////////////////////////////////
-
 router.get('/dashboard',function(req, res){
     var ft = req.session.user.firsttime;
     if(ft == 1) {
@@ -98,6 +79,7 @@ router.get('/commitedit/:nrocorrelativo', function(req, res){
     var nrocorrelativo = req.params.nrocorrelativo;
     var commitmentconfig = mysql.commitment.getComConfigByRuc(req.session.user.t_company_ruc);
     var commitment = mysql.commitment.getCommitmentByCorrelative(req.session.user.t_company_ruc,commitmentconfig,nrocorrelativo);
+    console.log(commitment);
     res.render('partial/commitment/commitedit',{nrocorrelativo:nrocorrelativo,commitment:commitment[0],commitmentconfig: commitmentconfig});
 });
 
@@ -411,8 +393,11 @@ router.post('/register', function(req, res, next){
                 if (!item) {
                     comdata.push(null);
                 } else {
-                    if (computil.checktype(item) == 'date' || comconfig[i].columnasoc.startsWith('fecha')) {
+                    if (computil.checktype(item) == 'date') {
                         comdata.push(dateFormat((new Date(item),'yyyy-mm-dd')));
+                    } else if(comconfig[i].columnasoc.startsWith('fecha')) {
+                        var fecarray = item.split('/');
+                        comdata.push(fecarray[2] + '-' + fecarray[1] + '-' + fecarray[0]);
                     } else {
                         if (comconfig[i].t_commitment_config_id == 'CM29' || comconfig[i].t_commitment_config_id == 'CM30'||comconfig[i].t_commitment_config_id == 'CM31'||comconfig[i].t_commitment_config_id == 'CM32'){
                             comdata.push('Si');
@@ -492,27 +477,25 @@ router.post('/updateCommit/:nrocorrelativo', function(req,res,next){
     req.evicorrelativo = correlativoevi[0].correlativo;
     next();
 },uploadEvidences.array('evidencias'),function(req, res){
-    //insert dinamico
-    //var comedit = [];
     var comdata = req.body.comdata.split(',');
     var cominput = [];
     var nrocorrelativo = req.body.nrocorrelativo;
     console.log('valor de comadata',comdata);
     console.log('valor de nrocorrelativo',nrocorrelativo);
-    
-    //var comconfig = mysql.commitment.getComConfigByRuc(req.session.user.t_company_ruc);
-    //var comdetail = mysql.commitment.getCommitmentByCorrelative(nrocorrelativo);
-
-    //comedit.push(req.session.user.t_company_ruc);
 
     for (var i = 0; i < comdata.length; i++) {
         if(comdata[i] != 'evidencias' && comdata[i] != 'evidencia_descripcion' ) {
             var item = comdata[i];
+            console.log('valor de',comdata[i],':',req.body[item]);
             if (!item) {
                 cominput.push(null);
             } else {
-                if (computil.checktype(req.body[item]) == 'date' || item.startsWith('fecha')) {
-                    cominput.push(dateFormat((new Date(item),'yyyy-mm-dd')));
+                if (computil.checktype(req.body[item]) == 'date') {
+                    cominput.push(dateFormat((new Date(req.body[item]),'yyyy-mm-dd')));
+                } else if(item.startsWith('fecha')) {
+                    var fecha = req.body[item];
+                    var fecarray = fecha.split('/');
+                    cominput.push(fecarray[2] + '-' + fecarray[1] + '-' + fecarray[0]);
                 } else {
                     if (req.body[item] == 'on' ){
                         cominput.push('Si');

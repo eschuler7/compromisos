@@ -5,11 +5,11 @@ $.validator.addMethod("notEqualTo", function(value, element, param) {
 $.validator.addMethod("validaterol", function(value, element, param) {
 	return value != param;
 }, "Debe seleccionar un rol");
-
+/*
 $.validator.addMethod("validatecheckbox", function(value, element, param) {
 	return value != param;
 }, "Debe seleccionar una opción");
-
+*/
 $(document).ready(function(){
 	// Start Wizard Validations
 	$('#frmstep1').validate({
@@ -171,66 +171,10 @@ $(document).ready(function(){
 	});
 	$('#frmregisterCommit').validate({
 		rules : {
-			temporalidad : {
-				required : true,
-				validatecheckbox : 'None'
-			},
-			frecuencia : {
-				required : true,
-				validatecheckbox : 'None'
-			},
-			criticidad : {
-				required : true,
-				validatecheckbox : 'None'
-			},
-			estadocumplimiento : {
-				required : true,
-				validatecheckbox : 'None'
-			},
-			frecuenciaverificacion : {
-				required : true,
-				validatecheckbox : 'None'
-			},
-			/*correosnotificacion : {
-				required : false,
-				email : true
-			},*/
-			accioncompromiso : {
-				required : true,
-				validatecheckbox : 'None'
-			},
-			contorigcomp : {
-				required : true,
-				minlength : 20,
-			}
+			
 		},
 		messages : {
-			temporalidad : {
-				required : 'Seleccione una opción',
-			},
-			frecuencia : {
-				required : 'Seleccione una opción',
-			},
-			criticidad : {
-				required : 'Seleccione una opción',
-			},
-			estadocumplimiento : {
-				required : 'Seleccione una opción',
-			},
-			frecuenciaverificacion : {
-				required : 'Seleccione una opción',
-			},
-			/*correosnotificacion : {
-				email : 'Ingrese un email válido'
-			},*/
-			accioncompromiso : {
-				required : 'Seleccione una opción',
-			},
-			contorigcomp : {
-				required : 'Este campo es requerido',
-				minlength : 'Ingresar información mínima del compromiso'
-			}
-
+			
 		},
 		submitHandler : function(form) {
 			form.submit();

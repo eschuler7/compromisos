@@ -54,7 +54,7 @@ block container
                     .col-sm-2 
                       .form-group
                         #fechainicio.input-group.date
-                          input.form-control(type='text', name=config.columnasoc) 
+                          input.form-control(type='text', name=config.columnasoc, value=commitment[config.columnasoc]) 
                           span.input-group-addon
                             span.glyphicon.glyphicon-calendar 
 
@@ -264,7 +264,7 @@ block container
               a.btn.btn-default.btn-sm(href='/secure/listall') Cancelar
               button.btn.btn-success.btn-sm.pull-right(type='submit') Guardar compromiso
   script(src='/jquery/dist/jquery.min.js')
-  script(src='/moment/min/moment.min.js')
+  script(src='/moment/min/moment-with-locales.min.js')
   script(src='/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js')
   script.
     window.onload = function() {
@@ -272,45 +272,41 @@ block container
       $('input[type=checkbox]').on('ifChanged',function(event){
         var comdata = validateinfo(this.name);
         $('#comdata').val(comdata);
-        console.log('comdata modificado',comdata);
       });
     }
     if($('#fechainicio')){
       $('#fechainicio').datetimepicker({
         defaultDate: new Date(),
-        format: 'DD/MM/YYYY'
+        format: 'DD/MM/YYYY',
+        locale: 'es'
       });
       $('#fechainicio').on('dp.change', function(e){ 
         var comdata = validateinfo('fechainicio');
         $('#comdata').val(comdata);
-        console.log('comdata modificado',comdata);
       });
     }
     if($('#fechaverif')){
       $('#fechaverif').datetimepicker({
         defaultDate: new Date(),
-        format: 'DD/MM/YYYY'
+        format: 'DD/MM/YYYY',
+        locale: 'es'
       });
       $('#fechaverif').on('dp.change', function(e){
         var comdata = validateinfo('fechaverif');
         $('#comdata').val(comdata);
-        console.log('comdata modificado',comdata);
       });
     }
     $('input[type=text]').change(function() {
       var comdata = validateinfo(this.name);
       $('#comdata').val(comdata);
-      console.log('comdata modificado',comdata);
     });
     $('select').change(function(){
       var comdata = validateinfo(this.name);
       $('#comdata').val(comdata);
-      console.log('comdata modificado',comdata);
     });
     $('textarea').change(function() {
       var comdata = validateinfo(this.name);
       $('#comdata').val(comdata);
-      console.log('comdata modificado',comdata);
     });
     
     function validateinfo(value){
