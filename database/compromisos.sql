@@ -71,21 +71,22 @@ insert into t_monitor_config values('MN16','Reporte de monitoreo','repormonitore
 insert into t_monitor_config values('MN17','Autoridad a reportar','autoridad',0,now(),now());
 insert into t_monitor_config values('MN18','Frecuencia de reporte','frecreporte',1,now(),now());
 insert into t_monitor_config values('MN19','Evidencias','evidencias',1,now(),now());
-insert into t_monitor_config values('MN20','Estado de cumplimiento','cumplimiento',1,now(),now());
+insert into t_monitor_config values('MN20','Estado de cumplimiento','estadocumplimiento',1,now(),now());
 insert into t_monitor_config values('MN21','Revisión del monitoreo (por senior)','revision',0,now(),now());
 insert into t_monitor_config values('MN22','Acción sobre el monitoreo','accionmonitoreo',0,now(),now());
-insert into t_monitor_config values('MN23','Frecuencia de verificación del monitoreo','frecverificacion',1,now(),now());
-insert into t_monitor_config values('MN24','Área responsable','responsable',0,now(),now());
-insert into t_monitor_config values('MN25','Correos de notificación','notificacion',0,now(),now());
-insert into t_monitor_config values('MN26','Anticipación de notificación','anticnotificacion',1,now(),now());
-insert into t_monitor_config values('MN27','Fecha de actualización/revisión del monitoreo','fecharevision',0,now(),now());
-insert into t_monitor_config values('MN28','Referencia técnica o legal de cumplimiento','referenciatecnica',0,now(),now());
-insert into t_monitor_config values('MN29','Presupuesto','presupuesto',0,now(),now());
-insert into t_monitor_config values('MN30','Comentarios y notas','comentarios',1,now(),now());
-insert into t_monitor_config values('MN31','Construcción','construccion',1,now(),now());
-insert into t_monitor_config values('MN32','Operación','operacion',1,now(),now());
-insert into t_monitor_config values('MN33','Cierre','cierre',1,now(),now());
-insert into t_monitor_config values('MN34','Post-Cierre','postcierre',1,now(),now());
+insert into t_monitor_config values('CM23','Detalle de acción','detalleaccion',0,now(),now());
+insert into t_monitor_config values('MN24','Frecuencia de verificación del monitoreo','frecverificacion',1,now(),now());
+insert into t_monitor_config values('MN25','Área responsable','responsable',0,now(),now());
+insert into t_monitor_config values('MN26','Correos de notificación','notificacion',0,now(),now());
+insert into t_monitor_config values('MN27','Anticipación de notificación','anticnotificacion',1,now(),now());
+insert into t_monitor_config values('MN28','Fecha de actualización/revisión del monitoreo','fecharevision',0,now(),now());
+insert into t_monitor_config values('MN29','Referencia técnica o legal de cumplimiento','referenciatecnica',0,now(),now());
+insert into t_monitor_config values('MN30','Presupuesto','presupuesto',0,now(),now());
+insert into t_monitor_config values('MN31','Comentarios y notas','comentarios',1,now(),now());
+insert into t_monitor_config values('MN32','Construcción','construccion',1,now(),now());
+insert into t_monitor_config values('MN33','Operación','operacion',1,now(),now());
+insert into t_monitor_config values('MN34','Cierre','cierre',1,now(),now());
+insert into t_monitor_config values('MN35','Post-Cierre','postcierre',1,now(),now());
 
 -- Inserts iniciales para la tabla company / password: password$1
 insert into t_company values('12345678909','NOLAN',null,null,0,now(),now());
@@ -117,6 +118,7 @@ delete from t_monitor where ruc='10101010101' and nrocorrelativo='1';
 -- Eliminar data de las tablas de configuración de atributos
 select * from t_commitment_config;
 select id, name, columnasoc, mandatory from t_commitment_config;
+select id, name, columnasoc, mandatory from t_monitor_config;
 delete from t_commitment_config where id like 'CM3%';
 select * from t_monitor_config;
 delete from t_monitor_config where id like 'MN%';
@@ -130,6 +132,7 @@ select t_company_ruc,t_dashboard_config_id,tdc.name from t_company_dashboard tcd
 delete from t_user where t_company_ruc='10101010101' and userid not like 'eschulerg';
 
 select t_company_ruc,t_commitment_config_id,tco.name,tco.columnasoc from t_company_commitment tcc left join t_commitment_config tco on tcc.t_commitment_config_id=tco.id where t_company_ruc=10101010101;
+select t_company_ruc,t_monitor_config_id,tmc.name,tmc.columnasoc from t_company_monitor tcm left join t_monitor_config tmc on tcm.t_monitor_config_id=tmc.id where t_company_ruc=10101010101;
 select tco.columnasoc from t_company_commitment tcc left join t_commitment_config tco on tcc.t_commitment_config_id=tco.id where t_company_ruc=10101010101;
 
 select * from t_commitment where nrocorrelativo='100';
