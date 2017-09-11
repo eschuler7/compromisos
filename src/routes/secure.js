@@ -124,8 +124,11 @@ router.get('/listallmonit', function(req, res){
 router.get('/massivemonit', function(req, res){
     res.render('partial/monitor/massivemonit');
 });
+
 router.get('/registermonit', function(req, res){
-    res.render('partial/monitor/registermonit');
+    var monitor = mysql.monitor.getMonitorTypes();
+    var monitorconfig = mysql.monitor.getMonitorConfigByRuc(req.session.user.t_company_ruc);
+    res.render('partial/monitor/registermonit',{monitor: monitor,monitorconfig: monitorconfig});
 });
 router.get('/logout', function(req, res){
     req.session.destroy();
@@ -531,6 +534,74 @@ router.post('/updateCommit/:nrocorrelativo', function(req,res,next){
     }
 
     res.redirect('/secure/listall');
+});
+
+router.post('/registermonit', function(req, res, next){
+    // obteniendo correlativo
+    req.type = 'monitor';
+    var correlativomon = mysql.monitor.getNextCorrelative(req.session.user.t_company_ruc); // correlativo para compromisos
+    req.moncorrelativo = correlativomon[0].correlativo;
+    //var correlativoevi = mysql.evidence.getNextCorrelative(req.session.user.t_company_ruc, req.comcorrelativo); // correlativo para evidencias
+    req.evicorrelativo = 1;
+    next();
+},uploadEvidences.array('evidencias'),function(req, res){
+    var monconfig = mysql.monitor.getMonitorConfigByRuc(req.session.user.t_company_ruc);
+    var mondata = [];
+    mondata.push(req.session.user.t_company_ruc);
+
+    for (var i = 0; i < monconfig.length; i++) {
+        if(monconfig[i].columnasoc != 'evidencias') {
+            if (monconfig[i].columnasoc == 'nrocorrelativo') {
+                mondata.push(req.moncorrelativo);
+            } else {
+                var item = req.body[monconfig[i].columnasoc];
+                if (!item) {
+                    mondata.push(null);
+                } else {
+                    if (computil.checktype(item) == 'date') {
+                        mondata.push(dateFormat((new Date(item),'yyyy-mm-dd')));
+                    } else if(monconfig[i].columnasoc.startsWith('fecha')) {
+                        var fecarray = item.split('/');
+                        mondata.push(fecarray[2] + '-' + fecarray[1] + '-' + fecarray[0]);
+                    } else {
+                        if (monconfig[i].t_monitor_config_id == 'CM32' || monconfig[i].t_monitor_config_id == 'CM33'||monconfig[i].t_monitor_config_id == 'CM34'||monconfig[i].t_monitor_config_id == 'CM35'){
+                            mondata.push('Si');
+                        }
+                        else {
+                            mondata.push(item);
+                        }
+                    }
+                }
+
+            }
+        }
+    }
+    mondata.push(req.session.user.userid);
+    var result = mysql.monitor.createSingleMonitor(monconfig, mondata);
+    if(result.affectedRows == 1) {
+        var description = req.body.evidencia_descripcion;
+        if(description != '' || req.files.length > 0) {
+            var files = '';
+            for (var i = 0; i < req.files.length; i++) {
+                if(i == 0) {
+                    files += req.files[i].originalname;
+                } else {
+                    files += ',' + req.files[i].originalname;
+                }
+            }
+            if(description == '')
+                description = 'Sin comentarios';
+            mysql.evidence.registerEvidencesMonit(req.evicorrelativo, description, files, req.moncorrelativo, req.session.user.t_company_ruc);
+        }
+    }
+    res.redirect('/secure/listallmonit');
+});
+
+router.post('/deletecommit', function(req, res){
+    var nrocorrelativo = req.body.nrocorrelativo;
+    var result = mysql.commitment.deleteCommitmentByCorrelative(req.session.user.t_company_ruc,nrocorrelativo);
+    res.redirect('/secure/listall');
+
 });
 module.exports = router;
 
