@@ -74,7 +74,7 @@ insert into t_monitor_config values('MN19','Evidencias','evidencias',1,now(),now
 insert into t_monitor_config values('MN20','Estado de cumplimiento','estadocumplimiento',1,now(),now());
 insert into t_monitor_config values('MN21','Revisión del monitoreo (por senior)','revision',0,now(),now());
 insert into t_monitor_config values('MN22','Acción sobre el monitoreo','accionmonitoreo',0,now(),now());
-insert into t_monitor_config values('CM23','Detalle de acción','detalleaccion',0,now(),now());
+insert into t_monitor_config values('MN23','Detalle de acción','detalleaccion',0,now(),now());
 insert into t_monitor_config values('MN24','Frecuencia de verificación del monitoreo','frecverificacion',1,now(),now());
 insert into t_monitor_config values('MN25','Área responsable','responsable',0,now(),now());
 insert into t_monitor_config values('MN26','Correos de notificación','notificacion',0,now(),now());
