@@ -15,27 +15,36 @@ html
     link(href='/nprogress/nprogress.css', rel='stylesheet')
     // Custom Theme Style
     link(href='/build/css/custom.min.css', rel='stylesheet')
+    style.
+      .sticky-image-wrapper{
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+      }
+
+      .sticky-image-wrapper img{
+        display: table;
+        position: relative;
+        margin: auto;
+      }
   body.login
     div
       .login_wrapper
         .animate.form.login_form
           section.login_content
             form#frmResetpwd(method='POST',action='/resetpwd')
-              h1 
-                |  Cambio de Clave
+              img(src='compromisos/img/nolan.png', width=350)
               center
-                input.form-control(type='text', placeholder='UserID', name='userid')
-                //input.form-control(type='email', placeholder='Correo Electrónico', name='email')
+                input.form-control(type='text', placeholder='Ingresar ID de usuario', name='userid')
               br
               button.btn.btn-default.submit(type='submit') Enviar
               .clearfix
-              .separator
-                p.change_link
-                  | Regresar a 
-                  a.to_register(href='/') Iniciar Sesión
-                .clearfix
+    .sticky-image-wrapper
+      img(src='compromisos/img/adelaide.png', width=350)
     // jQuery
     script(src='/jquery/dist/jquery.min.js')
     script(src='https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js')
     script(src='compromisos/js/compromisos.js')
     script(src='compromisos/js/jquery.backstretch.min.js')
+    script.
+      $.backstretch('compromisos/img/background.png', {fade: 700});

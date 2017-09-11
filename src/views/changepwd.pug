@@ -15,11 +15,24 @@ html
     link(href='/nprogress/nprogress.css', rel='stylesheet')
     // Custom Theme Style
     link(href='/build/css/custom.min.css', rel='stylesheet')
+    style.
+      .sticky-image-wrapper{
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+      }
+
+      .sticky-image-wrapper img{
+        display: table;
+        position: relative;
+        margin: auto;
+      }
   body.login
     .login_wrapper
       .animate.form.login_form
         section.login_content
-          form#frmChangePwd(method='POST',action='/changepwd')
+          form#frmChangePwd(method='POST',action='/changepwd', style='margin-top:0px')
+            img(src='compromisos/img/nolan.png', width=350)
             br
             br
             center
@@ -31,7 +44,8 @@ html
             br
             button.btn.btn-default.submit(type='submit') Cambiar Contraseña
             .clearfix
-
+    .sticky-image-wrapper
+      img(src='compromisos/img/adelaide.png', width=350)
     // jQuery
     script(src='/jquery/dist/jquery.min.js')
     script(src='https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js')
