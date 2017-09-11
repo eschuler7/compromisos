@@ -298,16 +298,15 @@ var compromisosdb = {
 	},
 	monitor : {
 		getMonitorsByRuc : function(ruc, monconf) {
-			console.log('valor monconf', monconf);
 			var columns = [];
 			for (var i = 0; i < monconf.length; i++) {
-				if (monconf[i].columnasoc != 'evidencias')
-					console.log('valor',monconf[i].columnasoc);
+				if (monconf[i].columnasoc != 'evidencias') {
 					if(monconf[i].columnasoc.startsWith('fecha')) {
 						columns.push("DATE_FORMAT(" + monconf[i].columnasoc + ",'%d/%m/%Y') as " + monconf[i].columnasoc);
 					} else {
 						columns.push(monconf[i].columnasoc);
 					}
+				}
 			}
 			var dynamicquery = 'select ' + columns.toString() + ' from t_monitor where ruc=?';
 			var conn = new mysql(connectionOptions);
