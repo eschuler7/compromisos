@@ -9,8 +9,8 @@ var connectionOptions;
 if(process.env.VCAP_SERVICES) {
 	var vcapServices = JSON.parse(process.env.VCAP_SERVICES);
 	if(vcapServices['compose-for-mysql']){
-		mysql = vcapServices['compose-for-mysql'][0].credentials;
-		connectionOptions = parseDbUrl(mysql.uri);
+		var mysqlcon = vcapServices['compose-for-mysql'][0].credentials;
+		connectionOptions = parseDbUrl(mysqlcon.uri);
 	}
 } else {
 	connectionOptions = {
