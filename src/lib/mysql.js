@@ -294,6 +294,24 @@ var compromisosdb = {
 			const result = conn.query('select if(max(id) is null, 1, max(id) + 1) as correlativo from t_commitment_evidence where t_commitment_ruc=? and t_commitment_nrocorrelativo',[ruc]);
 			conn.dispose();
 			return result;
+		},
+		registerEvidencesMonit : function(evicorrelativo, description, files, moncorrelativo, ruc) {
+			var conn = new mysql(connectionOptions);
+			const result = conn.query('insert into t_monitor_evidence(id, description,files,cdatetime,t_monitor_nrocorrelativo,t_monitor_ruc) values(?,?,?,now(),?,?)',[evicorrelativo, description, files, moncorrelativo, ruc]);
+			conn.dispose();
+			return result;
+		},
+		getEvidencesMonit : function(ruc, correlativo) {
+			var conn = new mysql(connectionOptions);
+			const result = conn.query('select * from t_monitor_evidence where t_monitor_nrocorrelativo=? and t_monitor_ruc=?',[correlativo, ruc]);
+			conn.dispose();
+			return result;
+		},
+		getNextCorrelativeMonit : function(ruc, moncorrelativo) {
+			var conn = new mysql(connectionOptions);
+			const result = conn.query('select if(max(id) is null, 1, max(id) + 1) as correlativo from t_monitor_evidence where t_monitor_ruc=? and t_monitor_nrocorrelativo',[ruc]);
+			conn.dispose();
+			return result;
 		}
 	},
 	monitor : {
@@ -311,6 +329,12 @@ var compromisosdb = {
 			var dynamicquery = 'select ' + columns.toString() + ' from t_monitor where ruc=?';
 			var conn = new mysql(connectionOptions);
 			const result = conn.query(dynamicquery,[ruc]);
+			conn.dispose();
+			return result;
+		},
+		getNextCorrelative : function(ruc) {
+			var conn = new mysql(connectionOptions);
+			const result = conn.query('select if(max(nrocorrelativo) is null, 1, max(nrocorrelativo) + 1) as correlativo from t_monitor where ruc=?',[ruc]);
 			conn.dispose();
 			return result;
 		},
