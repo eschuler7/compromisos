@@ -9,7 +9,7 @@ block container
           .clearfix
         .x_content
           - var evidencias = true
-          form#frmregisterCommit.form-horizontal(action='/secure/updateCommit/' + commitment.nrocorrelativo, method='post',enctype='multipart/form-data')
+          form#frmeditCommit.form-horizontal(action='/secure/updateCommit/' + commitment.nrocorrelativo, method='post',enctype='multipart/form-data')
             input#comdata(type='hidden', name='comdata')
 
             each config in commitmentconfig
@@ -98,7 +98,7 @@ block container
                       .row
                         .col-md-12
                           input#template.inputfile.inputfile-6(type='file',name=config.columnasoc,data-multiple-caption='{count} archivos seleccionados',multiple)
-                          label(for='template',width='100%', style='margin-top: 10px')
+                          label#evidencias(for='template',width='100%', style='margin-top: 10px')
                             span
                             strong
                               i.fa.fa-upload

@@ -5,6 +5,13 @@ $.validator.addMethod("notEqualTo", function(value, element, param) {
 $.validator.addMethod("validaterol", function(value, element, param) {
 	return value != param;
 }, "Debe seleccionar un rol");
+$.validator.addMethod("totalsizemax", function(value, element, param) {
+	var totalsize = 0;
+	for (var i=0; i < element.files.length; i++){
+		totalsize += element.files[i].size;
+	}
+	return totalsize < param;
+}, "Max files size superated");
 /*
 $.validator.addMethod("validatecheckbox", function(value, element, param) {
 	return value != param;
@@ -171,10 +178,43 @@ $(document).ready(function(){
 	});
 	$('#frmregisterCommit').validate({
 		rules : {
-			
+			evidencias : {
+				totalsizemax : 209715200
+			},
 		},
 		messages : {
-			
+			evidencias : {
+				totalsizemax : 'Solo se puede adjuntar un máximo 200 mb en archivos'
+			}
+		},
+		errorPlacement : function(error, element) {
+			var ref = element;
+			if ($(element).attr('name') == 'evidencias') {
+				ref = $('#evidencias');
+			}
+			error.insertAfter(ref);
+		},
+		submitHandler : function(form) {
+			form.submit();
+		}
+	});
+	$('#frmeditCommit').validate({
+		rules : {
+			evidencias : {
+				totalsizemax : 209715200
+			},
+		},
+		messages : {
+			evidencias : {
+				totalsizemax : 'Solo se puede adjuntar un máximo 200 mb en archivos'
+			}
+		},
+		errorPlacement : function(error, element) {
+			var ref = element;
+			if ($(element).attr('name') == 'evidencias') {
+				ref = $('#evidencias');
+			}
+			error.insertAfter(ref);
 		},
 		submitHandler : function(form) {
 			form.submit();
