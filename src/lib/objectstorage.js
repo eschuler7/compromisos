@@ -23,7 +23,7 @@ if(process.env.VCAP_SERVICES) {
 	if(vcapServices['Object-Storage']){
 		var objectStorage = vcapServices['Object-Storage'][0].credentials;
 		osconfig.region = objectStorage.region;
-		osconfig.useInternal = true;
+		osconfig.useInternal = false;
 		osconfig.tenantId = objectStorage.projectId;
 		osconfig.userId = objectStorage.userId;
 		osconfig.username = objectStorage.username;
