@@ -21,7 +21,7 @@ dev:
     host: localhost
     user: root
     password: mysql
-    database: compromisos
+    database: compose
     port: 3306
     debug: false
   baseUrl: http://localhost:8080
@@ -38,9 +38,9 @@ dev:
   objectstorage:
     region: dallas
     useInternal: false
-    projectId: eccd3e5be79a49e6aaf39803f3ba0afb
-    userId: f8068241cf9e47d5ab5c5af11d9fc81f
-    username: admin_89d2ac1e14ef3f6a9ac0a529a03736342096f417
-    password: e8CMPj-C7.eN7*O6
+    projectId: ff6c1dbd502840d49c3507d78313f40f
+    userId: b9873e8769d9458c852f13d31014248b
+    username: admin_efe5b261aa1d5c716d449c3cfdeecd7c8076d880
+    password: c(s.3_8v3*gp.FNQ
     auth:
       interfaceName: public
