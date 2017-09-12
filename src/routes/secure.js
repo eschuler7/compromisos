@@ -186,10 +186,11 @@ router.get('/userscreate', function(req, res){
     res.render('partial/userscreate');
 });
 
-router.get('/downloadevidence/:correlativo/:filename', function(req, res){
+router.get('/downloadcomevidence/:correlativo/:evicorrelativo/:filename', function(req, res){
     var correlativo = req.params.correlativo;
+    var evicorrelativo = req.params.evicorrelativo;
     var filename = req.params.filename;
-    objectstorage.file.downloadFile(req.session.user.t_company_ruc, correlativo, filename, res);
+    objectstorage.file.downloadFile(req.session.user.t_company_ruc, 'commitment',correlativo, evicorrelativo, filename, res);
 });
 
 // TODAS LAS LLAMADAS POST

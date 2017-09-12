@@ -45,7 +45,7 @@ if(process.env.VCAP_SERVICES) {
 	osconfig.auth.identity.password.user.password = config().objectstorage.password;
 	osconfig.auth.scope.project.id = config().objectstorage.projectId;
 }
-console.log('Configuración Object Storage:',JSON.stringify(osconfig));
+
 var storageClient = pkgcloud.storage.createClient(osconfig);
 
 var objectstorage = {
@@ -102,14 +102,14 @@ var objectstorage = {
 				}
 			});
 		},*/
-		downloadFile : function(ruc, tipo, correlativo, filename, res) {
+		downloadFile : function(ruc, tipo, correlativo, evicorrelativo, filename, res) {
 			storageClient.auth(function(error){
 				if(error) {
 					console.log('Hubo un error en la conexión con el Object Storage:', error);
 				} else {
 					var download = storageClient.download({
 		                container: ruc,
-		                remote: tipo + '/' + correlativo + '/' + filename
+		                remote: tipo + '/' + correlativo + '/' + evicorrelativo + '/' + filename
 		            });
 		            download.pipe(res);
 				}

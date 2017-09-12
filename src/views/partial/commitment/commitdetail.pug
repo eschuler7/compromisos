@@ -29,7 +29,7 @@ block container
                                   if evidence.files
                                     - var ftmp = evidence.files.split(',')
                                     each tmp in ftmp
-                                      a(href='/secure/downloadevidence/' + commitment.nrocorrelativo + '/' + tmp)
+                                      a(href='/secure/downloadcomevidence/' + commitment.nrocorrelativo + '/' + evidence.id + '/' + tmp)
                                         u #{tmp}
                                       br
                                   else 
