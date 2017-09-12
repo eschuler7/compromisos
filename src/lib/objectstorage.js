@@ -45,7 +45,7 @@ if(process.env.VCAP_SERVICES) {
 	osconfig.auth.identity.password.user.password = config().objectstorage.password;
 	osconfig.auth.scope.project.id = config().objectstorage.projectId;
 }
-
+console.log('Configuración Object Storage:',osconfig);
 var storageClient = pkgcloud.storage.createClient(osconfig);
 
 var objectstorage = {

@@ -22,7 +22,7 @@ if(process.env.VCAP_SERVICES) {
 		debug: config().mysql.debug
 	}
 }
-console.log('Mysql Connection Options:',connectionOptions);
+
 var compromisosdb = {
 	company : {
 		listCompanies : function(ruc) {
