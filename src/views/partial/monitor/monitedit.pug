@@ -1,0 +1,261 @@
+extends ../../layouts/layout_main.pug
+block container
+  .row
+    .col-md-12.col-sm-12.col-xs-12
+      .x_panel
+        .x_title
+          h2 Editar información de monitoreo
+          ul.nav.navbar-right.panel_toolbox
+          .clearfix
+        .x_content
+          - var evidencias = true
+          form#frmeditMonitor.form-horizontal(action='/secure/updateMonitor/'+ monitor.nrocorrelativo,method='post',enctype='multipart/form-data')
+            input#mondata(type='hidden', name='mondata')
+            each config in monitconfig
+              case config.t_monitor_config_id
+                when 'MN01'
+                  input(id=config.t_monitor_config_id, type='hidden', name=monitor[config.columnasoc])
+                when 'MN10'
+                  .form-group
+                    label.control-label.col-md-3.col-sm-6.col-xs-12(for=config.t_monitor_config_id,style='cursor: pointer') 
+                      | #{config.name}
+                    .col-md-6.col-sm-6.col-xs-12
+                      textarea.form-control.col-md-7.col-xs-6(id=config.t_monitor_config_id, placeholder=config.name, type='text', name=config.columnasoc) #{monitor[config.columnasoc]}
+                when 'MN12'
+                  .form-group
+                    label.control-label.col-md-3.col-sm-6.col-xs-12(for=config.t_monitor_config_id,style='cursor: pointer') 
+                      | #{config.name}
+                    .col-md-6.col-sm-6.col-xs-12
+                      textarea.form-control.col-md-7.col-xs-6(id=config.t_monitor_config_id, placeholder=config.name, type='text', name=config.columnasoc)  #{monitor[config.columnasoc]}
+                when 'MN14'
+                  .form-group(style='margin-bottom: 0px')
+                    label.control-label.col-md-3.col-sm-3.col-xs-12(for=config.t_monitor_config_id)
+                      | Fecha de Inicio
+                    .col-sm-2 
+                      .form-group
+                        #fechainicio.input-group.date(style='margin-bottom: 0px')
+                          input.form-control(type='text', name=config.columnasoc, value=monitor[config.columnasoc])
+                          span.input-group-addon
+                            span.glyphicon.glyphicon-calendar 
+                when 'MN15'
+                  .form-group
+                    label.control-label.col-md-3.col-sm-3.col-xs-12
+                      | Frecuencia de monitoreo
+                      span.required *
+                    .col-sm-2
+                      select#frecuencia.form-control(name=config.columnasoc)
+                        option(value='', selected= true) Seleccionar..
+                        option(value='Unica', selected= monitor[config.columnasoc] == 'Unica') Unica
+                        option(value='Diaria', selected= monitor[config.columnasoc] =='Diaria') Diaria
+                        option(value='Semanal', selected= monitor[config.columnasoc] =='Semanal') Semanal
+                        option(value='Mensual', selected= monitor[config.columnasoc] =='Mensual') Mensual
+                        option(value='Trimestral', selected= monitor[config.columnasoc] =='Trimestral',) Trimestral
+                        option(value='Semestral', selected= monitor[config.columnasoc] =='Semestral') Semestral
+                        option(value='Anual', selected= monitor[config.columnasoc] =='Anual') Anual
+                        option(value='Continuo', selected= monitor[config.columnasoc] =='Continuo') Continuo
+                        option(value='Indefinido', selected= monitor[config.columnasoc] =='Indefinido') Indefinido 
+
+                when 'MN18'
+                  .form-group
+                    label.control-label.col-md-3.col-sm-3.col-xs-12
+                      | Frecuencia de reporte
+                      span.required *
+                    .col-sm-2
+                      select#frecuencia.form-control(name=config.columnasoc)
+                        option(value='', selected= true) Seleccionar..
+                        option(value='Unica', selected= monitor[config.columnasoc] == 'Unica') Unica
+                        option(value='Diaria', selected= monitor[config.columnasoc] =='Diaria') Diaria
+                        option(value='Semanal', selected= monitor[config.columnasoc] =='Semanal') Semanal
+                        option(value='Mensual', selected= monitor[config.columnasoc] =='Mensual') Mensual
+                        option(value='Trimestral', selected= monitor[config.columnasoc] =='Trimestral',) Trimestral
+                        option(value='Semestral', selected= monitor[config.columnasoc] =='Semestral') Semestral
+                        option(value='Anual', selected= monitor[config.columnasoc] =='Anual') Anual
+                        option(value='Continuo', selected= monitor[config.columnasoc] =='Continuo') Continuo
+                        option(value='Indefinido', selected= monitor[config.columnasoc] =='Indefinido') Indefinido 
+
+                when 'MN19'
+                  .form-group
+                    label.control-label.col-md-3.col-sm-3.col-xs-12
+                      | Evidencias
+                    .col-md-6.col-sm-6.col-xs-12
+                      .row
+                        .col-md-12
+                          textarea.form-control.col-md-12(id=config.t_monitor_config_id, placeholder='Ingrese una evidencia textual o comentario sobre las evidencias físicas', type='text', name='evidencia_descripcion')
+                      .row
+                        .col-md-12
+                          input#template.inputfile.inputfile-6(type='file',name=config.columnasoc,data-multiple-caption='{count} archivos seleccionados',multiple)
+                          label(for='template',width='100%', style='margin-top: 10px')
+                            span
+                            strong
+                              i.fa.fa-upload
+                              |  Evidencias
+
+                when 'MN20'
+                  .form-group
+                    label.control-label.col-md-3.col-sm-3.col-xs-12
+                      | Estado del monitoreo 
+                      span.required *
+                    .col-sm-2
+                      select#estadomonit.form-control(name=config.columnasoc)
+                        option(value='', selected= true) Seleccionar..
+                        option(value='Abierto', selected= monitor[config.columnasoc] =='Abierto') Abierto
+                        option(value='Cerrado', selected= monitor[config.columnasoc] =='Cerrado') Cerrado
+                        option(value='Proceso', selected= monitor[config.columnasoc] =='Proceso') En proceso
+                        option(value='Cancelado', selected= monitor[config.columnasoc] =='Cancelado') Cancelado                        
+                        option(value='Diferido', selected= monitor[config.columnasoc] =='Diferido') Diferido
+                        option(value='Vencido', selected= monitor[config.columnasoc] =='Vencido') Vencido   
+
+
+                when 'MN22'
+                  .form-group
+                    label.control-label.col-md-3.col-sm-3.col-xs-12
+                      | Acción sobre el monitoreo 
+                      span.required *
+                    .col-sm-2
+                      select#accionmonitoreo.form-control(name=config.columnasoc)
+                        option(value='', selected= true) Seleccionar..
+                        option(value='Si', selected= monitor[config.columnasoc] =='Si') Si
+                        option(value='No', selected= monitor[config.columnasoc] =='No') No
+
+                when 'MN24'
+                  .form-group
+                    label.control-label.col-md-3.col-sm-3.col-xs-12
+                      | Frecuencia de verificación del monitoreo 
+                      span.required *
+                    .col-sm-2
+                      select#frecuenciaverif.form-control(name=config.columnasoc)
+                        option(value='', selected= true) Seleccionar..
+                        option(value='Unica', selected= monitor[config.columnasoc] == 'Unica') Unica
+                        option(value='Diaria', selected= monitor[config.columnasoc] =='Diaria') Diaria
+                        option(value='Semanal', selected= monitor[config.columnasoc] =='Semanal') Semanal
+                        option(value='Mensual', selected= monitor[config.columnasoc] =='Mensual') Mensual
+                        option(value='Trimestral', selected= monitor[config.columnasoc] =='Trimestral',) Trimestral
+                        option(value='Semestral', selected= monitor[config.columnasoc] =='Semestral') Semestral
+                        option(value='Anual', selected= monitor[config.columnasoc] =='Anual') Anual
+                        option(value='Continuo', selected= monitor[config.columnasoc] =='Continuo') Continuo
+                        option(value='Indefinido', selected= monitor[config.columnasoc] =='Indefinido') Indefinido 
+                when 'MN26'
+                  .form-group
+                    label.control-label.col-md-3.col-sm-6.col-xs-12(for=config.t_monitor_config_id, style='cursor: pointer') 
+                      | #{config.name}
+                    .col-md-6.col-sm-6.col-xs-12
+                      input.form-control.col-md-7.col-xs-6(id=config.t_monitor_config_id, placeholder='example@gmail.com,hotmail@outlook.com', type='email', name=config.columnasoc, multiple, value=monitor[config.columnasoc])
+                when 'MN27'
+                  .form-group(style='margin-bottom: 0px')
+                    label.control-label.col-md-3.col-sm-3.col-xs-12
+                      | Fecha de verificación:
+                    .col-sm-2 
+                      .form-group
+                        #fechaverif.input-group.date(style='margin-bottom: 0px')
+                          input.form-control(type='text', name=config.columnasoc, value=monitor[config.columnasoc])
+                          span.input-group-addon
+                            span.glyphicon.glyphicon-calendar 
+
+                when 'MN31'
+                  .form-group
+                    label.control-label.col-md-3.col-sm-6.col-xs-12(for=config.t_monitor_config_id,style='cursor: pointer') 
+                      | #{config.name}
+                    .col-md-6.col-sm-6.col-xs-12
+                      textarea.form-control.col-md-7.col-xs-6(id=config.t_monitor_config_id, placeholder=config.name, type='text', name=config.columnasoc)  #{monitor[config.columnasoc]}
+
+                when 'MN32'
+                when 'MN33'
+                when 'MN34'
+                when 'MN35'
+                  if evidencias
+                    .form-group
+                      label.control-label.col-md-3.col-sm-6.col-xs-12 Etapas
+                      .col-md-6.col-sm-6.col-xs-12
+                        .checkbox(style='padding-top:0px')
+                          label
+                            if monitor.construccion == 'Si'
+                              input.flat(id='construccion',type='checkbox', value='MN32', name='construccion', checked='checked')
+                            else
+                              input.flat(id='construccion',type='checkbox', value='MN32', name='construccion')
+                            |  Construcción
+                        .checkbox(style='padding-top:0px')
+                          label
+                            if monitor.operacion == 'Si'
+                              input.flat(id='operacion',type='checkbox', value='MN33', name='operacion', checked='checked')
+                            else
+                              input.flat(id='operacion',type='checkbox', value='MN33', name='operacion')
+                            |  Operación
+                        .checkbox(style='padding-top:0px')
+                          label
+                            if monitor.cierre == 'Si'
+                              input.flat(id='cierre',type='checkbox', value='MN34', name='cierre', checked='checked')
+                            else
+                              input.flat(id='cierre',type='checkbox', value='MN34', name='cierre')
+                            |  Cierre
+                        .checkbox(style='padding-top:0px')
+                          label
+                            if monitor.postcierre == 'Si'
+                              input.flat(id='postcierre',type='checkbox', value='MN35', name='postcierre', checked='checked')
+                            else
+                              input.flat(id='postcierre',type='checkbox', value='MN35', name='postcierre')
+                            |  Post - Cierre
+                    - evidencias = false
+                default
+                  .form-group
+                    label.control-label.col-md-3.col-sm-6.col-xs-12(for=config.t_monitor_config_id,style='cursor: pointer') 
+                      | #{config.name}
+                    .col-md-6.col-sm-6.col-xs-12
+                      input.form-control.col-md-7.col-xs-6(id=config.t_monitor_config_id, placeholder=config.name, type='text', name=config.columnasoc, value=monitor[config.columnasoc]) 
+            .ln_solid
+            .form-group
+              a.btn.btn-default.btn-sm(href='/secure/listallmonit') Cancelar
+              button.btn.btn-success.btn-sm.pull-right(type='submit') Registrar monitoreo
+  script(src='/jquery/dist/jquery.min.js')
+  script(src='/moment/min/moment-with-locales.min.js')
+  script(src='/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js')
+  script.
+    window.onload = function() {
+      $('#mondata').val('');
+      $('input[type=checkbox]').on('ifChanged',function(event){
+        var mondata = validateinfo(this.name);
+        $('#mondata').val(mondata);
+      });
+    }
+    if($('#fechainicio')){
+      $('#fechainicio').datetimepicker({
+        defaultDate: new Date(),
+        format: 'DD/MM/YYYY',
+        locale: 'es'
+      });
+      $('#fechainicio').on('dp.change', function(e){ 
+        var mondata = validateinfo('fechainicio');
+        $('#mondata').val(mondata);
+      });
+    }
+    if($('#fechaverif')){
+      $('#fechaverif').datetimepicker({
+        defaultDate: new Date(),
+        format: 'DD/MM/YYYY',
+        locale: 'es'
+      });
+      $('#fechaverif').on('dp.change', function(e){
+        var mondata = validateinfo('fechaverif');
+        $('#mondata').val(mondata);
+      });
+    }
+    $('input[type=text]').change(function() {
+      var mondata = validateinfo(this.name);
+      $('#mondata').val(mondata);
+    });
+    $('select').change(function(){
+      var mondata = validateinfo(this.name);
+      $('#mondata').val(mondata);
+    });
+    $('textarea').change(function() {
+      var mondata = validateinfo(this.name);
+      $('#mondata').val(mondata);
+    });
+    
+    function validateinfo(value){
+      var mondata = $('#mondata').val();
+      if (mondata.indexOf(value) == -1) {
+        mondata = (mondata == '') ? mondata + value : mondata + ',' + value;
+      }
+      return mondata;
+    }
+

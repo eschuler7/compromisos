@@ -1,0 +1,55 @@
+extends ../../layouts/layout_main.pug
+block container
+  .row
+    .col-md-12.col-sm-12.col-xs-12
+      .x_panel
+        .x_title
+          h2 Detalle de monitoreo
+          ul.nav.navbar-right.panel_toolbox
+          .clearfix
+        .x_content
+            each config in monitconfig
+              case config.t_monitor_config_id
+                when 'MN19'
+                  .row
+                    label.control-label.col-md-3.col-sm-5.col-xs-12(for=config.t_monitor_config_id) 
+                      | #{config.name}
+                    .col-md-7.col-sm-7.col-xs-12
+                      table.table.table-bordered
+                        thead
+                          th Descripción
+                          th Archivos
+                          th Fecha de Creación
+                        tbody
+                          if monitorevidence.length > 0
+                            each evidence in monitorevidence
+                              tr
+                                td #{evidence.description}
+                                td 
+                                  if evidence.files
+                                    - var ftmp = evidence.files.split(',')
+                                    each tmp in ftmp
+                                      a(href='/secure/downloadevidence/' + monitor.nrocorrelativo + '/' + tmp)
+                                        u #{tmp}
+                                      br
+                                  else 
+                                    |  No existe archivo adjunto 
+                                td #{evidence.cdatetime}
+                          else
+                            td(colspan=3) No existe evidencias registradas
+                default
+                  .row
+                    label.control-label.col-md-3.col-sm-5.col-xs-12(for=config.t_monitor_config_id) 
+                      | #{config.name}
+                    .col-md-7.col-sm-7.col-xs-12
+                      p(style='font-size: 15px') #{monitor[config.columnasoc]}
+            .ln_solid
+            .row
+              .col-md-12.col-sm-12.col-xs-12
+                a.btn.btn-default(href='/secure/listallmonit') Regresar
+                a.btn.btn-success.btn-sm.pull-right(href='/secure/commitedit/' + monitor.nrocorrelativo) Editar monitoreo
+  script(src='/jquery/dist/jquery.min.js')
+  script(src='/moment/min/moment.min.js')
+  script(src='../bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js')
+
+    

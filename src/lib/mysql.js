@@ -354,6 +354,12 @@ var compromisosdb = {
 			conn.dispose();
 			return result;
 		},
+		deleteMonitorByCorrelative : function (ruc,nrocorrelativo) {
+			var conn = new mysql(connectionOptions);
+			const result = conn.query('delete from t_monitor where ruc=? and nrocorrelativo=?;',[ruc, nrocorrelativo]);
+			conn.dispose();
+			return result;
+		},
 		createMonitor : function(monconfig, mondatatotal) {
 			// Dynamic query build
 			var columns = [];
@@ -384,6 +390,28 @@ var compromisosdb = {
 			var result = conn.query(dynamicquery,mondata);
 			conn.dispose();
 			return result;
+		},
+		updateSingleMonitor : function(ruc, mondata, moninput,nrocorrelativo) {
+			// Dynamic query build
+			var columns = [];
+			for (var i = 0; i < mondata.length; i++) {
+				if(mondata[i] != 'evidencias' && mondata[i] != 'evidencia_descripcion'){
+					console.log(mondata[i]);
+					columns.push(mondata[i] + '=?');
+				}
+			}
+			moninput.push(ruc);
+			moninput.push(nrocorrelativo);
+			if (columns.length < 1) {
+				var dynamicquery = 'update t_monitor set udatetime=now() where ruc=? and nrocorrelativo=?'
+			} 
+			else {
+				var dynamicquery = 'update t_monitor set '+ columns.toString() + ',udatetime=now() where ruc=? and nrocorrelativo=?'
+			}
+
+			var conn = new mysql(connectionOptions);
+			conn.query(dynamicquery,moninput);
+			conn.dispose();
 		},
 		getMonitorConfigByRuc : function(ruc) {
 			var conn = new mysql(connectionOptions);

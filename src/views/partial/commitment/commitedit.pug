@@ -43,7 +43,7 @@ block container
                       | Temporalidad:
                     .col-sm-2
                       select#temporalidad.form-control(name=config.columnasoc, value=commitment[config.columnasoc]) 
-                        option(value='None', selected= true) Seleccionar..
+                        option(value='', selected= true) Seleccionar..
                         option(value='Puntual', selected= commitment[config.columnasoc] == 'Puntual') Puntual
                         option(value='Permanente', selected= commitment[config.columnasoc] == 'Permanente') Permanente
 
@@ -65,7 +65,7 @@ block container
                       span.required *
                     .col-sm-2
                       select#frecuencia.form-control(name=config.columnasoc)
-                        option(value='None', selected= true) Seleccionar..
+                        option(value='', selected= true) Seleccionar..
                         option(value='Unica', selected= commitment[config.columnasoc] == 'Unica') Unica
                         option(value='Diaria', selected= commitment[config.columnasoc] =='Diaria') Diaria
                         option(value='Semanal', selected= commitment[config.columnasoc] =='Semanal') Semanal
@@ -83,7 +83,7 @@ block container
                       span.required *
                     .col-sm-2
                       select#criticidad.form-control(name=config.columnasoc)
-                        option(value='None', selected= true) Seleccionar..
+                        option(value='', selected= true) Seleccionar..
                         option(value='Alto', selected= commitment[config.columnasoc] =='Alto') Alto
                         option(value='Medio', selected= commitment[config.columnasoc] =='Medio') Medio
                         option(value='Bajo', selected= commitment[config.columnasoc] =='Bajo') Bajo
@@ -111,7 +111,7 @@ block container
                       span.required *
                     .col-sm-2
                       select#estadocommit.form-control(name=config.columnasoc) 
-                        option(value='None', selected= true) Seleccionar..
+                        option(value='', selected= true) Seleccionar..
                         option(value='Abierto', selected= commitment[config.columnasoc] =='Abierto') Abierto
                         option(value='Cerrado', selected= commitment[config.columnasoc] =='Cerrado') Cerrado
                         option(value='Proceso', selected= commitment[config.columnasoc] =='Proceso') En proceso
@@ -126,7 +126,7 @@ block container
                       span.required *
                     .col-sm-2
                       select#accioncompromiso.form-control(name=config.columnasoc) 
-                        option(value='None', selected= true) Seleccionar..
+                        option(value='', selected= true) Seleccionar..
                         option(value='Si', selected= commitment[config.columnasoc] =='Si') Si
                         option(value='No', selected= commitment[config.columnasoc] =='No') No
 
@@ -137,7 +137,7 @@ block container
                       span.required *
                     .col-sm-2
                       select#frecuenciaverif.form-control(name=config.columnasoc) 
-                        option(value='None', selected= true) Seleccionar..
+                        option(value='', selected= true) Seleccionar..
                         option(value='Unica', selected= commitment[config.columnasoc] == 'Unica') Unica
                         option(value='Diaria', selected= commitment[config.columnasoc] =='Diaria') Diaria
                         option(value='Semanal', selected= commitment[config.columnasoc] =='Semanal') Semanal

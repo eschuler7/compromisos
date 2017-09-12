@@ -121,6 +121,19 @@ router.get('/listallmonit', function(req, res){
     var monitors = mysql.monitor.getMonitorsByRuc(req.session.user.t_company_ruc,monitconfig);
     res.render('partial/monitor/listallmonit',{monitconfig: monitconfig, monitors: monitors });
 });
+router.get('/monitdetail/:nrocorrelativo', function(req, res){
+    var nrocorrelativo = req.params.nrocorrelativo;
+    var monitconfig = mysql.monitor.getMonitorConfigByRuc(req.session.user.t_company_ruc);
+    var monitor = mysql.monitor.getMonitorByCorrelative(req.session.user.t_company_ruc,monitconfig,nrocorrelativo);
+    var monitorevidence = mysql.evidence.getEvidencesMonit(req.session.user.t_company_ruc, nrocorrelativo);
+    res.render('partial/monitor/monitdetail',{nrocorrelativo:nrocorrelativo,monitor:monitor[0],monitconfig: monitconfig, monitorevidence: monitorevidence});
+});
+router.get('/monitedit/:nrocorrelativo', function(req, res){
+    var nrocorrelativo = req.params.nrocorrelativo;
+    var monitconfig = mysql.monitor.getMonitorConfigByRuc(req.session.user.t_company_ruc);
+    var monitor = mysql.monitor.getMonitorByCorrelative(req.session.user.t_company_ruc,monitconfig,nrocorrelativo);
+    res.render('partial/monitor/monitedit',{nrocorrelativo:nrocorrelativo,monitor:monitor[0],monitconfig: monitconfig});
+});
 router.get('/massivemonit', function(req, res){
     res.render('partial/monitor/massivemonit');
 });
@@ -441,6 +454,13 @@ router.post('/deletecommit', function(req, res){
     res.redirect('/secure/listall');
 
 });
+router.post('/deletemonitor', function(req, res){
+    var nrocorrelativo = req.body.nrocorrelativo;
+    var result = mysql.monitor.deleteMonitorByCorrelative(req.session.user.t_company_ruc,nrocorrelativo);
+    res.redirect('/secure/listallmonit');
+
+});
+
 
 router.post('/emailToSoporte', function(req, res, next){
     
@@ -564,7 +584,7 @@ router.post('/registermonit', function(req, res, next){
                         var fecarray = item.split('/');
                         mondata.push(fecarray[2] + '-' + fecarray[1] + '-' + fecarray[0]);
                     } else {
-                        if (monconfig[i].t_monitor_config_id == 'CM32' || monconfig[i].t_monitor_config_id == 'CM33'||monconfig[i].t_monitor_config_id == 'CM34'||monconfig[i].t_monitor_config_id == 'CM35'){
+                        if (monconfig[i].t_monitor_config_id == 'MN32' || monconfig[i].t_monitor_config_id == 'MN33'||monconfig[i].t_monitor_config_id == 'MN34'||monconfig[i].t_monitor_config_id == 'MN35'){
                             mondata.push('Si');
                         }
                         else {
@@ -602,6 +622,69 @@ router.post('/deletecommit', function(req, res){
     var result = mysql.commitment.deleteCommitmentByCorrelative(req.session.user.t_company_ruc,nrocorrelativo);
     res.redirect('/secure/listall');
 
+});
+router.post('/updateMonitor/:nrocorrelativo', function(req,res,next){
+    req.type='monitor';
+    req.moncorrelativo = req.params.nrocorrelativo;
+    var correlativoevi = mysql.evidence.getNextCorrelativeMonit(req.session.user.t_company_ruc, req.moncorrelativo); // correlativo para evidencias
+    req.evicorrelativo = correlativoevi[0].correlativo;
+    next();
+},uploadEvidences.array('evidencias'),function(req, res){
+    var mondata = req.body.mondata.split(',');
+    var moninput = [];
+    var nrocorrelativo = req.body.nrocorrelativo;
+    console.log('valor de mondata',mondata);
+    console.log('valor de nrocorrelativo',nrocorrelativo);
+
+    for (var i = 0; i < mondata.length; i++) {
+        if(mondata[i] != 'evidencias' && mondata[i] != 'evidencia_descripcion' ) {
+            var item = mondata[i];
+            console.log('valor de',mondata[i],':',req.body[item]);
+            if (!item) {
+                moninput.push(null);
+            } else {
+                if (computil.checktype(req.body[item]) == 'date') {
+                    moninput.push(dateFormat((new Date(req.body[item]),'yyyy-mm-dd')));
+                } else if(item.startsWith('fecha')) {
+                    var fecha = req.body[item];
+                    var fecarray = fecha.split('/');
+                    moninput.push(fecarray[2] + '-' + fecarray[1] + '-' + fecarray[0]);
+                } else {
+                    if (req.body[item] == 'on' ){
+                        moninput.push('Si');
+                    } else {
+                        //cominput.push(item);
+                        moninput.push(req.body[item]);
+                    }
+                }
+
+            }
+        }
+    }
+
+    mysql.monitor.updateSingleMonitor(req.session.user.t_company_ruc, mondata,moninput,nrocorrelativo);
+    
+    // Registrando evidencias
+    if(mondata.includes('evidencia_descripcion') || mondata.includes('evidencias')) {
+
+        var description = req.body.evidencia_descripcion;
+        if(description != '' || req.files.length > 0) {
+            var files = '';
+            for (var i = 0; i < req.files.length; i++) {
+                if(i == 0) {
+                    files += req.files[i].originalname;
+                } else {
+                    files += ',' + req.files[i].originalname;
+                }
+            }
+            if(description == '')
+                description = 'Sin comentarios';
+            console.log(req.evicorrelativo, description, files, nrocorrelativo, req.session.user.t_company_ruc);
+            mysql.evidence.registerEvidencesMonit(req.evicorrelativo, description, files, nrocorrelativo, req.session.user.t_company_ruc);
+        }
+    }
+
+    res.redirect('/secure/listallmonit');
 });
 module.exports = router;
 
