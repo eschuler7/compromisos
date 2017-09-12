@@ -21,7 +21,7 @@ dev:
     host: localhost
     user: root
     password: mysql
-    database: compromisos
+    database: compose
     port: 3306
     debug: false
   baseUrl: http://localhost:8080
