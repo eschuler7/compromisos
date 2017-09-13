@@ -128,6 +128,7 @@ select userid from t_user where userid='eschulerg';
 select userid, email, tu.name, lastname, t_rol_rolid, tr.name rol_name, tu.cdatetime, tu.udatetime from t_user tu left join t_rol tr on tu.t_rol_rolid=tr.rolid where tu.t_company_ruc=10101010101;
 select t_company_ruc,t_monitor_config_id,tmc.name from t_company_monitor tcm left join t_monitor_config tmc on tcm.t_monitor_config_id=tmc.id where t_company_ruc=10101010101;
 select t_company_ruc,t_dashboard_config_id,tdc.name from t_company_dashboard tcd left join t_dashboard_config tdc on tcd.t_dashboard_config_id=tdc.id where t_company_ruc=10101010101;
+select * from t_user;
 
 delete from t_user where t_company_ruc='10101010101' and userid not like 'eschulerg';
 
@@ -137,7 +138,8 @@ select t_company_ruc,t_commitment_config_id,tco.name,tco.columnasoc from t_compa
 select t_company_ruc,t_monitor_config_id,tmc.name,tmc.columnasoc from t_company_monitor tcm left join t_monitor_config tmc on tcm.t_monitor_config_id=tmc.id where t_company_ruc=10101010101;
 select tco.columnasoc from t_company_commitment tcc left join t_commitment_config tco on tcc.t_commitment_config_id=tco.id where t_company_ruc=10101010101;
 
-select * from t_commitment where nrocorrelativo='100';
+select * from t_monitor where nrocorrelativo='100';
+select * from t_monitor;
 
 select if(max(nrocorrelativo) is null, 1, max(nrocorrelativo) + 1) as correlativo from t_commitment where ruc='12345678908';
 select * from t_commitment_evidence;

@@ -495,7 +495,7 @@ router.post('/emailToSoporte', function(req, res, next){
 router.post('/updateCommit/:nrocorrelativo', function(req,res,next){
     req.type='commitment';
     req.comcorrelativo = req.params.nrocorrelativo;
-    console.log('jojo',req.params.nrocorrelativo);
+    
     var correlativoevi = mysql.evidence.getNextCorrelative(req.session.user.t_company_ruc, req.comcorrelativo); // correlativo para evidencias
     req.evicorrelativo = correlativoevi[0].correlativo;
     next();
@@ -520,7 +520,7 @@ router.post('/updateCommit/:nrocorrelativo', function(req,res,next){
                     var fecarray = fecha.split('/');
                     cominput.push(fecarray[2] + '-' + fecarray[1] + '-' + fecarray[0]);
                 } else {
-                    if (req.body[item] == 'on' ){
+                    if (req.body[item] == 'CM29' ||req.body[item] == 'CM30'||req.body[item] == 'CM31'||req.body[item] == 'CM32' ){
                         cominput.push('Si');
                     } else {
                         //cominput.push(item);
@@ -651,7 +651,7 @@ router.post('/updateMonitor/:nrocorrelativo', function(req,res,next){
                     var fecarray = fecha.split('/');
                     moninput.push(fecarray[2] + '-' + fecarray[1] + '-' + fecarray[0]);
                 } else {
-                    if (req.body[item] == 'on' ){
+                    if (req.body[item] == 'MN32' ||req.body[item] == 'MN33'||req.body[item] == 'MN34'||req.body[item] == 'MN35'){
                         moninput.push('Si');
                     } else {
                         //cominput.push(item);

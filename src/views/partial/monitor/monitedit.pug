@@ -14,7 +14,7 @@ block container
             each config in monitconfig
               case config.t_monitor_config_id
                 when 'MN01'
-                  input(id=config.t_monitor_config_id, type='hidden', name=monitor[config.columnasoc])
+                  input(type='hidden', name=config.columnasoc, value=monitor[config.columnasoc])
                 when 'MN10'
                   .form-group
                     label.control-label.col-md-3.col-sm-6.col-xs-12(for=config.t_monitor_config_id,style='cursor: pointer') 
