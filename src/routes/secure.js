@@ -192,11 +192,11 @@ router.get('/downloadtemplate', function(req, res){
 router.get('/users', function(req, res){
     var users;
     users = mysql.user.getUsersByRuc(req.session.user.t_company_ruc);
-    res.render('partial/users', {users: users});
+    res.render('partial/users/users', {users: users});
 });
 
 router.get('/userscreate', function(req, res){
-    res.render('partial/userscreate');
+    res.render('partial/users/userscreate');
 });
 
 router.get('/downloadcomevidence/:correlativo/:evicorrelativo/:filename', function(req, res){
