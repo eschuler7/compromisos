@@ -104,5 +104,4 @@ var objectstorage = require('./lib/objectstorage');
 app.listen(app.get('port'), '0.0.0.0', function() {
 	console.log('Node.Js Server iniciado en el puerto:',app.get('port'));
 	console.log('Node JS Version:', process.version);
-	objectstorage.file.getFiles('12345678909','1');
 });
