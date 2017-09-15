@@ -255,6 +255,12 @@ var compromisosdb = {
 			conn.dispose();
 			return result;
 		},
+		deleteAllCommitments : function(ruc) {
+			var conn = new mysql(connectionOptions);
+			const result = conn.query('delete from t_commitment where t_company_ruc=?',[ruc]);
+			conn.dispose();
+			return result;
+		},
 		updateCommitmentConfig : function(ruc,compromisos) {
 			var initconfig = compromisos;
 			var conn = new mysql(connectionOptions);
@@ -357,6 +363,12 @@ var compromisosdb = {
 		deleteMonitorByCorrelative : function (ruc,nrocorrelativo) {
 			var conn = new mysql(connectionOptions);
 			const result = conn.query('delete from t_monitor where ruc=? and nrocorrelativo=?;',[ruc, nrocorrelativo]);
+			conn.dispose();
+			return result;
+		},
+		deleteAllMonitors : function(ruc) {
+			var conn = new mysql(connectionOptions);
+			const result = conn.query('delete from t_monitor where t_company_ruc=?',[ruc]);
 			conn.dispose();
 			return result;
 		},

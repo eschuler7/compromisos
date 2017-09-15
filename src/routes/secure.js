@@ -378,10 +378,14 @@ router.post('/deleteUser', function(req, res){
 
 router.post('/resetConfigGlobal', function(req, res){
     var ruc = req.body.ruc;
-    var result = mysql.company.deleteCompanyByRuc(ruc);
+    //var result = mysql.company.deleteCompanyByRuc(ruc);
+    var result = mysql.commitment.deleteAllCommitments(req.session.user.t_company_ruc);
+    var result = mysql.monitor.deleteAllMonitors(req.session.user.t_company_ruc);
     var result = mysql.dashboard.deleteDashboardTypes(req.session.user.t_company_ruc);
     var result = mysql.commitment.deleteCommitmentTypes(req.session.user.t_company_ruc);
     var result = mysql.monitor.deleteMonitorTypes(req.session.user.t_company_ruc);
+    var result = mysql.user.deleteAllUserById(req.session.user.t_company_ruc,req.session.user.userid);
+
     var result = mysql.company.updateFirstTime(req.session.user.t_company_ruc,1);
     req.session.destroy();
     res.redirect('/');
