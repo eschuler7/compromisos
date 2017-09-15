@@ -85,6 +85,10 @@ app.use('/secure', secure);
 var admin = require('./routes/admin');
 app.use('/admin', admin);
 
+app.use(function(req, res){
+	console.log('Prueba');
+});
+
 // Midleware custom error handler
 app.use(function(err, req, res, next){
 	console.log('[ERROR]','[' + req.originalUrl + ']','[' + req.method + ']','[Ajax:' + req.xhr + ']',err);
@@ -96,7 +100,9 @@ app.use(function(err, req, res, next){
 });
 
 // Starting NodeJS Server
+var objectstorage = require('./lib/objectstorage');
 app.listen(app.get('port'), '0.0.0.0', function() {
 	console.log('Node.Js Server iniciado en el puerto:',app.get('port'));
 	console.log('Node JS Version:', process.version);
+	objectstorage.file.getFiles('12345678909','1');
 });

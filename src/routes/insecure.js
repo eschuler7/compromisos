@@ -29,11 +29,11 @@ router.get('/resetpwd', function(req, res){
 });
 
 router.get('/prueba', function(req,res){
-	res.render('msg');
+	res.render('msg',{msg:{title:'¡ Cambio de contraseña exitoso !', body:'El cambio de contraseña fue satisfactorio, por favor inicie sesión con sus nuevos datos.'}});
 });
 
 // TODOS LOS POST
-router.post('/login',function(req, res){
+router.post('/login',function(req, res, next){
 	var userid = req.body.userid;
 	var password = req.body.password;
 	
@@ -49,6 +49,7 @@ router.post('/login',function(req, res){
 				} else {
 					res.redirect('/secure/dashboard');
 				}
+				next();
 			}
 		} else {
 			res.render('login', {error : 'Los datos ingresados no son correctos.'});
