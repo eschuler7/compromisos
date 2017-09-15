@@ -396,7 +396,7 @@ router.post('/register', function(req, res, next){
     //var correlativoevi = mysql.evidence.getNextCorrelative(req.session.user.t_company_ruc, req.comcorrelativo); // correlativo para evidencias
     req.evicorrelativo = 1;
     next();
-},uploadEvidences.array('evidencias'),function(req, res){
+},uploadEvidences.array('evidencias'),function(req, res, next){
     var comconfig = mysql.commitment.getComConfigByRuc(req.session.user.t_company_ruc);
     var comdata = [];
     comdata.push(req.session.user.t_company_ruc);
@@ -447,6 +447,7 @@ router.post('/register', function(req, res, next){
         }
     }
     res.redirect('/secure/listall');
+    next();
 });
 
 router.post('/deletecommit', function(req, res){
@@ -464,13 +465,10 @@ router.post('/deletemonitor', function(req, res){
 
 
 router.post('/emailToSoporte', function(req, res, next){
-    
     var userid = req.session.user.userid;
     var reception = mysql.user.getEmailByID(userid);
     var inbox = 'eschulergodo7@gmail.com';
     var emailtext = req.body.email;
-    
-    console.log('valor de recption',reception);
 
     try {
         // Sending information
@@ -495,7 +493,6 @@ router.post('/emailToSoporte', function(req, res, next){
 router.post('/updateCommit/:nrocorrelativo', function(req,res,next){
     req.type='commitment';
     req.comcorrelativo = req.params.nrocorrelativo;
-    
     var correlativoevi = mysql.evidence.getNextCorrelative(req.session.user.t_company_ruc, req.comcorrelativo); // correlativo para evidencias
     req.evicorrelativo = correlativoevi[0].correlativo;
     next();
@@ -548,7 +545,6 @@ router.post('/updateCommit/:nrocorrelativo', function(req,res,next){
             }
             if(description == '')
                 description = 'Sin comentarios';
-            console.log(req.evicorrelativo, description, files, nrocorrelativo, req.session.user.t_company_ruc);
             mysql.evidence.registerEvidences(req.evicorrelativo, description, files, nrocorrelativo, req.session.user.t_company_ruc);
         }
     }
@@ -637,7 +633,6 @@ router.post('/updateMonitor/:nrocorrelativo', function(req,res,next){
     for (var i = 0; i < mondata.length; i++) {
         if(mondata[i] != 'evidencias' && mondata[i] != 'evidencia_descripcion' ) {
             var item = mondata[i];
-            console.log('valor de',mondata[i],':',req.body[item]);
             if (!item) {
                 moninput.push(null);
             } else {
@@ -678,7 +673,6 @@ router.post('/updateMonitor/:nrocorrelativo', function(req,res,next){
             }
             if(description == '')
                 description = 'Sin comentarios';
-            console.log(req.evicorrelativo, description, files, nrocorrelativo, req.session.user.t_company_ruc);
             mysql.evidence.registerEvidencesMonit(req.evicorrelativo, description, files, nrocorrelativo, req.session.user.t_company_ruc);
         }
     }

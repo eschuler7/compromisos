@@ -282,7 +282,7 @@ var compromisosdb = {
 	evidence : {
 		registerEvidences : function(evicorrelativo, description, files, comcorrelativo, ruc) {
 			var conn = new mysql(connectionOptions);
-			const result = conn.query('insert into t_commitment_evidence(t_commitment_ruc, t_commitment_nrocorrelativo, id, description,files,cdatetime) values(?,?,?,now(),?,?)',[ruc, comcorrelativo, evicorrelativo, description, files]);
+			const result = conn.query('insert into t_commitment_evidence(t_commitment_ruc, t_commitment_nrocorrelativo, id, description,files,cdatetime) values(?,?,?,?,?,now())',[ruc, comcorrelativo, evicorrelativo, description, files]);
 			conn.dispose();
 			return result;
 		},
@@ -300,7 +300,7 @@ var compromisosdb = {
 		},
 		registerEvidencesMonit : function(evicorrelativo, description, files, moncorrelativo, ruc) {
 			var conn = new mysql(connectionOptions);
-			const result = conn.query('insert into t_monitor_evidence(t_monitor_ruc, t_monitor_nrocorrelativo, id, description,files,cdatetime) values(?,?,?,now(),?,?)',[ruc, moncorrelativo, evicorrelativo, description, files]);
+			const result = conn.query('insert into t_monitor_evidence(t_monitor_ruc, t_monitor_nrocorrelativo, id, description,files,cdatetime) values(?,?,?,?,?,now())',[ruc, moncorrelativo, evicorrelativo, description, files]);
 			conn.dispose();
 			return result;
 		},

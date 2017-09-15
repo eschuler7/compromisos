@@ -86,7 +86,9 @@ var admin = require('./routes/admin');
 app.use('/admin', admin);
 
 app.use(function(req, res){
-	console.log('Prueba');
+	if(req.session.user) {
+		console.log('[AUDITORIA]','[ACCION: ' + req.originalUrl + ']','[USUARIO: ' + req.session.user.userid + ']','[FECHA: ' + new Date() + ']');
+	}
 });
 
 // Midleware custom error handler
