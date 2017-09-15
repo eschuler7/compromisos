@@ -255,6 +255,10 @@ block container
       var comdata = validateinfo(this.name);
       $('#comdata').val(comdata);
     });
+    $('input[type=file]').change(function() {
+      var comdata = validateinfo(this.name);
+      $('#comdata').val(comdata);
+    });
     $('select').change(function(){
       var comdata = validateinfo(this.name);
       $('#comdata').val(comdata);

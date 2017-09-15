@@ -299,10 +299,6 @@ router.post('/initConfig', function(req, res){
     mysql.dashboard.updateDashboardConfig(req.session.user.t_company_ruc,dashboard);
     mysql.commitment.updateCommitmentConfig(req.session.user.t_company_ruc,compromisos);    
     mysql.monitor.updateMonitorConfig(req.session.user.t_company_ruc,monitoreo);
-    mysql.company.updateCompanyByRuc(req.session.user.t_company_ruc,razonsocial,unidadinit,proyoper);
-    mysql.dashboard.updateDashboardConfig(req.session.user.t_company_ruc,dashboard);
-    mysql.commitment.updateCommitmentConfig(req.session.user.t_company_ruc,compromisos);
-    mysql.monitor.updateMonitorConfig(req.session.user.t_company_ruc,monitoreo);
     var result = mysql.company.updateFirstTime(req.session.user.t_company_ruc,0);
     if(result.affectedRows == 1) {
         req.session.user.firsttime = 0;
@@ -503,8 +499,6 @@ router.post('/updateCommit/:nrocorrelativo', function(req,res,next){
     var comdata = req.body.comdata.split(',');
     var cominput = [];
     var nrocorrelativo = req.body.nrocorrelativo;
-    console.log('valor de comadata',comdata);
-    console.log('valor de nrocorrelativo',nrocorrelativo);
 
     for (var i = 0; i < comdata.length; i++) {
         if(comdata[i] != 'evidencias' && comdata[i] != 'evidencia_descripcion' ) {
@@ -531,8 +525,9 @@ router.post('/updateCommit/:nrocorrelativo', function(req,res,next){
             }
         }
     }
-
-    mysql.commitment.updateSingleCommitment(req.session.user.t_company_ruc, comdata,cominput,nrocorrelativo);
+    cominput.push(req.session.user.t_company_ruc);
+    cominput.push(nrocorrelativo);
+    mysql.commitment.updateSingleCommitment(comdata,cominput);
     
     // Registrando evidencias
     if(comdata.includes('evidencia_descripcion') || comdata.includes('evidencias')) {
@@ -634,8 +629,6 @@ router.post('/updateMonitor/:nrocorrelativo', function(req,res,next){
     var mondata = req.body.mondata.split(',');
     var moninput = [];
     var nrocorrelativo = req.body.nrocorrelativo;
-    console.log('valor de mondata',mondata);
-    console.log('valor de nrocorrelativo',nrocorrelativo);
 
     for (var i = 0; i < mondata.length; i++) {
         if(mondata[i] != 'evidencias' && mondata[i] != 'evidencia_descripcion' ) {
@@ -662,8 +655,9 @@ router.post('/updateMonitor/:nrocorrelativo', function(req,res,next){
             }
         }
     }
-
-    mysql.monitor.updateSingleMonitor(req.session.user.t_company_ruc, mondata,moninput,nrocorrelativo);
+    moninput.push(req.session.user.t_company_ruc);
+    moninput.push(nrocorrelativo);
+    mysql.monitor.updateSingleMonitor(mondata,moninput);
     
     // Registrando evidencias
     if(mondata.includes('evidencia_descripcion') || mondata.includes('evidencias')) {

@@ -27,7 +27,7 @@ var compromisosdb = {
 	company : {
 		listCompanies : function(ruc) {
 			var conn = new mysql(connectionOptions);
-			const result = conn.query('select ruc, companyname, firsttime, tc.cdatetime,count(tu.email) as users from t_company tc left join t_user tu on tc.ruc=tu.t_company_ruc where tc.ruc!=? group by ruc, companyname, firsttime, tc.cdatetime',[ruc]);
+			const result = conn.query("select ruc, companyname, firsttime, DATE_FORMAT(tc.cdatetime,'%d/%m/%Y') as cdatetime,count(tu.email) as users from t_company tc left join t_user tu on tc.ruc=tu.t_company_ruc where tc.ruc!=? group by ruc, companyname, firsttime, tc.cdatetime",[ruc]);
 			conn.dispose();
 			return result;
 		},
@@ -63,7 +63,7 @@ var compromisosdb = {
 		},
 		getCompanyByRuc : function(ruc) {
 			var conn = new mysql(connectionOptions);
-			const result = conn.query('select * from t_company where ruc=?',[ruc]);
+			const result = conn.query("select ruc, companyname, unidad, proyecto, firsttime, DATE_FORMAT(cdatetime,'%d/%m/%Y') as cdatetime, DATE_FORMAT(udatetime,'%d/%m/%Y') as udatetime from t_company where ruc=?",[ruc]);
 			conn.dispose();
 			return result;
 		}
@@ -119,7 +119,7 @@ var compromisosdb = {
 		},
 		getUsersByRuc : function(ruc) {
 			var conn = new mysql(connectionOptions);
-			const result = conn.query('select userid, email, tu.name, lastname, t_rol_rolid, tr.name rol_name, tu.cdatetime, tu.udatetime from t_user tu left join t_rol tr on tu.t_rol_rolid=tr.rolid where tu.t_company_ruc=?',[ruc]);
+			const result = conn.query("select userid, email, tu.name, lastname, t_rol_rolid, tr.name rol_name, DATE_FORMAT(tu.cdatetime,'%d/%m/%Y') as cdatetime, DATE_FORMAT(tu.udatetime,'%d/%m/%Y') as udatetime from t_user tu left join t_rol tr on tu.t_rol_rolid=tr.rolid where tu.t_company_ruc=?",[ruc]);
 			conn.dispose();
 			return result;
 		},
@@ -208,21 +208,18 @@ var compromisosdb = {
 			conn.dispose();
 			return result;
 		},
-		updateSingleCommitment : function(ruc, comdata, cominput,nrocorrelativo) {
+		updateSingleCommitment : function(comdata, cominput) {
 			// Dynamic query build
 			var columns = [];
 			for (var i = 0; i < comdata.length; i++) {
 				if(comdata[i] != 'evidencias' && comdata[i] != 'evidencia_descripcion'){
-					console.log(comdata[i]);
 					columns.push(comdata[i] + '=?');
 				}
 			}
-			cominput.push(ruc);
-			cominput.push(nrocorrelativo);
+			
 			if (columns.length < 1) {
 				var dynamicquery = 'update t_commitment set udatetime=now() where ruc=? and nrocorrelativo=?'
-			} 
-			else {
+			} else {
 				var dynamicquery = 'update t_commitment set '+ columns.toString() + ',udatetime=now() where ruc=? and nrocorrelativo=?'
 			}
 
@@ -279,7 +276,7 @@ var compromisosdb = {
 	evidence : {
 		registerEvidences : function(evicorrelativo, description, files, comcorrelativo, ruc) {
 			var conn = new mysql(connectionOptions);
-			const result = conn.query('insert into t_commitment_evidence(id, description,files,cdatetime,t_commitment_nrocorrelativo,t_commitment_ruc) values(?,?,?,now(),?,?)',[evicorrelativo, description, files, comcorrelativo, ruc]);
+			const result = conn.query('insert into t_commitment_evidence(t_commitment_ruc, t_commitment_nrocorrelativo, id, description,files,cdatetime) values(?,?,?,now(),?,?)',[ruc, comcorrelativo, evicorrelativo, description, files]);
 			conn.dispose();
 			return result;
 		},
@@ -291,13 +288,13 @@ var compromisosdb = {
 		},
 		getNextCorrelative : function(ruc, comcorrelativo) {
 			var conn = new mysql(connectionOptions);
-			const result = conn.query('select if(max(id) is null, 1, max(id) + 1) as correlativo from t_commitment_evidence where t_commitment_ruc=? and t_commitment_nrocorrelativo',[ruc]);
+			const result = conn.query('select if(max(id) is null, 1, max(id) + 1) as correlativo from t_commitment_evidence where t_commitment_ruc=? and t_commitment_nrocorrelativo=?',[ruc, comcorrelativo]);
 			conn.dispose();
 			return result;
 		},
 		registerEvidencesMonit : function(evicorrelativo, description, files, moncorrelativo, ruc) {
 			var conn = new mysql(connectionOptions);
-			const result = conn.query('insert into t_monitor_evidence(id, description,files,cdatetime,t_monitor_nrocorrelativo,t_monitor_ruc) values(?,?,?,now(),?,?)',[evicorrelativo, description, files, moncorrelativo, ruc]);
+			const result = conn.query('insert into t_monitor_evidence(t_monitor_ruc, t_monitor_nrocorrelativo, id, description,files,cdatetime) values(?,?,?,now(),?,?)',[ruc, moncorrelativo, evicorrelativo, description, files]);
 			conn.dispose();
 			return result;
 		},
@@ -309,7 +306,7 @@ var compromisosdb = {
 		},
 		getNextCorrelativeMonit : function(ruc, moncorrelativo) {
 			var conn = new mysql(connectionOptions);
-			const result = conn.query('select if(max(id) is null, 1, max(id) + 1) as correlativo from t_monitor_evidence where t_monitor_ruc=? and t_monitor_nrocorrelativo',[ruc]);
+			const result = conn.query('select if(max(id) is null, 1, max(id) + 1) as correlativo from t_monitor_evidence where t_monitor_ruc=? and t_monitor_nrocorrelativo=?',[ruc, moncorrelativo]);
 			conn.dispose();
 			return result;
 		}
@@ -391,21 +388,17 @@ var compromisosdb = {
 			conn.dispose();
 			return result;
 		},
-		updateSingleMonitor : function(ruc, mondata, moninput,nrocorrelativo) {
+		updateSingleMonitor : function(mondata, moninput) {
 			// Dynamic query build
 			var columns = [];
 			for (var i = 0; i < mondata.length; i++) {
 				if(mondata[i] != 'evidencias' && mondata[i] != 'evidencia_descripcion'){
-					console.log(mondata[i]);
 					columns.push(mondata[i] + '=?');
 				}
 			}
-			moninput.push(ruc);
-			moninput.push(nrocorrelativo);
 			if (columns.length < 1) {
 				var dynamicquery = 'update t_monitor set udatetime=now() where ruc=? and nrocorrelativo=?'
-			} 
-			else {
+			} else {
 				var dynamicquery = 'update t_monitor set '+ columns.toString() + ',udatetime=now() where ruc=? and nrocorrelativo=?'
 			}
 

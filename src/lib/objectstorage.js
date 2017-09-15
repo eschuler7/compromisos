@@ -84,24 +84,25 @@ var objectstorage = {
 		}
 	},
 	file : {
-		/*getFiles : function(ruc, codigoglobal, res) {
+		getFiles : function(ruc, codigoglobal) {
 			storageClient.auth(function(error){
+				console.log(storageClient);
 				if(error) {
 					console.log('Hubo un error en la conexión con el Object Storage:', error);
-					res.send('Error');
+					//res.send('Error');
 				} else {
 					storageClient._getFiles(ruc, {prefix: codigoglobal + '/'},function(err, files){
 						if(err) {
 							console.log('[ERROR]','[objectstorage]');
-							res.send('Error');
+							//res.send('Error');
 						} else {
 							console.log('File:', files);
-							res.render('partial/commitment/prueba', {files:files});
+							//res.render('partial/commitment/prueba', {files:files});
 						}
 					});
 				}
 			});
-		},*/
+		},
 		downloadFile : function(ruc, tipo, correlativo, evicorrelativo, filename, res) {
 			storageClient.auth(function(error){
 				if(error) {
