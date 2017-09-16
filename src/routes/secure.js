@@ -180,11 +180,52 @@ router.get('/downloadtemplate', function(req, res){
     });
 
     var downloadpath = path.resolve('downloads/' + req.session.user.t_company_ruc);
-    var filename = req.session.user.userid + '-plantilla.xlsx';
+    var filename = req.session.user.userid + '-compromiso-plantilla.xlsx';
     var fullpath = downloadpath + '/' + filename;
     workbook.xlsx.writeFile(fullpath)
     .then(function() {
-        res.attachment('plantilla.xlsx');
+        res.attachment('Plantilla_Compromisos.xlsx');
+        res.sendFile(fullpath);
+    });
+});
+
+router.get('/downloadtemplatemonit', function(req, res){
+    var workbook = new Excel.Workbook();
+    workbook.creator = 'Nolan';
+    workbook.lastModifiedBy = 'Nolan';
+    workbook.created = new Date();
+    workbook.modified = new Date();
+    var worksheet = workbook.addWorksheet('Monitoreo');
+
+    var monconfig = mysql.monitor.getMonitorConfigByRuc(req.session.user.t_company_ruc);
+    worksheet.mergeCells(1,1,1,monconfig.length);
+    worksheet.getCell('A1').value = 'Matriz Integrada de Monitoreo de la Unidad de ' + req.session.user.unidad;
+    var row = [];
+    for (var i = 0; i < monconfig.length; i++) {
+        row.push(monconfig[i].name);
+        worksheet.getColumn(i + 1).width = 20;
+    }
+    worksheet.addRow(row);
+
+    worksheet.eachRow(function(row, rowNumber) {
+        row.eachCell(function(cell, colNumber) {
+            cell.alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
+            cell.border = {
+                top: {style:'medium'},
+                left: {style:'medium'},
+                bottom: {style:'medium'},
+                right: {style:'medium'}
+            };
+            cell.name = monconfig[colNumber - 1].columnasoc;
+        });
+    });
+
+    var downloadpath = path.resolve('downloads/' + req.session.user.t_company_ruc);
+    var filename = req.session.user.userid + '-monitoreo-plantilla.xlsx';
+    var fullpath = downloadpath + '/' + filename;
+    workbook.xlsx.writeFile(fullpath)
+    .then(function() {
+        res.attachment('Plantilla_Monitoreo.xlsx');
         res.sendFile(fullpath);
     });
 });
