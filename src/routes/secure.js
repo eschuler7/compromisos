@@ -457,7 +457,7 @@ router.post('/register', function(req, res, next){
                         var fecarray = item.split('/');
                         comdata.push(fecarray[2] + '-' + fecarray[1] + '-' + fecarray[0]);
                     } else {
-                        if (comconfig[i].t_commitment_config_id == 'CM29' || comconfig[i].t_commitment_config_id == 'CM30'||comconfig[i].t_commitment_config_id == 'CM31'||comconfig[i].t_commitment_config_id == 'CM32'){
+                        if (comconfig[i].t_commitment_config_id == 'CM28' || comconfig[i].t_commitment_config_id == 'CM29'||comconfig[i].t_commitment_config_id == 'CM30'||comconfig[i].t_commitment_config_id == 'CM31'){
                             comdata.push('Si');
                         }
                         else {
@@ -556,7 +556,7 @@ router.post('/updateCommit/:nrocorrelativo', function(req,res,next){
                     var fecarray = fecha.split('/');
                     cominput.push(fecarray[2] + '-' + fecarray[1] + '-' + fecarray[0]);
                 } else {
-                    if (req.body[item] == 'CM29' ||req.body[item] == 'CM30'||req.body[item] == 'CM31'||req.body[item] == 'CM32' ){
+                    if (req.body[item] == 'CM28' ||req.body[item] == 'CM29'||req.body[item] == 'CM30'||req.body[item] == 'CM31' ){
                         cominput.push('Si');
                     } else {
                         //cominput.push(item);
@@ -621,7 +621,7 @@ router.post('/registermonit', function(req, res, next){
                         var fecarray = item.split('/');
                         mondata.push(fecarray[2] + '-' + fecarray[1] + '-' + fecarray[0]);
                     } else {
-                        if (monconfig[i].t_monitor_config_id == 'MN32' || monconfig[i].t_monitor_config_id == 'MN33'||monconfig[i].t_monitor_config_id == 'MN34'||monconfig[i].t_monitor_config_id == 'MN35'){
+                        if (monconfig[i].t_monitor_config_id == 'MN31' || monconfig[i].t_monitor_config_id == 'MN32'||monconfig[i].t_monitor_config_id == 'MN33'||monconfig[i].t_monitor_config_id == 'MN34'){
                             mondata.push('Si');
                         }
                         else {
@@ -684,7 +684,7 @@ router.post('/updateMonitor/:nrocorrelativo', function(req,res,next){
                     var fecarray = fecha.split('/');
                     moninput.push(fecarray[2] + '-' + fecarray[1] + '-' + fecarray[0]);
                 } else {
-                    if (req.body[item] == 'MN32' ||req.body[item] == 'MN33'||req.body[item] == 'MN34'||req.body[item] == 'MN35'){
+                    if (req.body[item] == 'MN31' ||req.body[item] == 'MN32'||req.body[item] == 'MN33'||req.body[item] == 'MN34'){
                         moninput.push('Si');
                     } else {
                         //cominput.push(item);
