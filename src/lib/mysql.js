@@ -488,6 +488,20 @@ var compromisosdb = {
 			}
 			conn.dispose();
 		}
+	},
+	auditlog : {
+		registerAuditLog : function(date, ruc, companyname, sessionid, userid, router, action) {
+			var conn = new mysql(connectionOptions);
+			const result = conn.query('insert into t_audit_log values(?,?,?,?,?,?,?)',[date, ruc, companyname, sessionid, userid, router, action]);
+			conn.dispose();
+			return result;
+		},
+		getAuditLogs : function() {
+			var conn = new mysql(connectionOptions);
+			const result = conn.query('select * from t_audit_log');
+			conn.dispose();
+			return result;
+		}
 	}
 }
 

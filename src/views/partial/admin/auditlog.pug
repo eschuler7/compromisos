@@ -1,0 +1,51 @@
+extends ../../layouts/layout_admin.pug
+block container
+  .row
+    .col-md-12.col-sm-12.col-xs-12
+      .x_panel
+        .x_title
+          h2 Cartera de Clientes
+          .clearfix
+        .x_content
+          table#tblauditologs.table.table-striped.table-bordered.jambo_table
+            thead
+              tr
+                th Fecha y Hora
+                th RUC
+                th Empresa
+                th ID de Sesión
+                th Usuario
+                th Router
+                th Acción
+            tbody
+              if auditlogs
+                each log in auditlogs
+                  tr
+                    td #{log.datetime}
+                    td #{log.companyname}
+                    td #{log.ruc}
+                    td #{log.sessionid}
+                    td #{log.userid}
+                    td #{log.router}
+                    td #{log.action}
+
+    script.
+      window.onload = function() {
+        $('#tblauditologs').DataTable({
+          "lengthMenu": [[5, 15, 20], [5, 15, 20]],
+          language: {
+            paginate: {
+                first:    'Inicio',
+                previous: 'Anterior',
+                next:     'Siguiente',
+                last:     'Fin'
+            },
+            info: 'Mostrando _START_ a _END_ de _TOTAL_ registro(s)',
+            infoEmpty: 'No se encontraron registros',
+            emptyTable: 'No tiene clientes registrados',
+            lengthMenu: 'Mostrar _MENU_ registro(s)',
+            search: 'Buscar:',
+            zeroRecords: 'No se encontraron registros coincidentes'
+          }
+        });
+      }

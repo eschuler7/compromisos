@@ -33,9 +33,17 @@ router.get('/clientdetail/:ruc', function(req, res){
 router.get('/createclient', function(req, res){
 	res.render('partial/admin/clientcreate');
 });
-router.get('/logout', function(req, res){
+router.get('/logout', function(req, res, next){
+	req.ruc = req.session.user.t_company_ruc;
+	req.companyname = req.session.user.companyname;
+	req.userid = req.session.user.userid;
 	req.session.destroy();
 	res.redirect('/');
+	next();
+});
+router.get('/auditlogs', function(req, res){
+	var auditlogs = mysql.auditlog.getAuditLogs();
+	res.render('partial/admin/auditlog',{auditlogs: auditlogs});
 });
 
 
@@ -93,17 +101,19 @@ router.post('/create',function(req, res, next){
 			}
 		}
 		res.redirect('/admin/clients');
+		next();
 	} catch(e) {
 		mysql.company.deleteCompanyByRuc(ruc);
 		next(e);
 	}
 });
-router.post('/deleteclient', function(req, res){
+router.post('/deleteclient', function(req, res, next){
 	var ruc = req.body.ruc;
 	var result = mysql.company.deleteCompanyByRuc(ruc);
 	// Destroying object storage
 	objectstorage.container.destroyContainer(ruc);
 	res.redirect('/admin/clients');
+	next();
 });
 //Ajax call
 router.post('/validateruc', function(req, res){
