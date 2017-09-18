@@ -205,17 +205,15 @@ html
     //Datatable
     script(src='/datatables.net/js/jquery.dataTables.min.js')
     script(src='/datatables.net-bs/js/dataTables.bootstrap.min.js')
-    script(src='/datatables.net-buttons/js/dataTables.buttons.min.js')
-    script(src='/datatables.net-buttons-bs/js/buttons.bootstrap.min.js')
-    script(src='/datatables.net-buttons/js/buttons.flash.min.js')
-    script(src='/datatables.net-buttons/js/buttons.html5.min.js')
-    script(src='/datatables.net-buttons/js/buttons.print.min.js')
     script(src='/build/js/custom.min.js')
     script(src='/compromisos/js/compromisos.js')
+    //PNotify
+    script(src='/pnotify/dist/pnotify.js')
+    script(src='/pnotify/dist/pnotify.buttons.js')
+    script(src='/pnotify/dist/pnotify.nonblock.js')
     script.
       var logout = function() {
         $('#confirm_logout').modal('show');
-
       }
       var resetConfigGlobal = function(){
         $('#confirm_resetConfigGlobal').modal('show');

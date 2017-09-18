@@ -77,6 +77,17 @@ app.use(express.static(__dirname + '/public'));
 // Initialization port
 app.set('port', process.env.PORT || config().port);
 
+// Middleware to handle admin notifications
+app.use(['/admin','/secure'],function(req, res, next) {
+	var notification = 'none';
+	if (req.session.notification) {
+		notification = req.session.notification;
+		delete req.session.notification;
+	}
+	req.notification = notification;
+	next();
+});
+
 // Client routes
 var insecure = require('./routes/insecure');
 app.use('/', insecure);

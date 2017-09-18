@@ -45,7 +45,17 @@ var randomCode = function(long) {
 	return code;
 }
 
+var notification = function(type, title, text) {
+	var notification = {
+		type: type,
+		title: title,
+		text: text
+	}
+	return JSON.stringify(notification);
+}
+
 module.exports.createHash = createHash;
 module.exports.loadEmailTemplate = loadEmailTemplate;
 module.exports.checktype = checktype;
 module.exports.randomCode = randomCode;
+module.exports.notification = notification;

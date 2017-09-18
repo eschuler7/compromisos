@@ -18,20 +18,18 @@ var fs = require('fs');
 var path = require("path");
 
 // TODAS LAS LLAMADAS GET
-
 router.get('/clients', function(req, res){
-	var companies;
-	companies = mysql.company.listCompanies(req.session.user.t_company_ruc);
-	res.render('partial/admin/clients',{clients: companies});
+	var companies = mysql.company.listCompanies(req.session.user.t_company_ruc);
+	res.render('partial/admin/clients',{clients: companies, notification: req.notification});
 });
 router.get('/clientdetail/:ruc', function(req, res){
 	var ruc = req.params.ruc;
 	var client = mysql.company.getCompanyByRuc(ruc);
 	var users = mysql.user.getUsersByRuc(ruc);
-	res.render('partial/admin/clientdetail',{client:client[0],users:users});
+	res.render('partial/admin/clientdetail',{client:client[0],users:users, notification: req.notification});
 });
 router.get('/createclient', function(req, res){
-	res.render('partial/admin/clientcreate');
+	res.render('partial/admin/clientcreate',{notification: req.notification});
 });
 router.get('/logout', function(req, res, next){
 	req.ruc = req.session.user.t_company_ruc;
@@ -43,12 +41,12 @@ router.get('/logout', function(req, res, next){
 });
 router.get('/auditlogs', function(req, res){
 	var auditlogs = mysql.auditlog.getAuditLogs();
-	res.render('partial/admin/auditlog',{auditlogs: auditlogs});
+	res.render('partial/admin/auditlog',{auditlogs: auditlogs,notification: req.notification});
 });
 
 
 // TODAS LAS LLAMADAS POST
-router.post('/create',function(req, res, next){
+router.post('/createclient',function(req, res, next){
 	var ruc = req.body.ruc;
 	var companyname = req.body.companyname;
 	var userid = req.body.userid;
@@ -99,6 +97,7 @@ router.post('/create',function(req, res, next){
 				htmlRegistrationTemplate = htmlRegistrationTemplate.replace('$PASSWORD',password);
 				compemail.sendEmail(email,'Registro en NOLAN',htmlRegistrationTemplate);
 			}
+			req.session.notification = computil.notification('success','Registro Satisfactorio','El cliente ha sido creado satisfactoriamente');
 		}
 		res.redirect('/admin/clients');
 		next();

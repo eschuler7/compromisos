@@ -48,4 +48,14 @@ block container
             zeroRecords: 'No se encontraron registros coincidentes'
           }
         });
+        var message = '!{message}';
+        console.log(message);
+        if(message) {
+          new PNotify({
+            title: message.title,
+            text: message.text,
+            type: message.type,
+            styling: 'bootstrap3'
+          });
+        }
       }

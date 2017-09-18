@@ -15,6 +15,11 @@ html
     link(href='/datatables.net-bs/css/dataTables.bootstrap.min.css', rel='stylesheet')
     // Custom Theme Style
     link(href='/build/css/custom.min.css', rel='stylesheet')
+    // PNotify
+    link(href='/pnotify/dist/pnotify.css', rel='stylesheet')
+    link(href='/pnotify/dist/pnotify.buttons.css', rel='stylesheet')
+    link(href='/pnotify/dist/pnotify.nonblock.css', rel='stylesheet')
+
   body.nav-md
     .container.body
       .main_container
@@ -103,7 +108,22 @@ html
     script(src='/datatables.net-bs/js/dataTables.bootstrap.min.js')
     script(src='/build/js/custom.min.js')
     script(src='/compromisos/js/admin.js')
+    //PNotify
+    script(src='/pnotify/dist/pnotify.js')
+    script(src='/pnotify/dist/pnotify.buttons.js')
+    script(src='/pnotify/dist/pnotify.nonblock.js')
     script.
       var logout = function() {
         $('#confirm_logout').modal('show');
+      }
+      // Handle Notifications
+      var none = 'none';
+      var notification = !{notification};
+      if(notification != 'none') {
+        new PNotify({
+          title: notification.title,
+          text: notification.text,
+          type: notification.type,
+          styling: 'bootstrap3'
+        });
       }
