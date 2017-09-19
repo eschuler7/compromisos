@@ -130,7 +130,7 @@ select * from t_user;
 
 delete from t_user where t_company_ruc='10101010101' and userid not like 'eschulerg';
 
-select count(*) from t_user where t_company_ruc='10101010101';
+select count(userid) from t_user where t_company_ruc='10101010101';
 
 select * from t_monitor_evidence where t_monitor_nrocorrelativo=1 and t_monitor_ruc=10101010101;
 
@@ -140,6 +140,8 @@ select tco.columnasoc from t_company_commitment tcc left join t_commitment_confi
 
 select * from t_monitor where nrocorrelativo='100';
 select * from t_monitor;
+SELECT SUBSTRING(textliteral,1)  from t_monitor;
+SELECT concat(left(textliteral , 10),' ...')  from t_monitor;
 
 select if(max(nrocorrelativo) is null, 1, max(nrocorrelativo) + 1) as correlativo from t_commitment where ruc='12345678908';
 select * from t_commitment_evidence;
