@@ -380,7 +380,7 @@ router.post('/userscreate', function(req, res, next){
     var password = req.body.password;
     var limitusers = mysql.user.getCountUsersByRuc(req.session.user.t_company_ruc);
 
-    if (limitusers <= 10) {
+    if (limitusers[0].totalusers < 10) {
         try {
             // Registering information
             mysql.user.createUser(userid, computil.createHash(config().checksumhash,password), email, name, lastname, req.session.user.t_company_ruc, rol, 1);

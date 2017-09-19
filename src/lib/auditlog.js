@@ -23,6 +23,7 @@ var auditlog = function(req){
 		companyname = req.companyname;
 		userid = req.userid;
 	}
+	console.log(req.body);
 	mysql.auditlog.registerAuditLog(date, ruc, companyname, sessionid, userid, router, action);
 };
 

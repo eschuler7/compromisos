@@ -504,7 +504,7 @@ var compromisosdb = {
 		},
 		getAuditLogs : function() {
 			var conn = new mysql(connectionOptions);
-			const result = conn.query("select DATE_FORMAT(datetime,'%d/%m/%Y') as datetime,ruc,companyname,sessionid,userid,router,action from t_audit_log");
+			const result = conn.query("select DATE_FORMAT(datetime,'%d/%m/%Y %T') as datetime,ruc,companyname,sessionid,userid,router,action from t_audit_log");
 			conn.dispose();
 			return result;
 		}
