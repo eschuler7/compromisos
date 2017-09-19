@@ -239,6 +239,15 @@ router.get('/downloadcomevidence/:correlativo/:evicorrelativo/:filename', functi
 
 // TODAS LAS LLAMADAS POST
 
+router.post('/validateuserid', function(req, res){
+    var userid = req.body.userid;
+    var result = mysql.user.validateUserId(userid);
+    if(result.length > 0) {
+        res.send(false);
+    } else {
+        res.send(true);
+    }
+});
 router.post('/uploadcomtemplate',udploadComTemplate.single('template'), function(req,res){
     var workbook = new Excel.Workbook();
     var uploadpath = path.resolve('uploads/' + req.session.user.t_company_ruc);
@@ -379,7 +388,7 @@ router.post('/userscreate', function(req, res, next){
     var password = req.body.password;
     var limitusers = mysql.user.getCountUsersByRuc(req.session.user.t_company_ruc);
 
-    if (limitusers <= 10)    
+    if (limitusers[0].totalusers < 2)    
         try {
             // Registering information
             mysql.user.createUser(userid, computil.createHash(config().checksumhash,password), email, name, lastname, req.session.user.t_company_ruc, rol, 1);
@@ -404,8 +413,6 @@ router.post('/userscreate', function(req, res, next){
     else {
        req.session.notification = computil.notification('error','Error de registro','Límite de usuarios excedido');
        res.redirect('/secure/users');
-       
-
     }
 });
 
