@@ -136,6 +136,7 @@ router.get('/registermonit', function(req, res){
 router.get('/logout', function(req, res){
     req.session.destroy();
     res.redirect('/');
+    auditlog(req);
 });
 
 router.get('/downloadtemplate', function(req, res){
@@ -388,7 +389,7 @@ router.post('/userscreate', function(req, res, next){
     var password = req.body.password;
     var limitusers = mysql.user.getCountUsersByRuc(req.session.user.t_company_ruc);
 
-    if (limitusers[0].totalusers < 2)    
+    if (limitusers[0].totalusers < 2) {
         try {
             // Registering information
             mysql.user.createUser(userid, computil.createHash(config().checksumhash,password), email, name, lastname, req.session.user.t_company_ruc, rol, 1);
@@ -406,11 +407,12 @@ router.post('/userscreate', function(req, res, next){
             }
             req.session.notification = computil.notification('success','Registro Satisfactorio','El usuario ha sido creado');
             res.redirect('/secure/users');
+            auditlog(req);
         } catch(e) {
             mysql.user.deleteUserById(req.session.user.t_company_ruc, userid);
             next(e);
         }
-    else {
+    } else {
        req.session.notification = computil.notification('error','Error de registro','Límite de usuarios excedido');
        res.redirect('/secure/users');
     }
@@ -421,6 +423,7 @@ router.post('/deleteUser', function(req, res){
     var result = mysql.user.deleteUserById(req.session.user.t_company_ruc,userid);
     req.session.notification = computil.notification('success','Eliminación existosa','Se eliminó el usuario');
     res.redirect('/secure/users');
+    auditlog(req);
 });
 
 router.post('/resetConfigGlobal', function(req, res){
@@ -436,7 +439,7 @@ router.post('/resetConfigGlobal', function(req, res){
     var result = mysql.company.updateFirstTime(req.session.user.t_company_ruc,1);
     req.session.destroy();
     res.redirect('/');
-    
+    auditlog(req);
 });
 
 router.post('/register', function(req, res, next){
@@ -447,7 +450,7 @@ router.post('/register', function(req, res, next){
     //var correlativoevi = mysql.evidence.getNextCorrelative(req.session.user.t_company_ruc, req.comcorrelativo); // correlativo para evidencias
     req.evicorrelativo = 1;
     next();
-},uploadEvidences.array('evidencias'),function(req, res, next){
+},uploadEvidences.array('evidencias'),function(req, res){
     var comconfig = mysql.commitment.getComConfigByRuc(req.session.user.t_company_ruc);
     var comdata = [];
     comdata.push(req.session.user.t_company_ruc);
@@ -499,7 +502,7 @@ router.post('/register', function(req, res, next){
     }
     req.session.notification = computil.notification('success','Registro Satisfactorio','Se registró un nuevo compromiso');
     res.redirect('/secure/listall');
-    next();
+    auditlog(req);
 });
 
 router.post('/deletecommit', function(req, res){
@@ -507,14 +510,14 @@ router.post('/deletecommit', function(req, res){
     var result = mysql.commitment.deleteCommitmentByCorrelative(req.session.user.t_company_ruc,nrocorrelativo);
     req.session.notification = computil.notification('success','Eliminación existosa','Se eliminó el compromiso');
     res.redirect('/secure/listall');
-
+    auditlog(req);
 });
 router.post('/deletemonitor', function(req, res){
     var nrocorrelativo = req.body.nrocorrelativo;
     var result = mysql.monitor.deleteMonitorByCorrelative(req.session.user.t_company_ruc,nrocorrelativo);
     req.session.notification = computil.notification('success','Eliminación existosa','Se eliminó el monitoreo');
     res.redirect('/secure/listallmonit');
-
+    auditlog(req);
 });
 
 router.post('/emailToSoporte', function(req, res, next){
@@ -603,6 +606,7 @@ router.post('/updateCommit/:nrocorrelativo', function(req,res,next){
     }
     req.session.notification = computil.notification('success','Registro exitoso','Se actualizó el compromiso');
     res.redirect('/secure/listall');
+    auditlog(req);
 });
 
 router.post('/registermonit', function(req, res, next){
@@ -665,6 +669,7 @@ router.post('/registermonit', function(req, res, next){
     }
     req.session.notification = computil.notification('success','Registro Satisfactorio','Se registró un nuevo monitoreo');
     res.redirect('/secure/listallmonit');
+    auditlog(req);
 });
 
 router.post('/deletecommit', function(req, res){
@@ -672,7 +677,7 @@ router.post('/deletecommit', function(req, res){
     var result = mysql.commitment.deleteCommitmentByCorrelative(req.session.user.t_company_ruc,nrocorrelativo);
     req.session.notification = computil.notification('success','Eliminación existosa','Se eliminó el compromiso');
     res.redirect('/secure/listall');
-
+    auditlog(req);
 });
 router.post('/updateMonitor/:nrocorrelativo', function(req,res,next){
     req.type='monitor';
@@ -733,6 +738,7 @@ router.post('/updateMonitor/:nrocorrelativo', function(req,res,next){
     }
     req.session.notification = computil.notification('success','Registro exitoso','Se actualizó el monitoreo');
     res.redirect('/secure/listallmonit');
+    auditlog(req);
 });
 module.exports = router;
 
