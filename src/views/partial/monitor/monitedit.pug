@@ -15,19 +15,19 @@ block container
               case config.t_monitor_config_id
                 when 'MN01'
                   input(type='hidden', name=config.columnasoc, value=monitor[config.columnasoc])
-                when 'MN10'
+                when 'MN09'
                   .form-group
                     label.control-label.col-md-3.col-sm-6.col-xs-12(for=config.t_monitor_config_id,style='cursor: pointer') 
                       | #{config.name}
                     .col-md-6.col-sm-6.col-xs-12
                       textarea.form-control.col-md-7.col-xs-6(id=config.t_monitor_config_id, placeholder=config.name, type='text', name=config.columnasoc) #{monitor[config.columnasoc]}
-                when 'MN12'
+                when 'MN11'
                   .form-group
                     label.control-label.col-md-3.col-sm-6.col-xs-12(for=config.t_monitor_config_id,style='cursor: pointer') 
                       | #{config.name}
                     .col-md-6.col-sm-6.col-xs-12
                       textarea.form-control.col-md-7.col-xs-6(id=config.t_monitor_config_id, placeholder=config.name, type='text', name=config.columnasoc)  #{monitor[config.columnasoc]}
-                when 'MN14'
+                when 'MN13'
                   .form-group(style='margin-bottom: 0px')
                     label.control-label.col-md-3.col-sm-3.col-xs-12(for=config.t_monitor_config_id)
                       | Fecha de Inicio
@@ -37,7 +37,7 @@ block container
                           input.form-control(type='text', name=config.columnasoc, value=monitor[config.columnasoc])
                           span.input-group-addon
                             span.glyphicon.glyphicon-calendar 
-                when 'MN15'
+                when 'MN14'
                   .form-group
                     label.control-label.col-md-3.col-sm-3.col-xs-12
                       | Frecuencia de monitoreo
@@ -55,7 +55,7 @@ block container
                         option(value='Continuo', selected= monitor[config.columnasoc] =='Continuo') Continuo
                         option(value='Indefinido', selected= monitor[config.columnasoc] =='Indefinido') Indefinido 
 
-                when 'MN18'
+                when 'MN17'
                   .form-group
                     label.control-label.col-md-3.col-sm-3.col-xs-12
                       | Frecuencia de reporte
@@ -73,7 +73,7 @@ block container
                         option(value='Continuo', selected= monitor[config.columnasoc] =='Continuo') Continuo
                         option(value='Indefinido', selected= monitor[config.columnasoc] =='Indefinido') Indefinido 
 
-                when 'MN19'
+                when 'MN18'
                   .form-group
                     label.control-label.col-md-3.col-sm-3.col-xs-12
                       | Evidencias
@@ -90,7 +90,7 @@ block container
                               i.fa.fa-upload
                               |  Evidencias
 
-                when 'MN20'
+                when 'MN19'
                   .form-group
                     label.control-label.col-md-3.col-sm-3.col-xs-12
                       | Estado del monitoreo 
@@ -106,7 +106,7 @@ block container
                         option(value='Vencido', selected= monitor[config.columnasoc] =='Vencido') Vencido   
 
 
-                when 'MN22'
+                when 'MN21'
                   .form-group
                     label.control-label.col-md-3.col-sm-3.col-xs-12
                       | Acción sobre el monitoreo 
@@ -117,7 +117,7 @@ block container
                         option(value='Si', selected= monitor[config.columnasoc] =='Si') Si
                         option(value='No', selected= monitor[config.columnasoc] =='No') No
 
-                when 'MN24'
+                when 'MN23'
                   .form-group
                     label.control-label.col-md-3.col-sm-3.col-xs-12
                       | Frecuencia de verificación del monitoreo 
@@ -134,13 +134,13 @@ block container
                         option(value='Anual', selected= monitor[config.columnasoc] =='Anual') Anual
                         option(value='Continuo', selected= monitor[config.columnasoc] =='Continuo') Continuo
                         option(value='Indefinido', selected= monitor[config.columnasoc] =='Indefinido') Indefinido 
-                when 'MN26'
+                when 'MN25'
                   .form-group
                     label.control-label.col-md-3.col-sm-6.col-xs-12(for=config.t_monitor_config_id, style='cursor: pointer') 
                       | #{config.name}
                     .col-md-6.col-sm-6.col-xs-12
                       input.form-control.col-md-7.col-xs-6(id=config.t_monitor_config_id, placeholder='example@gmail.com,hotmail@outlook.com', type='email', name=config.columnasoc, multiple, value=monitor[config.columnasoc])
-                when 'MN27'
+                when 'MN26'
                   .form-group(style='margin-bottom: 0px')
                     label.control-label.col-md-3.col-sm-3.col-xs-12
                       | Fecha de verificación:
@@ -151,17 +151,17 @@ block container
                           span.input-group-addon
                             span.glyphicon.glyphicon-calendar 
 
-                when 'MN31'
+                when 'MN30'
                   .form-group
                     label.control-label.col-md-3.col-sm-6.col-xs-12(for=config.t_monitor_config_id,style='cursor: pointer') 
                       | #{config.name}
                     .col-md-6.col-sm-6.col-xs-12
                       textarea.form-control.col-md-7.col-xs-6(id=config.t_monitor_config_id, placeholder=config.name, type='text', name=config.columnasoc)  #{monitor[config.columnasoc]}
 
+                when 'MN31'
                 when 'MN32'
                 when 'MN33'
                 when 'MN34'
-                when 'MN35'
                   if evidencias
                     .form-group
                       label.control-label.col-md-3.col-sm-6.col-xs-12 Etapas

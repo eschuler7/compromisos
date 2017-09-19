@@ -128,6 +128,12 @@ var compromisosdb = {
 			const result = conn.query('select email from t_user where userid=?',[userid]);
 			conn.dispose();
 			return result;
+		},
+		getCountUsersByRuc : function(ruc) {
+			var conn = new mysql(connectionOptions);
+			const result = conn.query('select count(userid) from t_user where t_company_ruc=?',[ruc]);
+			conn.dispose();
+			return result;
 		}
 	},
 	rol : {
