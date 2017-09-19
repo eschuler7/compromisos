@@ -57,16 +57,16 @@ router.get('/dashboard',function(req, res){
         var dashboard = mysql.dashboard.getDashboardTypes();
         var commitment = mysql.commitment.getCommitmentTypes();
         var monitor = mysql.monitor.getMonitorTypes();
-        res.render('partial/dashboard/dashboard',{dashboard: dashboard, commitment: commitment, monitor: monitor});
+        res.render('partial/dashboard/dashboard',{dashboard: dashboard, commitment: commitment, monitor: monitor,notification: req.notification});
     } else {
-        res.render('partial/dashboard/dashboard');
+        res.render('partial/dashboard/dashboard',{notification: req.notification});
     }
 });
 
 router.get('/register',function(req, res){
     var commitment = mysql.commitment.getCommitmentTypes();
     var commitmentconfig = mysql.commitment.getComConfigByRuc(req.session.user.t_company_ruc);
-    res.render('partial/commitment/register',{commitment: commitment,commitmentconfig: commitmentconfig});
+    res.render('partial/commitment/register',{commitment: commitment,commitmentconfig: commitmentconfig,notification: req.notification});
 });
 
 router.get('/commitdetail/:nrocorrelativo', function(req, res){
@@ -74,7 +74,7 @@ router.get('/commitdetail/:nrocorrelativo', function(req, res){
     var commitmentconfig = mysql.commitment.getComConfigByRuc(req.session.user.t_company_ruc);
     var commitment = mysql.commitment.getCommitmentByCorrelative(req.session.user.t_company_ruc,commitmentconfig,nrocorrelativo);
     var commitmentevidence = mysql.evidence.getEvidences(req.session.user.t_company_ruc, nrocorrelativo);
-    res.render('partial/commitment/commitdetail',{nrocorrelativo:nrocorrelativo,commitment:commitment[0],commitmentconfig: commitmentconfig, commitmentevidence: commitmentevidence});
+    res.render('partial/commitment/commitdetail',{nrocorrelativo:nrocorrelativo,commitment:commitment[0],commitmentconfig: commitmentconfig, commitmentevidence: commitmentevidence,notification: req.notification});
 });
 
 router.get('/commitedit/:nrocorrelativo', function(req, res){
@@ -82,59 +82,47 @@ router.get('/commitedit/:nrocorrelativo', function(req, res){
     var commitmentconfig = mysql.commitment.getComConfigByRuc(req.session.user.t_company_ruc);
     var commitment = mysql.commitment.getCommitmentByCorrelative(req.session.user.t_company_ruc,commitmentconfig,nrocorrelativo);
     console.log(commitment);
-    res.render('partial/commitment/commitedit',{nrocorrelativo:nrocorrelativo,commitment:commitment[0],commitmentconfig: commitmentconfig});
+    res.render('partial/commitment/commitedit',{nrocorrelativo:nrocorrelativo,commitment:commitment[0],commitmentconfig: commitmentconfig,notification: req.notification});
 });
 
 router.get('/listall', function(req, res){
     var comconfig = mysql.commitment.getComConfigByRuc(req.session.user.t_company_ruc);
     var commitments = mysql.commitment.getCommitmentsByRuc(req.session.user.t_company_ruc,comconfig);
-    res.render('partial/commitment/listall',{comconfig: comconfig, commitments: commitments});
-});
-
-router.get('/update', function(req, res){
-    res.render('partial/update');
-});
-
-router.get('/home', function(req, res){
-    res.render('partial/home');
-});
-
-router.get('/massive', function(req, res){
-    res.render('partial/commitment/massive');
+    res.render('partial/commitment/listall',{comconfig: comconfig, commitments: commitments,notification: req.notification});
 });
 
 router.get('/configattrdashboard', function(req, res){
     var dashboard = mysql.dashboard.getDashboardTypes();
     var dashboardconfig = mysql.dashboard.getDashboardConfigByRuc(req.session.user.t_company_ruc);
-    res.render('partial/dashboard/configattrdashboard',{dashboard: dashboard,dashboardconfig: dashboardconfig});
+    res.render('partial/dashboard/configattrdashboard',{dashboard: dashboard,dashboardconfig: dashboardconfig,notification: req.notification});
 });
 router.get('/configattrcommit', function(req, res){
     var commitment = mysql.commitment.getCommitmentTypes();
     var commitmentconfig = mysql.commitment.getComConfigByRuc(req.session.user.t_company_ruc);
-    res.render('partial/commitment/configattrcommit',{commitment: commitment,commitmentconfig: commitmentconfig});
+    res.render('partial/commitment/configattrcommit',{commitment: commitment,commitmentconfig: commitmentconfig,notification: req.notification});
 });
 router.get('/configattrmonit', function(req, res){
     var monitor = mysql.monitor.getMonitorTypes();
     var monitorconfig = mysql.monitor.getMonitorConfigByRuc(req.session.user.t_company_ruc);
-    res.render('partial/monitor/configattrmonit',{monitor: monitor,monitorconfig: monitorconfig});
+    res.render('partial/monitor/configattrmonit',{monitor: monitor,monitorconfig: monitorconfig,notification: req.notification});
 });
 router.get('/listallmonit', function(req, res){
     var monitconfig = mysql.monitor.getMonitorConfigByRuc(req.session.user.t_company_ruc);
     var monitors = mysql.monitor.getMonitorsByRuc(req.session.user.t_company_ruc,monitconfig);
-    res.render('partial/monitor/listallmonit',{monitconfig: monitconfig, monitors: monitors });
+    res.render('partial/monitor/listallmonit',{monitconfig: monitconfig, monitors: monitors,notification: req.notification});
 });
 router.get('/monitdetail/:nrocorrelativo', function(req, res){
     var nrocorrelativo = req.params.nrocorrelativo;
     var monitconfig = mysql.monitor.getMonitorConfigByRuc(req.session.user.t_company_ruc);
     var monitor = mysql.monitor.getMonitorByCorrelative(req.session.user.t_company_ruc,monitconfig,nrocorrelativo);
     var monitorevidence = mysql.evidence.getEvidencesMonit(req.session.user.t_company_ruc, nrocorrelativo);
-    res.render('partial/monitor/monitdetail',{nrocorrelativo:nrocorrelativo,monitor:monitor[0],monitconfig: monitconfig, monitorevidence: monitorevidence});
+    res.render('partial/monitor/monitdetail',{nrocorrelativo:nrocorrelativo,monitor:monitor[0],monitconfig: monitconfig, monitorevidence: monitorevidence,notification: req.notification});
 });
 router.get('/monitedit/:nrocorrelativo', function(req, res){
     var nrocorrelativo = req.params.nrocorrelativo;
     var monitconfig = mysql.monitor.getMonitorConfigByRuc(req.session.user.t_company_ruc);
     var monitor = mysql.monitor.getMonitorByCorrelative(req.session.user.t_company_ruc,monitconfig,nrocorrelativo);
-    res.render('partial/monitor/monitedit',{nrocorrelativo:nrocorrelativo,monitor:monitor[0],monitconfig: monitconfig});
+    res.render('partial/monitor/monitedit',{nrocorrelativo:nrocorrelativo,monitor:monitor[0],monitconfig: monitconfig,notification: req.notification});
 });
 router.get('/massivemonit', function(req, res){
     res.render('partial/monitor/massivemonit');
@@ -143,7 +131,7 @@ router.get('/massivemonit', function(req, res){
 router.get('/registermonit', function(req, res){
     var monitor = mysql.monitor.getMonitorTypes();
     var monitorconfig = mysql.monitor.getMonitorConfigByRuc(req.session.user.t_company_ruc);
-    res.render('partial/monitor/registermonit',{monitor: monitor,monitorconfig: monitorconfig});
+    res.render('partial/monitor/registermonit',{monitor: monitor,monitorconfig: monitorconfig,notification: req.notification});
 });
 router.get('/logout', function(req, res){
     req.session.destroy();
@@ -235,11 +223,11 @@ router.get('/downloadtemplatemonit', function(req, res){
 router.get('/users', function(req, res){
     var users;
     users = mysql.user.getUsersByRuc(req.session.user.t_company_ruc);
-    res.render('partial/users/users', {users: users});
+    res.render('partial/users/users', {users: users,notification: req.notification});
 });
 
 router.get('/userscreate', function(req, res){
-    res.render('partial/users/userscreate');
+    res.render('partial/users/userscreate',{notification: req.notification});
 });
 
 router.get('/downloadcomevidence/:correlativo/:evicorrelativo/:filename', function(req, res){
@@ -357,6 +345,7 @@ router.post('/configattrcommit', function(req, res){
     //sección Eliminar data
     var result = mysql.commitment.deleteCommitmentTypes(req.session.user.t_company_ruc);
     mysql.commitment.updateCommitmentConfig(req.session.user.t_company_ruc,compromisos);
+    req.session.notification = computil.notification('success','Registro Satisfactorio','Se actualizaron los atributos');
     res.redirect('/secure/configattrcommit');
 });
 
@@ -367,6 +356,7 @@ router.post('/configattrmonit', function(req, res){
     //sección Eliminar data
     var result = mysql.monitor.deleteMonitorTypes(req.session.user.t_company_ruc);
     mysql.monitor.updateMonitorConfig(req.session.user.t_company_ruc,monitoreo);
+    req.session.notification = computil.notification('success','Registro Satisfactorio','Se actualizaron los atributos');
     res.redirect('/secure/configattrmonit');
 });
 
@@ -375,7 +365,8 @@ router.post('/configattrdashboard', function(req, res){
     var dashboard = req.body.dashboard;
     //sección Eliminar data
     var result = mysql.dashboard.deleteDashboardTypes(req.session.user.t_company_ruc);
-    mysql.dashboard.updateDashboardConfig(req.session.user.t_company_ruc,dashboard);    
+    mysql.dashboard.updateDashboardConfig(req.session.user.t_company_ruc,dashboard);
+    req.session.notification = computil.notification('success','Registro Satisfactorio','Se actualizaron los atributos');    
     res.redirect('/secure/configattrdashboard');
 });
 
@@ -386,32 +377,42 @@ router.post('/userscreate', function(req, res, next){
     var rol = req.body.rol;
     var lastname = req.body.lastname;
     var password = req.body.password;
+    var limitusers = mysql.user.getCountUsersByRuc(req.session.user.t_company_ruc);
 
-    try {
-        // Registering information
-        mysql.user.createUser(userid, computil.createHash(config().checksumhash,password), email, name, lastname, req.session.user.t_company_ruc, rol, 1);
+    if (limitusers <= 10)    
+        try {
+            // Registering information
+            mysql.user.createUser(userid, computil.createHash(config().checksumhash,password), email, name, lastname, req.session.user.t_company_ruc, rol, 1);
 
-        var htmlRegistrationTemplate = computil.loadEmailTemplate('security_newuser');
-        if(htmlRegistrationTemplate == '') {
-            var error = new Error('La plantilla de correo no pudo ser cargada');
-            next(error);
-        } else {
-            htmlRegistrationTemplate = htmlRegistrationTemplate.replace('$COMPANY_NAME',req.session.user.companyname);
-            htmlRegistrationTemplate = htmlRegistrationTemplate.replace('$BASE_URL',config().baseUrl);
-            htmlRegistrationTemplate = htmlRegistrationTemplate.replace('$USERID',userid);
-            htmlRegistrationTemplate = htmlRegistrationTemplate.replace('$PASSWORD',password);
-            compemail.sendEmail(email,'Registro en NOLAN',htmlRegistrationTemplate);
+            var htmlRegistrationTemplate = computil.loadEmailTemplate('security_newuser');
+            if(htmlRegistrationTemplate == '') {
+                var error = new Error('La plantilla de correo no pudo ser cargada');
+                next(error);
+            } else {
+                htmlRegistrationTemplate = htmlRegistrationTemplate.replace('$COMPANY_NAME',req.session.user.companyname);
+                htmlRegistrationTemplate = htmlRegistrationTemplate.replace('$BASE_URL',config().baseUrl);
+                htmlRegistrationTemplate = htmlRegistrationTemplate.replace('$USERID',userid);
+                htmlRegistrationTemplate = htmlRegistrationTemplate.replace('$PASSWORD',password);
+                compemail.sendEmail(email,'Registro en NOLAN',htmlRegistrationTemplate);
+            }
+            req.session.notification = computil.notification('success','Registro Satisfactorio','El usuario ha sido creado');
+            res.redirect('/secure/users');
+        } catch(e) {
+            mysql.user.deleteUserById(req.session.user.t_company_ruc, userid);
+            next(e);
         }
-        res.redirect('/secure/users');
-    } catch(e) {
-        mysql.user.deleteUserById(req.session.user.t_company_ruc, userid);
-        next(e);
+    else {
+       req.session.notification = computil.notification('error','Error de registro','Límite de usuarios excedido');
+       res.redirect('/secure/users');
+       
+
     }
 });
 
 router.post('/deleteUser', function(req, res){
     var userid = req.body.userid;
     var result = mysql.user.deleteUserById(req.session.user.t_company_ruc,userid);
+    req.session.notification = computil.notification('success','Eliminación existosa','Se eliminó el usuario');
     res.redirect('/secure/users');
 });
 
@@ -489,6 +490,7 @@ router.post('/register', function(req, res, next){
             mysql.evidence.registerEvidences(req.evicorrelativo, description, files, req.comcorrelativo, req.session.user.t_company_ruc);
         }
     }
+    req.session.notification = computil.notification('success','Registro Satisfactorio','Se registró un nuevo compromiso');
     res.redirect('/secure/listall');
     next();
 });
@@ -496,16 +498,17 @@ router.post('/register', function(req, res, next){
 router.post('/deletecommit', function(req, res){
     var nrocorrelativo = req.body.nrocorrelativo;
     var result = mysql.commitment.deleteCommitmentByCorrelative(req.session.user.t_company_ruc,nrocorrelativo);
+    req.session.notification = computil.notification('success','Eliminación existosa','Se eliminó el compromiso');
     res.redirect('/secure/listall');
 
 });
 router.post('/deletemonitor', function(req, res){
     var nrocorrelativo = req.body.nrocorrelativo;
     var result = mysql.monitor.deleteMonitorByCorrelative(req.session.user.t_company_ruc,nrocorrelativo);
+    req.session.notification = computil.notification('success','Eliminación existosa','Se eliminó el monitoreo');
     res.redirect('/secure/listallmonit');
 
 });
-
 
 router.post('/emailToSoporte', function(req, res, next){
     var userid = req.session.user.userid;
@@ -591,7 +594,7 @@ router.post('/updateCommit/:nrocorrelativo', function(req,res,next){
             mysql.evidence.registerEvidences(req.evicorrelativo, description, files, nrocorrelativo, req.session.user.t_company_ruc);
         }
     }
-
+    req.session.notification = computil.notification('success','Registro exitoso','Se actualizó el compromiso');
     res.redirect('/secure/listall');
 });
 
@@ -653,12 +656,14 @@ router.post('/registermonit', function(req, res, next){
             mysql.evidence.registerEvidencesMonit(req.evicorrelativo, description, files, req.moncorrelativo, req.session.user.t_company_ruc);
         }
     }
+    req.session.notification = computil.notification('success','Registro Satisfactorio','Se registró un nuevo monitoreo');
     res.redirect('/secure/listallmonit');
 });
 
 router.post('/deletecommit', function(req, res){
     var nrocorrelativo = req.body.nrocorrelativo;
     var result = mysql.commitment.deleteCommitmentByCorrelative(req.session.user.t_company_ruc,nrocorrelativo);
+    req.session.notification = computil.notification('success','Eliminación existosa','Se eliminó el compromiso');
     res.redirect('/secure/listall');
 
 });
@@ -719,7 +724,7 @@ router.post('/updateMonitor/:nrocorrelativo', function(req,res,next){
             mysql.evidence.registerEvidencesMonit(req.evicorrelativo, description, files, nrocorrelativo, req.session.user.t_company_ruc);
         }
     }
-
+    req.session.notification = computil.notification('success','Registro exitoso','Se actualizó el monitoreo');
     res.redirect('/secure/listallmonit');
 });
 module.exports = router;

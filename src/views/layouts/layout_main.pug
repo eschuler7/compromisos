@@ -10,7 +10,7 @@ html
     // Bootstrap
     link(href='/bootstrap/dist/css/bootstrap.min.css', rel='stylesheet')
     // Font Awesome
-    //link(href='/font-awesome/css/font-awesome.min.css', rel='stylesheet')
+    link(href='/font-awesome/css/font-awesome.min.css', rel='stylesheet')
     //link(href='/comfortaa/comfortaa.css', rel='stylesheet')
     // iCheck
     link(href='/iCheck/skins/flat/green.css', rel='stylesheet')
@@ -24,6 +24,10 @@ html
     // Custom Theme Style
     link(href='/build/css/custom.min.css', rel='stylesheet')
     link(href='/compromisos/css/compromisos.css', rel='stylesheet')
+    link(href='/pnotify/dist/pnotify.css', rel='stylesheet')
+    link(href='/pnotify/dist/pnotify.buttons.css', rel='stylesheet')
+    link(href='/pnotify/dist/pnotify.nonblock.css', rel='stylesheet')
+
   body.nav-md
     .container.body
       .main_container
@@ -224,4 +228,15 @@ html
         $('#confirm_emailToSoporte').text('Notificación a soporte');
         //$('#emailToSoporte input[name=ruc]').val(ruc);
         $('#confirm_soporte').modal('show');
+      }
+      // Handle Notifications
+      var none = 'none';
+      var notification = !{notification};
+      if(notification != 'none') {
+        new PNotify({
+          title: notification.title,
+          text: notification.text,
+          type: notification.type,
+          styling: 'bootstrap3'
+        });
       }

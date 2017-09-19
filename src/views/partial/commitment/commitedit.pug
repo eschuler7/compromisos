@@ -16,6 +16,13 @@ block container
               case config.t_commitment_config_id
                 when 'CM01'
                   input(type='hidden', name=config.columnasoc, value=commitment[config.columnasoc])
+                when 'CM08'
+                  .form-group
+                    label.control-label.col-md-3.col-sm-6.col-xs-12(for=config.t_commitment_config_id,style='cursor: pointer') 
+                      | #{config.name}
+                    .col-md-6.col-sm-6.col-xs-12
+                      textarea.form-control.col-md-7.col-xs-6(id=config.t_commitment_config_id, placeholder=config.name, type='text', name=config.columnasoc) #{commitment[config.columnasoc]}
+
                 when 'CM09'
                   .form-group
                     label.control-label.col-md-3.col-sm-6.col-xs-12(for=config.t_commitment_config_id,style='cursor: pointer') 
@@ -32,13 +39,6 @@ block container
 
                 when 'CM11'
                   .form-group
-                    label.control-label.col-md-3.col-sm-6.col-xs-12(for=config.t_commitment_config_id,style='cursor: pointer') 
-                      | #{config.name}
-                    .col-md-6.col-sm-6.col-xs-12
-                      textarea.form-control.col-md-7.col-xs-6(id=config.t_commitment_config_id, placeholder=config.name, type='text', name=config.columnasoc) #{commitment[config.columnasoc]}
-
-                when 'CM12'
-                  .form-group
                     label.control-label.col-md-3.col-sm-3.col-xs-12
                       | Temporalidad:
                     .col-sm-2
@@ -47,7 +47,7 @@ block container
                         option(value='Puntual', selected= commitment[config.columnasoc] == 'Puntual') Puntual
                         option(value='Permanente', selected= commitment[config.columnasoc] == 'Permanente') Permanente
 
-                when 'CM13'
+                when 'CM12'
                   .form-group
                     label.control-label.col-md-3.col-sm-3.col-xs-12(for=config.t_commitment_config_id)
                       | Fecha de Inicio:
@@ -58,7 +58,7 @@ block container
                           span.input-group-addon
                             span.glyphicon.glyphicon-calendar 
 
-                when 'CM14'
+                when 'CM13'
                   .form-group
                     label.control-label.col-md-3.col-sm-3.col-xs-12
                       | Frecuencia 
@@ -76,7 +76,7 @@ block container
                         option(value='Continuo', selected= commitment[config.columnasoc] =='Continuo') Continuo
                         option(value='Indefinido', selected= commitment[config.columnasoc] =='Indefinido') Indefinido 
 
-                when 'CM15'
+                when 'CM14'
                   .form-group
                     label.control-label.col-md-3.col-sm-3.col-xs-12
                       | Criticidad 
@@ -87,7 +87,7 @@ block container
                         option(value='Alto', selected= commitment[config.columnasoc] =='Alto') Alto
                         option(value='Medio', selected= commitment[config.columnasoc] =='Medio') Medio
                         option(value='Bajo', selected= commitment[config.columnasoc] =='Bajo') Bajo
-                when 'CM16'
+                when 'CM15'
                   .form-group
                     label.control-label.col-md-3.col-sm-3.col-xs-12(for=config.t_commitment_config_id)
                       | Evidencias
@@ -104,7 +104,7 @@ block container
                               i.fa.fa-upload
                               |  Evidencias
 
-                when 'CM17'
+                when 'CM16'
                   .form-group
                     label.control-label.col-md-3.col-sm-3.col-xs-12
                       | Estado del compromiso 
@@ -119,7 +119,7 @@ block container
                         option(value='Diferido', selected= commitment[config.columnasoc] =='Diferido') Diferido
                         option(value='Vencido', selected= commitment[config.columnasoc] =='Vencido') Vencido   
 
-                when 'CM18'
+                when 'CM17'
                   .form-group
                     label.control-label.col-md-3.col-sm-3.col-xs-12
                       | Acción sobre el compromiso 
@@ -130,7 +130,7 @@ block container
                         option(value='Si', selected= commitment[config.columnasoc] =='Si') Si
                         option(value='No', selected= commitment[config.columnasoc] =='No') No
 
-                when 'CM20'
+                when 'CM19'
                   .form-group
                     label.control-label.col-md-3.col-sm-3.col-xs-12
                       | Frecuencia propuesta de verificación 
@@ -148,13 +148,13 @@ block container
                         option(value='Continuo', selected= commitment[config.columnasoc] =='Continuo') Continuo
                         option(value='Indefinido', selected= commitment[config.columnasoc] =='Indefinido') Indefinido 
 
-                when 'CM22'
+                when 'CM21'
                   .form-group
                     label.control-label.col-md-3.col-sm-6.col-xs-12(for=config.t_commitment_config_id, style='cursor: pointer') 
                       | #{config.name}
                     .col-md-6.col-sm-6.col-xs-12
                       input.form-control.col-md-7.col-xs-6(id=config.t_commitment_config_id, placeholder='example@gmail.com,hotmail@outlook.com', type='email', name=config.columnasoc, multiple, value=commitment[config.columnasoc]) 
-                when 'CM25'
+                when 'CM24'
                   .form-group
                     label.control-label.col-md-3.col-sm-3.col-xs-12
                       | Fecha de verificación:
@@ -165,16 +165,16 @@ block container
                           span.input-group-addon
                             span.glyphicon.glyphicon-calendar 
 
-                when 'CM28'
+                when 'CM27'
                   .form-group
                     label.control-label.col-md-3.col-sm-6.col-xs-12(for=config.t_commitment_config_id,style='cursor: pointer') 
                       | #{config.name}
                     .col-md-6.col-sm-6.col-xs-12
                       textarea.form-control.col-md-7.col-xs-6(id=config.t_commitment_config_id, placeholder=config.name, type='text', name=config.columnasoc) #{commitment[config.columnasoc]}
+                when 'CM28'
                 when 'CM29'
                 when 'CM30'
                 when 'CM31'
-                when 'CM32'
                   if evidencias
                     .form-group
                       label.control-label.col-md-3.col-sm-6.col-xs-12 Etapas

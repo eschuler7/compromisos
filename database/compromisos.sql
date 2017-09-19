@@ -130,6 +130,8 @@ select * from t_user;
 
 delete from t_user where t_company_ruc='10101010101' and userid not like 'eschulerg';
 
+select count(*) from t_user where t_company_ruc='10101010101';
+
 select * from t_monitor_evidence where t_monitor_nrocorrelativo=1 and t_monitor_ruc=10101010101;
 
 select t_company_ruc,t_commitment_config_id,tco.name,tco.columnasoc from t_company_commitment tcc left join t_commitment_config tco on tcc.t_commitment_config_id=tco.id where t_company_ruc=10101010101;

@@ -14,6 +14,13 @@ block container
               case config.t_commitment_config_id
                 when 'CM01'
                   input(id=config.t_commitment_config_id, type='hidden', name=config.columnasoc)
+                when 'CM08'
+                  .form-group
+                    label.control-label.col-md-3.col-sm-6.col-xs-12(for=config.t_commitment_config_id,style='cursor: pointer') 
+                      | #{config.name}
+                    .col-md-6.col-sm-6.col-xs-12
+                      textarea.form-control.col-md-7.col-xs-6(id=config.t_commitment_config_id, placeholder=config.name, type='text', name=config.columnasoc)
+
                 when 'CM09'
                   .form-group
                     label.control-label.col-md-3.col-sm-6.col-xs-12(for=config.t_commitment_config_id,style='cursor: pointer') 
@@ -30,13 +37,6 @@ block container
 
                 when 'CM11'
                   .form-group
-                    label.control-label.col-md-3.col-sm-6.col-xs-12(for=config.t_commitment_config_id,style='cursor: pointer') 
-                      | #{config.name}
-                    .col-md-6.col-sm-6.col-xs-12
-                      textarea.form-control.col-md-7.col-xs-6(id=config.t_commitment_config_id, placeholder=config.name, type='text', name=config.columnasoc)
-
-                when 'CM12'
-                  .form-group
                     label.control-label.col-md-3.col-sm-3.col-xs-12
                       | Temporalidad
                     .col-sm-2 
@@ -45,7 +45,7 @@ block container
                         option(value='Puntual') Puntual
                         option(value='Permanente') Permanente
 
-                when 'CM13'
+                when 'CM12'
                   .form-group(style='margin-bottom: 0px')
                     label.control-label.col-md-3.col-sm-3.col-xs-12
                       | Fecha de Inicio
@@ -55,7 +55,7 @@ block container
                           input.form-control(type='text', name=config.columnasoc)
                           span.input-group-addon
                             span.glyphicon.glyphicon-calendar 
-                when 'CM14'
+                when 'CM13'
                   .form-group
                     label.control-label.col-md-3.col-sm-3.col-xs-12
                       | Frecuencia 
@@ -73,7 +73,7 @@ block container
                         option(value='Continuo') Continuo
                         option(value='Indefinido') Indefinido 
 
-                when 'CM15'
+                when 'CM14'
                   .form-group
                     label.control-label.col-md-3.col-sm-3.col-xs-12
                       | Criticidad 
@@ -85,7 +85,7 @@ block container
                         option(value='Medio') Medio
                         option(value='Bajo') Bajo
 
-                when 'CM16'
+                when 'CM15'
                   .form-group
                     label.control-label.col-md-3.col-sm-3.col-xs-12
                       | Evidencias
@@ -102,7 +102,7 @@ block container
                               i.fa.fa-upload
                               |  Evidencias
 
-                when 'CM17'
+                when 'CM16'
                   .form-group
                     label.control-label.col-md-3.col-sm-3.col-xs-12
                       | Estado del compromiso 
@@ -117,7 +117,7 @@ block container
                         option(value='Diferido') Diferido
                         option(value='Vencido') Vencido   
 
-                when 'CM18'
+                when 'CM17'
                   .form-group
                     label.control-label.col-md-3.col-sm-3.col-xs-12
                       | Acción sobre el compromiso 
@@ -128,7 +128,7 @@ block container
                         option(value='Si') Si
                         option(value='No') No
 
-                when 'CM20'
+                when 'CM19'
                   .form-group
                     label.control-label.col-md-3.col-sm-3.col-xs-12
                       | Frecuencia propuesta de verificación 
@@ -145,13 +145,13 @@ block container
                         option(value='Anual') Anual
                         option(value='Continuo') Continuo
                         option(value='Indefinido') Indefinido
-                when 'CM22'
+                when 'CM21'
                   .form-group
                     label.control-label.col-md-3.col-sm-6.col-xs-12(for=config.t_commitment_config_id, style='cursor: pointer') 
                       | #{config.name}
                     .col-md-6.col-sm-6.col-xs-12
                       input.form-control.col-md-7.col-xs-6(id=config.t_commitment_config_id, placeholder='example@gmail.com,hotmail@outlook.com', type='email', name=config.columnasoc, multiple)
-                when 'CM25'
+                when 'CM24'
                   .form-group(style='margin-bottom: 0px')
                     label.control-label.col-md-3.col-sm-3.col-xs-12
                       | Fecha de verificación:
@@ -162,17 +162,17 @@ block container
                           span.input-group-addon
                             span.glyphicon.glyphicon-calendar 
 
-                when 'CM28'
+                when 'CM27'
                   .form-group
                     label.control-label.col-md-3.col-sm-6.col-xs-12(for=config.t_commitment_config_id,style='cursor: pointer') 
                       | #{config.name}
                     .col-md-6.col-sm-6.col-xs-12
                       textarea.form-control.col-md-7.col-xs-6(id=config.t_commitment_config_id, placeholder=config.name, type='text', name=config.columnasoc)
 
+                when 'CM28'
                 when 'CM29'
                 when 'CM30'
                 when 'CM31'
-                when 'CM32'
                   if evidencias
                     .form-group
                       label.control-label.col-md-3.col-sm-6.col-xs-12 Etapas
