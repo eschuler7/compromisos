@@ -131,7 +131,7 @@ var compromisosdb = {
 		},
 		getCountUsersByRuc : function(ruc) {
 			var conn = new mysql(connectionOptions);
-			const result = conn.query('select count(userid) from t_user where t_company_ruc=?',[ruc]);
+			const result = conn.query('select count(userid) as totalusers from t_user where t_company_ruc=?',[ruc]);
 			conn.dispose();
 			return result;
 		}

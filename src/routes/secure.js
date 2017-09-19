@@ -240,6 +240,15 @@ router.get('/downloadcomevidence/:correlativo/:evicorrelativo/:filename', functi
 
 // TODAS LAS LLAMADAS POST
 
+router.post('/validateuserid', function(req, res){
+    var userid = req.body.userid;
+    var result = mysql.user.validateUserId(userid);
+    if(result.length > 0) {
+        res.send(false);
+    } else {
+        res.send(true);
+    }
+});
 router.post('/uploadcomtemplate',udploadComTemplate.single('template'), function(req,res){
     var workbook = new Excel.Workbook();
     var uploadpath = path.resolve('uploads/' + req.session.user.t_company_ruc);

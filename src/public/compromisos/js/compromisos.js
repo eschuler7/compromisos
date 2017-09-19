@@ -119,7 +119,16 @@ $(document).ready(function(){
 			userid : {
 				required : true,
 				maxlength : 20,
-				minlength : 5
+				minlength : 5,
+				remote : {
+					url : "validateuserid",
+					type : "post",
+					data : {
+						userid : function() {
+			            	return $( "#userid" ).val();
+			        	}
+					}
+				}
 			},
 			email : {
 				required : true,
@@ -148,7 +157,8 @@ $(document).ready(function(){
 			userid : {
 				required : 'Este campo es requerido',
 				maxlength : 'Máximo 20 caracteres',
-				minlength : 'Mínimo 5 caracteres'
+				minlength : 'Mínimo 5 caracteres',
+				remote : 'El id ya existe en la base de datos'
 			},
 			email : {
 				required : 'Este campo es requerido',
