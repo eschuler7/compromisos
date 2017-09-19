@@ -23,7 +23,7 @@ block container
           .clearfix
         .x_content
           p(style='text-align: justify') Cargue la plantilla de monitoreo que descargó previamente con la información de todos los monitoreos.
-          form.form-horizontal(action='uploadmontemplate',method='post')
+          form.form-horizontal(action='/secure/uploadmontemplate',method='post',enctype='multipart/form-data')
             .row
               .col-md-12.col-sm-12.col-xs-12
                 input#template.inputfile.inputfile-6(type='file',name='template')

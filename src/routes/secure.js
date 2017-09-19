@@ -124,8 +124,11 @@ router.get('/monitedit/:nrocorrelativo', function(req, res){
     var monitor = mysql.monitor.getMonitorByCorrelative(req.session.user.t_company_ruc,monitconfig,nrocorrelativo);
     res.render('partial/monitor/monitedit',{nrocorrelativo:nrocorrelativo,monitor:monitor[0],monitconfig: monitconfig,notification: req.notification});
 });
+router.get('/massive', function(req, res){
+    res.render('partial/commitment/massive',{notification: req.notification});
+});
 router.get('/massivemonit', function(req, res){
-    res.render('partial/monitor/massivemonit');
+    res.render('partial/monitor/massivemonit',{notification: req.notification});
 });
 
 router.get('/registermonit', function(req, res){
@@ -148,12 +151,14 @@ router.get('/downloadtemplate', function(req, res){
     var worksheet = workbook.addWorksheet('Compromisos');
 
     var comconfig = mysql.commitment.getComConfigByRuc(req.session.user.t_company_ruc);
-    worksheet.mergeCells(1,1,1,comconfig.length);
+    worksheet.mergeCells(1,1,1,comconfig.length - 1);
     worksheet.getCell('A1').value = 'Matriz Integrada de Compromisos de la Unidad de ' + req.session.user.unidad;
     var row = [];
     for (var i = 0; i < comconfig.length; i++) {
-        row.push(comconfig[i].name);
-        worksheet.getColumn(i + 1).width = 20;
+        if(comconfig[i].columnasoc != 'evidencias') {
+            row.push(comconfig[i].name);
+        }
+        //worksheet.getColumn(i + 1).width = 20;
     }
     worksheet.addRow(row);
 
@@ -189,12 +194,13 @@ router.get('/downloadtemplatemonit', function(req, res){
     var worksheet = workbook.addWorksheet('Monitoreo');
 
     var monconfig = mysql.monitor.getMonitorConfigByRuc(req.session.user.t_company_ruc);
-    worksheet.mergeCells(1,1,1,monconfig.length);
+    worksheet.mergeCells(1,1,1,monconfig.length - 1);
     worksheet.getCell('A1').value = 'Matriz Integrada de Monitoreo de la Unidad de ' + req.session.user.unidad;
     var row = [];
     for (var i = 0; i < monconfig.length; i++) {
-        row.push(monconfig[i].name);
-        worksheet.getColumn(i + 1).width = 20;
+        if(monconfig[i].columnasoc != 'evidencias') {
+            row.push(monconfig[i].name);
+        }
     }
     worksheet.addRow(row);
 
@@ -258,52 +264,14 @@ router.post('/uploadcomtemplate',udploadComTemplate.single('template'), function
     .then(function() {
         var worksheet = workbook.getWorksheet(1);
         var compcomm = mysql.commitment.getComConfigByRucForInsert(req.session.user.t_company_ruc);
-        if(worksheet.actualColumnCount == compcomm.length) {
+        if(worksheet.actualColumnCount == (compcomm.length - 1)) {
             console.log('Antes de Rows');
             var comdatatotal = [];
             worksheet.eachRow(function(row, rowNumber) {
                 if(rowNumber > 2) {
                     var comdata = [];
                     comdata.push(req.session.user.t_company_ruc);
-                    row.eachCell(function(cell, colNumber) {
-                        console.log(computil.checktype(cell.value));
-                        if (computil.checktype(cell.value) == 'date') {
-                            comdata.push(dateFormat((new Date(cell.value.valueOf() + cell.value.getTimezoneOffset() * 60000)),'yyyy-mm-dd'));
-                        } else {
-                            comdata.push(cell.value);
-                        }
-                    });
-                    comdata.push(req.session.user.userid);
-                    comdatatotal.push(comdata);
-                }
-            });
-            mysql.commitment.createCommitment(req.session.user.t_company_ruc, compcomm, comdatatotal);
-            res.redirect('/secure/listall');
-        } else {
-            console.log('Los campos no coinciden');
-            res.redirect('/secure/listall');
-        }
-    });
-});
-
-router.post('/uploadmontemplate',udploadMonTemplate.single('template'), function(req,res){
-    var workbook = new Excel.Workbook();
-    var uploadpath = path.resolve('uploads/' + req.session.user.t_company_ruc);
-    var filename = req.file.filename;
-    var fullpath = uploadpath + '/' + filename;
-    workbook.xlsx.readFile(fullpath)
-    .then(function() {
-        var worksheet = workbook.getWorksheet(1);
-        var compcomm = mysql.monitor.getComConfigByRucForInsert(req.session.user.t_company_ruc);
-        if(worksheet.actualColumnCount == compcomm.length) {
-            console.log('Antes de Rows');
-            var comdatatotal = [];
-            worksheet.eachRow(function(row, rowNumber) {
-                if(rowNumber > 2) {
-                    var comdata = [];
-                    comdata.push(req.session.user.t_company_ruc);
-                    row.eachCell(function(cell, colNumber) {
-                        console.log(computil.checktype(cell.value));
+                    row.eachCell({includeEmpty:true}, function(cell, colNumber) {
                         if (computil.checktype(cell.value) == 'date') {
                             comdata.push(dateFormat((new Date(cell.value.valueOf() + cell.value.getTimezoneOffset() * 60000)),'yyyy-mm-dd'));
                         } else {
@@ -315,11 +283,56 @@ router.post('/uploadmontemplate',udploadMonTemplate.single('template'), function
                 }
             });
             mysql.commitment.createCommitment(compcomm, comdatatotal);
+            req.session.notification = computil.notification('success','Carga Satisfactorio','La carga masiva de los compromisos se completó correctamente.');
             res.redirect('/secure/listall');
         } else {
-            console.log('Los campos no coinciden');
-            res.redirect('/secure/listall');
+            req.session.notification = computil.notification('error','Error de Caga Masiva','Los campos de la plantilla no coinciden');
+            res.redirect('/secure/massive');
         }
+    }).catch( function(reason) {
+        console.error( 'onRejected function called: ', reason );
+        req.session.notification = computil.notification('error','Error de Caga Masiva','Hubo un error durante la carga masiva, por favor verifique los datos e intente nuevamente.');
+        res.redirect('/secure/massive');
+    });;
+});
+
+router.post('/uploadmontemplate',udploadMonTemplate.single('template'), function(req,res){
+    var workbook = new Excel.Workbook();
+    var uploadpath = path.resolve('uploads/' + req.session.user.t_company_ruc);
+    var filename = req.file.filename;
+    var fullpath = uploadpath + '/' + filename;
+    workbook.xlsx.readFile(fullpath)
+    .then(function() {
+        var worksheet = workbook.getWorksheet(1);
+        var monconf = mysql.monitor.getMonitorConfigByRucForInsert(req.session.user.t_company_ruc);
+        if(worksheet.actualColumnCount == (monconf.length - 1)) { // menos uno porque no se cuenta las evidencias en la carga
+            var mondatatotal = [];
+            worksheet.eachRow(function(row, rowNumber) {
+                if(rowNumber > 2) {
+                    var mondata = [];
+                    mondata.push(req.session.user.t_company_ruc);
+                    row.eachCell({includeEmpty:true},function(cell, colNumber) {
+                        if (computil.checktype(cell.value) == 'date') {
+                            mondata.push(dateFormat((new Date(cell.value.valueOf() + cell.value.getTimezoneOffset() * 60000)),'yyyy-mm-dd'));
+                        } else {
+                            mondata.push(cell.value);
+                        }
+                    });
+                    mondata.push(req.session.user.userid);
+                    mondatatotal.push(mondata);
+                }
+            });
+            mysql.monitor.createMonitor(monconf, mondatatotal);
+            req.session.notification = computil.notification('success','Carga Satisfactorio','La carga masiva de los monitoreos se completó correctamente.');
+            res.redirect('/secure/listallmonit');
+        } else {
+            req.session.notification = computil.notification('error','Error de Caga Masiva','Los campos de la plantilla no coinciden');
+            res.redirect('/secure/massivemonit');
+        }
+    }).catch( function(reason) {
+        console.error( 'onRejected function called: ', reason );
+        req.session.notification = computil.notification('error','Error de Caga Masiva','Hubo un error durante la carga masiva, por favor verifique los datos e intente nuevamente.');
+        res.redirect('/secure/massivemonit');
     });
 });
 

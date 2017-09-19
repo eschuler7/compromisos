@@ -177,17 +177,21 @@ var compromisosdb = {
 			conn.dispose();
 			return result;
 		},
-		createCommitment : function(compcomm, comdatatotal) {
+		createCommitment : function(comconfig, comdatatotal) {
 			// Dynamic query build
 			var columns = [];
 			var values = [];
-			for (var i = 0; i < compcomm.length; i++) {
-				columns.push(compcomm[i].columnasoc);
-				values.push('?');
+			for (var i = 0; i < comconfig.length; i++) {
+				if(comconfig[i].columnasoc != 'evidencias') {
+					columns.push(comconfig[i].columnasoc);
+					values.push('?');
+				}
 			}
 			var dynamicquery = 'insert into t_commitment(ruc,' + columns.toString() + ',cdatetime,udatetime,t_user_userid) values(?,' + values.toString() + ',now(),now(),?)';
 			var conn = new mysql(connectionOptions);
+			console.log(dynamicquery);
 			for (var i = 0; i < comdatatotal.length; i++) {
+				console.log(comdatatotal[i]);
 				conn.query(dynamicquery,comdatatotal[i]);
 			}
 			conn.dispose();
@@ -380,8 +384,10 @@ var compromisosdb = {
 			var columns = [];
 			var values = [];
 			for (var i = 0; i < monconfig.length; i++) {
-				columns.push(monconfig[i].columnasoc);
-				values.push('?');
+				if(monconfig[i].columnasoc != 'evidencias'){
+					columns.push(monconfig[i].columnasoc);
+					values.push('?');
+				}
 			}
 			var dynamicquery = 'insert into t_monitor(ruc,' + columns.toString() + ',cdatetime,udatetime,t_user_userid) values(?,' + values.toString() + ',now(),now(),?)';
 			var conn = new mysql(connectionOptions);
@@ -427,6 +433,12 @@ var compromisosdb = {
 		getMonitorConfigByRuc : function(ruc) {
 			var conn = new mysql(connectionOptions);
 			const result = conn.query('select t_company_ruc,t_monitor_config_id,tmc.name,tmc.columnasoc from t_company_monitor tcm left join t_monitor_config tmc on tcm.t_monitor_config_id=tmc.id where t_company_ruc=?',[ruc]);
+			conn.dispose();
+			return result;
+		},
+		getMonitorConfigByRucForInsert : function(ruc) {
+			var conn = new mysql(connectionOptions);
+			const result = conn.query('select tmc.columnasoc from t_company_monitor tcm left join t_monitor_config tmc on tcm.t_monitor_config_id=tmc.id where t_company_ruc=?',[ruc]);
 			conn.dispose();
 			return result;
 		},
