@@ -21,6 +21,8 @@ var multer  = require('multer');
 var dateFormat = require('dateformat');
 // Loading Object Storage Library
 var objectstorage = require('../lib/objectstorage');
+//Audit Log
+var auditlog = require('../lib/auditlog');
 
 // Configuring upload disk storage
 var uploadsComStorage = multer.diskStorage({

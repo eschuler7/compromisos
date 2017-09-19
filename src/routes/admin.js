@@ -16,6 +16,8 @@ var objectstorage = require('../lib/objectstorage');
 // Loading file system handling middlewares
 var fs = require('fs');
 var path = require("path");
+//Audit Log
+var auditlog = require('../lib/auditlog');
 
 // TODAS LAS LLAMADAS GET
 router.get('/clients', function(req, res){
@@ -31,13 +33,13 @@ router.get('/clientdetail/:ruc', function(req, res){
 router.get('/createclient', function(req, res){
 	res.render('partial/admin/clientcreate',{notification: req.notification});
 });
-router.get('/logout', function(req, res, next){
+router.get('/logout', function(req, res){
 	req.ruc = req.session.user.t_company_ruc;
 	req.companyname = req.session.user.companyname;
 	req.userid = req.session.user.userid;
 	req.session.destroy();
 	res.redirect('/');
-	next();
+	auditlog(req);
 });
 router.get('/auditlogs', function(req, res){
 	var auditlogs = mysql.auditlog.getAuditLogs();
@@ -100,20 +102,21 @@ router.post('/createclient',function(req, res, next){
 			req.session.notification = computil.notification('success','Registro Satisfactorio','El cliente ha sido creado satisfactoriamente');
 		}
 		res.redirect('/admin/clients');
-		next();
+		auditlog(req);
 	} catch(e) {
 		mysql.company.deleteCompanyByRuc(ruc);
 		next(e);
 	}
 });
-router.post('/deleteclient', function(req, res, next){
+router.post('/deleteclient', function(req, res){
 	var ruc = req.body.ruc;
 	var result = mysql.company.deleteCompanyByRuc(ruc);
 	// Destroying object storage
 	objectstorage.container.destroyContainer(ruc);
 	res.redirect('/admin/clients');
-	next();
+	auditlog(req);
 });
+
 //Ajax call
 router.post('/validateruc', function(req, res){
 	var ruc = req.body.ruc;

@@ -15,6 +15,9 @@ var compemail = require('../lib/email');
 //Loading Config
 var config = require('../lib/config');
 
+//Audit Log
+var auditlog = require('../lib/auditlog');
+
 // TODOS LOS GET
 router.get('/',function(req, res){
 	res.render('login');
@@ -33,7 +36,7 @@ router.get('/prueba', function(req,res){
 });
 
 // TODOS LOS POST
-router.post('/login',function(req, res, next){
+router.post('/login',function(req, res){
 	var userid = req.body.userid;
 	var password = req.body.password;
 	
@@ -49,7 +52,7 @@ router.post('/login',function(req, res, next){
 				} else {
 					res.redirect('/secure/dashboard');
 				}
-				next();
+				auditlog(req);
 			}
 		} else {
 			res.render('login', {error : 'Los datos ingresados no son correctos.'});
