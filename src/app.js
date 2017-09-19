@@ -85,7 +85,6 @@ app.use(['/admin','/secure'],function(req, res, next) {
 		delete req.session.notification;
 	}
 	req.notification = notification;
-	console.log("Entro a notify apps");
 	next();
 });
 
