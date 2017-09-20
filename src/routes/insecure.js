@@ -31,10 +31,6 @@ router.get('/resetpwd', function(req, res){
 	res.render('resetpwd');
 });
 
-router.get('/prueba', function(req,res){
-	res.render('msg',{msg:{title:'¡ Cambio de contraseña exitoso !', body:'El cambio de contraseña fue satisfactorio, por favor inicie sesión con sus nuevos datos.'}});
-});
-
 // TODOS LOS POST
 router.post('/login',function(req, res){
 	var userid = req.body.userid;
@@ -48,10 +44,11 @@ router.post('/login',function(req, res){
 			} else {
 				req.session.user = userlist[0];
 				if(userlist[0].t_rol_rolid == 'ROL5') {
-					res.redirect('/admin/clients');
+					res.redirect('/admin/clientlist');
 				} else {
 					res.redirect('/secure/dashboard');
 				}
+				req.affected = null; // Para auditoría
 				auditlog(req);
 			}
 		} else {

@@ -86,7 +86,6 @@ var objectstorage = {
 	file : {
 		getFiles : function(ruc, codigoglobal) {
 			storageClient.auth(function(error){
-				console.log(storageClient);
 				if(error) {
 					console.log('Hubo un error en la conexión con el Object Storage:', error);
 					//res.send('Error');

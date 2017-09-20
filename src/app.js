@@ -19,7 +19,11 @@ var session = require('express-session');
 app.use(session({
   secret: '1qwe34rsc87yh',
   resave: false,
-  saveUninitialized: true
+  saveUninitialized: false,
+  cookie: {
+  	maxAge: 1800000
+  	//maxAge: 60000
+  }
 }));
 app.use(function(req,res,next){
     res.locals.session = req.session;
@@ -30,7 +34,7 @@ app.use(function(req,res,next){
 app.all('/secure/*',function(req,res,next){
 	if(req.session.user){
 		if(req.session.user.t_rol_rolid == 'ROL5'){
-			res.redirect('/admin/clients');
+			res.redirect('/admin/clientlist');
 		} else {
 			if(req.method == 'GET' && req.params[0] != 'dashboard' && req.params[0] != 'logout' && req.session.user.firsttime == 1) {
 				res.redirect('/secure/dashboard');
@@ -60,7 +64,7 @@ app.all('/admin/*',function(req,res,next){
 app.all('/', function(req, res, next){
 	if(req.session.user){
 		if(req.session.user.t_rol_rolid == 'ROL5'){
-			res.redirect('/admin/clients');
+			res.redirect('/admin/clientlist');
 		} else {
 			res.redirect('/secure/dashboard');
 		}
@@ -107,7 +111,6 @@ app.use(function(err, req, res, next){
 });
 
 // Starting NodeJS Server
-var objectstorage = require('./lib/objectstorage');
 app.listen(app.get('port'), '0.0.0.0', function() {
 	console.log('Node.Js Server iniciado en el puerto:',app.get('port'));
 	console.log('Node JS Version:', process.version);

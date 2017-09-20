@@ -4,37 +4,37 @@ block container
     .col-md-12.col-sm-12.col-xs-12
       .x_panel
         .x_title
-          h2 Listado de Monitoreos
+          h2 Listado de Compromisos
           .clearfix
         .x_content
-          table#tblmonitor.table.table-striped.table-bordered.jambo_table
+          table#tblcommitments.table.table-striped.table-bordered.jambo_table
             thead
               tr
-                each conf in monitconfig
+                each conf in comconfig
                   th #{conf.name}
                 th Opciones
             tbody
-              each monitor in monitors
+              each commitment in commitments
                 tr
-                  each column in monitconfig
-                    td #{monitor[column.columnasoc]}
+                  each column in comconfig
+                    td #{commitment[column.columnasoc]}
                   td
                     table
                       tr
                         td
-                          a.btn.btn-primary.btn-xs(href='monitdetail/' + monitor.nrocorrelativo)
+                          a.btn.btn-primary.btn-xs(href='commitdetail/' + commitment.nrocorrelativo)
                             i.fa.fa-folder
                             |  Ver
                         td
-                          a.btn.btn-info.btn-xs(href='monitedit/' + monitor.nrocorrelativo)
+                          a.btn.btn-info.btn-xs(href='commitedit/' + commitment.nrocorrelativo)
                             i.fa.fa-pencil
                             |  Editar
                         td
-                          a.btn.btn-danger.btn-xs(href='javascript:deletemonitor("' + monitor.nrocorrelativo + '")')
+                          a.btn.btn-danger.btn-xs(href='javascript:deletecommit("' + commitment.nrocorrelativo + '")')
                             i.fa.fa-trash-o
                             |  Eliminar
           .ln_solid(style='margin-top:5px')
-          a.btn.btn-warning.btn-xs(href='/secure/registermonit') Nuevo Monitoreo
+          a.btn.btn-warning.btn-xs(href='/secure/commitregister') Nuevo Compromiso
 
     #confirm_delete.modal.fade(tabindex='-1', role='dialog', data-backdrop='static', data-keyboard='false')
       .modal-dialog(role='document')
@@ -43,9 +43,9 @@ block container
             //-button.close(type='button', data-dismiss='modal', aria-label='Close')
               span(aria-hidden='true') &times;
             h4#comfirm_delete_title.modal-title
-          form#frmConfirmDelete(action='/secure/deletemonitor',method='post')
+          form#frmConfirmDelete(action='/secure/commitdelete',method='post')
             .modal-body
-              p Esta acción eliminará el monitoreo seleccionado
+              p Esta acción eliminará el compromiso seleccionado
               center
                 strong ¿Desea continuar?
               input(type='hidden',name='nrocorrelativo')
@@ -53,9 +53,10 @@ block container
               button.btn.btn-default.pull-left(type='button', data-dismiss='modal') Cancelar
               |  
               button.btn.btn-danger(type='submit') Continuar
+
     script.
       window.onload = function() {
-        $('#tblmonitor').DataTable({
+        $('#tblcommitments').DataTable({
           //dom: 'Bfrtip',
           //buttons: ['copy','csv','print'],
           lengthMenu: [[5, 15], [5, 15]],
@@ -68,15 +69,15 @@ block container
             },
             info: 'Mostrando _START_ a _END_ de _TOTAL_ registro(s)',
             infoEmpty: 'No se encontraron registros',
-            emptyTable: 'No se encontraron registros',
+            emptyTable: 'No tiene compromisos registrados',
             lengthMenu: 'Mostrar _MENU_ registro(s)',
             search: 'Buscar:',
             zeroRecords: 'No se encontraron registros coincidentes'
           }
         });
       }
-      var deletemonitor = function(nrocorrelativo) {
-        $('#comfirm_delete_title').text('Eliminar monitoreo con No correlativo  ' + nrocorrelativo);
+      var deletecommit = function(nrocorrelativo) {
+        $('#comfirm_delete_title').text('Eliminar compromiso con No correlativo  ' + nrocorrelativo);
         $('#frmConfirmDelete input[name=nrocorrelativo]').val(nrocorrelativo);
         $('#confirm_delete').modal('show');
       }

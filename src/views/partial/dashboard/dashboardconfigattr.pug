@@ -7,7 +7,7 @@ block container
           h2 Configuración de atributos
           .clearfix
         .x_content
-          form.form-label-left(action='/secure/configattrdashboard', method='POST')
+          form.form-label-left(action='/secure/dashboardconfigattr', method='POST')
             each type, index in dashboard
               - var check = false
               if type.mandatory === 1

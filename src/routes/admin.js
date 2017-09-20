@@ -20,9 +20,9 @@ var path = require("path");
 var auditlog = require('../lib/auditlog');
 
 // TODAS LAS LLAMADAS GET
-router.get('/clients', function(req, res){
+router.get('/clientlist', function(req, res){
 	var companies = mysql.company.listCompanies(req.session.user.t_company_ruc);
-	res.render('partial/admin/clients',{clients: companies, notification: req.notification});
+	res.render('partial/admin/clientlist',{clients: companies, notification: req.notification});
 });
 router.get('/clientdetail/:ruc', function(req, res){
 	var ruc = req.params.ruc;
@@ -30,11 +30,12 @@ router.get('/clientdetail/:ruc', function(req, res){
 	var users = mysql.user.getUsersByRuc(ruc);
 	res.render('partial/admin/clientdetail',{client:client[0],users:users, notification: req.notification});
 });
-router.get('/createclient', function(req, res){
+router.get('/clientcreate', function(req, res){
 	res.render('partial/admin/clientcreate',{notification: req.notification});
 });
 router.get('/logout', function(req, res){
 	req.ruc = req.session.user.t_company_ruc;
+	req.affected = null; // Para auditoría
 	req.companyname = req.session.user.companyname;
 	req.userid = req.session.user.userid;
 	req.session.destroy();
@@ -48,8 +49,9 @@ router.get('/auditlogs', function(req, res){
 
 
 // TODAS LAS LLAMADAS POST
-router.post('/createclient',function(req, res, next){
+router.post('/clientcreate',function(req, res, next){
 	var ruc = req.body.ruc;
+	req.affected = ruc; // Para auditoría
 	var companyname = req.body.companyname;
 	var userid = req.body.userid;
 	var email = req.body.email;
@@ -99,21 +101,25 @@ router.post('/createclient',function(req, res, next){
 				htmlRegistrationTemplate = htmlRegistrationTemplate.replace('$PASSWORD',password);
 				compemail.sendEmail(email,'Registro en NOLAN',htmlRegistrationTemplate);
 			}
-			req.session.notification = computil.notification('success','Registro Satisfactorio','El cliente ha sido creado satisfactoriamente');
+			req.session.notification = computil.notification('success','Registro Satisfactorio','El cliente ha sido creado satisfactoriamente.');
+			res.redirect('/admin/clientlist');
+			auditlog(req);
+		} else {
+			req.session.notification = computil.notification('error','Error de Registro','El cliente no pudo ser creado, por favor verifique los datos e intente nuevamente.');
+			res.redirect('/admin/clientlist');
 		}
-		res.redirect('/admin/clients');
-		auditlog(req);
 	} catch(e) {
 		mysql.company.deleteCompanyByRuc(ruc);
 		next(e);
 	}
 });
-router.post('/deleteclient', function(req, res){
+router.post('/clientdelete', function(req, res){
 	var ruc = req.body.ruc;
+	req.affected = ruc; // Para auditoría
 	var result = mysql.company.deleteCompanyByRuc(ruc);
 	// Destroying object storage
 	objectstorage.container.destroyContainer(ruc);
-	res.redirect('/admin/clients');
+	res.redirect('/admin/clientlist');
 	auditlog(req);
 });
 

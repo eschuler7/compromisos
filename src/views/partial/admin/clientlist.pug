@@ -40,7 +40,7 @@ block container
                         i.fa.fa-trash-o
                         |  Eliminar
           .ln_solid(style='margin-top:5px')
-          a.btn.btn-warning.btn-xs(href='/admin/createclient') Nuevo Cliente
+          a.btn.btn-warning.btn-xs(href='/admin/clientcreate') Nuevo Cliente
 
     #confirm_delete.modal.fade(tabindex='-1', role='dialog', data-backdrop='static', data-keyboard='false')
       .modal-dialog(role='document')
@@ -49,7 +49,7 @@ block container
             //-button.close(type='button', data-dismiss='modal', aria-label='Close')
               span(aria-hidden='true') &times;
             h4#comfirm_delete_title.modal-title
-          form#frmConfirmDelete(action='/admin/deleteclient',method='post')
+          form#frmConfirmDelete(action='/admin/clientdelete',method='post')
             .modal-body
               p Esta acción eliminará completamente el cliente así como también sus compromisos, monitoreos y toda su configuración. Después de haber sido eliminado no podrá dar marcha atrás.
               center

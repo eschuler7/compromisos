@@ -4,26 +4,26 @@ block container
     .col-md-12.col-sm-12.col-xs-12
       .x_panel
         .x_title
-          h2 Plantilla para carga masiva de monitoreo
+          h2 Plantilla para carga masiva de compromisos
           ul.nav.navbar-right.panel_toolbox
           .clearfix
         .x_content
           p(style='text-align: justify') Para realizar la carga masiva debe descargar la plantilla que se ha generado de acuerdo a las configuraciones iniciales que ha escogido durante el wizard de configuración inicial. Para modificar los campos del excel puede ir a configuración de atributos y seleccionar los campos que se mostrarán.
-          a.btn.btn-success.btn-xs(href='/secure/downloadtemplatemonit')
+          a.btn.btn-success.btn-xs(href='downloadtemplate')
             i.fa.fa-download
             |  Descargar Plantilla
-          a.btn.btn-info.btn-xs(href='/secure/configattrmonit')
+          a.btn.btn-info.btn-xs(href='/secure/commitconfigattr')
             i.fa.fa-gear
             |  Configuración de Atributos
 
       .x_panel
         .x_title
-          h2 Formulario de carga masiva de monitoreo
+          h2 Formulario de carga masiva de compromisos
           ul.nav.navbar-right.panel_toolbox
           .clearfix
         .x_content
-          p(style='text-align: justify') Cargue la plantilla de monitoreo que descargó previamente con la información de todos los monitoreos.
-          form.form-horizontal(action='/secure/uploadmontemplate',method='post',enctype='multipart/form-data')
+          p(style='text-align: justify') Cargue la plantilla de compromisos que descargó previamente con la información de todos sus compromisos.
+          form.form-horizontal(action='uploadcomtemplate',method='post',enctype='multipart/form-data')
             .row
               .col-md-12.col-sm-12.col-xs-12
                 input#template.inputfile.inputfile-6(type='file',name='template')
@@ -34,5 +34,5 @@ block container
                     |  Cargar Plantilla
             .ln_solid
             .form-group
-              a.btn.btn-default.btn-sm(href='clients') Cancelar
+              a.btn.btn-default.btn-sm(href='clients') Limpiar
               button.btn.btn-success.btn-sm.pull-right(type='submit') Siguiente

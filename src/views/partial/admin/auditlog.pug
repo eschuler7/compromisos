@@ -17,6 +17,7 @@ block container
                 th Usuario
                 th Router
                 th Acción
+                th Objecto Afectado
             tbody
               if auditlogs
                 each log in auditlogs
@@ -28,6 +29,7 @@ block container
                     td #{log.userid}
                     td #{log.router}
                     td #{log.action}
+                    td #{log.affected}
 
     script.
       window.onload = function() {

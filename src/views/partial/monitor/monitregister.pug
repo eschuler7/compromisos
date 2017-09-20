@@ -4,48 +4,29 @@ block container
     .col-md-12.col-sm-12.col-xs-12
       .x_panel
         .x_title
-          h2 Información del compromiso
+          h2 Formulario de Registro de Monitoreo
           ul.nav.navbar-right.panel_toolbox
           .clearfix
         .x_content
           - var evidencias = true
-          form#frmregisterCommit.form-horizontal(action='/secure/register',method='post',enctype='multipart/form-data')
-            each config in commitmentconfig
-              case config.t_commitment_config_id
-                when 'CM01'
-                  input(id=config.t_commitment_config_id, type='hidden', name=config.columnasoc)
-                when 'CM08'
+          form#frmregisterMonit.form-horizontal(action='/secure/monitregister',method='post',enctype='multipart/form-data')
+            each config in monitorconfig
+              case config.t_monitor_config_id
+                when 'MN01'
+                  input(id=config.t_monitor_config_id, type='hidden', name=config.columnasoc)
+                when 'MN09'
                   .form-group
-                    label.control-label.col-md-3.col-sm-6.col-xs-12(for=config.t_commitment_config_id,style='cursor: pointer') 
+                    label.control-label.col-md-3.col-sm-6.col-xs-12(for=config.t_monitor_config_id,style='cursor: pointer') 
                       | #{config.name}
                     .col-md-6.col-sm-6.col-xs-12
-                      textarea.form-control.col-md-7.col-xs-6(id=config.t_commitment_config_id, placeholder=config.name, type='text', name=config.columnasoc)
-
-                when 'CM09'
+                      textarea.form-control.col-md-7.col-xs-6(id=config.t_monitor_config_id, placeholder=config.name, type='text', name=config.columnasoc)
+                when 'MN11'
                   .form-group
-                    label.control-label.col-md-3.col-sm-6.col-xs-12(for=config.t_commitment_config_id,style='cursor: pointer') 
+                    label.control-label.col-md-3.col-sm-6.col-xs-12(for=config.t_monitor_config_id,style='cursor: pointer') 
                       | #{config.name}
                     .col-md-6.col-sm-6.col-xs-12
-                      textarea.form-control.col-md-7.col-xs-6(id=config.t_commitment_config_id, placeholder=config.name, type='text', name=config.columnasoc)
-
-                when 'CM10'
-                  .form-group
-                    label.control-label.col-md-3.col-sm-6.col-xs-12(for=config.t_commitment_config_id,style='cursor: pointer') 
-                      | #{config.name}
-                    .col-md-6.col-sm-6.col-xs-12
-                      textarea.form-control.col-md-7.col-xs-6(id=config.t_commitment_config_id, placeholder=config.name, type='text', name=config.columnasoc)
-
-                when 'CM11'
-                  .form-group
-                    label.control-label.col-md-3.col-sm-3.col-xs-12
-                      | Temporalidad
-                    .col-sm-2 
-                      select#temporalidad.form-control(name=config.columnasoc)
-                        option(value='') Seleccionar..
-                        option(value='Puntual') Puntual
-                        option(value='Permanente') Permanente
-
-                when 'CM12'
+                      textarea.form-control.col-md-7.col-xs-6(id=config.t_monitor_config_id, placeholder=config.name, type='text', name=config.columnasoc)
+                when 'MN13'
                   .form-group(style='margin-bottom: 0px')
                     label.control-label.col-md-3.col-sm-3.col-xs-12
                       | Fecha de Inicio
@@ -55,10 +36,27 @@ block container
                           input.form-control(type='text', name=config.columnasoc)
                           span.input-group-addon
                             span.glyphicon.glyphicon-calendar 
-                when 'CM13'
+                when 'MN14'
                   .form-group
                     label.control-label.col-md-3.col-sm-3.col-xs-12
-                      | Frecuencia 
+                      | Frecuencia de monitoreo
+                      span.required *
+                    .col-sm-2
+                      select#frecuencia.form-control(name=config.columnasoc)
+                        option(value='') Seleccionar..
+                        option(value='Unica') Unica
+                        option(value='Diaria') Diaria
+                        option(value='Semanal') Semanal
+                        option(value='Mensual') Mensual
+                        option(value='Trimestral') Trimestral
+                        option(value='Semestral') Semestral
+                        option(value='Anual') Anual
+                        option(value='Continuo') Continuo
+                        option(value='Indefinido') Indefinido 
+                when 'MN17'
+                  .form-group
+                    label.control-label.col-md-3.col-sm-3.col-xs-12
+                      | Frecuencia de reporte
                       span.required *
                     .col-sm-2
                       select#frecuencia.form-control(name=config.columnasoc)
@@ -73,39 +71,27 @@ block container
                         option(value='Continuo') Continuo
                         option(value='Indefinido') Indefinido 
 
-                when 'CM14'
-                  .form-group
-                    label.control-label.col-md-3.col-sm-3.col-xs-12
-                      | Criticidad 
-                      span.required *
-                    .col-sm-2
-                      select#criticidad.form-control(name=config.columnasoc)
-                        option(value='') Seleccionar..
-                        option(value='Alto') Alto
-                        option(value='Medio') Medio
-                        option(value='Bajo') Bajo
-
-                when 'CM15'
+                when 'MN18'
                   .form-group
                     label.control-label.col-md-3.col-sm-3.col-xs-12
                       | Evidencias
                     .col-md-6.col-sm-6.col-xs-12
                       .row
                         .col-md-12
-                          textarea.form-control.col-md-12(id=config.t_commitment_config_id, placeholder='Ingrese una evidencia textual o comentario sobre las evidencias físicas', type='text', name='evidencia_descripcion')
+                          textarea.form-control.col-md-12(id=config.t_monitor_config_id, placeholder='Ingrese una evidencia textual o comentario sobre las evidencias físicas', type='text', name='evidencia_descripcion')
                       .row
                         .col-md-12
                           input#template.inputfile.inputfile-6(type='file',name=config.columnasoc,data-multiple-caption='{count} archivos seleccionados',multiple)
-                          label#evidencias(for='template',width='100%', style='margin-top: 10px')
+                          label(for='template',width='100%', style='margin-top: 10px')
                             span
                             strong
                               i.fa.fa-upload
                               |  Evidencias
 
-                when 'CM16'
+                when 'MN19'
                   .form-group
                     label.control-label.col-md-3.col-sm-3.col-xs-12
-                      | Estado del compromiso 
+                      | Estado del monitoreo 
                       span.required *
                     .col-sm-2
                       select#estadocommit.form-control(name=config.columnasoc)
@@ -117,10 +103,10 @@ block container
                         option(value='Diferido') Diferido
                         option(value='Vencido') Vencido   
 
-                when 'CM17'
+                when 'MN21'
                   .form-group
                     label.control-label.col-md-3.col-sm-3.col-xs-12
-                      | Acción sobre el compromiso 
+                      | Acción sobre el monitoreo 
                       span.required *
                     .col-sm-2
                       select#accioncompromiso.form-control(name=config.columnasoc)
@@ -128,10 +114,10 @@ block container
                         option(value='Si') Si
                         option(value='No') No
 
-                when 'CM19'
+                when 'MN23'
                   .form-group
                     label.control-label.col-md-3.col-sm-3.col-xs-12
-                      | Frecuencia propuesta de verificación 
+                      | Frecuencia de verificación del monitoreo 
                       span.required *
                     .col-sm-2
                       select#frecuenciaverif.form-control(name=config.columnasoc)
@@ -145,13 +131,13 @@ block container
                         option(value='Anual') Anual
                         option(value='Continuo') Continuo
                         option(value='Indefinido') Indefinido
-                when 'CM21'
+                when 'MN25'
                   .form-group
-                    label.control-label.col-md-3.col-sm-6.col-xs-12(for=config.t_commitment_config_id, style='cursor: pointer') 
+                    label.control-label.col-md-3.col-sm-6.col-xs-12(for=config.t_monitor_config_id, style='cursor: pointer') 
                       | #{config.name}
                     .col-md-6.col-sm-6.col-xs-12
-                      input.form-control.col-md-7.col-xs-6(id=config.t_commitment_config_id, placeholder='example@gmail.com,hotmail@outlook.com', type='email', name=config.columnasoc, multiple)
-                when 'CM24'
+                      input.form-control.col-md-7.col-xs-6(id=config.t_monitor_config_id, placeholder='example@gmail.com,hotmail@outlook.com', type='email', name=config.columnasoc, multiple)
+                when 'MN26'
                   .form-group(style='margin-bottom: 0px')
                     label.control-label.col-md-3.col-sm-3.col-xs-12
                       | Fecha de verificación:
@@ -162,48 +148,48 @@ block container
                           span.input-group-addon
                             span.glyphicon.glyphicon-calendar 
 
-                when 'CM27'
+                when 'MN30'
                   .form-group
-                    label.control-label.col-md-3.col-sm-6.col-xs-12(for=config.t_commitment_config_id,style='cursor: pointer') 
+                    label.control-label.col-md-3.col-sm-6.col-xs-12(for=config.t_monitor_config_id,style='cursor: pointer') 
                       | #{config.name}
                     .col-md-6.col-sm-6.col-xs-12
-                      textarea.form-control.col-md-7.col-xs-6(id=config.t_commitment_config_id, placeholder=config.name, type='text', name=config.columnasoc)
+                      textarea.form-control.col-md-7.col-xs-6(id=config.t_monitor_config_id, placeholder=config.name, type='text', name=config.columnasoc)
 
-                when 'CM28'
-                when 'CM29'
-                when 'CM30'
-                when 'CM31'
+                when 'MN31'
+                when 'MN32'
+                when 'MN33'
+                when 'MN34'
                   if evidencias
                     .form-group
                       label.control-label.col-md-3.col-sm-6.col-xs-12 Etapas
                       .col-md-6.col-sm-6.col-xs-12
                         .checkbox(style='padding-top:0px')
                           label
-                            input.flat(id=config.t_commitment_config_id,type='checkbox', value='CM28', name='construccion')
+                            input.flat(id=config.t_monitor_config_id,type='checkbox', value='MN31', name='construccion')
                             |  Construcción
                         .checkbox(style='padding-top:0px')
                           label
-                            input.flat(id=config.t_commitment_config_id,type='checkbox', value='CM29', name='operacion')
+                            input.flat(id=config.t_monitor_config_id,type='checkbox', value='MN32', name='operacion')
                             |  Operación
                         .checkbox(style='padding-top:0px')
                           label
-                            input.flat(id=config.t_commitment_config_id,type='checkbox', value='CM30', name='cierre')
+                            input.flat(id=config.t_monitor_config_id,type='checkbox', value='MN33', name='cierre')
                             |  Cierre
                         .checkbox(style='padding-top:0px')
                           label
-                            input.flat(id=config.t_commitment_config_id,type='checkbox', value='CM31', name='postcierre')
+                            input.flat(id=config.t_monitor_config_id,type='checkbox', value='MN34', name='postcierre')
                             |  Post - Cierre
                     - evidencias = false
                 default
                   .form-group
-                    label.control-label.col-md-3.col-sm-6.col-xs-12(for=config.t_commitment_config_id,style='cursor: pointer') 
+                    label.control-label.col-md-3.col-sm-6.col-xs-12(for=config.t_monitor_config_id,style='cursor: pointer') 
                       | #{config.name}
                     .col-md-6.col-sm-6.col-xs-12
-                      input.form-control.col-md-7.col-xs-6(id=config.t_commitment_config_id, placeholder=config.name, type='text', name=config.columnasoc) 
+                      input.form-control.col-md-7.col-xs-6(id=config.t_monitor_config_id, placeholder=config.name, type='text', name=config.columnasoc) 
             .ln_solid
             .form-group
-              a.btn.btn-default.btn-sm(href='/secure/listall') Cancelar
-              button.btn.btn-success.btn-sm.pull-right(type='submit') Registrar compromiso
+              a.btn.btn-default.btn-sm(href='/secure/monitlist') Cancelar
+              button.btn.btn-success.btn-sm.pull-right(type='submit') Registrar monitoreo
   script(src='/jquery/dist/jquery.min.js')
   script(src='/moment/min/moment-with-locales.min.js')
   script(src='/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js')

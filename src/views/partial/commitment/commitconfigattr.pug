@@ -7,7 +7,7 @@ block container
           h2 Configuración de atributos
           .clearfix
         .x_content
-          form.form-label-left(action='/secure/configattrcommit', method='POST')
+          form.form-label-left(action='/secure/commitconfigattr', method='POST')
             each type, index in commitment
               - var check = false
               if type.mandatory === 1

@@ -67,7 +67,7 @@ html
                           a(href='/secure/dashboard') Dashboard
                         if session.user.t_rol_rolid == 'ROL1'
                           li
-                            a(href='/secure/configattrdashboard') Configuración de controles
+                            a(href='/secure/dashboardconfigattr') Configuración de controles
                     li
                       a
                         i.fa.fa-edit
@@ -75,14 +75,14 @@ html
                         span.fa.fa-chevron-down
                       ul.nav.child_menu
                         li
-                          a(href='/secure/listall') Mis compromisos
+                          a(href='/secure/commitlist') Mis compromisos
                         li
-                          a(href='/secure/massive') Carga masiva
+                          a(href='/secure/commitmassive') Carga masiva
                         li
-                          a(href='/secure/register') Registrar compromiso
+                          a(href='/secure/commitregister') Registrar compromiso
                         if session.user.t_rol_rolid == 'ROL1'
                           li
-                            a(href='/secure/configattrcommit') Configuración de atributos
+                            a(href='/secure/commitconfigattr') Configuración de atributos
                     li
                       a
                         i.fa.fa-binoculars
@@ -90,14 +90,14 @@ html
                         span.fa.fa-chevron-down
                       ul.nav.child_menu
                         li
-                          a(href='/secure/listallmonit') Monitoreo
+                          a(href='/secure/monitlist') Monitoreo
                         li
-                          a(href='/secure/massivemonit') Carga masiva
+                          a(href='/secure/monitmassive') Carga masiva
                         li
-                          a(href='/secure/registermonit') Registrar monitoreo
+                          a(href='/secure/monitregister') Registrar monitoreo
                         if session.user.t_rol_rolid == 'ROL1'
                           li
-                            a(href='/secure/configattrmonit') Configuración de atributos
+                            a(href='/secure/monitconfigattr') Configuración de atributos
                   if session.user.t_rol_rolid == 'ROL1'
                     li
                       a
@@ -106,7 +106,7 @@ html
                         span.fa.fa-chevron-down
                       ul.nav.child_menu
                         li
-                          a(href='/secure/users') Usuarios
+                          a(href='/secure/userlist') Usuarios
                         li
                           a(href='javascript:resetConfigGlobal()') Reinicializar data y configuración
             // /sidebar menu
