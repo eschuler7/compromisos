@@ -35,7 +35,6 @@ router.get('/clientcreate', function(req, res){
 });
 router.get('/logout', function(req, res){
 	req.ruc = req.session.user.t_company_ruc;
-	req.affected = null; // Para auditoría
 	req.companyname = req.session.user.companyname;
 	req.userid = req.session.user.userid;
 	req.session.destroy();
@@ -51,7 +50,7 @@ router.get('/auditlogs', function(req, res){
 // TODAS LAS LLAMADAS POST
 router.post('/clientcreate',function(req, res, next){
 	var ruc = req.body.ruc;
-	req.affected = ruc; // Para auditoría
+	req.idaffected = ruc; // Para auditoría
 	var companyname = req.body.companyname;
 	var userid = req.body.userid;
 	var email = req.body.email;
@@ -115,7 +114,7 @@ router.post('/clientcreate',function(req, res, next){
 });
 router.post('/clientdelete', function(req, res){
 	var ruc = req.body.ruc;
-	req.affected = ruc; // Para auditoría
+	req.idaffected = ruc; // Para auditoría
 	var result = mysql.company.deleteCompanyByRuc(ruc);
 	// Destroying object storage
 	objectstorage.container.destroyContainer(ruc);

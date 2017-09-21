@@ -11,7 +11,8 @@ var auditlog = function(req){
 	var router = originalUrl.length == 1 ? 'insecure' : originalUrl[0];
 	var action = originalUrl.length == 1 ? originalUrl[0] : originalUrl[1];
 	var sessionid = req.sessionID;
-	var affected = req.affected;
+	var idaffected = (req.idaffected || null);
+	var fieldaffected = (req.fieldaffected || null);
 	var ruc;
 	var companyname;
 	var userid;
@@ -24,7 +25,7 @@ var auditlog = function(req){
 		companyname = req.companyname;
 		userid = req.userid;
 	}
-	mysql.auditlog.registerAuditLog(date, ruc, companyname, sessionid, userid, router, action, affected);
+	mysql.auditlog.registerAuditLog(date, ruc, companyname, sessionid, userid, router, action, idaffected, fieldaffected);
 };
 
 module.exports = auditlog;

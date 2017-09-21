@@ -48,7 +48,6 @@ router.post('/login',function(req, res){
 				} else {
 					res.redirect('/secure/dashboard');
 				}
-				req.affected = null; // Para auditoría
 				auditlog(req);
 			}
 		} else {

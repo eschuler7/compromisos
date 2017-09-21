@@ -508,15 +508,15 @@ var compromisosdb = {
 		}
 	},
 	auditlog : {
-		registerAuditLog : function(date, ruc, companyname, sessionid, userid, router, action, affected) {
+		registerAuditLog : function(date, ruc, companyname, sessionid, userid, router, action, idaffected, fieldaffected) {
 			var conn = new mysql(connectionOptions);
-			const result = conn.query('insert into t_audit_log values(?,?,?,?,?,?,?,?)',[date, ruc, companyname, sessionid, userid, router, action, affected]);
+			const result = conn.query('insert into t_audit_log values(?,?,?,?,?,?,?,?,?)',[date, ruc, companyname, sessionid, userid, router, action, idaffected, fieldaffected]);
 			conn.dispose();
 			return result;
 		},
 		getAuditLogs : function() {
 			var conn = new mysql(connectionOptions);
-			const result = conn.query("select DATE_FORMAT(datetime,'%d/%m/%Y %T') as datetime,ruc,companyname,sessionid,userid,router,action,affected from t_audit_log");
+			const result = conn.query("select DATE_FORMAT(datetime,'%d/%m/%Y %T') as datetime,ruc,companyname,sessionid,userid,router,action,idaffected,fieldaffected from t_audit_log");
 			conn.dispose();
 			return result;
 		}

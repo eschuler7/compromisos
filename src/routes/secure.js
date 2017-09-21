@@ -138,7 +138,6 @@ router.get('/monitregister', function(req, res){
 });
 router.get('/logout', function(req, res){
     req.ruc = req.session.user.t_company_ruc;
-    req.affected = null; // Para auditoría
     req.companyname = req.session.user.companyname;
     req.userid = req.session.user.userid;
     req.session.destroy();
@@ -399,7 +398,7 @@ router.post('/configattrdashboard', function(req, res){
 
 router.post('/usercreate', function(req, res, next){
     var userid = req.body.userid;
-    req.affected = userid; // Para auditoría
+    req.idaffected = userid; // Para auditoría
     var email = req.body.email;
     var name = req.body.name;
     var rol = req.body.rol;
@@ -424,7 +423,7 @@ router.post('/usercreate', function(req, res, next){
                 compemail.sendEmail(email,'Registro en NOLAN',htmlRegistrationTemplate);
             }
             req.session.notification = computil.notification('success','Registro Satisfactorio','El usuario ha sido creado');
-            res.redirect('/secure/users');
+            res.redirect('/secure/userlist');
             auditlog(req);
         } catch(e) {
             mysql.user.deleteUserById(req.session.user.t_company_ruc, userid);
@@ -438,7 +437,7 @@ router.post('/usercreate', function(req, res, next){
 
 router.post('/userdelete', function(req, res){
     var userid = req.body.userid;
-    req.affected = userid; // Para auditoría
+    req.idaffected = userid; // Para auditoría
     var result = mysql.user.deleteUserById(req.session.user.t_company_ruc,userid);
     req.session.notification = computil.notification('success','Eliminación existosa','Se eliminó el usuario');
     res.redirect('/secure/userlist');
@@ -466,7 +465,7 @@ router.post('/commitregister', function(req, res, next){
     req.type = 'commitment';
     var correlativocom = mysql.commitment.getNextCorrelative(req.session.user.t_company_ruc); // correlativo para compromisos
     req.comcorrelativo = correlativocom[0].correlativo;
-    req.affected = correlativocom[0].correlativo; // Para auditoría
+    req.idaffected = correlativocom[0].correlativo; // Para auditoría
     //var correlativoevi = mysql.evidence.getNextCorrelative(req.session.user.t_company_ruc, req.comcorrelativo); // correlativo para evidencias
     req.evicorrelativo = 1;
     next();
@@ -527,7 +526,7 @@ router.post('/commitregister', function(req, res, next){
 
 router.post('/commitdelete', function(req, res){
     var nrocorrelativo = req.body.nrocorrelativo;
-    req.affected = nrocorrelativo; // Para auditoría
+    req.idaffected = nrocorrelativo; // Para auditoría
     var result = mysql.commitment.deleteCommitmentByCorrelative(req.session.user.t_company_ruc,nrocorrelativo);
     req.session.notification = computil.notification('success','Eliminación existosa','Se eliminó el compromiso');
     res.redirect('/secure/commitlist');
@@ -535,7 +534,7 @@ router.post('/commitdelete', function(req, res){
 });
 router.post('/monitdelete', function(req, res){
     var nrocorrelativo = req.body.nrocorrelativo;
-    req.affected = nrocorrelativo; // Para auditoría
+    req.idaffected = nrocorrelativo; // Para auditoría
     var result = mysql.monitor.deleteMonitorByCorrelative(req.session.user.t_company_ruc,nrocorrelativo);
     req.session.notification = computil.notification('success','Eliminación existosa','Se eliminó el monitoreo');
     res.redirect('/secure/monitlist');
@@ -571,12 +570,13 @@ router.post('/emailToSoporte', function(req, res, next){
 router.post('/commitupdate/:nrocorrelativo', function(req,res,next){
     req.type='commitment';
     req.comcorrelativo = req.params.nrocorrelativo;
-    req.affected = req.params.nrocorrelativo; // Para auditoría
+    req.idaffected = req.params.nrocorrelativo; // Para auditoría
     var correlativoevi = mysql.evidence.getNextCorrelative(req.session.user.t_company_ruc, req.comcorrelativo); // correlativo para evidencias
     req.evicorrelativo = correlativoevi[0].correlativo;
     next();
 },uploadEvidences.array('evidencias'),function(req, res){
     var comdata = req.body.comdata.split(',');
+    req.fieldaffected = req.body.comdata; // Para auditoría
     var cominput = [];
     var nrocorrelativo = req.body.nrocorrelativo;
 
@@ -637,7 +637,7 @@ router.post('/monitregister', function(req, res, next){
     req.type = 'monitor';
     var correlativomon = mysql.monitor.getNextCorrelative(req.session.user.t_company_ruc); // correlativo para compromisos
     req.moncorrelativo = correlativomon[0].correlativo;
-    req.affected = correlativomon[0].correlativo; // Para auditoría
+    req.idaffected = correlativomon[0].correlativo; // Para auditoría
     //var correlativoevi = mysql.evidence.getNextCorrelative(req.session.user.t_company_ruc, req.comcorrelativo); // correlativo para evidencias
     req.evicorrelativo = 1;
     next();
@@ -698,7 +698,7 @@ router.post('/monitregister', function(req, res, next){
 
 router.post('/commitdelete', function(req, res){
     var nrocorrelativo = req.body.nrocorrelativo;
-    req.affected = nrocorrelativo; // Para auditoría
+    req.idaffected = nrocorrelativo; // Para auditoría
     var result = mysql.commitment.deleteCommitmentByCorrelative(req.session.user.t_company_ruc,nrocorrelativo);
     req.session.notification = computil.notification('success','Eliminación existosa','Se eliminó el compromiso');
     res.redirect('/secure/commitlist');
@@ -707,12 +707,13 @@ router.post('/commitdelete', function(req, res){
 router.post('/monitupdate/:nrocorrelativo', function(req,res,next){
     req.type='monitor';
     req.moncorrelativo = req.params.nrocorrelativo;
-    req.affected = req.params.nrocorrelativo; // Para auditoría
+    req.idaffected = req.params.nrocorrelativo; // Para auditoría
     var correlativoevi = mysql.evidence.getNextCorrelativeMonit(req.session.user.t_company_ruc, req.moncorrelativo); // correlativo para evidencias
     req.evicorrelativo = correlativoevi[0].correlativo;
     next();
 },uploadEvidences.array('evidencias'),function(req, res){
     var mondata = req.body.mondata.split(',');
+    req.fieldaffected = req.body.mondata; // Auditoría
     var moninput = [];
     var nrocorrelativo = req.body.nrocorrelativo;
 
