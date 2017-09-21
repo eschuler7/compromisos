@@ -258,6 +258,7 @@ router.post('/validateuserid', function(req, res){
         res.send(true);
     }
 });
+
 router.post('/uploadcomtemplate',udploadComTemplate.single('template'), function(req,res){
     var workbook = new Excel.Workbook();
     var uploadpath = path.resolve('uploads/' + req.session.user.t_company_ruc);
@@ -627,7 +628,7 @@ router.post('/commitupdate/:nrocorrelativo', function(req,res,next){
             mysql.evidence.registerEvidences(req.evicorrelativo, description, files, nrocorrelativo, req.session.user.t_company_ruc);
         }
     }
-    req.session.notification = computil.notification('success','Registro exitoso','Se actualizó el compromiso');
+    req.session.notification = computil.notification('success','Actualización exitoss','Se actualizó el compromiso correctamente.');
     res.redirect('/secure/commitlist');
     auditlog(req);
 });
@@ -763,7 +764,7 @@ router.post('/monitupdate/:nrocorrelativo', function(req,res,next){
             mysql.evidence.registerEvidencesMonit(req.evicorrelativo, description, files, nrocorrelativo, req.session.user.t_company_ruc);
         }
     }
-    req.session.notification = computil.notification('success','Registro exitoso','Se actualizó el monitoreo');
+    req.session.notification = computil.notification('success','Actualización exitosa','Se actualizó el monitoreo correctamente.');
     res.redirect('/secure/monitlist');
     auditlog(req);
 });
