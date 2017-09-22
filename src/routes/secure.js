@@ -90,10 +90,10 @@ router.get('/commitlist', function(req, res){
     res.render('partial/commitment/commitlist',{comconfig: comconfig, commitments: commitments,notification: req.notification});
 });
 
-router.get('/configattrdashboard', function(req, res){
+router.get('/dashboardconfigattr', function(req, res){
     var dashboard = mysql.dashboard.getDashboardTypes();
     var dashboardconfig = mysql.dashboard.getDashboardConfigByRuc(req.session.user.t_company_ruc);
-    res.render('partial/dashboard/configattrdashboard',{dashboard: dashboard,dashboardconfig: dashboardconfig,notification: req.notification});
+    res.render('partial/dashboard/dashboardconfigattr',{dashboard: dashboard,dashboardconfig: dashboardconfig,notification: req.notification});
 });
 router.get('/commitconfigattr', function(req, res){
     var commitment = mysql.commitment.getCommitmentTypes();
@@ -423,14 +423,14 @@ router.post('/monitconfigattr', function(req, res){
     res.redirect('/secure/monitconfigattr');
 });
 
-router.post('/configattrdashboard', function(req, res){
+router.post('/dashboardconfigattr', function(req, res){
     //sección dashboard
     var dashboard = req.body.dashboard;
     //sección Eliminar data
     var result = mysql.dashboard.deleteDashboardTypes(req.session.user.t_company_ruc);
     mysql.dashboard.updateDashboardConfig(req.session.user.t_company_ruc,dashboard);
     req.session.notification = computil.notification('success','Registro Satisfactorio','Se actualizaron los atributos');    
-    res.redirect('/secure/configattrdashboard');
+    res.redirect('/secure/dashboardconfigattr');
 });
 
 router.post('/usercreate', function(req, res, next){
