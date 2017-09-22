@@ -81,7 +81,6 @@ router.get('/commitedit/:nrocorrelativo', function(req, res){
     var nrocorrelativo = req.params.nrocorrelativo;
     var commitmentconfig = mysql.commitment.getComConfigByRuc(req.session.user.t_company_ruc);
     var commitment = mysql.commitment.getCommitmentByCorrelative(req.session.user.t_company_ruc,commitmentconfig,nrocorrelativo);
-    console.log(commitment);
     res.render('partial/commitment/commitedit',{nrocorrelativo:nrocorrelativo,commitment:commitment[0],commitmentconfig: commitmentconfig,notification: req.notification});
 });
 
@@ -145,38 +144,60 @@ router.get('/logout', function(req, res){
     auditlog(req);
 });
 
-router.get('/downloadtemplate', function(req, res){
+router.get('/committemplate', function(req, res){
     var workbook = new Excel.Workbook();
     workbook.creator = 'Nolan';
     workbook.lastModifiedBy = 'Nolan';
     workbook.created = new Date();
     workbook.modified = new Date();
-    var worksheet = workbook.addWorksheet('Compromisos');
 
-    var comconfig = mysql.commitment.getComConfigByRuc(req.session.user.t_company_ruc);
-    worksheet.mergeCells(1,1,1,comconfig.length - 1);
-    worksheet.getCell('A1').value = 'Matriz Integrada de Compromisos de la Unidad de ' + req.session.user.unidad;
-    var row = [];
-    for (var i = 0; i < comconfig.length; i++) {
-        if(comconfig[i].columnasoc != 'evidencias') {
-            row.push(comconfig[i].name);
-        }
-        //worksheet.getColumn(i + 1).width = 20;
+    var comconfigbyruc = mysql.commitment.getComConfigByRuc(req.session.user.t_company_ruc);
+    var comconfig = mysql.commitment.getCommitmentTypes();
+
+    var wscommit = workbook.addWorksheet('Compromisos');
+    wscommit.mergeCells(1,1,1,comconfigbyruc.length - 1); // menos 1 por el campo de evidencias
+    wscommit.getCell('A1').value = 'Matriz Integrada de Compromisos de la Unidad de ' + req.session.user.unidad;
+    for (var i = 0; i < comconfigbyruc.length - 1; i++) {
+        wscommit.getColumn(i + 1).width = 20;
     }
-    worksheet.addRow(row);
-
-    worksheet.eachRow(function(row, rowNumber) {
-        row.eachCell(function(cell, colNumber) {
-            cell.alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
-            cell.border = {
-                top: {style:'medium'},
-                left: {style:'medium'},
-                bottom: {style:'medium'},
-                right: {style:'medium'}
-            };
-            cell.name = comconfig[colNumber - 1].columnasoc;
-        });
+    var row = [];
+    for (var i = 0; i < comconfigbyruc.length; i++) {
+        if(comconfigbyruc[i].columnasoc != 'evidencias') {
+            row.push(comconfigbyruc[i].name);
+        }
+    }
+    wscommit.addRow(row);
+    wscommit.addRow([1]);
+    wscommit.eachRow(function(row, rowNumber) {
+        if(rowNumber < 3) {
+            row.eachCell(function(cell, colNumber) {
+                cell.alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
+                cell.border = {
+                    top: {style:'thin'},
+                    left: {style:'thin'},
+                    bottom: {style:'thin'},
+                    right: {style:'thin'}
+                };
+                cell.name = comconfigbyruc[colNumber - 1].columnasoc;
+            });
+        } else {
+            for (var i = 0; i < comconfigbyruc.length - 1; i++) {
+                row.getCell(i+1).border = {
+                    top: {style:'thin'},
+                    left: {style:'thin'},
+                    bottom: {style:'thin'},
+                    right: {style:'thin'}
+                }
+            }
+        }
     });
+
+    var wscaption = workbook.addWorksheet('Leyenda');
+    wscaption.getCell('A1').value = 'Descripción de los campos.';
+    wscaption.addRow(['Nombre', 'Descripción']);
+    for (var i = 0; i < comconfig.length; i++) {
+        wscaption.addRow([comconfig[i].name, comconfig[i].description]);
+    }
 
     var downloadpath = path.resolve('downloads/' + req.session.user.t_company_ruc);
     var filename = req.session.user.userid + '-compromiso-plantilla.xlsx';
@@ -188,37 +209,53 @@ router.get('/downloadtemplate', function(req, res){
     });
 });
 
-router.get('/downloadtemplatemonit', function(req, res){
+router.get('/monittemplate', function(req, res){
     var workbook = new Excel.Workbook();
     workbook.creator = 'Nolan';
     workbook.lastModifiedBy = 'Nolan';
     workbook.created = new Date();
     workbook.modified = new Date();
-    var worksheet = workbook.addWorksheet('Monitoreo');
+    var wsmonit = workbook.addWorksheet('Monitoreos');
 
     var monconfig = mysql.monitor.getMonitorConfigByRuc(req.session.user.t_company_ruc);
-    worksheet.mergeCells(1,1,1,monconfig.length - 1);
-    worksheet.getCell('A1').value = 'Matriz Integrada de Monitoreo de la Unidad de ' + req.session.user.unidad;
+    wsmonit.mergeCells(1,1,1,monconfig.length - 1);
+    wsmonit.getCell('A1').value = 'Matriz Integrada de Monitoreo de la Unidad de ' + req.session.user.unidad;
+    for (var i = 0; i < monconfig.length - 1; i++) {
+        wsmonit.getColumn(i + 1).width = 20;
+    }
     var row = [];
     for (var i = 0; i < monconfig.length; i++) {
         if(monconfig[i].columnasoc != 'evidencias') {
             row.push(monconfig[i].name);
         }
     }
-    worksheet.addRow(row);
+    wsmonit.addRow(row);
+    wsmonit.addRow([1]);
 
-    worksheet.eachRow(function(row, rowNumber) {
-        row.eachCell(function(cell, colNumber) {
-            cell.alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
-            cell.border = {
-                top: {style:'medium'},
-                left: {style:'medium'},
-                bottom: {style:'medium'},
-                right: {style:'medium'}
-            };
-            cell.name = monconfig[colNumber - 1].columnasoc;
-        });
+    wsmonit.eachRow(function(row, rowNumber) {
+        if(rowNumber < 3) {
+            row.eachCell(function(cell, colNumber) {
+                cell.alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
+                cell.border = {
+                    top: {style:'medium'},
+                    left: {style:'medium'},
+                    bottom: {style:'medium'},
+                    right: {style:'medium'}
+                };
+                cell.name = monconfig[colNumber - 1].columnasoc;
+            });
+        } else {
+            for (var i = 0; i < monconfig.length; i++) {
+                row.getCell(i+1).border = {
+                    top: {style:'thin'},
+                    left: {style:'thin'},
+                    bottom: {style:'thin'},
+                    right: {style:'thin'}
+                }
+            }
+        }
     });
+    var wscaption = workbook.addWorksheet('Leyenda');
 
     var downloadpath = path.resolve('downloads/' + req.session.user.t_company_ruc);
     var filename = req.session.user.userid + '-monitoreo-plantilla.xlsx';
@@ -269,7 +306,6 @@ router.post('/uploadcomtemplate',udploadComTemplate.single('template'), function
         var worksheet = workbook.getWorksheet(1);
         var compcomm = mysql.commitment.getComConfigByRucForInsert(req.session.user.t_company_ruc);
         if(worksheet.actualColumnCount == (compcomm.length - 1)) {
-            console.log('Antes de Rows');
             var comdatatotal = [];
             worksheet.eachRow(function(row, rowNumber) {
                 if(rowNumber > 2) {
@@ -584,7 +620,6 @@ router.post('/commitupdate/:nrocorrelativo', function(req,res,next){
     for (var i = 0; i < comdata.length; i++) {
         if(comdata[i] != 'evidencias' && comdata[i] != 'evidencia_descripcion' ) {
             var item = comdata[i];
-            console.log('valor de',comdata[i],':',req.body[item]);
             if (!item) {
                 cominput.push(null);
             } else {
