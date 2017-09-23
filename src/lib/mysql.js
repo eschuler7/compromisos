@@ -444,7 +444,7 @@ var compromisosdb = {
 		},
 		getMonitorTypes : function() {
 			var conn = new mysql(connectionOptions);
-			const result = conn.query('select id, name, columnasoc, mandatory from t_monitor_config');
+			const result = conn.query('select id, name, columnasoc,description, mandatory from t_monitor_config');
 			conn.dispose();
 			return result;
 		},
@@ -475,7 +475,7 @@ var compromisosdb = {
 	dashboard : {
 		getDashboardTypes : function() {
 			var conn = new mysql(connectionOptions);
-			const result = conn.query('select id, name, mandatory from t_dashboard_config');
+			const result = conn.query('select id, name, description, mandatory from t_dashboard_config');
 			conn.dispose();
 			return result;
 		},
