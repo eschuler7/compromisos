@@ -599,9 +599,11 @@ router.post('/emailToSoporte', function(req, res, next){
             compemail.sendEmail(inbox,'Consulta de soporte a NOLAN',htmlRegistrationTemplate);
         }
         res.redirect('/secure/dashboard');
+        auditlog(req);
     } catch(e) {
         next(e);
     }
+
 });
 
 router.post('/commitupdate/:nrocorrelativo', function(req,res,next){
@@ -663,7 +665,7 @@ router.post('/commitupdate/:nrocorrelativo', function(req,res,next){
             mysql.evidence.registerEvidences(req.evicorrelativo, description, files, nrocorrelativo, req.session.user.t_company_ruc);
         }
     }
-    req.session.notification = computil.notification('success','Actualización exitoss','Se actualizó el compromiso correctamente.');
+    req.session.notification = computil.notification('success','Actualización exitosa','Se actualizó el compromiso correctamente.');
     res.redirect('/secure/commitlist');
     auditlog(req);
 });
