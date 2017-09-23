@@ -1,5 +1,25 @@
 'use strict';
-// Loading dependencies
+// Loading Config
+var config = require('./config');
+//Sendgrid
+var sgMail = require('@sendgrid/mail');
+// key initialization
+sgMail.setApiKey(config().sendgrid.apikey);
+
+var email = {
+	sendEmail : function(email, subject, htmlbody) {
+		const msg = {
+			from: config().sendgrid.name + ' <' + config().sendgrid.from + '>',
+			to: email,
+			subject: subject,
+			html: htmlbody
+		};
+		sgMail.send(msg);
+	}
+}
+module.exports = email;
+
+/*// Loading dependencies
 var nodemailer = require('nodemailer');
 // Loading Config
 var config = require('./config');
@@ -36,4 +56,4 @@ var email = {
 	}
 }
 
-module.exports = email;
+module.exports = email;*/
