@@ -32,6 +32,7 @@ dev:
   sendgrid:
     apikey: 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
     from: nolan_notification@nolanhub.com
+    name: NOLAN Notifications
   #smtp:
   #  host: smtp.gmail.com
   #  port: 465
