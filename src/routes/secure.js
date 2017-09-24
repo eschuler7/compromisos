@@ -630,9 +630,11 @@ router.post('/emailToSoporte', function(req, res, next){
             compemail.sendEmail(inbox,'Consulta de soporte a NOLAN',htmlRegistrationTemplate);
         }
         res.redirect('/secure/dashboard');
+        auditlog(req);
     } catch(e) {
         next(e);
     }
+
 });
 
 router.post('/commitupdate/:nrocorrelativo', function(req,res,next){
