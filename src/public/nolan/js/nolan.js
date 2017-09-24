@@ -11,7 +11,16 @@ $.validator.addMethod("totalsizemax", function(value, element, param) {
 		totalsize += element.files[i].size;
 	}
 	return totalsize < param;
-}, "Max files size superated");
+}, "Max files size superated, only 200 Mb allowed.");
+$.validator.addMethod("multiemail",function(value, element, param) {
+	var emails = value.split(/[;,]+/); // split email by , or ;
+	valid = true;
+	for (var i in emails) {
+		value = emails[i];
+		valid = valid && $.validator.methods.email.call(this, $.trim(value), element);
+	}
+	return valid;
+},jQuery.validator.messages.email);
 /*
 $.validator.addMethod("validatecheckbox", function(value, element, param) {
 	return value != param;
@@ -191,6 +200,9 @@ $(document).ready(function(){
 			evidencias : {
 				totalsizemax : 209715200
 			},
+			correosnotificacion : {
+				multiemail : true
+			}
 		},
 		messages : {
 			evidencias : {
@@ -213,6 +225,59 @@ $(document).ready(function(){
 			evidencias : {
 				totalsizemax : 209715200
 			},
+			correosnotificacion : {
+				multiemail : true
+			}
+		},
+		messages : {
+			evidencias : {
+				totalsizemax : 'Solo se puede adjuntar un máximo 200 mb en archivos'
+			}
+		},
+		errorPlacement : function(error, element) {
+			var ref = element;
+			if ($(element).attr('name') == 'evidencias') {
+				ref = $('#evidencias');
+			}
+			error.insertAfter(ref);
+		},
+		submitHandler : function(form) {
+			form.submit();
+		}
+	});
+	$('#frmregisterMonit').validate({
+		rules : {
+			evidencias : {
+				totalsizemax : 209715200
+			},
+			notificacion : {
+				multiemail : true
+			}
+		},
+		messages : {
+			evidencias : {
+				totalsizemax : 'Solo se puede adjuntar un máximo 200 mb en archivos'
+			}
+		},
+		errorPlacement : function(error, element) {
+			var ref = element;
+			if ($(element).attr('name') == 'evidencias') {
+				ref = $('#evidencias');
+			}
+			error.insertAfter(ref);
+		},
+		submitHandler : function(form) {
+			form.submit();
+		}
+	});
+	$('#frmeditMonitor').validate({
+		rules : {
+			evidencias : {
+				totalsizemax : 209715200
+			},
+			notificacion : {
+				multiemail : true
+			}
 		},
 		messages : {
 			evidencias : {

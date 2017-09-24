@@ -1,3 +1,13 @@
+$.validator.addMethod("multiemail",function(value, element, param) {
+	var emails = value.split(/[;,]+/); // split email by , or ;
+	valid = true;
+	for (var i in emails) {
+		value = emails[i];
+		valid = valid && $.validator.methods.email.call(this, $.trim(value), element);
+	}
+	return valid;
+},jQuery.validator.messages.email);
+
 $(document).ready(function(){
 	$('#demo-form2').validate({
 		rules : {
@@ -108,6 +118,20 @@ $(document).ready(function(){
 				maxlength : 'Máximo 15 caracteres',
 				minlength : 'Mínimo 8 caracteres',
 				equalTo: 'La contraseña no coincide'
+			}
+		},
+		submitHandler : function(form) {
+			form.submit();
+		}
+	});
+});
+
+$(document).ready(function(){
+	$('#frm_support_email').validate({
+		rules : {
+			supportemail : {
+				required : true,
+				multiemail : true
 			}
 		},
 		submitHandler : function(form) {
