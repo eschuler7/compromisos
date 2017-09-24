@@ -8,14 +8,14 @@ html
     meta(name='viewport', content='width=device-width, initial-scale=1')
     title N O L A N 
     // Bootstrap
-    link(href='../bootstrap/dist/css/bootstrap.min.css', rel='stylesheet')
+    link(href='/bootstrap/dist/css/bootstrap.min.css', rel='stylesheet')
     // Fonts
-    link(href='../font-awesome/css/font-awesome.min.css', rel='stylesheet')
+    link(href='/font-awesome/css/font-awesome.min.css', rel='stylesheet')
     link(href='https://fonts.googleapis.com/css?family=Comfortaa' rel='stylesheet')
     // NProgress
-    link(href='../nprogress/nprogress.css', rel='stylesheet')
+    link(href='/nprogress/nprogress.css', rel='stylesheet')
     // Custom Theme Style
-    link(href='../build/css/custom.min.css', rel='stylesheet')
+    link(href='/build/css/custom.min.css', rel='stylesheet')
     style.
       .sticky-image-wrapper{
         position: fixed;
@@ -41,8 +41,8 @@ html
                 a.to_register(href='/') Iniciar Sesión
               .clearfix
       .sticky-image-wrapper
-        img(src='compromisos/img/adelaide.png', width=350)
+        img(src='/nolan/img/adelaide.png', width=350)
     script(src='/jquery/dist/jquery.min.js')
-    script(src='compromisos/js/jquery.backstretch.min.js')
+    script(src='/nolan/js/jquery.backstretch.min.js')
     script.
-      $.backstretch('/compromisos/img/background.png', {fade: 700});
+      $.backstretch('/nolan/img/background.png', {fade: 700});

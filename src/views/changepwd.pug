@@ -33,7 +33,7 @@ html
       .animate.form.login_form
         section.login_content
           form#frmChangePwd(method='POST',action='/changepwd', style='margin-top:0px')
-            img(src='compromisos/img/nolan.png', width=350)
+            img(src='/nolan/img/nolan.png', width=350)
             br
             br
             center
@@ -50,7 +50,7 @@ html
     // jQuery
     script(src='/jquery/dist/jquery.min.js')
     script(src='https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js')
-    script(src='compromisos/js/compromisos.js')
-    script(src='compromisos/js/jquery.backstretch.min.js')
+    script(src='/nolan/js/nolan.js')
+    script(src='/nolan/js/jquery.backstretch.min.js')
     script.
-      $.backstretch('compromisos/img/background.png', {fade: 700});
+      $.backstretch('/nolan/img/background.png', {fade: 700});
