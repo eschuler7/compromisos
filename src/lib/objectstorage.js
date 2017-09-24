@@ -81,6 +81,30 @@ var objectstorage = {
 					});
 				}
 			});
+		},
+		resetContainer : function(ruc) {
+			storageClient.auth(function(error){
+				if(error) {
+					console.log('Hubo un error en la conexión con el Object Storage:', error);
+				} else {
+					storageClient.destroyContainer(ruc, function(err, result){
+						if(err) {
+							console.log('No se pudo eliminar el object storage container',ruc);
+							console.log(err);
+						} else {
+							console.log('Object Storage Eliminado:', result);
+							storageClient.createContainer(ruc, function(err, container){
+								if(err) {
+									console.log('No se pudo crear el object storage container',ruc);
+									console.log(err);
+								} else {
+									console.log('Object Storage Creado:', container.name);
+								}
+							});
+						}
+					});
+				}
+			});
 		}
 	},
 	file : {

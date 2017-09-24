@@ -30,7 +30,7 @@ block container
                 when 'MN13'
                   .form-group(style='margin-bottom: 0px')
                     label.control-label.col-md-3.col-sm-3.col-xs-12(for=config.t_monitor_config_id)
-                      | Fecha de Inicio
+                      | #{config.name}
                     .col-sm-2 
                       .form-group
                         #fechainicio.input-group.date(style='margin-bottom: 0px')
@@ -40,8 +40,7 @@ block container
                 when 'MN14'
                   .form-group
                     label.control-label.col-md-3.col-sm-3.col-xs-12
-                      | Frecuencia de monitoreo
-                      span.required *
+                      | #{config.name}
                     .col-sm-2
                       select#frecuencia.form-control(name=config.columnasoc)
                         option(value='', selected= true) Seleccionar..
@@ -58,8 +57,7 @@ block container
                 when 'MN17'
                   .form-group
                     label.control-label.col-md-3.col-sm-3.col-xs-12
-                      | Frecuencia de reporte
-                      span.required *
+                      | #{config.name}
                     .col-sm-2
                       select#frecuencia.form-control(name=config.columnasoc)
                         option(value='', selected= true) Seleccionar..
@@ -76,7 +74,7 @@ block container
                 when 'MN18'
                   .form-group
                     label.control-label.col-md-3.col-sm-3.col-xs-12
-                      | Evidencias
+                      | #{config.name}
                     .col-md-6.col-sm-6.col-xs-12
                       .row
                         .col-md-12
@@ -93,8 +91,7 @@ block container
                 when 'MN19'
                   .form-group
                     label.control-label.col-md-3.col-sm-3.col-xs-12
-                      | Estado del monitoreo 
-                      span.required *
+                      | #{config.name}
                     .col-sm-2
                       select#estadomonit.form-control(name=config.columnasoc)
                         option(value='', selected= true) Seleccionar..
@@ -109,8 +106,7 @@ block container
                 when 'MN21'
                   .form-group
                     label.control-label.col-md-3.col-sm-3.col-xs-12
-                      | Acción sobre el monitoreo 
-                      span.required *
+                      | #{config.name}
                     .col-sm-2
                       select#accionmonitoreo.form-control(name=config.columnasoc)
                         option(value='', selected= true) Seleccionar..
@@ -120,8 +116,7 @@ block container
                 when 'MN23'
                   .form-group
                     label.control-label.col-md-3.col-sm-3.col-xs-12
-                      | Frecuencia de verificación del monitoreo 
-                      span.required *
+                      | #{config.name}
                     .col-sm-2
                       select#frecuenciaverif.form-control(name=config.columnasoc)
                         option(value='', selected= true) Seleccionar..
@@ -143,10 +138,20 @@ block container
                 when 'MN26'
                   .form-group(style='margin-bottom: 0px')
                     label.control-label.col-md-3.col-sm-3.col-xs-12
-                      | Fecha de verificación:
+                      | #{config.name}
                     .col-sm-2 
                       .form-group
-                        #fechaverif.input-group.date(style='margin-bottom: 0px')
+                        #anticnotificacion.input-group.date(style='margin-bottom: 0px')
+                          input.form-control(type='text', name=config.columnasoc, value=monitor[config.columnasoc])
+                          span.input-group-addon
+                            span.glyphicon.glyphicon-calendar 
+                when 'MN27'
+                  .form-group(style='margin-bottom: 0px')
+                    label.control-label.col-md-3.col-sm-3.col-xs-12
+                      | #{config.name}
+                    .col-sm-2 
+                      .form-group
+                        #fecharevision.input-group.date(style='margin-bottom: 0px')
                           input.form-control(type='text', name=config.columnasoc, value=monitor[config.columnasoc])
                           span.input-group-addon
                             span.glyphicon.glyphicon-calendar 
@@ -227,14 +232,25 @@ block container
         $('#mondata').val(mondata);
       });
     }
-    if($('#fechaverif')){
-      $('#fechaverif').datetimepicker({
+    if($('#anticnotificacion')){
+      $('#anticnotificacion').datetimepicker({
         defaultDate: new Date(),
         format: 'DD/MM/YYYY',
         locale: 'es'
       });
-      $('#fechaverif').on('dp.change', function(e){
-        var mondata = validateinfo('fechaverif');
+      $('#anticnotificacion').on('dp.change', function(e){ 
+        var mondata = validateinfo('anticnotificacion');
+        $('#mondata').val(mondata);
+      });
+    }
+    if($('#fecharevision')){
+      $('#fecharevision').datetimepicker({
+        defaultDate: new Date(),
+        format: 'DD/MM/YYYY',
+        locale: 'es'
+      });
+      $('#fecharevision').on('dp.change', function(e){
+        var mondata = validateinfo('fecharevision');
         $('#mondata').val(mondata);
       });
     }

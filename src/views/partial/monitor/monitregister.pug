@@ -137,13 +137,13 @@ block container
                       | #{config.name}
                     .col-md-6.col-sm-6.col-xs-12
                       input.form-control.col-md-7.col-xs-6(id=config.t_monitor_config_id, placeholder='example@gmail.com,hotmail@outlook.com', type='email', name=config.columnasoc, multiple)
-                when 'MN26'
+                when 'MN27'
                   .form-group(style='margin-bottom: 0px')
                     label.control-label.col-md-3.col-sm-3.col-xs-12
                       | Fecha de verificación:
                     .col-sm-2 
                       .form-group
-                        #fechaverif.input-group.date(style='margin-bottom: 0px')
+                        #fecharevision.input-group.date(style='margin-bottom: 0px')
                           input.form-control(type='text', name=config.columnasoc)
                           span.input-group-addon
                             span.glyphicon.glyphicon-calendar 
@@ -199,7 +199,7 @@ block container
       format: 'DD/MM/YYYY',
       locale: 'es'
     });
-    $('#fechaverif').datetimepicker({
+    $('#fecharevision').datetimepicker({
       defaultDate: new Date(),
       format: 'DD/MM/YYYY',
       locale: 'es'

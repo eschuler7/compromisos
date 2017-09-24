@@ -134,7 +134,7 @@ block container
                       | Frecuencia propuesta de verificación 
                       span.required *
                     .col-sm-2
-                      select#frecuenciaverif.form-control(name=config.columnasoc)
+                      select#frecuenciaverificacion.form-control(name=config.columnasoc)
                         option(value='') Seleccionar..
                         option(value='Unica') Unica
                         option(value='Diaria') Diaria
@@ -157,7 +157,7 @@ block container
                       | Fecha de verificación:
                     .col-sm-2 
                       .form-group
-                        #fechaverif.input-group.date(style='margin-bottom: 0px')
+                        #fecharevision.input-group.date(style='margin-bottom: 0px')
                           input.form-control(type='text', name=config.columnasoc)
                           span.input-group-addon
                             span.glyphicon.glyphicon-calendar 
@@ -213,7 +213,7 @@ block container
       format: 'DD/MM/YYYY',
       locale: 'es'
     });
-    $('#fechaverif').datetimepicker({
+    $('#fecharevision').datetimepicker({
       defaultDate: new Date(),
       format: 'DD/MM/YYYY',
       locale: 'es'

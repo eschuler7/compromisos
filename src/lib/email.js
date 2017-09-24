@@ -6,8 +6,6 @@ var sgMail = require('@sendgrid/mail');
 // key initialization
 sgMail.setApiKey(config().sendgrid.apikey);
 
-console.log(config().sendgrid.name);
-
 var email = {
 	sendEmail : function(email, subject, htmlbody) {
 		const msg = {

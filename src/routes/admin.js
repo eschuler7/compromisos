@@ -45,6 +45,9 @@ router.get('/auditlogs', function(req, res){
 	var auditlogs = mysql.auditlog.getAuditLogs();
 	res.render('partial/admin/auditlog',{auditlogs: auditlogs,notification: req.notification});
 });
+router.get('/platformconfig', function(req, res){
+	res.render('partial/admin/platformconfig');
+});
 
 
 // TODAS LAS LLAMADAS POST

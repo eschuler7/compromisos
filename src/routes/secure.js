@@ -193,11 +193,23 @@ router.get('/committemplate', function(req, res){
     });
 
     var wscaption = workbook.addWorksheet('Leyenda');
+    wscaption.getColumn(1).width = 40;
+    wscaption.getColumn(2).width = 180;
     wscaption.getCell('A1').value = 'Descripción de los campos.';
     wscaption.addRow(['Nombre', 'Descripción']);
     for (var i = 0; i < comconfig.length; i++) {
         wscaption.addRow([comconfig[i].name, comconfig[i].description]);
     }
+    wscaption.eachRow(function(row, rowNumber){
+        row.eachCell(function(cell, colNumber){
+            cell.border = {
+               top: {style:'thin'},
+                left: {style:'thin'},
+                bottom: {style:'thin'},
+                right: {style:'thin'}
+            }
+        });
+    });
 
     var downloadpath = path.resolve('downloads/' + req.session.user.t_company_ruc);
     var filename = req.session.user.userid + '-compromiso-plantilla.xlsx';
@@ -215,18 +227,20 @@ router.get('/monittemplate', function(req, res){
     workbook.lastModifiedBy = 'Nolan';
     workbook.created = new Date();
     workbook.modified = new Date();
-    var wsmonit = workbook.addWorksheet('Monitoreos');
+    
+    var monconfigbyruc = mysql.monitor.getMonitorConfigByRuc(req.session.user.t_company_ruc);
+    var monconfig = mysql.monitor.getMonitorTypes();
 
-    var monconfig = mysql.monitor.getMonitorConfigByRuc(req.session.user.t_company_ruc);
-    wsmonit.mergeCells(1,1,1,monconfig.length - 1);
+    var wsmonit = workbook.addWorksheet('Monitoreos');
+    wsmonit.mergeCells(1,1,1,monconfigbyruc.length - 1);
     wsmonit.getCell('A1').value = 'Matriz Integrada de Monitoreo de la Unidad de ' + req.session.user.unidad;
-    for (var i = 0; i < monconfig.length - 1; i++) {
+    for (var i = 0; i < monconfigbyruc.length - 1; i++) {
         wsmonit.getColumn(i + 1).width = 20;
     }
     var row = [];
-    for (var i = 0; i < monconfig.length; i++) {
-        if(monconfig[i].columnasoc != 'evidencias') {
-            row.push(monconfig[i].name);
+    for (var i = 0; i < monconfigbyruc.length; i++) {
+        if(monconfigbyruc[i].columnasoc != 'evidencias') {
+            row.push(monconfigbyruc[i].name);
         }
     }
     wsmonit.addRow(row);
@@ -242,10 +256,10 @@ router.get('/monittemplate', function(req, res){
                     bottom: {style:'medium'},
                     right: {style:'medium'}
                 };
-                cell.name = monconfig[colNumber - 1].columnasoc;
+                cell.name = monconfigbyruc[colNumber - 1].columnasoc;
             });
         } else {
-            for (var i = 0; i < monconfig.length; i++) {
+            for (var i = 0; i < monconfigbyruc.length; i++) {
                 row.getCell(i+1).border = {
                     top: {style:'thin'},
                     left: {style:'thin'},
@@ -256,6 +270,23 @@ router.get('/monittemplate', function(req, res){
         }
     });
     var wscaption = workbook.addWorksheet('Leyenda');
+    wscaption.getColumn(1).width = 40;
+    wscaption.getColumn(2).width = 180;
+    wscaption.getCell('A1').value = 'Descripción de los campos.';
+    wscaption.addRow(['Nombre', 'Descripción']);
+    for (var i = 0; i < monconfig.length; i++) {
+        wscaption.addRow([monconfig[i].name, monconfig[i].description]);
+    }
+    wscaption.eachRow(function(row, rowNumber){
+        row.eachCell(function(cell, colNumber){
+            cell.border = {
+               top: {style:'thin'},
+                left: {style:'thin'},
+                bottom: {style:'thin'},
+                right: {style:'thin'}
+            }
+        });
+    });
 
     var downloadpath = path.resolve('downloads/' + req.session.user.t_company_ruc);
     var filename = req.session.user.userid + '-monitoreo-plantilla.xlsx';
@@ -490,8 +521,8 @@ router.post('/resetConfigGlobal', function(req, res){
     var result = mysql.commitment.deleteCommitmentTypes(req.session.user.t_company_ruc);
     var result = mysql.monitor.deleteMonitorTypes(req.session.user.t_company_ruc);
     var result = mysql.user.deleteAllUserById(req.session.user.t_company_ruc,req.session.user.userid);
-
     var result = mysql.company.updateFirstTime(req.session.user.t_company_ruc,1);
+    objectstorage.container.resetContainer(ruc);
     req.session.destroy();
     res.redirect('/');
     auditlog(req);
@@ -613,7 +644,6 @@ router.post('/commitupdate/:nrocorrelativo', function(req,res,next){
     next();
 },uploadEvidences.array('evidencias'),function(req, res){
     var comdata = req.body.comdata.split(',');
-    req.fieldaffected = req.body.comdata; // Para auditoría
     var cominput = [];
     var nrocorrelativo = req.body.nrocorrelativo;
 
@@ -663,9 +693,24 @@ router.post('/commitupdate/:nrocorrelativo', function(req,res,next){
             mysql.evidence.registerEvidences(req.evicorrelativo, description, files, nrocorrelativo, req.session.user.t_company_ruc);
         }
     }
-    req.session.notification = computil.notification('success','Actualización exitoss','Se actualizó el compromiso correctamente.');
+    req.session.notification = computil.notification('success','Actualización exitosa','Se actualizó el compromiso correctamente.');
     res.redirect('/secure/commitlist');
+    // Para auditoría
+    var configtypes = mysql.commitment.getCommitmentTypesMin();
+    var tmp = '';
+    for (var i = 0; i < comdata.length; i++) {
+        for (var j = 0; j < configtypes.length; j++) {
+            if((comdata[i] == configtypes[j].columnasoc) && (i < (comdata.length - 1))) {
+                tmp += configtypes[j].name + ',';
+            } else if((comdata[i] == configtypes[j].columnasoc) && (i == (comdata.length - 1))) {
+                tmp += configtypes[j].name;
+            }
+        }
+    }
+    console.log("tmp:",tmp);
+    req.fieldaffected = tmp;
     auditlog(req);
+    // Fin auditoria
 });
 
 router.post('/monitregister', function(req, res, next){
@@ -749,7 +794,6 @@ router.post('/monitupdate/:nrocorrelativo', function(req,res,next){
     next();
 },uploadEvidences.array('evidencias'),function(req, res){
     var mondata = req.body.mondata.split(',');
-    req.fieldaffected = req.body.mondata; // Auditoría
     var moninput = [];
     var nrocorrelativo = req.body.nrocorrelativo;
 
@@ -801,7 +845,22 @@ router.post('/monitupdate/:nrocorrelativo', function(req,res,next){
     }
     req.session.notification = computil.notification('success','Actualización exitosa','Se actualizó el monitoreo correctamente.');
     res.redirect('/secure/monitlist');
+    // Para auditoría
+    var configtypes = mysql.monitor.getMonitorTypesMin();
+    var tmp = '';
+    for (var i = 0; i < mondata.length; i++) {
+        for (var j = 0; j < configtypes.length; j++) {
+            if((mondata[i] == configtypes[j].columnasoc) && (i < (mondata.length - 1))) {
+                tmp += configtypes[j].name + ',';
+            } else if((mondata[i] == configtypes[j].columnasoc) && (i == (mondata.length - 1))) {
+                tmp += configtypes[j].name;
+            }
+        }
+    }
+    console.log("tmp:",tmp);
+    req.fieldaffected = tmp;
     auditlog(req);
+    // Fin auditoria
 });
 module.exports = router;
 

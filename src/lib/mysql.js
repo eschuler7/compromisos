@@ -256,6 +256,12 @@ var compromisosdb = {
 			conn.dispose();
 			return result;
 		},
+		getCommitmentTypesMin : function() {
+			var conn = new mysql(connectionOptions);
+			const result = conn.query('select name, columnasoc from t_commitment_config');
+			conn.dispose();
+			return result;
+		},
 		deleteCommitmentTypes : function(ruc) {
 			var conn = new mysql(connectionOptions);
 			const result = conn.query('delete from t_company_commitment where t_company_ruc=?',[ruc]);
@@ -445,6 +451,12 @@ var compromisosdb = {
 		getMonitorTypes : function() {
 			var conn = new mysql(connectionOptions);
 			const result = conn.query('select id, name, columnasoc,description, mandatory from t_monitor_config');
+			conn.dispose();
+			return result;
+		},
+		getMonitorTypesMin : function() { // Only name and columnasoc for auditlog
+			var conn = new mysql(connectionOptions);
+			const result = conn.query('select name, columnasoc from t_monitor_config');
 			conn.dispose();
 			return result;
 		},

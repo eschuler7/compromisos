@@ -9,9 +9,9 @@ html
     title N O L A N
     // Bootstrap
     link(href='/bootstrap/dist/css/bootstrap.min.css', rel='stylesheet')
-    // Font Awesome
+    // Fonts
     link(href='/font-awesome/css/font-awesome.min.css', rel='stylesheet')
-    //link(href='/comfortaa/comfortaa.css', rel='stylesheet')
+    link(href='https://fonts.googleapis.com/css?family=Comfortaa' rel='stylesheet')
     // iCheck
     link(href='/iCheck/skins/flat/green.css', rel='stylesheet')
     // NProgress
@@ -124,6 +124,8 @@ html
                     | #{session.user.name} 
                     span.fa.fa-angle-down
                   ul.dropdown-menu.dropdown-usermenu.pull-right
+                    li
+                      a(href='#') Mi Perfil
                     li
                       a(href='/compromisos/docs/Manual.pdf') Manual de usuario
                     li

@@ -9,8 +9,9 @@ html
     title N O L A N
     // Bootstrap
     link(href='/bootstrap/dist/css/bootstrap.min.css', rel='stylesheet')
-    // Font Awesome
+    // Fonts
     link(href='/font-awesome/css/font-awesome.min.css', rel='stylesheet')
+    link(href='https://fonts.googleapis.com/css?family=Comfortaa' rel='stylesheet')
     // Datatable
     link(href='/datatables.net-bs/css/dataTables.bootstrap.min.css', rel='stylesheet')
     // Custom Theme Style
@@ -27,6 +28,7 @@ html
           .left_col.scroll-view
             .navbar.nav_title(style='border: 0;')
               a.site_title(href='/admin/clients')
+                //i.fa.fa-paw
                 span  N O L A N
             .clearfix
             // menu profile quick info
@@ -35,7 +37,7 @@ html
                 img.img-circle.profile_img(src='/images/img.jpg', alt='...')
               .profile_info
                 h2 #{session.user.companyname}
-                span 
+                span Consola
               .clearfix
             // /menu profile quick info
             br
@@ -54,6 +56,8 @@ html
                         a(href='/admin/clientlist') Clientes
                       li
                         a(href='/admin/auditlogs') Auditoría
+                      li
+                        a(href='/admin/platformconfig') Configuración de la Plataforma
         // top navigation
         .top_nav
           .nav_menu
