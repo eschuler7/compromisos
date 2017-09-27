@@ -187,9 +187,13 @@ block container
                     .col-md-6.col-sm-6.col-xs-12
                       input.form-control.col-md-7.col-xs-6(id=config.t_monitor_config_id, placeholder=config.name, type='text', name=config.columnasoc) 
             .ln_solid
-            .form-group
-              a.btn.btn-default.btn-sm(href='/secure/monitlist') Cancelar
-              button.btn.btn-success.btn-sm.pull-right(type='submit') Registrar monitoreo
+            .row
+              .col-md-3.col-sm-3.col-xs-12
+                a.btn.btn-default.btn-sm(href='/secure/monitlist') Cancelar
+                button.btn.btn-success.btn-sm(type='submit') Registrar monitoreo
+              .col-md-9.col-sm-9.col-xs-12
+                .progress(style='border-radius: 4px;margin-bottom: 0;margin-top: 5px')
+                  #progressbar.progress-bar.progress-bar-success(role="progressbar",style="width: 0%",aria-valuenow="0",aria-valuemin="0",aria-valuemax="100") Progreso 0%
   script(src='/jquery/dist/jquery.min.js')
   script(src='/moment/min/moment-with-locales.min.js')
   script(src='/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js')

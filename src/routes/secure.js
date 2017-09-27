@@ -427,6 +427,8 @@ router.post('/initConfig', function(req, res){
     var result = mysql.company.updateFirstTime(req.session.user.t_company_ruc,0);
     if(result.affectedRows == 1) {
         req.session.user.firsttime = 0;
+        // Creating object storage
+        objectstorage.container.createContainer(req.session.user.t_company_ruc);
     }
     res.redirect('/secure/dashboard');
 });
@@ -513,7 +515,6 @@ router.post('/userdelete', function(req, res){
 });
 
 router.post('/resetConfigGlobal', function(req, res){
-    var ruc = req.body.ruc;
     //var result = mysql.company.deleteCompanyByRuc(ruc);
     var result = mysql.commitment.deleteAllCommitments(req.session.user.t_company_ruc);
     var result = mysql.monitor.deleteAllMonitors(req.session.user.t_company_ruc);
@@ -522,7 +523,7 @@ router.post('/resetConfigGlobal', function(req, res){
     var result = mysql.monitor.deleteMonitorTypes(req.session.user.t_company_ruc);
     var result = mysql.user.deleteAllUserById(req.session.user.t_company_ruc,req.session.user.userid);
     var result = mysql.company.updateFirstTime(req.session.user.t_company_ruc,1);
-    objectstorage.container.resetContainer(ruc);
+    objectstorage.container.destroyContainer(req.session.user.t_company_ruc);
     req.ruc = req.session.user.t_company_ruc;
     req.companyname = req.session.user.companyname;
     req.userid = req.session.user.userid;
@@ -536,6 +537,7 @@ router.post('/commitregister', function(req, res, next){
     req.type = 'commitment';
     var correlativocom = mysql.commitment.getNextCorrelative(req.session.user.t_company_ruc); // correlativo para compromisos
     req.comcorrelativo = correlativocom[0].correlativo;
+    req.correlativo = correlativocom[0].correlativo; // para object storage
     req.idaffected = correlativocom[0].correlativo; // Para auditoría
     //var correlativoevi = mysql.evidence.getNextCorrelative(req.session.user.t_company_ruc, req.comcorrelativo); // correlativo para evidencias
     req.evicorrelativo = 1;
@@ -590,7 +592,7 @@ router.post('/commitregister', function(req, res, next){
             mysql.evidence.registerEvidences(req.evicorrelativo, description, files, req.comcorrelativo, req.session.user.t_company_ruc);
         }
     }
-    req.session.notification = computil.notification('success','Registro Satisfactorio','Se registró un nuevo compromiso');
+    req.session.notification = computil.notification('success','Registro Satisfactorio','Se registró el compromiso Nro. ' + req.comcorrelativo);
     //res.redirect('/secure/commitlist');
     res.send('ok');
     auditlog(req);
@@ -644,6 +646,7 @@ router.post('/emailToSoporte', function(req, res, next){
 router.post('/commitupdate/:nrocorrelativo', function(req,res,next){
     req.type='commitment';
     req.comcorrelativo = req.params.nrocorrelativo;
+    req.correlativo = req.params.nrocorrelativo;  // para object storage
     req.idaffected = req.params.nrocorrelativo; // Para auditoría
     var correlativoevi = mysql.evidence.getNextCorrelative(req.session.user.t_company_ruc, req.comcorrelativo); // correlativo para evidencias
     req.evicorrelativo = correlativoevi[0].correlativo;
@@ -699,8 +702,9 @@ router.post('/commitupdate/:nrocorrelativo', function(req,res,next){
             mysql.evidence.registerEvidences(req.evicorrelativo, description, files, nrocorrelativo, req.session.user.t_company_ruc);
         }
     }
-    req.session.notification = computil.notification('success','Actualización exitosa','Se actualizó el compromiso correctamente.');
-    res.redirect('/secure/commitlist');
+    req.session.notification = computil.notification('success','Actualización exitosa','Se actualizó el compromiso Nro. ' + req.comcorrelativo);
+    res.send('ok');
+    //res.redirect('/secure/commitlist');
     // Para auditoría
     var configtypes = mysql.commitment.getCommitmentTypesMin();
     var tmp = '';
@@ -724,6 +728,7 @@ router.post('/monitregister', function(req, res, next){
     req.type = 'monitor';
     var correlativomon = mysql.monitor.getNextCorrelative(req.session.user.t_company_ruc); // correlativo para compromisos
     req.moncorrelativo = correlativomon[0].correlativo;
+    req.correlativo = correlativomon[0].correlativo;  // para object storage
     req.idaffected = correlativomon[0].correlativo; // Para auditoría
     //var correlativoevi = mysql.evidence.getNextCorrelative(req.session.user.t_company_ruc, req.comcorrelativo); // correlativo para evidencias
     req.evicorrelativo = 1;
@@ -778,8 +783,9 @@ router.post('/monitregister', function(req, res, next){
             mysql.evidence.registerEvidencesMonit(req.evicorrelativo, description, files, req.moncorrelativo, req.session.user.t_company_ruc);
         }
     }
-    req.session.notification = computil.notification('success','Registro Satisfactorio','Se registró un nuevo monitoreo');
-    res.redirect('/secure/monitlist');
+    req.session.notification = computil.notification('success','Registro Satisfactorio','Se registró el monitoreo Nro. ' + req.moncorrelativo);
+    //res.redirect('/secure/monitlist');
+    res.send('ok');
     auditlog(req);
 });
 
@@ -791,9 +797,11 @@ router.post('/commitdelete', function(req, res){
     res.redirect('/secure/commitlist');
     auditlog(req);
 });
+
 router.post('/monitupdate/:nrocorrelativo', function(req,res,next){
     req.type='monitor';
     req.moncorrelativo = req.params.nrocorrelativo;
+    req.correlativo = req.params.nrocorrelativo; // para object storage
     req.idaffected = req.params.nrocorrelativo; // Para auditoría
     var correlativoevi = mysql.evidence.getNextCorrelativeMonit(req.session.user.t_company_ruc, req.moncorrelativo); // correlativo para evidencias
     req.evicorrelativo = correlativoevi[0].correlativo;
@@ -849,8 +857,9 @@ router.post('/monitupdate/:nrocorrelativo', function(req,res,next){
             mysql.evidence.registerEvidencesMonit(req.evicorrelativo, description, files, nrocorrelativo, req.session.user.t_company_ruc);
         }
     }
-    req.session.notification = computil.notification('success','Actualización exitosa','Se actualizó el monitoreo correctamente.');
-    res.redirect('/secure/monitlist');
+    req.session.notification = computil.notification('success','Actualización exitosa','Se actualizó el monitoreo Nro. ' + req.moncorrelativo);
+    //res.redirect('/secure/monitlist');
+    res.send('ok');
     // Para auditoría
     var configtypes = mysql.monitor.getMonitorTypesMin();
     var tmp = '';

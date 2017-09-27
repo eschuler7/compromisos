@@ -73,7 +73,7 @@ var objectstorage = {
 				} else {
 					storageClient.destroyContainer(ruc, function(err, result){
 						if(err) {
-							console.log('No se pudo eliminar el object storage container',ruc);
+							console.log('No se pudo eliminar el object storage container ',ruc);
 							console.log(err);
 						} else {
 							console.log('Object Storage Eliminado:', result);
@@ -82,7 +82,7 @@ var objectstorage = {
 				}
 			});
 		},
-		resetContainer : function(ruc) {
+		/*resetContainer : function(ruc) {
 			storageClient.auth(function(error){
 				if(error) {
 					console.log('Hubo un error en la conexión con el Object Storage:', error);
@@ -105,7 +105,7 @@ var objectstorage = {
 					});
 				}
 			});
-		}
+		}*/
 	},
 	file : {
 		getFiles : function(ruc, codigoglobal) {
@@ -145,7 +145,7 @@ var objectstorage = {
 	  destination: function (req, file, cb) {
 	    cb(null, {
 	      container: req.session.user.t_company_ruc,
-	      remote: req.type + '/' + req.comcorrelativo + '/' + req.evicorrelativo + '/' + file.originalname
+	      remote: req.type + '/' + req.correlativo + '/' + req.evicorrelativo + '/' + file.originalname
 	    });
 	    //req.comcorrelativo = req.correlativo;
 	    //req.evicorrelativo = req.correlativo;

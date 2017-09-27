@@ -191,7 +191,6 @@ var compromisosdb = {
 			var conn = new mysql(connectionOptions);
 			console.log(dynamicquery);
 			for (var i = 0; i < comdatatotal.length; i++) {
-				console.log(comdatatotal[i]);
 				conn.query(dynamicquery,comdatatotal[i]);
 			}
 			conn.dispose();
@@ -279,7 +278,6 @@ var compromisosdb = {
 			var conn = new mysql(connectionOptions);
 			const result = conn.query('delete from t_company_commitment where t_company_ruc=?',[ruc]);
 			if (Array.isArray(initconfig)) {
-				console.log('Valores de compromisos Array: ',compromisos,ruc);
 				for (var i = 0; i < initconfig.length; i++) {
 					conn.query('insert into t_company_commitment(t_company_ruc,t_commitment_config_id) values(?,?)',[ruc,initconfig[i]]);
 				}
@@ -472,8 +470,6 @@ var compromisosdb = {
 			const result = conn.query('delete from t_company_monitor where t_company_ruc=?',[ruc]);
 
 			if (Array.isArray(initconfig)) {
-				console.log('Valores de monitoreo Array: ',monitoreo,ruc);
-			
 				for (var i = 0; i < initconfig.length; i++) {
 					conn.query('insert into t_company_monitor values(?,?)',[ruc,initconfig[i]]);
 				}
@@ -508,12 +504,10 @@ var compromisosdb = {
 			var conn = new mysql(connectionOptions);
 			const result = conn.query('delete from t_company_dashboard where t_company_ruc=?',[ruc]);
 			if (Array.isArray(initconfig)) {
-				console.log('Valores de dashboard Array: ',initconfig,ruc);
 				for (var i = 0; i < initconfig.length; i++) {
 					conn.query('insert into t_company_dashboard values(?,?)',[ruc,initconfig[i]]);
 				}
 			} else {
-				console.log('Valores de dashboard no Array: ',initconfig,ruc);
 				conn.query('insert into t_company_dashboard values(?,?)',[ruc,initconfig]);			
 			}
 			conn.dispose();

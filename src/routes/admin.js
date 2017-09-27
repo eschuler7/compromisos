@@ -89,8 +89,6 @@ router.post('/clientcreate',function(req, res, next){
 		            console.log(err);
 		        }
 		    });
-		    // Creating object storage
-		    objectstorage.container.createContainer(ruc);
 
 			// Sending confirmation email
 			var htmlRegistrationTemplate = computil.loadEmailTemplate('security_registration');

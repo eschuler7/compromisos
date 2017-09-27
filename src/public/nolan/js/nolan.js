@@ -251,14 +251,14 @@ $(document).ready(function(){
 			var formData = new FormData(form);
 		    $.ajax({
 		        type:'POST',
-		        url:'/secure/commitregister',
+		        url:$(form).attr('action'),
 		        data:formData,
 		        xhr: function() {
-		                var myXhr = $.ajaxSettings.xhr();
-		                if(myXhr.upload){
-		                    myXhr.upload.addEventListener('progress',progress, false);
-		                }
-		                return myXhr;
+	                var myXhr = $.ajaxSettings.xhr();
+	                if(myXhr.upload){
+	                    myXhr.upload.addEventListener('progress',progress, false);
+	                }
+	                return myXhr;
 		        },
 		        cache:false,
 		        contentType: false,
@@ -297,7 +297,37 @@ $(document).ready(function(){
 			error.insertAfter(ref);
 		},
 		submitHandler : function(form) {
-			form.submit();
+			var btnSubmit = $(form).find(':submit');
+			var width = btnSubmit.css('width');
+			btnSubmit.css('width',width);
+	        btnSubmit.html(htmlSpinner);
+	        btnSubmit.attr('disabled',true);
+			//form.submit();
+			var formData = new FormData(form);
+		    $.ajax({
+		        type:'POST',
+		        url:$(form).attr('action'),
+		        data:formData,
+		        xhr: function() {
+	                var myXhr = $.ajaxSettings.xhr();
+	                if(myXhr.upload){
+	                    myXhr.upload.addEventListener('progress',progress, false);
+	                }
+	                return myXhr;
+		        },
+		        cache:false,
+		        contentType: false,
+		        processData: false,
+		        success:function(data){
+		            console.log(data);
+		        },
+		        error: function(err){
+		            console.log(data);
+		        },
+		        complete: function(){
+		        	window.location = '/secure/commitlist';
+		        }
+		    });
 		}
 	});
 	$('#frmregisterMonit').validate({
@@ -322,7 +352,37 @@ $(document).ready(function(){
 			error.insertAfter(ref);
 		},
 		submitHandler : function(form) {
-			form.submit();
+			var btnSubmit = $(form).find(':submit');
+			var width = btnSubmit.css('width');
+			btnSubmit.css('width',width);
+	        btnSubmit.html(htmlSpinner);
+	        btnSubmit.attr('disabled',true);
+			//form.submit();
+			var formData = new FormData(form);
+		    $.ajax({
+		        type:'POST',
+		        url:$(form).attr('action'),
+		        data:formData,
+		        xhr: function() {
+	                var myXhr = $.ajaxSettings.xhr();
+	                if(myXhr.upload){
+	                    myXhr.upload.addEventListener('progress',progress, false);
+	                }
+	                return myXhr;
+		        },
+		        cache:false,
+		        contentType: false,
+		        processData: false,
+		        success:function(data){
+		            console.log(data);
+		        },
+		        error: function(err){
+		            console.log(data);
+		        },
+		        complete: function(){
+		        	window.location = '/secure/monitlist';
+		        }
+		    });
 		}
 	});
 	$('#frmeditMonitor').validate({
@@ -347,7 +407,37 @@ $(document).ready(function(){
 			error.insertAfter(ref);
 		},
 		submitHandler : function(form) {
-			form.submit();
+			var btnSubmit = $(form).find(':submit');
+			var width = btnSubmit.css('width');
+			btnSubmit.css('width',width);
+	        btnSubmit.html(htmlSpinner);
+	        btnSubmit.attr('disabled',true);
+			//form.submit();
+			var formData = new FormData(form);
+		    $.ajax({
+		        type:'POST',
+		        url:$(form).attr('action'),
+		        data:formData,
+		        xhr: function() {
+	                var myXhr = $.ajaxSettings.xhr();
+	                if(myXhr.upload){
+	                    myXhr.upload.addEventListener('progress',progress, false);
+	                }
+	                return myXhr;
+		        },
+		        cache:false,
+		        contentType: false,
+		        processData: false,
+		        success:function(data){
+		            console.log(data);
+		        },
+		        error: function(err){
+		            console.log(data);
+		        },
+		        complete: function(){
+		        	window.location = '/secure/monitlist';
+		        }
+		    });
 		}
 	});
 });
