@@ -46,7 +46,7 @@ router.get('/auditlogs', function(req, res){
 	res.render('partial/admin/auditlog',{auditlogs: auditlogs,notification: req.notification});
 });
 router.get('/platformconfig', function(req, res){
-	res.render('partial/admin/platformconfig');
+	res.render('partial/admin/platformconfig',{notification: req.notification});
 });
 
 

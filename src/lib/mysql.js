@@ -270,7 +270,7 @@ var compromisosdb = {
 		},
 		deleteAllCommitments : function(ruc) {
 			var conn = new mysql(connectionOptions);
-			const result = conn.query('delete from t_commitment where t_company_ruc=?',[ruc]);
+			const result = conn.query('delete from t_commitment where ruc=?',[ruc]);
 			conn.dispose();
 			return result;
 		},
@@ -381,7 +381,7 @@ var compromisosdb = {
 		},
 		deleteAllMonitors : function(ruc) {
 			var conn = new mysql(connectionOptions);
-			const result = conn.query('delete from t_monitor where t_company_ruc=?',[ruc]);
+			const result = conn.query('delete from t_monitor where ruc=?',[ruc]);
 			conn.dispose();
 			return result;
 		},
@@ -532,6 +532,38 @@ var compromisosdb = {
 			conn.dispose();
 			return result;
 		}
+	},
+	batch : {
+		totalCommitmentByRuc : function(ruc) {
+			var conn = new mysql(connectionOptions);
+			const result = conn.query('select count(nrocorrelativo) from t_commitment where ruc=?',[ruc]);
+			conn.dispose();
+			return result;
+		},
+		totalMonitorByRuc : function(ruc) {
+			var conn = new mysql(connectionOptions);
+			const result = conn.query('select count(nrocorrelativo) from t_monitor where ruc=?',[ruc]);
+			conn.dispose();
+			return result;
+		},
+		getCommitmentsIncompletedByRuc : function(ruc, comconfig) {
+			//falta modificar!!!!!
+			var columns = [];
+			for (var i = 0; i < comconfig.length; i++) {
+				if (comconfig[i].columnasoc != 'evidencias')
+					if(comconfig[i].columnasoc.startsWith('fecha')) {
+						columns.push("DATE_FORMAT(" + comconfig[i].columnasoc + ",'%d/%m/%Y') as " + comconfig[i].columnasoc);
+					} else {
+						columns.push(comconfig[i].columnasoc);
+					}
+			}
+			var dynamicquery = 'select ' + columns.toString() + ' from t_commitment where ruc=?';
+			var conn = new mysql(connectionOptions);
+			const result = conn.query(dynamicquery,[ruc]);
+			conn.dispose();
+			return result;
+		},
+
 	}
 }
 

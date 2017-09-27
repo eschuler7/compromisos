@@ -145,3 +145,15 @@ SELECT concat(left(textliteral , 10),' ...')  from t_monitor;
 
 select if(max(nrocorrelativo) is null, 1, max(nrocorrelativo) + 1) as correlativo from t_commitment where ruc='12345678908';
 select * from t_commitment_evidence;
+
+-- Batch
+-- Commitment types selected
+select * from t_company_commitment where t_company_ruc=10101010101;
+-- total by ruc
+select count(nrocorrelativo) from t_commitment where ruc=10101010101;
+-- validate null entries
+-- call getComConfigByRuc previously
+
+
+
+

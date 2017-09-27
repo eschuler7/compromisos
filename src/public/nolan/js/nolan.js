@@ -228,7 +228,11 @@ $(document).ready(function(){
 		messages : {
 			evidencias : {
 				totalsizemax : 'Solo se puede adjuntar un máximo 200 mb en archivos'
+			},
+			correosnotificacion : {
+				multiemail : 'Ingrese correo válido'
 			}
+
 		},
 		errorPlacement : function(error, element) {
 			var ref = element;

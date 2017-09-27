@@ -523,6 +523,9 @@ router.post('/resetConfigGlobal', function(req, res){
     var result = mysql.user.deleteAllUserById(req.session.user.t_company_ruc,req.session.user.userid);
     var result = mysql.company.updateFirstTime(req.session.user.t_company_ruc,1);
     objectstorage.container.resetContainer(ruc);
+    req.ruc = req.session.user.t_company_ruc;
+    req.companyname = req.session.user.companyname;
+    req.userid = req.session.user.userid;
     req.session.destroy();
     res.redirect('/');
     auditlog(req);
