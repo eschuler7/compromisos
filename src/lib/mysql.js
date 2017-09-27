@@ -270,7 +270,7 @@ var compromisosdb = {
 		},
 		deleteAllCommitments : function(ruc) {
 			var conn = new mysql(connectionOptions);
-			const result = conn.query('delete from t_commitment where t_company_ruc=?',[ruc]);
+			const result = conn.query('delete from t_commitment where ruc=?',[ruc]);
 			conn.dispose();
 			return result;
 		},
@@ -381,7 +381,7 @@ var compromisosdb = {
 		},
 		deleteAllMonitors : function(ruc) {
 			var conn = new mysql(connectionOptions);
-			const result = conn.query('delete from t_monitor where t_company_ruc=?',[ruc]);
+			const result = conn.query('delete from t_monitor where ruc=?',[ruc]);
 			conn.dispose();
 			return result;
 		},
