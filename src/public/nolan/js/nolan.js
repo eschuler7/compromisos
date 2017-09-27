@@ -26,6 +26,7 @@ $.validator.addMethod("validatecheckbox", function(value, element, param) {
 	return value != param;
 }, "Debe seleccionar una opción");
 */
+var htmlSpinner = '<i class="fa fa-refresh fa-spin"></i>';
 $(document).ready(function(){
 	// Start Wizard Validations
 	$('#frmstep1').validate({
@@ -66,6 +67,11 @@ $(document).ready(function(){
 			}
 		},
 		submitHandler : function(form) {
+			var btnSubmit = $(form).find(':submit');
+			var width = btnSubmit.css('width');
+			btnSubmit.css('width',width);
+	        btnSubmit.html(htmlSpinner);
+	        btnSubmit.attr('disabled',true);
 			form.submit();
 		}
 	});
@@ -103,6 +109,11 @@ $(document).ready(function(){
 			}
 		},
 		submitHandler : function(form) {
+			var btnSubmit = $(form).find(':submit');
+			var width = btnSubmit.css('width');
+			btnSubmit.css('width',width);
+	        btnSubmit.html(htmlSpinner);
+	        btnSubmit.attr('disabled',true);
 			form.submit();
 		}
 	});
@@ -120,6 +131,11 @@ $(document).ready(function(){
 			}
 		},
 		submitHandler : function(form) {
+			var btnSubmit = $(form).find(':submit');
+			var width = btnSubmit.css('width');
+			btnSubmit.css('width',width);
+	        btnSubmit.html(htmlSpinner);
+	        btnSubmit.attr('disabled',true);
 			form.submit();
 		}
 	});
@@ -192,6 +208,11 @@ $(document).ready(function(){
 			}
 		},
 		submitHandler : function(form) {
+			var btnSubmit = $(form).find(':submit');
+			var width = btnSubmit.css('width');
+			btnSubmit.css('width',width);
+	        btnSubmit.html(htmlSpinner);
+	        btnSubmit.attr('disabled',true);
 			form.submit();
 		}
 	});
@@ -217,7 +238,37 @@ $(document).ready(function(){
 			error.insertAfter(ref);
 		},
 		submitHandler : function(form) {
-			form.submit();
+			var btnSubmit = $(form).find(':submit');
+			var width = btnSubmit.css('width');
+			btnSubmit.css('width',width);
+	        btnSubmit.html(htmlSpinner);
+	        btnSubmit.attr('disabled',true);
+			//form.submit();
+			var formData = new FormData(form);
+		    $.ajax({
+		        type:'POST',
+		        url:'/secure/commitregister',
+		        data:formData,
+		        xhr: function() {
+		                var myXhr = $.ajaxSettings.xhr();
+		                if(myXhr.upload){
+		                    myXhr.upload.addEventListener('progress',progress, false);
+		                }
+		                return myXhr;
+		        },
+		        cache:false,
+		        contentType: false,
+		        processData: false,
+		        success:function(data){
+		            console.log(data);
+		        },
+		        error: function(err){
+		            console.log(data);
+		        },
+		        complete: function(){
+		        	window.location = '/secure/commitlist';
+		        }
+		    });
 		}
 	});
 	$('#frmeditCommit').validate({
@@ -324,3 +375,18 @@ $(document).ready(function(){
 		input.addEventListener( 'blur', function(){ input.classList.remove( 'has-focus' ); });
 	});
 }( document, window, 0 ));
+
+function progress(e){
+    if(e.lengthComputable){
+        var max = e.total;
+        var current = e.loaded;
+
+        var Percentage = Math.ceil((current * 100)/max);
+        $('#progressbar').css('width',Percentage + '%');
+      	$('#progressbar').html('Progreso ' + Percentage + '%');
+        /*if(Percentage >= 100)
+        {
+           // process completed  
+        }*/
+    }  
+ }

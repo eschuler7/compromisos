@@ -588,7 +588,8 @@ router.post('/commitregister', function(req, res, next){
         }
     }
     req.session.notification = computil.notification('success','Registro Satisfactorio','Se registró un nuevo compromiso');
-    res.redirect('/secure/commitlist');
+    //res.redirect('/secure/commitlist');
+    res.send('ok');
     auditlog(req);
 });
 

@@ -8,6 +8,7 @@ $.validator.addMethod("multiemail",function(value, element, param) {
 	return valid;
 },jQuery.validator.messages.email);
 
+var htmlSpinner = '<i class="fa fa-refresh fa-spin"></i>';
 $(document).ready(function(){
 	$('#demo-form2').validate({
 		rules : {
@@ -121,6 +122,11 @@ $(document).ready(function(){
 			}
 		},
 		submitHandler : function(form) {
+			var btnSubmit = $(form).find(':submit');
+			var width = btnSubmit.css('width');
+			btnSubmit.css('width',width);
+	        btnSubmit.html(htmlSpinner);
+	        btnSubmit.attr('disabled',true);
 			form.submit();
 		}
 	});
@@ -135,6 +141,11 @@ $(document).ready(function(){
 			}
 		},
 		submitHandler : function(form) {
+			var btnSubmit = $(form).find(':submit');
+			var width = btnSubmit.css('width');
+			btnSubmit.css('width',width);
+	        btnSubmit.html(htmlSpinner);
+	        btnSubmit.attr('disabled',true);
 			form.submit();
 		}
 	});

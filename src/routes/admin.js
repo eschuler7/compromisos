@@ -124,6 +124,11 @@ router.post('/clientdelete', function(req, res){
 	res.redirect('/admin/clientlist');
 	auditlog(req);
 });
+router.post('/updatesupportemails', function(req, res){
+	var emails = req.body.supportemails.split(/[;,]+/);
+	
+	res.redirect('/admin/platformconfig');
+});
 
 //Ajax call
 router.post('/validateruc', function(req, res){

@@ -42,11 +42,12 @@ html
                 input.form-control(type='password', placeholder='Contraseña', name='password')
             br
             button.btn.btn-default.submit(type='submit') Iniciar Sesión
+              //i.fa.fa-refresh.fa-spin
             a.reset_pass(href='/resetpwd', style='color: #000000') Olvidó su password?
             .clearfix
         if error
           .alert.alert-danger.alert-dismissible.fade.in(role='alert')
-            button.close(type='button', data-dismiss='alert', aria-label='Close')
+            button.close(type='button', data-dismiss='alert', aria-label='Close',data-loading-text='Cargando')
               span(aria-hidden='true') ×
             |  #{error}
     .sticky-image-wrapper
