@@ -26,7 +26,7 @@ $.validator.addMethod("validatecheckbox", function(value, element, param) {
 	return value != param;
 }, "Debe seleccionar una opción");
 */
-var htmlSpinner = '<i class="fa fa-refresh fa-spin"></i>';
+//var htmlSpinner = '<i class="fa fa-refresh fa-spin"></i>';
 $(document).ready(function(){
 	// Start Wizard Validations
 	$('#frmstep1').validate({
@@ -70,7 +70,7 @@ $(document).ready(function(){
 			var btnSubmit = $(form).find(':submit');
 			var width = btnSubmit.css('width');
 			btnSubmit.css('width',width);
-	        btnSubmit.html(htmlSpinner);
+	        btnSubmit.html('Iniciando ...');
 	        btnSubmit.attr('disabled',true);
 			form.submit();
 		}
@@ -112,7 +112,7 @@ $(document).ready(function(){
 			var btnSubmit = $(form).find(':submit');
 			var width = btnSubmit.css('width');
 			btnSubmit.css('width',width);
-	        btnSubmit.html(htmlSpinner);
+	        btnSubmit.html('En proceso ...');
 	        btnSubmit.attr('disabled',true);
 			form.submit();
 		}
@@ -134,7 +134,7 @@ $(document).ready(function(){
 			var btnSubmit = $(form).find(':submit');
 			var width = btnSubmit.css('width');
 			btnSubmit.css('width',width);
-	        btnSubmit.html(htmlSpinner);
+	        btnSubmit.html('En proceso ...');
 	        btnSubmit.attr('disabled',true);
 			form.submit();
 		}
@@ -211,7 +211,7 @@ $(document).ready(function(){
 			var btnSubmit = $(form).find(':submit');
 			var width = btnSubmit.css('width');
 			btnSubmit.css('width',width);
-	        btnSubmit.html(htmlSpinner);
+	        btnSubmit.html('En proceso ...');
 	        btnSubmit.attr('disabled',true);
 			form.submit();
 		}
@@ -242,37 +242,7 @@ $(document).ready(function(){
 			error.insertAfter(ref);
 		},
 		submitHandler : function(form) {
-			var btnSubmit = $(form).find(':submit');
-			var width = btnSubmit.css('width');
-			btnSubmit.css('width',width);
-	        btnSubmit.html(htmlSpinner);
-	        btnSubmit.attr('disabled',true);
-			//form.submit();
-			var formData = new FormData(form);
-		    $.ajax({
-		        type:'POST',
-		        url:$(form).attr('action'),
-		        data:formData,
-		        xhr: function() {
-	                var myXhr = $.ajaxSettings.xhr();
-	                if(myXhr.upload){
-	                    myXhr.upload.addEventListener('progress',progress, false);
-	                }
-	                return myXhr;
-		        },
-		        cache:false,
-		        contentType: false,
-		        processData: false,
-		        success:function(data){
-		            console.log(data);
-		        },
-		        error: function(err){
-		            console.log(data);
-		        },
-		        complete: function(){
-		        	window.location = '/secure/commitlist';
-		        }
-		    });
+			submitAjaxForm(form,'/secure/commitlist');
 		}
 	});
 	$('#frmeditCommit').validate({
@@ -297,37 +267,7 @@ $(document).ready(function(){
 			error.insertAfter(ref);
 		},
 		submitHandler : function(form) {
-			var btnSubmit = $(form).find(':submit');
-			var width = btnSubmit.css('width');
-			btnSubmit.css('width',width);
-	        btnSubmit.html(htmlSpinner);
-	        btnSubmit.attr('disabled',true);
-			//form.submit();
-			var formData = new FormData(form);
-		    $.ajax({
-		        type:'POST',
-		        url:$(form).attr('action'),
-		        data:formData,
-		        xhr: function() {
-	                var myXhr = $.ajaxSettings.xhr();
-	                if(myXhr.upload){
-	                    myXhr.upload.addEventListener('progress',progress, false);
-	                }
-	                return myXhr;
-		        },
-		        cache:false,
-		        contentType: false,
-		        processData: false,
-		        success:function(data){
-		            console.log(data);
-		        },
-		        error: function(err){
-		            console.log(data);
-		        },
-		        complete: function(){
-		        	window.location = '/secure/commitlist';
-		        }
-		    });
+			submitAjaxForm(form,'/secure/commitlist');
 		}
 	});
 	$('#frmregisterMonit').validate({
@@ -352,37 +292,7 @@ $(document).ready(function(){
 			error.insertAfter(ref);
 		},
 		submitHandler : function(form) {
-			var btnSubmit = $(form).find(':submit');
-			var width = btnSubmit.css('width');
-			btnSubmit.css('width',width);
-	        btnSubmit.html(htmlSpinner);
-	        btnSubmit.attr('disabled',true);
-			//form.submit();
-			var formData = new FormData(form);
-		    $.ajax({
-		        type:'POST',
-		        url:$(form).attr('action'),
-		        data:formData,
-		        xhr: function() {
-	                var myXhr = $.ajaxSettings.xhr();
-	                if(myXhr.upload){
-	                    myXhr.upload.addEventListener('progress',progress, false);
-	                }
-	                return myXhr;
-		        },
-		        cache:false,
-		        contentType: false,
-		        processData: false,
-		        success:function(data){
-		            console.log(data);
-		        },
-		        error: function(err){
-		            console.log(data);
-		        },
-		        complete: function(){
-		        	window.location = '/secure/monitlist';
-		        }
-		    });
+			submitAjaxForm(form,'/secure/monitlist');
 		}
 	});
 	$('#frmeditMonitor').validate({
@@ -407,40 +317,47 @@ $(document).ready(function(){
 			error.insertAfter(ref);
 		},
 		submitHandler : function(form) {
-			var btnSubmit = $(form).find(':submit');
-			var width = btnSubmit.css('width');
-			btnSubmit.css('width',width);
-	        btnSubmit.html(htmlSpinner);
-	        btnSubmit.attr('disabled',true);
-			//form.submit();
-			var formData = new FormData(form);
-		    $.ajax({
-		        type:'POST',
-		        url:$(form).attr('action'),
-		        data:formData,
-		        xhr: function() {
-	                var myXhr = $.ajaxSettings.xhr();
-	                if(myXhr.upload){
-	                    myXhr.upload.addEventListener('progress',progress, false);
-	                }
-	                return myXhr;
-		        },
-		        cache:false,
-		        contentType: false,
-		        processData: false,
-		        success:function(data){
-		            console.log(data);
-		        },
-		        error: function(err){
-		            console.log(data);
-		        },
-		        complete: function(){
-		        	window.location = '/secure/monitlist';
-		        }
-		    });
+			submitAjaxForm(form,'/secure/monitlist');
 		}
 	});
 });
+
+var submitAjaxForm = function(form, urlRedirect) {
+	var btnSubmit = $(form).find(':submit');
+	var width = btnSubmit.css('width');
+	btnSubmit.css('width',width);
+    btnSubmit.html('En proceso ...');
+    btnSubmit.attr('disabled',true);
+    $('#pbcontainer').css('display','block');
+	//form.submit();
+	var formData = new FormData(form);
+    $.ajax({
+        type:'POST',
+        url:$(form).attr('action'),
+        data:formData,
+        xhr: function() {
+            var myXhr = $.ajaxSettings.xhr();
+            if(myXhr.upload){
+                myXhr.upload.addEventListener('progress',progress, false);
+            }
+            return myXhr;
+        },
+        cache:false,
+        contentType: false,
+        processData: false,
+        success:function(data){
+        	btnSubmit.html('Finalizado');
+            console.log(data);
+        },
+        error: function(err){
+            console.log(data);
+        },
+        complete: function(){
+        	btnSubmit.html('Redireccionando ...');
+        	window.location = urlRedirect;
+        }
+    });
+}
 
 ;( function ( document, window, index )
 {
@@ -478,9 +395,9 @@ function progress(e){
         var Percentage = Math.ceil((current * 100)/max);
         $('#progressbar').css('width',Percentage + '%');
       	$('#progressbar').html('Progreso ' + Percentage + '%');
-        /*if(Percentage >= 100)
+        if(Percentage >= 100)
         {
-           // process completed  
-        }*/
+           $('#progressbar').html('Registro/Actualización Finalizado');
+        }
     }  
  }
