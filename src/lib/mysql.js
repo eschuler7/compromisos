@@ -302,7 +302,7 @@ var compromisosdb = {
 		},
 		getEvidences : function(ruc, correlativo) {
 			var conn = new mysql(connectionOptions);
-			const result = conn.query('select * from t_commitment_evidence where t_commitment_nrocorrelativo=? and t_commitment_ruc=?',[correlativo, ruc]);
+			const result = conn.query("select id,description,files,DATE_FORMAT(cdatetime,'%d/%m/%Y') as cdatetime from t_commitment_evidence where t_commitment_nrocorrelativo=? and t_commitment_ruc=?",[correlativo, ruc]);
 			conn.dispose();
 			return result;
 		},
@@ -320,7 +320,7 @@ var compromisosdb = {
 		},
 		getEvidencesMonit : function(ruc, correlativo) {
 			var conn = new mysql(connectionOptions);
-			const result = conn.query('select * from t_monitor_evidence where t_monitor_nrocorrelativo=? and t_monitor_ruc=?',[correlativo, ruc]);
+			const result = conn.query("select id,description,files,DATE_FORMAT(cdatetime,'%d/%m/%Y') as cdatetime from t_monitor_evidence where t_monitor_nrocorrelativo=? and t_monitor_ruc=?",[correlativo, ruc]);
 			conn.dispose();
 			return result;
 		},
