@@ -556,7 +556,7 @@ var compromisosdb = {
 			const result = conn.query(dynamicquery,[ruc]);
 			conn.dispose();
 			return result;
-		},
+		}
 
 	}
 }

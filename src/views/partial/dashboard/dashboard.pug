@@ -5,231 +5,251 @@ block container
       h3 Tablero de Control
   .clearfix
   .row
-    .col-md-12
+    .col-md-6
+      .panel.panel-body
+        .x_title
+          h4 Easy Pie Chart
+        p
+          | Easy pie chart is a jQuery plugin that uses the canvas element to render highly customizable, very easy to implement, simple pie charts for single values.
+        .row
+          .col-xs-4
+            span.chart(data-percent='86')
+              span.percent
+          .col-xs-4
+            span.chart(data-percent='73')
+              span.percent
+          .col-xs-4
+            span.chart(data-percent='60')
+              span.percent
+          .clearfix
 
-  if session.user.firsttime == 1
-    #config_init.modal.fade(tabindex='-1', role='dialog', data-backdrop='static', data-keyboard='false',data-focus-on='input:first',style="display: none;")
-      .modal-dialog.modal-lg(role='document')
-        .modal-content
-          .modal-header
-            a.close(href='logout')
-              span(aria-hidden='true') &times;
-            center 
-              h4.modal-title Configuración de compromisos y monitoreo
-          .modal-body
-            #wizard.form_wizard.wizard_horizontal
-              ul.wizard_steps(style='padding: 0px')
-                li(style='width:25%')
-                  a(href='#step-1')
-                    span.step_no 1
-                    span.step_descr
-                      | Paso 1
-                      //br
-                      //small Encabezados
-                li(style='width:25%')
-                  a(href='#step-2')
-                    span.step_no 2
-                    span.step_descr
-                      | Paso 2
-                      //br
-                      //small Dashboard
-                li(style='width:25%')
-                  a(href='#step-3')
-                    span.step_no 3
-                    span.step_descr
-                      | Paso 3
-                      //br
-                      //small Tabla de compromisos
-                li(style='width:25%')
-                  a(href='#step-4')
-                    span.step_no 4
-                    span.step_descr
-                      | Paso 4
-                      //br
-                      //small Tabla de monitoreo
-              #step-1
-                form#frmstep1.form-horizontal.form-label-left(action='/secure/initConfig', method='POST' )
-                  span.section(style='color: #71859A') Paso 1 : Configuración de Compañía
-                  .form-group
-                    label.control-label.col-md-4.col-sm-3.col-xs-12(for='razonsocial')
-                      | Titular *
-                    .col-md-6.col-sm-7.col-xs-12
-                      input#razonsocial.form-control.col-md-7.col-xs-12(type='text', required='required', name='razonsocial',value=session.user.companyname)
-                  .form-group
-                    label.control-label.col-md-4.col-sm-3.col-xs-12(for='unidadruc')
-                      | Unidad *
-                    .col-md-6.col-sm-7.col-xs-12
-                      input#unidadinit.form-control.col-md-7.col-xs-12(type='text', required='required', name='unidadinit')
-                  .form-group
-                    .col-md-4.col-sm-3.col-xs-12
-                    .col-md-6.col-sm-7.col-xs-12
-                      input#multiunidad.flat(type='checkbox', value='Multiunidad', name='multiunidad')
-                      |  
-                      label(for='multiunidad',style='cursor: pointer') Varias Unidades
-                  .form-group
-                    label.control-label.col-md-4.col-sm-3.col-xs-12(for='proyoper')
-                      |  Proyecto u Operación *
-                    .col-md-6.col-sm-7.col-xs-12
-                      input#proyoper.form-control.col-md-7.col-xs-12(type='text', name='proyoper')
-                  .form-group
-                    .col-md-4.col-sm-3.col-xs-12
-                    .col-md-6.col-sm-7.col-xs-12
-                      input#multiproyoper.flat(type='checkbox', value='Multiproyecto', name='multiproyoper')
-                      |  
-                      label(for='multiproyoper',style='cursor: pointer') Varios proyectos u operaciones
-              #step-2
-                form#frmstep2.frmstep1form-horizontal.form-label-left
-                  span.section(style='color: #71859A') Paso 2 : Configuración inicial del Dashboard
-                  each type, index in dashboard
-                    if type.mandatory === 1
-                      if index % 4 === 0
-                        | <div class="row" style="width:99%">
-                        .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
-                          input.flat(id=type.id,type='checkbox', value=type.id, name='dashboard', checked='checked', disabled='disabled')
+
+    if session.user.firsttime == 1
+      #config_init.modal.fade(tabindex='-1', role='dialog', data-backdrop='static', data-keyboard='false',data-focus-on='input:first',style="display: none;")
+        .modal-dialog.modal-lg(role='document')
+          .modal-content
+            .modal-header
+              a.close(href='logout')
+                span(aria-hidden='true') &times;
+              center 
+                h4.modal-title Configuración de compromisos y monitoreo
+            .modal-body
+              #wizard.form_wizard.wizard_horizontal
+                ul.wizard_steps(style='padding: 0px')
+                  li(style='width:25%')
+                    a(href='#step-1')
+                      span.step_no 1
+                      span.step_descr
+                        | Paso 1
+                        //br
+                        //small Encabezados
+                  li(style='width:25%')
+                    a(href='#step-2')
+                      span.step_no 2
+                      span.step_descr
+                        | Paso 2
+                        //br
+                        //small Dashboard
+                  li(style='width:25%')
+                    a(href='#step-3')
+                      span.step_no 3
+                      span.step_descr
+                        | Paso 3
+                        //br
+                        //small Tabla de compromisos
+                  li(style='width:25%')
+                    a(href='#step-4')
+                      span.step_no 4
+                      span.step_descr
+                        | Paso 4
+                        //br
+                        //small Tabla de monitoreo
+                #step-1
+                  form#frmstep1.form-horizontal.form-label-left(action='/secure/initConfig', method='POST' )
+                    span.section(style='color: #71859A') Paso 1 : Configuración de Compañía
+                    .form-group
+                      label.control-label.col-md-4.col-sm-3.col-xs-12(for='razonsocial')
+                        | Titular *
+                      .col-md-6.col-sm-7.col-xs-12
+                        input#razonsocial.form-control.col-md-7.col-xs-12(type='text', required='required', name='razonsocial',value=session.user.companyname)
+                    .form-group
+                      label.control-label.col-md-4.col-sm-3.col-xs-12(for='unidadruc')
+                        | Unidad *
+                      .col-md-6.col-sm-7.col-xs-12
+                        input#unidadinit.form-control.col-md-7.col-xs-12(type='text', required='required', name='unidadinit')
+                    .form-group
+                      .col-md-4.col-sm-3.col-xs-12
+                      .col-md-6.col-sm-7.col-xs-12
+                        input#multiunidad.flat(type='checkbox', value='Multiunidad', name='multiunidad')
                         |  
-                        label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
-                        if index === dashboard.length - 1
-                          | </div>
-                      else
-                        if index % 4 === 3
-                          .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
-                            input.flat(id=type.id,type='checkbox', value=type.id, name='dashboard', checked='checked', disabled='disabled')
-                          |  
-                          label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
-                          | </div>
-                        else
+                        label(for='multiunidad',style='cursor: pointer') Varias Unidades
+                    .form-group
+                      label.control-label.col-md-4.col-sm-3.col-xs-12(for='proyoper')
+                        |  Proyecto u Operación *
+                      .col-md-6.col-sm-7.col-xs-12
+                        input#proyoper.form-control.col-md-7.col-xs-12(type='text', name='proyoper')
+                    .form-group
+                      .col-md-4.col-sm-3.col-xs-12
+                      .col-md-6.col-sm-7.col-xs-12
+                        input#multiproyoper.flat(type='checkbox', value='Multiproyecto', name='multiproyoper')
+                        |  
+                        label(for='multiproyoper',style='cursor: pointer') Varios proyectos u operaciones
+                #step-2
+                  form#frmstep2.frmstep1form-horizontal.form-label-left
+                    span.section(style='color: #71859A') Paso 2 : Configuración inicial del Dashboard
+                    each type, index in dashboard
+                      if type.mandatory === 1
+                        if index % 4 === 0
+                          | <div class="row" style="width:99%">
                           .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
                             input.flat(id=type.id,type='checkbox', value=type.id, name='dashboard', checked='checked', disabled='disabled')
                           |  
                           label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
                           if index === dashboard.length - 1
                             | </div>
-                    else
-                      if index % 4 === 0
-                        | <div class="row" style="width:99%">
-                        .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
-                          input.flat(id=type.id,type='checkbox', value=type.id, name='dashboard')
-                        |  
-                        label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer') #{type.name}
-                        if index === dashboard.length - 1
-                          | </div>
+                        else
+                          if index % 4 === 3
+                            .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
+                              input.flat(id=type.id,type='checkbox', value=type.id, name='dashboard', checked='checked', disabled='disabled')
+                            |  
+                            label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
+                            | </div>
+                          else
+                            .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
+                              input.flat(id=type.id,type='checkbox', value=type.id, name='dashboard', checked='checked', disabled='disabled')
+                            |  
+                            label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
+                            if index === dashboard.length - 1
+                              | </div>
                       else
-                        if index % 4 === 3
+                        if index % 4 === 0
+                          | <div class="row" style="width:99%">
                           .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
                             input.flat(id=type.id,type='checkbox', value=type.id, name='dashboard')
                           |  
-                          label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
-                          | </div>
-                        else
-                          .col-md-1.col-sm-1.col-xs-1(style='text-align: right')
-                            input.flat(id=type.id,type='checkbox', value=type.id, name='dashboard;min-height:30px')
-                          |  
-                          label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
+                          label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer') #{type.name}
                           if index === dashboard.length - 1
                             | </div>
-              #step-3
-                form#frmstep3.form-label-left
-                  span.section(style='color: #71859A') Paso 3 : Configuración inicial de la tabla de compromisos
-                  each type, index in commitment
-                    if type.mandatory === 1
-                      if index % 4 === 0
-                        | <div class="row" style="width:99%">
-                        .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
-                          input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos', checked='checked', disabled='disabled')
-                        |  
-                        label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
-                        if index === commitment.length - 1
-                          | </div>
-                      else
-                        if index % 4 === 3
-                          .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
-                            input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos', checked='checked', disabled='disabled')
-                          |  
-                          label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
-                          | </div>
                         else
+                          if index % 4 === 3
+                            .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
+                              input.flat(id=type.id,type='checkbox', value=type.id, name='dashboard')
+                            |  
+                            label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
+                            | </div>
+                          else
+                            .col-md-1.col-sm-1.col-xs-1(style='text-align: right')
+                              input.flat(id=type.id,type='checkbox', value=type.id, name='dashboard;min-height:30px')
+                            |  
+                            label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
+                            if index === dashboard.length - 1
+                              | </div>
+                #step-3
+                  form#frmstep3.form-label-left
+                    span.section(style='color: #71859A') Paso 3 : Configuración inicial de la tabla de compromisos
+                    each type, index in commitment
+                      if type.mandatory === 1
+                        if index % 4 === 0
+                          | <div class="row" style="width:99%">
                           .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
                             input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos', checked='checked', disabled='disabled')
                           |  
                           label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
                           if index === commitment.length - 1
                             | </div>
-                    else
-                      if index % 4 === 0
-                        | <div class="row" style="width:99%">
-                        .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
-                          input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos')
-                        |  
-                        label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
-                        if index === commitment.length - 1
-                          | </div>
-                      else
-                        if index % 4 === 3
-                          .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
-                            input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos')
-                            
-                          |  
-                          label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
-                          | </div>
                         else
+                          if index % 4 === 3
+                            .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
+                              input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos', checked='checked', disabled='disabled')
+                            |  
+                            label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
+                            | </div>
+                          else
+                            .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
+                              input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos', checked='checked', disabled='disabled')
+                            |  
+                            label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
+                            if index === commitment.length - 1
+                              | </div>
+                      else
+                        if index % 4 === 0
+                          | <div class="row" style="width:99%">
                           .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
                             input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos')
-
                           |  
                           label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
                           if index === commitment.length - 1
                             | </div>
-              #step-4
-                form#frmstep4.form-label-left
-                  span.section(style='color: #71859A') Paso 4 : Configuración inicial de la tabla de monitoreo
-                  each type, index in monitor
-                    if type.mandatory === 1
-                      if index % 4 === 0
-                        | <div class="row" style="width:99%">
-                        .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
-                          input.flat(id=type.id,type='checkbox', value=type.id, name='monitoreo', checked='checked', disabled='disabled')
-                        |  
-                        label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
-                        if index === monitor.length - 1
-                          | </div>
-                      else
-                        if index % 4 === 3
-                          .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
-                            input.flat(id=type.id,type='checkbox', value=type.id, name='monitoreo', checked='checked', disabled='disabled')
-                          |  
-                          label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
-                          | </div>
                         else
-                          .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
-                            input.flat(id=type.id,type='checkbox', value=type.id, name='monitoreo', checked='checked', disabled='disabled')
-                          |  
-                          label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
-                          if index === monitor.length - 1
+                          if index % 4 === 3
+                            .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
+                              input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos')
+                              
+                            |  
+                            label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
                             | </div>
-                    else
-                      if index % 4 === 0
-                        | <div class="row" style="width:99%">
-                        .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
-                          input.flat(id=type.id,type='checkbox', value=type.id, name='monitoreo')
-                        |  
-                        label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
-                        if index === monitor.length - 1
-                          | </div>
-                      else
-                        if index % 4 === 3
-                          .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
-                            input.flat(id=type.id,type='checkbox', value=type.id, name='monitoreo')
-                          |  
-                          label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
-                          | </div>
-                        else
-                          .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
-                            input.flat(id=type.id,type='checkbox', value=type.id, name='monitoreo')
-                          |  
-                          label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
-                          if index === monitor.length - 1
-                            | </div>
+                          else
+                            .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
+                              input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos')
 
+                            |  
+                            label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
+                            if index === commitment.length - 1
+                              | </div>
+                #step-4
+                  form#frmstep4.form-label-left
+                    span.section(style='color: #71859A') Paso 4 : Configuración inicial de la tabla de monitoreo
+                    each type, index in monitor
+                      if type.mandatory === 1
+                        if index % 4 === 0
+                          | <div class="row" style="width:99%">
+                          .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
+                            input.flat(id=type.id,type='checkbox', value=type.id, name='monitoreo', checked='checked', disabled='disabled')
+                          |  
+                          label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
+                          if index === monitor.length - 1
+                            | </div>
+                        else
+                          if index % 4 === 3
+                            .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
+                              input.flat(id=type.id,type='checkbox', value=type.id, name='monitoreo', checked='checked', disabled='disabled')
+                            |  
+                            label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
+                            | </div>
+                          else
+                            .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
+                              input.flat(id=type.id,type='checkbox', value=type.id, name='monitoreo', checked='checked', disabled='disabled')
+                            |  
+                            label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
+                            if index === monitor.length - 1
+                              | </div>
+                      else
+                        if index % 4 === 0
+                          | <div class="row" style="width:99%">
+                          .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
+                            input.flat(id=type.id,type='checkbox', value=type.id, name='monitoreo')
+                          |  
+                          label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
+                          if index === monitor.length - 1
+                            | </div>
+                        else
+                          if index % 4 === 3
+                            .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
+                              input.flat(id=type.id,type='checkbox', value=type.id, name='monitoreo')
+                            |  
+                            label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
+                            | </div>
+                          else
+                            .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
+                              input.flat(id=type.id,type='checkbox', value=type.id, name='monitoreo')
+                            |  
+                            label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
+                            if index === monitor.length - 1
+                              | </div>
+    script(src='/jquery/dist/jquery.min.js')
+    script(src='/bootstrap/dist/js/bootstrap.min.js')
+    script(src='/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js')
+    script(src='/build/js/custom.min.js')
     script.
       window.onload = function() {
         var firsttime = '#{session.user.firsttime}';

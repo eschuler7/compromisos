@@ -148,11 +148,33 @@ select * from t_commitment_evidence;
 
 -- Batch
 -- Commitment types selected
-select * from t_company_commitment where t_company_ruc=10101010101;
--- total by ruc
+-- criticidad
+select * from t_commitment where ruc=10101010101;
+select count(criticidad) from t_commitment where ruc=10101010101 and criticidad = 'Alto';
+select count(criticidad) from t_commitment where ruc=10101010101 and criticidad = 'Medio';
+select count(criticidad) from t_commitment where ruc=10101010101 and criticidad = 'Bajo';
+
+-- Total Compromisos
 select count(nrocorrelativo) from t_commitment where ruc=10101010101;
--- validate null entries
--- call getComConfigByRuc previously
+-- Compromisos que requieren acción
+select count(accioncompromiso) from t_commitment where ruc=10101010101 and accioncompromiso = 'Si';
+-- Compromisos en cumplimiento
+select count(nrocorrelativo) from t_commitment where ruc=10101010101 and (estadocumplimiento = 'Abierto' or estadocumplimiento = 'proceso') and accioncompromiso = 'No';
+-- Compromisos en cumplimiento con sustento 
+
+-- Compromisos incumplidos
+select count(estadocumplimiento) from t_commitment where ruc=10101010101 and estadocumplimiento = 'Vencido';
+-- Compromisos incumplidos con un plan de acción
+select count(estadocumplimiento) from t_commitment where ruc=10101010101 and estadocumplimiento = 'Vencido' and detalleaccion IS NOT NULL;
+-- Compromisos sin un plan de acción
+select count(nrocorrelativo) from t_commitment where ruc=10101010101 and detalleaccion IS NULL;
+-- Compromisos críticos incumplidos
+select count(criticidad) from t_commitment where ruc=10101010101 and criticidad = 'Alto' and estadocumplimiento = 'Vencido';
+-- Compromisos con aspectos no definidos
+
+-- Compromisos que requieren ser modificados (en base a que?)
+
+
 
 
 

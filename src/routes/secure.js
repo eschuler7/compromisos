@@ -59,7 +59,9 @@ router.get('/dashboard',function(req, res){
         var monitor = mysql.monitor.getMonitorTypes();
         res.render('partial/dashboard/dashboard',{dashboard: dashboard, commitment: commitment, monitor: monitor,notification: req.notification});
     } else {
+        var totalcommit = mysql.batch.totalCommitmentByRuc(req.session.user.t_company_ruc);
         res.render('partial/dashboard/dashboard',{notification: req.notification});
+
     }
 });
 
