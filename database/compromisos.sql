@@ -41,7 +41,7 @@ insert into t_commitment_config values('CM20','Area responsable','Señala el equ
 insert into t_commitment_config values('CM21','Correos de notificación','Lista de correos para notificaciones y avisos de verificación.','correosnotificacion',0,now(),now());
 insert into t_commitment_config values('CM22','Notificación de inactividad','No Definido','notificacioninactividad',0,now(),now());
 insert into t_commitment_config values('CM23','Nombre de revisor','Nombre del encargado de la revisión.','nombrerevisor',0,now(),now());
-insert into t_commitment_config values('CM24','Fecha de revisión','Indica la última vez que el compromiso y sus características fueron revisadas y validadas.','fecharevision',0,now(),now());
+insert into t_commitment_config values('CM24','Fecha de revisión','Indica la última vez que el compromiso y sus características fueron revisadas y validadas.','fecharevision',1,now(),now());
 insert into t_commitment_config values('CM25','Referencia técnica o legal de cumplimiento','Indica, en caso exista, la referencia sobre cómo se deberá cumplir el compromiso en base a la normativa o texto técnico.','referencialegal',0,now(),now());
 insert into t_commitment_config values('CM26','Presupuesto','Indica el presupuesto asociado al cumplimiento.','presupuesto',0,now(),now());
 insert into t_commitment_config values('CM27','Notas adicionales','Permite complementar el compromiso con detalles específicos.','comentarios',1,now(),now());
@@ -156,24 +156,32 @@ select count(criticidad) from t_commitment where ruc=10101010101 and criticidad 
 
 -- Total Compromisos
 select count(nrocorrelativo) from t_commitment where ruc=10101010101;
--- Compromisos que requieren acción
-select count(accioncompromiso) from t_commitment where ruc=10101010101 and accioncompromiso = 'Si';
+select count(estadocumplimiento) from t_commitment where ruc=10101010101 and estadocumplimiento = 'Cerrado';
+-- Compromisos con aspectos no definidos
+
+
 -- Compromisos en cumplimiento
 select count(nrocorrelativo) from t_commitment where ruc=10101010101 and (estadocumplimiento = 'Abierto' or estadocumplimiento = 'proceso') and accioncompromiso = 'No';
--- Compromisos en cumplimiento con sustento 
 
--- Compromisos incumplidos
-select count(estadocumplimiento) from t_commitment where ruc=10101010101 and estadocumplimiento = 'Vencido';
+
+-- Compromisos que requieren acción
+select count(accioncompromiso) from t_commitment where ruc=10101010101 and accioncompromiso = 'Si';
 -- Compromisos incumplidos con un plan de acción
 select count(estadocumplimiento) from t_commitment where ruc=10101010101 and estadocumplimiento = 'Vencido' and detalleaccion IS NOT NULL;
 -- Compromisos sin un plan de acción
 select count(nrocorrelativo) from t_commitment where ruc=10101010101 and detalleaccion IS NULL;
+
+
+-- Compromisos incumplidos (dashboad total de incumplidos, % cuantos criticos)
+select count(estadocumplimiento) from t_commitment where ruc=10101010101 and estadocumplimiento = 'Vencido';
 -- Compromisos críticos incumplidos
 select count(criticidad) from t_commitment where ruc=10101010101 and criticidad = 'Alto' and estadocumplimiento = 'Vencido';
--- Compromisos con aspectos no definidos
+
+
+
 
 -- Compromisos que requieren ser modificados (en base a que?)
-
+-- Compromisos en cumplimiento con sustento 
 
 
 
