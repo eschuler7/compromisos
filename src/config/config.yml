@@ -8,16 +8,16 @@ prod: &default
     apikey: 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
     from: nolan_notification@nolanhub.com
     name: NOLAN Notifications
-  #smtp:
-    #host: smtp.gmail.com
-    #port: 465
-    #secure: true
-    #auth:
-    #  user: joandelgado18@gmail.com
-    #  pass: pcmxskzxujkforgq
-    #from:
-    #  name: NOLAN Notification
-    #  email: nolan_notification@nolanhub.com
+  smtp:
+    host: smtp.gmail.com
+    port: 465
+    secure: true
+    auth:
+      user: joandelgado18@gmail.com
+      pass: pcmxskzxujkforgq
+    from:
+      name: NOLAN Notification
+      email: nolan_notification@nolanhub.com
 dev:
   <<: *default
   port: 8080

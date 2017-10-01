@@ -11,18 +11,6 @@ block container
           h4 Easy Pie Chart
         p
           | Easy pie chart is a jQuery plugin that uses the canvas element to render highly customizable, very easy to implement, simple pie charts for single values.
-        .row
-          .col-xs-4
-            span.chart(data-percent='86')
-              span.percent
-          .col-xs-4
-            span.chart(data-percent='73')
-              span.percent
-          .col-xs-4
-            span.chart(data-percent='60')
-              span.percent
-          .clearfix
-
 
     if session.user.firsttime == 1
       #config_init.modal.fade(tabindex='-1', role='dialog', data-backdrop='static', data-keyboard='false',data-focus-on='input:first',style="display: none;")
@@ -246,10 +234,6 @@ block container
                             label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
                             if index === monitor.length - 1
                               | </div>
-    script(src='/jquery/dist/jquery.min.js')
-    script(src='/bootstrap/dist/js/bootstrap.min.js')
-    script(src='/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js')
-    script(src='/build/js/custom.min.js')
     script.
       window.onload = function() {
         var firsttime = '#{session.user.firsttime}';

@@ -1,5 +1,5 @@
 'use strict';
-// Loading Config
+/*// Loading Config
 var config = require('./config');
 //Sendgrid
 var sgMail = require('@sendgrid/mail');
@@ -17,9 +17,9 @@ var email = {
 		sgMail.send(msg);
 	}
 }
-module.exports = email;
+module.exports = email;*/
 
-/*// Loading dependencies
+// Loading dependencies
 var nodemailer = require('nodemailer');
 // Loading Config
 var config = require('./config');
@@ -56,4 +56,4 @@ var email = {
 	}
 }
 
-module.exports = email;*/
+module.exports = email;
