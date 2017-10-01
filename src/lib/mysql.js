@@ -150,7 +150,9 @@ var compromisosdb = {
 			for (var i = 0; i < compcomm.length; i++) {
 				if (compcomm[i].columnasoc != 'evidencias')
 					if(compcomm[i].columnasoc.startsWith('fecha')) {
-						columns.push("DATE_FORMAT(" + compcomm[i].columnasoc + ",'%d/%m/%Y') as " + compcomm[i].columnasoc);
+						columns.push("date_format(" + compcomm[i].columnasoc + ",'%d/%m/%Y') as " + compcomm[i].columnasoc);
+					} else if(compcomm[i].columnasoc == 'contorigcomp' || compcomm[i].columnasoc == 'resumencomp' || compcomm[i].columnasoc == 'antecedentes' || compcomm[i].columnasoc == 'detalleaccion' || compcomm[i].columnasoc == 'correosnotificacion' || compcomm[i].columnasoc == 'comentarios' || compcomm[i].columnasoc == 'referencialegal'){
+						columns.push('if(char_length(' + compcomm[i].columnasoc + ')>20, concat(substring(' + compcomm[i].columnasoc + ',1,20)," ..."),' + compcomm[i].columnasoc + ') as ' + compcomm[i].columnasoc);
 					} else {
 						columns.push(compcomm[i].columnasoc);
 					}
@@ -338,6 +340,8 @@ var compromisosdb = {
 				if (monconf[i].columnasoc != 'evidencias') {
 					if(monconf[i].columnasoc.startsWith('fecha')) {
 						columns.push("DATE_FORMAT(" + monconf[i].columnasoc + ",'%d/%m/%Y') as " + monconf[i].columnasoc);
+					} else if(monconf[i].columnasoc == 'aspecasoc' || monconf[i].columnasoc == 'textliteral' || monconf[i].columnasoc == 'antecmonitoreo' || monconf[i].columnasoc == 'detalleaccion' || monconf[i].columnasoc == 'notificacion' || monconf[i].columnasoc == 'referenciatecnica' || monconf[i].columnasoc == 'comentarios'){
+						columns.push('if(char_length(' + monconf[i].columnasoc + ')>20, concat(substring(' + monconf[i].columnasoc + ',1,20)," ..."),' + monconf[i].columnasoc + ') as ' + monconf[i].columnasoc);
 					} else {
 						columns.push(monconf[i].columnasoc);
 					}
