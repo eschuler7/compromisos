@@ -3,116 +3,117 @@ block container
   .page-title
     //.right_col(role='main')
     // top tiles
-  .row
-    .col-md-6.col-sm-6.col-xs-12
-      .row.tile_count
-        .col-md-4.col-sm-4.col-xs-4.tile_stats_count
-          span.count_top
-            |  Compromisos total
-          .count 1500
-        .col-md-4.col-sm-4.col-xs-4.tile_stats_count
-          span.count_top
-            |  Compromisos incompletos
-          .count(style='color:orange') 100
-        .col-md-4.col-sm-4.col-xs-4.tile_stats_count
-          span.count_top
-            |  Compromisos Cerrados
-          .count.green 10
+    if session.user.firsttime != 1
       .row
-        .col-md-12.col-sm-12.col-xs-12
-          .panel.panel-body
-            .x_title
-              h4 Compromisos por criticidad
-            .row
-              .col-xs-4
-                span.chart(data-percent='86')
-                  span.percent
-              .col-xs-4
-                span.chart(data-percent='73')
-                  span.percent
-              .col-xs-4
-                span.chart(data-percent='60')
-                  span.percent
-      .row
-        .col-md-12.col-sm-12.col-xs-12
-          .x_panel
-            .x_title
-              h2 Acción sobre compromisos
-              .clearfix
-            .x_content
-              #echart_donut_commit(style='height:350px;')
-      .row
-        .col-md-12.col-sm-12.col-xs-12
-          .x_panel
-            .panel.panel-body
-              .x_title
-                h2 Desviación - Compromisos
-                .clearfix
-              .x_content
-                #echart_gauge_commit(style='height:370px;')
-      .row
-        .col-md-12.col-sm-12.col-xs-12
-          .x_panel
-            .x_title
-              h2 Incumplimiento - Compromisos
-              .clearfix
-            .x_content
-              #echart_pie_commit(style='height:350px;')
+        .col-md-6.col-sm-6.col-xs-12
+          .row.tile_count
+            .col-md-4.col-sm-4.col-xs-4.tile_stats_count
+              span.count_top
+                |  Compromisos total
+              .count 1500
+            .col-md-4.col-sm-4.col-xs-4.tile_stats_count
+              span.count_top
+                |  Compromisos incompletos
+              .count(style='color:orange') 100
+            .col-md-4.col-sm-4.col-xs-4.tile_stats_count
+              span.count_top
+                |  Compromisos Cerrados
+              .count.green 10
+          .row
+            .col-md-12.col-sm-12.col-xs-12
+              .panel.panel-body
+                .x_title
+                  h4 Compromisos por criticidad
+                .row
+                  .col-xs-4
+                    span.chart(data-percent='86')
+                      span.percent
+                  .col-xs-4
+                    span.chart(data-percent='73')
+                      span.percent
+                  .col-xs-4
+                    span.chart(data-percent='60')
+                      span.percent
+          .row
+            .col-md-12.col-sm-12.col-xs-12
+              .x_panel
+                .x_title
+                  h2 Acción sobre compromisos
+                  .clearfix
+                .x_content
+                  #echart_donut_commit(style='height:350px;')
+          .row
+            .col-md-12.col-sm-12.col-xs-12
+              .x_panel
+                .panel.panel-body
+                  .x_title
+                    h2 Desviación - Compromisos
+                    .clearfix
+                  .x_content
+                    #echart_gauge_commit(style='height:370px;')
+          .row
+            .col-md-12.col-sm-12.col-xs-12
+              .x_panel
+                .x_title
+                  h2 Incumplimiento - Compromisos
+                  .clearfix
+                .x_content
+                  #echart_pie_commit(style='height:350px;')
 
-    .col-md-6.col-sm-6.col-xs-12
-      .row.tile_count
-        .col-md-4.col-sm-4.col-xs-4.tile_stats_count
-          span.count_top
-            |  Monitoreo total 
-          .count 1000
-        .col-md-4.col-sm-4.col-xs-4.tile_stats_count
-          span.count_top
-            |  Monitoreo incompletos
-          .count(style='color:orange') 80
-        .col-md-4.col-sm-4.col-xs-4.tile_stats_count
-          span.count_top
-            |  Monitoreo cerrados
-          .count.green 5
-      .row
-        .col-md-12.col-sm-12.col-xs-12
-          .panel.panel-body
-            .x_title
-              h4 Monitoreo por criticidad
-            .row
-              .col-xs-4
-                span.chart(data-percent='86')
-                  span.percent
-              .col-xs-4
-                span.chart(data-percent='73')
-                  span.percent
-              .col-xs-4
-                span.chart(data-percent='60')
-                  span.percent
-      .row
-        .col-md-12.col-sm-12.col-xs-12
-          .x_panel
-            .x_title
-              h2 Acción sobre monitoreos
-              .clearfix
-            .x_content
-              #echart_donut_monit(style='height:350px;')
-      .row
-        .col-md-12.col-sm-12.col-xs-12
-          .x_panel
-            .panel.panel-body
-              .x_title
-                h2 Desviación - Monitoreo
-                .clearfix
-              .x_content
-                #echart_gauge_monit(style='height:370px;')
-      .row
-        .col-md-12.col-sm-12.col-xs-12
-          .x_panel
-            .x_title
-              h2 Incumplimiento - Monitoreo
-              .clearfix
-            .x_content
-              #echart_pie_monit(style='height:350px;')
+        .col-md-6.col-sm-6.col-xs-12
+          .row.tile_count
+            .col-md-4.col-sm-4.col-xs-4.tile_stats_count
+              span.count_top
+                |  Monitoreo total 
+              .count 1000
+            .col-md-4.col-sm-4.col-xs-4.tile_stats_count
+              span.count_top
+                |  Monitoreo incompletos
+              .count(style='color:orange') 80
+            .col-md-4.col-sm-4.col-xs-4.tile_stats_count
+              span.count_top
+                |  Monitoreo cerrados
+              .count.green 5
+          .row
+            .col-md-12.col-sm-12.col-xs-12
+              .panel.panel-body
+                .x_title
+                  h4 Monitoreo por criticidad
+                .row
+                  .col-xs-4
+                    span.chart(data-percent='86')
+                      span.percent
+                  .col-xs-4
+                    span.chart(data-percent='73')
+                      span.percent
+                  .col-xs-4
+                    span.chart(data-percent='60')
+                      span.percent
+          .row
+            .col-md-12.col-sm-12.col-xs-12
+              .x_panel
+                .x_title
+                  h2 Acción sobre monitoreos
+                  .clearfix
+                .x_content
+                  #echart_donut_monit(style='height:350px;')
+          .row
+            .col-md-12.col-sm-12.col-xs-12
+              .x_panel
+                .panel.panel-body
+                  .x_title
+                    h2 Desviación - Monitoreo
+                    .clearfix
+                  .x_content
+                    #echart_gauge_monit(style='height:370px;')
+          .row
+            .col-md-12.col-sm-12.col-xs-12
+              .x_panel
+                .x_title
+                  h2 Incumplimiento - Monitoreo
+                  .clearfix
+                .x_content
+                  #echart_pie_monit(style='height:350px;')
 
     if session.user.firsttime == 1
       #config_init.modal.fade(tabindex='-1', role='dialog', data-backdrop='static', data-keyboard='false',data-focus-on='input:first',style="display: none;")
