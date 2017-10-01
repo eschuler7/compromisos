@@ -3,7 +3,7 @@ prod: &default
   views:
     engine: pug
   checksumhash: md5
-  baseUrl: http://compromisos.mybluemix.net
+  baseUrl: https://compromisos.mybluemix.net
   sendgrid:
     apikey: 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
     from: nolan_notification@nolanhub.com
