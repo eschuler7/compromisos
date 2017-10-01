@@ -267,6 +267,7 @@ block container
     });
     
     function validateinfo(value){
+      $(':submit').attr('disabled',false);
       var comdata = $('#comdata').val();
       if (comdata.indexOf(value) == -1) {
         comdata = (comdata == '') ? comdata + value : comdata + ',' + value;
