@@ -26,13 +26,13 @@ block container
                   h4 Compromisos por criticidad
                 .row
                   .col-xs-4
-                    span.chart(data-percent='86')
+                    span.chart(data-percent=commitmenthighseverity)
                       span.percent
                   .col-xs-4
-                    span.chart(data-percent='73')
+                    span.chart(data-percent=commitmentmediumseverity)
                       span.percent
                   .col-xs-4
-                    span.chart(data-percent='60')
+                    span.chart(data-percent=commitmentlowseverity)
                       span.percent
           .row
             .col-md-12.col-sm-12.col-xs-12
@@ -772,7 +772,7 @@ block container
             }
             },
             data: [{
-            value: 25,
+            value: #{commitmentdesviation},
             name: 'Desviación'
             }]
           }]
@@ -893,15 +893,15 @@ block container
             name: 'Total',
             type: 'pie',
             radius: '55%',
-            center: ['50%', '48%'],
+            center: ['50%', '50%'],
             data: [{
-            value: 335,
+            value: getCommitmentUncomplishedBySeverityHigh,
             name: 'Criticidad Alta'
             }, {
-            value: 310,
+            value: getCommitmentUncomplishedBySeverityMedium,
             name: 'Criticidad Media'
             }, {
-            value: 234,
+            value: getCommitmentUncomplishedBySeverityLow,
             name: 'Criticidad Baja'
             }]
           }]

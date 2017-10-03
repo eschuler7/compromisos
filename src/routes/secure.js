@@ -59,16 +59,40 @@ router.get('/dashboard',function(req, res){
         var monitor = mysql.monitor.getMonitorTypes();
         res.render('partial/dashboard/dashboard',{dashboard: dashboard, commitment: commitment, monitor: monitor,notification: req.notification});
     } else {
+        
         var totalCommitmentByRuc = mysql.batch.totalCommitmentByRuc(req.session.user.t_company_ruc);
+        var totalCommitmentBySeverity = mysql.batch.totalCommitmentBySeverity(req.session.user.t_company_ruc);
         var getCommitmentByStatusClosed = mysql.batch.getCommitmentByStatusClosed(req.session.user.t_company_ruc);
         var getCommitmentRequiereAction = mysql.batch.getCommitmentRequiereAction(req.session.user.t_company_ruc);
         var getCommitmentUncomplishedWithAction = mysql.batch.getCommitmentUncomplishedWithAction(req.session.user.t_company_ruc);
         var getCommitmentWithoutAction = mysql.batch.getCommitmentWithoutAction(req.session.user.t_company_ruc);
         var getCommitmentUncomplishedTotal = mysql.batch.getCommitmentUncomplishedTotal(req.session.user.t_company_ruc);
-        var getCommitmentUncomplishedHighSeverity = mysql.batch.getCommitmentUncomplishedHighSeverity(req.session.user.t_company_ruc);
+        var getCommitmentUncomplishedBySeverity = mysql.batch.getCommitmentUncomplishedBySeverity(req.session.user.t_company_ruc);
+        var commitmentdesviation = Math.round((getCommitmentUncomplishedTotal[0].compromisosincumplidostotal*100/totalCommitmentByRuc[0].totalcompromisos)*100)/100;
+        var commitmenthighseverity = Math.round((totalCommitmentBySeverity[0].totalcompromisoscriticidad*100/totalCommitmentByRuc[0].totalcompromisos)*100)/100;
+        var commitmentmediumseverity = Math.round((totalCommitmentBySeverity[1].totalcompromisoscriticidad*100/totalCommitmentByRuc[0].totalcompromisos)*100)/100;
+        var commitmentlowseverity = Math.round((totalCommitmentBySeverity[2].totalcompromisoscriticidad*100/totalCommitmentByRuc[0].totalcompromisos)*100)/100;                
+        var getCommitmentUncomplishedBySeverityHigh = getCommitmentUncomplishedBySeverity[0].compromisosincumpxcriticidad;
+        var getCommitmentUncomplishedBySeverityMedium = getCommitmentUncomplishedBySeverity[1].compromisosincumpxcriticidad;
+        var getCommitmentUncomplishedBySeverityLow = getCommitmentUncomplishedBySeverity[2].compromisosincumpxcriticidad;
 
-        console.log(totalCommitmentByRuc,getCommitmentByStatusClosed,getCommitmentRequiereAction,getCommitmentUncomplishedWithAction,getCommitmentWithoutAction,getCommitmentUncomplishedTotal,getCommitmentUncomplishedHighSeverity);
-        res.render('partial/dashboard/dashboard',{totalCommitmentByRuc : totalCommitmentByRuc[0].totalcompromisos,getCommitmentByStatusClosed : getCommitmentByStatusClosed[0].totalcompromisoscerrados,getCommitmentRequiereAction : getCommitmentRequiereAction[0].compromisoreqaccion, getCommitmentUncomplishedWithAction : getCommitmentUncomplishedWithAction[0].compromisoincumpconaccion, getCommitmentWithoutAction : getCommitmentWithoutAction[0].compromisosinaccion,getCommitmentUncomplishedTotal : getCommitmentUncomplishedTotal[0].compromisosincumplidostotal, getCommitmentUncomplishedHighSeverity : getCommitmentUncomplishedHighSeverity[0].compromisosinccriticidadalta,notification: req.notification});
+        // validar con if las criticidades cuando no existan
+
+        console.log(getCommitmentUncomplishedBySeverity);
+        res.render('partial/dashboard/dashboard',{
+            totalCommitmentByRuc : totalCommitmentByRuc[0].totalcompromisos,
+            commitmenthighseverity : commitmenthighseverity,
+            commitmentmediumseverity : commitmentmediumseverity,
+            commitmentlowseverity : commitmentlowseverity,
+            getCommitmentByStatusClosed : getCommitmentByStatusClosed[0].totalcompromisoscerrados,
+            getCommitmentRequiereAction : getCommitmentRequiereAction[0].compromisoreqaccion, 
+            getCommitmentUncomplishedWithAction : getCommitmentUncomplishedWithAction[0].compromisoincumpconaccion, 
+            getCommitmentWithoutAction : getCommitmentWithoutAction[0].compromisosinaccion,
+            getCommitmentUncomplishedTotal : getCommitmentUncomplishedTotal[0].compromisosincumplidostotal, 
+            getCommitmentUncomplishedBySeverityHigh : getCommitmentUncomplishedBySeverityHigh,
+            getCommitmentUncomplishedBySeverityMedium : getCommitmentUncomplishedBySeverityMedium,
+            getCommitmentUncomplishedBySeverityLow : getCommitmentUncomplishedBySeverityLow, 
+            commitmentdesviation : commitmentdesviation, notification: req.notification});
 
     }
 });

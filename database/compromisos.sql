@@ -153,6 +153,7 @@ select * from t_commitment where ruc=10101010101;
 select count(criticidad) from t_commitment where ruc=10101010101 and criticidad = 'Alto';
 select count(criticidad) from t_commitment where ruc=10101010101 and criticidad = 'Medio';
 select count(criticidad) from t_commitment where ruc=10101010101 and criticidad = 'Bajo';
+select criticidad, count(criticidad) as totalcompromisoscriticidad from t_commitment where ruc=10101010101 group by criticidad;
 
 -- Total Compromisos
 select count(nrocorrelativo) as totalcompromisos from t_commitment where ruc=10101010101;
@@ -177,6 +178,7 @@ select count(estadocumplimiento) as compromisosincumplidostotal from t_commitmen
 -- Compromisos críticos incumplidos
 select count(criticidad) as compromisosinccriticidadalta from t_commitment where ruc=10101010101 and criticidad = 'Alto' and estadocumplimiento = 'Vencido';
 
+select criticidad, count(criticidad) as compromisosincumpxcriticidad from t_commitment where ruc=10101010101 and estadocumplimiento = 'Vencido' group by criticidad;
 
 
 
