@@ -59,8 +59,16 @@ router.get('/dashboard',function(req, res){
         var monitor = mysql.monitor.getMonitorTypes();
         res.render('partial/dashboard/dashboard',{dashboard: dashboard, commitment: commitment, monitor: monitor,notification: req.notification});
     } else {
-        var totalcommit = mysql.batch.totalCommitmentByRuc(req.session.user.t_company_ruc);
-        res.render('partial/dashboard/dashboard',{notification: req.notification});
+        var totalCommitmentByRuc = mysql.batch.totalCommitmentByRuc(req.session.user.t_company_ruc);
+        var getCommitmentByStatusClosed = mysql.batch.getCommitmentByStatusClosed(req.session.user.t_company_ruc);
+        var getCommitmentRequiereAction = mysql.batch.getCommitmentRequiereAction(req.session.user.t_company_ruc);
+        var getCommitmentUncomplishedWithAction = mysql.batch.getCommitmentUncomplishedWithAction(req.session.user.t_company_ruc);
+        var getCommitmentWithoutAction = mysql.batch.getCommitmentWithoutAction(req.session.user.t_company_ruc);
+        var getCommitmentUncomplishedTotal = mysql.batch.getCommitmentUncomplishedTotal(req.session.user.t_company_ruc);
+        var getCommitmentUncomplishedHighSeverity = mysql.batch.getCommitmentUncomplishedHighSeverity(req.session.user.t_company_ruc);
+
+        console.log(totalCommitmentByRuc,getCommitmentByStatusClosed,getCommitmentRequiereAction,getCommitmentUncomplishedWithAction,getCommitmentWithoutAction,getCommitmentUncomplishedTotal,getCommitmentUncomplishedHighSeverity);
+        res.render('partial/dashboard/dashboard',{totalCommitmentByRuc : totalCommitmentByRuc[0].totalcompromisos,getCommitmentByStatusClosed : getCommitmentByStatusClosed[0].totalcompromisoscerrados,getCommitmentRequiereAction : getCommitmentRequiereAction[0].compromisoreqaccion, getCommitmentUncomplishedWithAction : getCommitmentUncomplishedWithAction[0].compromisoincumpconaccion, getCommitmentWithoutAction : getCommitmentWithoutAction[0].compromisosinaccion,getCommitmentUncomplishedTotal : getCommitmentUncomplishedTotal[0].compromisosincumplidostotal, getCommitmentUncomplishedHighSeverity : getCommitmentUncomplishedHighSeverity[0].compromisosinccriticidadalta,notification: req.notification});
 
     }
 });
@@ -347,6 +355,8 @@ router.post('/uploadcomtemplate',udploadComTemplate.single('template'), function
                     row.eachCell({includeEmpty:true}, function(cell, colNumber) {
                         if (computil.checktype(cell.value) == 'date') {
                             comdata.push(dateFormat((new Date(cell.value.valueOf() + cell.value.getTimezoneOffset() * 60000)),'yyyy-mm-dd'));
+                        } else if (computil.checktype(cell.value) == 'object') {
+                            comdata.push(cell.value.text);
                         } else {
                             comdata.push(cell.value);
                         }
@@ -387,6 +397,8 @@ router.post('/uploadmontemplate',udploadMonTemplate.single('template'), function
                     row.eachCell({includeEmpty:true},function(cell, colNumber) {
                         if (computil.checktype(cell.value) == 'date') {
                             mondata.push(dateFormat((new Date(cell.value.valueOf() + cell.value.getTimezoneOffset() * 60000)),'yyyy-mm-dd'));
+                        } else if (computil.checktype(cell.value) == 'object') {
+                            comdata.push(cell.value.text);
                         } else {
                             mondata.push(cell.value);
                         }

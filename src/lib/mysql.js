@@ -534,13 +534,7 @@ var compromisosdb = {
 	batch : {
 		totalCommitmentByRuc : function(ruc) {
 			var conn = new mysql(connectionOptions);
-			const result = conn.query('select count(nrocorrelativo) from t_commitment where ruc=?',[ruc]);
-			conn.dispose();
-			return result;
-		},
-		totalMonitorByRuc : function(ruc) {
-			var conn = new mysql(connectionOptions);
-			const result = conn.query('select count(nrocorrelativo) from t_monitor where ruc=?',[ruc]);
+			const result = conn.query('select count(nrocorrelativo) as totalcompromisos from t_commitment where ruc=?',[ruc]);
 			conn.dispose();
 			return result;
 		},
@@ -558,6 +552,49 @@ var compromisosdb = {
 			var dynamicquery = 'select ' + columns.toString() + ' from t_commitment where ruc=?';
 			var conn = new mysql(connectionOptions);
 			const result = conn.query(dynamicquery,[ruc]);
+			conn.dispose();
+			return result;
+		},
+		getCommitmentByStatusClosed : function(ruc) {
+			var conn = new mysql(connectionOptions);
+			const result = conn.query('select count(estadocumplimiento) as totalcompromisoscerrados from t_commitment where ruc=? and estadocumplimiento = "Cerrado"',[ruc]);
+			conn.dispose();
+			return result;
+		},
+
+		getCommitmentRequiereAction : function(ruc) {
+			var conn = new mysql(connectionOptions);
+			const result = conn.query('select count(accioncompromiso) as compromisoreqaccion from t_commitment where ruc=? and accioncompromiso = "Si"',[ruc]);
+			conn.dispose();
+			return result;
+		},
+		getCommitmentUncomplishedWithAction : function(ruc) {
+			var conn = new mysql(connectionOptions);
+			const result = conn.query('select count(estadocumplimiento) as compromisoincumpconaccion  from t_commitment where ruc=? and estadocumplimiento = "Vencido" and detalleaccion IS NOT NULL',[ruc]);
+			conn.dispose();
+			return result;
+		},
+		getCommitmentWithoutAction : function(ruc) {
+			var conn = new mysql(connectionOptions);
+			const result = conn.query('select count(nrocorrelativo) as compromisosinaccion from t_commitment where ruc=? and detalleaccion IS NULL',[ruc]);
+			conn.dispose();
+			return result;
+		},
+		getCommitmentUncomplishedTotal : function(ruc) {
+			var conn = new mysql(connectionOptions);
+			const result = conn.query('select count(estadocumplimiento) as compromisosincumplidostotal from t_commitment where ruc=? and estadocumplimiento = "Vencido"',[ruc]);
+			conn.dispose();
+			return result;
+		},
+		getCommitmentUncomplishedHighSeverity : function(ruc) {
+			var conn = new mysql(connectionOptions);
+			const result = conn.query('select count(criticidad) as compromisosinccriticidadalta from t_commitment where ruc=? and criticidad = "Alto" and estadocumplimiento = "Vencido"',[ruc]);
+			conn.dispose();
+			return result;
+		},
+		totalMonitorByRuc : function(ruc) {
+			var conn = new mysql(connectionOptions);
+			const result = conn.query('select count(nrocorrelativo) as totalmonitoreo from t_monitor where ruc=?',[ruc]);
 			conn.dispose();
 			return result;
 		}

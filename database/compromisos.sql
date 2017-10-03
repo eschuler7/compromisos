@@ -155,8 +155,8 @@ select count(criticidad) from t_commitment where ruc=10101010101 and criticidad 
 select count(criticidad) from t_commitment where ruc=10101010101 and criticidad = 'Bajo';
 
 -- Total Compromisos
-select count(nrocorrelativo) from t_commitment where ruc=10101010101;
-select count(estadocumplimiento) from t_commitment where ruc=10101010101 and estadocumplimiento = 'Cerrado';
+select count(nrocorrelativo) as totalcompromisos from t_commitment where ruc=10101010101;
+select count(estadocumplimiento) as totalcompromisoscerrados from t_commitment where ruc=10101010101 and estadocumplimiento = 'Cerrado';
 -- Compromisos con aspectos no definidos
 
 
@@ -165,17 +165,17 @@ select count(nrocorrelativo) from t_commitment where ruc=10101010101 and (estado
 
 
 -- Compromisos que requieren acción
-select count(accioncompromiso) from t_commitment where ruc=10101010101 and accioncompromiso = 'Si';
+select count(accioncompromiso) as compromisoreqaccion from t_commitment where ruc=10101010101 and accioncompromiso = 'Si';
 -- Compromisos incumplidos con un plan de acción
-select count(estadocumplimiento) from t_commitment where ruc=10101010101 and estadocumplimiento = 'Vencido' and detalleaccion IS NOT NULL;
+select count(estadocumplimiento) as compromisoincumpconaccion from t_commitment where ruc=10101010101 and estadocumplimiento = 'Vencido' and detalleaccion IS NOT NULL;
 -- Compromisos sin un plan de acción
-select count(nrocorrelativo) from t_commitment where ruc=10101010101 and detalleaccion IS NULL;
+select count(nrocorrelativo) as compromisosinaccion from t_commitment where ruc=10101010101 and detalleaccion IS NULL;
 
 
 -- Compromisos incumplidos (dashboad total de incumplidos, % cuantos criticos)
-select count(estadocumplimiento) from t_commitment where ruc=10101010101 and estadocumplimiento = 'Vencido';
+select count(estadocumplimiento) as compromisosincumplidostotal from t_commitment where ruc=10101010101 and estadocumplimiento = 'Vencido';
 -- Compromisos críticos incumplidos
-select count(criticidad) from t_commitment where ruc=10101010101 and criticidad = 'Alto' and estadocumplimiento = 'Vencido';
+select count(criticidad) as compromisosinccriticidadalta from t_commitment where ruc=10101010101 and criticidad = 'Alto' and estadocumplimiento = 'Vencido';
 
 
 

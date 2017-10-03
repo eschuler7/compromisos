@@ -10,7 +10,7 @@ block container
             .col-md-4.col-sm-4.col-xs-4.tile_stats_count
               span.count_top
                 |  Compromisos total
-              .count 1500
+              .count #{totalCommitmentByRuc}
             .col-md-4.col-sm-4.col-xs-4.tile_stats_count
               span.count_top
                 |  Compromisos incompletos
@@ -18,7 +18,7 @@ block container
             .col-md-4.col-sm-4.col-xs-4.tile_stats_count
               span.count_top
                 |  Compromisos Cerrados
-              .count.green 10
+              .count.green #{getCommitmentByStatusClosed}
           .row
             .col-md-12.col-sm-12.col-xs-12
               .panel.panel-body
@@ -617,13 +617,13 @@ block container
             }
             },
             data: [{
-            value: 335,
+            value: #{getCommitmentRequiereAction},
             name: 'Requiere Acción'
             }, {
-            value: 310,
+            value: #{getCommitmentUncomplishedWithAction},
             name: 'Incumplidos con plan de acción'
             }, {
-            value: 234,
+            value: #{getCommitmentWithoutAction},
             name: 'Sin plan de acción'
             }]
           }]
