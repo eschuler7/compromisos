@@ -35,6 +35,9 @@ block container
                             |  Eliminar
           .ln_solid(style='margin-top:5px')
           a.btn.btn-warning.btn-xs(href='/secure/commitregister') Nuevo Compromiso
+          #exportbuttons.pull-right
+            | Exportar: 
+            
 
     #confirm_delete.modal.fade(tabindex='-1', role='dialog', data-backdrop='static', data-keyboard='false')
       .modal-dialog(role='document')
@@ -56,9 +59,32 @@ block container
 
     script.
       window.onload = function() {
-        $('#tblcommitments').DataTable({
+        var table = $('#tblcommitments').DataTable({
           //dom: 'Bfrtip',
-          //buttons: ['copy','csv','print'],
+          buttons: [
+            {
+              extend: "copy",
+              className: "btn-xs",
+              text: "Copiar"
+            },
+            {
+              extend: "csv",
+              className: "btn-xs"
+            },
+            {
+              extend: "excel",
+              className: "btn-xs"
+            },
+            {
+              extend: "pdfHtml5",
+              className: "btn-xs"
+            },
+            {
+              extend: "print",
+              className: "btn-xs",
+              text: "Imprimir"
+            },
+          ],
           lengthMenu: [[5, 15], [5, 15]],
           language: {
             paginate: {
@@ -75,6 +101,8 @@ block container
             zeroRecords: 'No se encontraron registros coincidentes'
           }
         });
+
+        table.buttons().container().appendTo( $('#exportbuttons') );
       }
       var deletecommit = function(nrocorrelativo) {
         $('#comfirm_delete_title').text('Eliminar compromiso con No correlativo  ' + nrocorrelativo);
