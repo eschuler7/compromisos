@@ -320,7 +320,100 @@ $(document).ready(function(){
 			submitAjaxForm(form,'/secure/monitlist');
 		}
 	});
+	$('#frmcommitmasive').validate({
+		rules : {
+			template : {
+				required : true
+			}
+		},
+		messages : {
+			template : {
+				required : 'Este campo es requerido'
+			}
+		},
+		errorPlacement : function(error, element) {
+			var ref = element;
+			if ($(element).attr('name') == 'template') {
+				ref = $('#carga');
+			}
+			error.insertAfter(ref);
+		},
+		submitHandler : function(form) {
+			submitMassiveForm(form,'/secure/monitlist');
+		}
+	});
+	$('#frmmonitmasive').validate({
+		rules : {
+			template : {
+				required : true
+			}
+		},
+		messages : {
+			template : {
+				required : 'Este campo es requerido'
+			}
+		},
+		errorPlacement : function(error, element) {
+			var ref = element;
+			if ($(element).attr('name') == 'template') {
+				ref = $('#carga');
+			}
+			error.insertAfter(ref);
+		},
+		submitHandler : function(form) {
+			submitMassiveForm(form,'/secure/commitlist');
+		}
+	});
 });
+var submitMassiveForm = function(form, urlRedirect) {
+	var btnSubmit = $(form).find(':submit');
+	var width = btnSubmit.css('width');
+	btnSubmit.css('width',width);
+    btnSubmit.html('En proceso ...');
+    btnSubmit.attr('disabled',true);
+    $('#pbcontainer').css('display','block');
+	//form.submit();
+	var formData = new FormData(form);
+    $.ajax({
+        type:'POST',
+        url:$(form).attr('action'),
+        data:formData,
+        xhr: function() {
+            var myXhr = $.ajaxSettings.xhr();
+            if(myXhr.upload){
+                myXhr.upload.addEventListener('progress',massiveprogress, false);
+            }
+            return myXhr;
+        },
+        cache:false,
+        contentType: false,
+        processData: false,
+        success:function(data){
+        	btnSubmit.html('Finalizado');
+        },
+        error: function(err){
+            console.log(data);
+        },
+        complete: function(){
+        	btnSubmit.html('Redireccionando ...');
+        	window.location = urlRedirect;
+        }
+    });
+}
+function massiveprogress(e){
+    if(e.lengthComputable){
+        var max = e.total;
+        var current = e.loaded;
+
+        var Percentage = Math.ceil((current * 100)/max);
+        $('#progressbar').css('width',Percentage + '%');
+      	$('#progressbar').html('Progreso: ' + Percentage + '%');
+        if(Percentage >= 100)
+        {
+           $('#progressbar').html('Carga finalizada, registrando en base de datos, esto puede tardar unos minutos, por favor espere');
+        }
+    }  
+}
 
 var submitAjaxForm = function(form, urlRedirect) {
 	var btnSubmit = $(form).find(':submit');
@@ -347,7 +440,6 @@ var submitAjaxForm = function(form, urlRedirect) {
         processData: false,
         success:function(data){
         	btnSubmit.html('Finalizado');
-            console.log(data);
         },
         error: function(err){
             console.log(data);
@@ -357,6 +449,21 @@ var submitAjaxForm = function(form, urlRedirect) {
         	window.location = urlRedirect;
         }
     });
+}
+
+function progress(e){
+    if(e.lengthComputable){
+        var max = e.total;
+        var current = e.loaded;
+
+        var Percentage = Math.ceil((current * 100)/max);
+        $('#progressbar').css('width',Percentage + '%');
+      	$('#progressbar').html('Progreso: ' + Percentage + '%');
+        if(Percentage >= 100)
+        {
+           $('#progressbar').html('Registro/Actualización Finalizado');
+        }
+    }  
 }
 
 ;( function ( document, window, index )
@@ -386,18 +493,3 @@ var submitAjaxForm = function(form, urlRedirect) {
 		input.addEventListener( 'blur', function(){ input.classList.remove( 'has-focus' ); });
 	});
 }( document, window, 0 ));
-
-function progress(e){
-    if(e.lengthComputable){
-        var max = e.total;
-        var current = e.loaded;
-
-        var Percentage = Math.ceil((current * 100)/max);
-        $('#progressbar').css('width',Percentage + '%');
-      	$('#progressbar').html('Progreso ' + Percentage + '%');
-        if(Percentage >= 100)
-        {
-           $('#progressbar').html('Registro/Actualización Finalizado');
-        }
-    }  
- }

@@ -41,15 +41,37 @@ block container
                   .row
                     label.control-label.col-md-3.col-sm-5.col-xs-12(for=config.t_commitment_config_id) 
                       | #{config.name}
-                    .col-md-7.col-sm-7.col-xs-12
-                      p(style='font-size: 15px') #{commitment[config.columnasoc]}
+                    .col-md-9.col-sm-7.col-xs-12
+                      p(style='font-size: 15px;text-align: justify') #{commitment[config.columnasoc]}
             .ln_solid
             .row
               .col-md-12.col-sm-12.col-xs-12
-                a.btn.btn-default(href='/secure/commitlist') Regresar
-                a.btn.btn-success.btn-sm.pull-right(href='/secure/commitedit/' + commitment.nrocorrelativo) Editar compromiso
+                a.btn.btn-default.btn-xs(href='/secure/commitlist') Regresar
+                a.btn.btn-info.btn-xs(href='/secure/commitedit/' + commitment.nrocorrelativo) Editar Compromiso
+                a.btn.btn-danger.btn-xs.pull-right(href='javascript:deletecommit("' + commitment.nrocorrelativo + '")') Eliminar Compromiso
+  #confirm_delete.modal.fade(tabindex='-1', role='dialog', data-backdrop='static', data-keyboard='false')
+    .modal-dialog(role='document')
+      .modal-content
+        .modal-header
+          //-button.close(type='button', data-dismiss='modal', aria-label='Close')
+            span(aria-hidden='true') &times;
+          h4#comfirm_delete_title.modal-title
+        form#frmConfirmDelete(action='/secure/commitdelete',method='post')
+          .modal-body
+            p Esta acción eliminará el compromiso seleccionado
+            center
+              strong ¿Desea continuar?
+            input(type='hidden',name='nrocorrelativo')
+          .modal-footer
+            button.btn.btn-default.pull-left(type='button', data-dismiss='modal') Cancelar
+            |  
+            button.btn.btn-danger(type='submit') Continuar
   script(src='/jquery/dist/jquery.min.js')
   script(src='/moment/min/moment.min.js')
   script(src='../bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js')
-
-    
+  script.
+    var deletecommit = function(nrocorrelativo) {
+      $('#comfirm_delete_title').text('Eliminar compromiso con nro. correlativo ' + nrocorrelativo);
+      $('#frmConfirmDelete input[name=nrocorrelativo]').val(nrocorrelativo);
+      $('#confirm_delete').modal('show');
+    }

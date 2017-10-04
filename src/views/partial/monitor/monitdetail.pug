@@ -46,10 +46,33 @@ block container
             .ln_solid
             .row
               .col-md-12.col-sm-12.col-xs-12
-                a.btn.btn-default(href='/secure/monitlist') Regresar
-                a.btn.btn-success.btn-sm.pull-right(href='/secure/monitedit/' + monitor.nrocorrelativo) Editar monitoreo
+                a.btn.btn-default.btn-xs(href='/secure/monitlist') Regresar
+                a.btn.btn-success.btn-xs(href='/secure/monitedit/' + monitor.nrocorrelativo) Editar Monitoreo
+                a.btn.btn-danger.btn-xs.pull-right(href='javascript:deletemonitor("' + monitor.nrocorrelativo + '")') Eliminar Monitoreo
+  #confirm_delete.modal.fade(tabindex='-1', role='dialog', data-backdrop='static', data-keyboard='false')
+    .modal-dialog(role='document')
+      .modal-content
+        .modal-header
+          //-button.close(type='button', data-dismiss='modal', aria-label='Close')
+            span(aria-hidden='true') &times;
+          h4#comfirm_delete_title.modal-title
+        form#frmConfirmDelete(action='/secure/monitdelete',method='post')
+          .modal-body
+            p Esta acción eliminará el monitoreo seleccionado
+            center
+              strong ¿Desea continuar?
+            input(type='hidden',name='nrocorrelativo')
+          .modal-footer
+            button.btn.btn-default.pull-left(type='button', data-dismiss='modal') Cancelar
+            |  
+            button.btn.btn-danger(type='submit') Continuar
   script(src='/jquery/dist/jquery.min.js')
   script(src='/moment/min/moment.min.js')
   script(src='../bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js')
-
+  script.
+    var deletemonitor = function(nrocorrelativo) {
+      $('#comfirm_delete_title').text('Eliminar monitoreo con No correlativo  ' + nrocorrelativo);
+      $('#frmConfirmDelete input[name=nrocorrelativo]').val(nrocorrelativo);
+      $('#confirm_delete').modal('show');
+    }
     
