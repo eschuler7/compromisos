@@ -52,7 +52,7 @@ var udploadMonTemplate = multer({ storage: uploadsMonStorage });
 var uploadEvidences = multer({storage: objectstorage.getEvidenceObjectStorage});
 
 router.get('/dashboard',function(req, res){
-        
+    // commitment    
     var totalCommitmentByRuc = mysql.batch.totalCommitmentByRuc(req.session.user.t_company_ruc);
     var totalCommitmentBySeverity = mysql.batch.totalCommitmentBySeverity(req.session.user.t_company_ruc);
     var getCommitmentByStatusClosed = mysql.batch.getCommitmentByStatusClosed(req.session.user.t_company_ruc);
@@ -69,10 +69,11 @@ router.get('/dashboard',function(req, res){
     var getCommitmentUncomplishedBySeverityMedium = getCommitmentUncomplishedBySeverity[2].compromisosincumpxcriticidad;
     var getCommitmentUncomplishedBySeverityLow = getCommitmentUncomplishedBySeverity[1].compromisosincumpxcriticidad;
 
+    // Monit
 
     // validar con if las criticidades cuando no existan
 
-    console.log(commitmenthighseverity,commitmentmediumseverity,commitmentlowseverity);
+    console.log(commitmentdesviation,commitmenthighseverity,commitmentmediumseverity,commitmentlowseverity,getCommitmentUncomplishedBySeverityHigh,getCommitmentUncomplishedBySeverityMedium,getCommitmentUncomplishedBySeverityLow);
     res.render('partial/dashboard/dashboard',{
         totalCommitmentByRuc : totalCommitmentByRuc[0].totalcompromisos,
         commitmenthighseverity : commitmenthighseverity,
