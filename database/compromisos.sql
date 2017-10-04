@@ -91,7 +91,7 @@ insert into t_company values('12345678909','NOLAN',null,null,0,now(),now());
 insert into t_user values('jdelgado','ca1b02d4cff620b1dd6fccdf2a48714f','joandelgado18@gmail.com','Joan Martín','Delgado Bendezú','12345678909','ROL5',1,now(),now());
 insert into t_user values('eschuler','ca1b02d4cff620b1dd6fccdf2a48714f','eschulergodo7@gmail.com','Emilio Jose','Schuler Godo','12345678909','ROL5',1,now(),now());
 
-update t_company set firsttime=1 where ruc='10101010101';
+update t_company set firsttime=0 where ruc='10101010101';
 select * from t_company;
 select * from t_company_dashboard;
 select id, name from t_dashboard_config;
@@ -153,6 +153,7 @@ select * from t_commitment where ruc=10101010101;
 select count(criticidad) from t_commitment where ruc=10101010101 and criticidad = 'Alto';
 select count(criticidad) from t_commitment where ruc=10101010101 and criticidad = 'Medio';
 select count(criticidad) from t_commitment where ruc=10101010101 and criticidad = 'Bajo';
+select criticidad, count(criticidad) as totalcompromisoscriticidad from t_commitment where ruc=10101010101 group by criticidad order by criticidad asc;
 
 -- Total Compromisos
 select count(nrocorrelativo) as totalcompromisos from t_commitment where ruc=10101010101;
@@ -177,6 +178,7 @@ select count(estadocumplimiento) as compromisosincumplidostotal from t_commitmen
 -- Compromisos críticos incumplidos
 select count(criticidad) as compromisosinccriticidadalta from t_commitment where ruc=10101010101 and criticidad = 'Alto' and estadocumplimiento = 'Vencido';
 
+select criticidad, count(criticidad) as compromisosincumpxcriticidad from t_commitment where ruc=10101010101 and estadocumplimiento = 'Vencido' group by criticidad order by criticidad asc;
 
 
 

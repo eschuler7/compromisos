@@ -25,15 +25,18 @@ block container
                 .x_title
                   h4 Compromisos por criticidad
                 .row
-                  .col-xs-4
-                    span.chart(data-percent='86')
+                  .col-xs-4 
+                    span.chart(data-percent=commitmenthighseverity) 
                       span.percent
+                      p Alta 
                   .col-xs-4
-                    span.chart(data-percent='73')
+                    span.chart(data-percent=commitmentmediumseverity) 
                       span.percent
+                      p Media
                   .col-xs-4
-                    span.chart(data-percent='60')
+                    span.chart(data-percent=commitmentlowseverity) 
                       span.percent
+                      p Baja
           .row
             .col-md-12.col-sm-12.col-xs-12
               .x_panel
@@ -83,12 +86,15 @@ block container
                   .col-xs-4
                     span.chart(data-percent='86')
                       span.percent
+                      p Alta
                   .col-xs-4
                     span.chart(data-percent='73')
                       span.percent
+                      p Media
                   .col-xs-4
                     span.chart(data-percent='60')
                       span.percent
+                      p Baja
           .row
             .col-md-12.col-sm-12.col-xs-12
               .x_panel
@@ -114,229 +120,6 @@ block container
                   .clearfix
                 .x_content
                   #echart_pie_monit(style='height:350px;')
-
-    if session.user.firsttime == 1
-      #config_init.modal.fade(tabindex='-1', role='dialog', data-backdrop='static', data-keyboard='false',data-focus-on='input:first',style="display: none;")
-        .modal-dialog.modal-lg(role='document')
-          .modal-content
-            .modal-header
-              a.close(href='logout')
-                span(aria-hidden='true') &times;
-              center 
-                h4.modal-title Configuración de compromisos y monitoreo
-            .modal-body
-              #wizard.form_wizard.wizard_horizontal
-                ul.wizard_steps(style='padding: 0px')
-                  li(style='width:25%')
-                    a(href='#step-1')
-                      span.step_no 1
-                      span.step_descr
-                        | Paso 1
-                        //br
-                        //small Encabezados
-                  li(style='width:25%')
-                    a(href='#step-2')
-                      span.step_no 2
-                      span.step_descr
-                        | Paso 2
-                        //br
-                        //small Dashboard
-                  li(style='width:25%')
-                    a(href='#step-3')
-                      span.step_no 3
-                      span.step_descr
-                        | Paso 3
-                        //br
-                        //small Tabla de compromisos
-                  li(style='width:25%')
-                    a(href='#step-4')
-                      span.step_no 4
-                      span.step_descr
-                        | Paso 4
-                        //br
-                        //small Tabla de monitoreo
-                #step-1
-                  form#frmstep1.form-horizontal.form-label-left(action='/secure/initConfig', method='POST' )
-                    span.section(style='color: #71859A') Paso 1 : Configuración de Compañía
-                    .form-group
-                      label.control-label.col-md-4.col-sm-3.col-xs-12(for='razonsocial')
-                        | Titular *
-                      .col-md-6.col-sm-7.col-xs-12
-                        input#razonsocial.form-control.col-md-7.col-xs-12(type='text', required='required', name='razonsocial',value=session.user.companyname)
-                    .form-group
-                      label.control-label.col-md-4.col-sm-3.col-xs-12(for='unidadruc')
-                        | Unidad *
-                      .col-md-6.col-sm-7.col-xs-12
-                        input#unidadinit.form-control.col-md-7.col-xs-12(type='text', required='required', name='unidadinit')
-                    .form-group
-                      .col-md-4.col-sm-3.col-xs-12
-                      .col-md-6.col-sm-7.col-xs-12
-                        input#multiunidad.flat(type='checkbox', value='Multiunidad', name='multiunidad')
-                        |  
-                        label(for='multiunidad',style='cursor: pointer') Varias Unidades
-                    .form-group
-                      label.control-label.col-md-4.col-sm-3.col-xs-12(for='proyoper')
-                        |  Proyecto u Operación *
-                      .col-md-6.col-sm-7.col-xs-12
-                        input#proyoper.form-control.col-md-7.col-xs-12(type='text', name='proyoper')
-                    .form-group
-                      .col-md-4.col-sm-3.col-xs-12
-                      .col-md-6.col-sm-7.col-xs-12
-                        input#multiproyoper.flat(type='checkbox', value='Multiproyecto', name='multiproyoper')
-                        |  
-                        label(for='multiproyoper',style='cursor: pointer') Varios proyectos u operaciones
-                #step-2
-                  form#frmstep2.frmstep1form-horizontal.form-label-left
-                    span.section(style='color: #71859A') Paso 2 : Configuración inicial del Dashboard
-                    each type, index in dashboard
-                      if type.mandatory === 1
-                        if index % 4 === 0
-                          | <div class="row" style="width:99%">
-                          .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
-                            input.flat(id=type.id,type='checkbox', value=type.id, name='dashboard', checked='checked', disabled='disabled')
-                          |  
-                          label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
-                          if index === dashboard.length - 1
-                            | </div>
-                        else
-                          if index % 4 === 3
-                            .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
-                              input.flat(id=type.id,type='checkbox', value=type.id, name='dashboard', checked='checked', disabled='disabled')
-                            |  
-                            label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
-                            | </div>
-                          else
-                            .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
-                              input.flat(id=type.id,type='checkbox', value=type.id, name='dashboard', checked='checked', disabled='disabled')
-                            |  
-                            label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
-                            if index === dashboard.length - 1
-                              | </div>
-                      else
-                        if index % 4 === 0
-                          | <div class="row" style="width:99%">
-                          .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
-                            input.flat(id=type.id,type='checkbox', value=type.id, name='dashboard')
-                          |  
-                          label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer') #{type.name}
-                          if index === dashboard.length - 1
-                            | </div>
-                        else
-                          if index % 4 === 3
-                            .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
-                              input.flat(id=type.id,type='checkbox', value=type.id, name='dashboard')
-                            |  
-                            label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
-                            | </div>
-                          else
-                            .col-md-1.col-sm-1.col-xs-1(style='text-align: right')
-                              input.flat(id=type.id,type='checkbox', value=type.id, name='dashboard;min-height:30px')
-                            |  
-                            label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
-                            if index === dashboard.length - 1
-                              | </div>
-                #step-3
-                  form#frmstep3.form-label-left
-                    span.section(style='color: #71859A') Paso 3 : Configuración inicial de la tabla de compromisos
-                    each type, index in commitment
-                      if type.mandatory === 1
-                        if index % 4 === 0
-                          | <div class="row" style="width:99%">
-                          .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
-                            input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos', checked='checked', disabled='disabled')
-                          |  
-                          label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
-                          if index === commitment.length - 1
-                            | </div>
-                        else
-                          if index % 4 === 3
-                            .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
-                              input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos', checked='checked', disabled='disabled')
-                            |  
-                            label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
-                            | </div>
-                          else
-                            .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
-                              input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos', checked='checked', disabled='disabled')
-                            |  
-                            label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
-                            if index === commitment.length - 1
-                              | </div>
-                      else
-                        if index % 4 === 0
-                          | <div class="row" style="width:99%">
-                          .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
-                            input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos')
-                          |  
-                          label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
-                          if index === commitment.length - 1
-                            | </div>
-                        else
-                          if index % 4 === 3
-                            .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
-                              input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos')
-                              
-                            |  
-                            label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
-                            | </div>
-                          else
-                            .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
-                              input.flat(id=type.id,type='checkbox', value=type.id, name='compromisos')
-
-                            |  
-                            label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
-                            if index === commitment.length - 1
-                              | </div>
-                #step-4
-                  form#frmstep4.form-label-left
-                    span.section(style='color: #71859A') Paso 4 : Configuración inicial de la tabla de monitoreo
-                    each type, index in monitor
-                      if type.mandatory === 1
-                        if index % 4 === 0
-                          | <div class="row" style="width:99%">
-                          .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
-                            input.flat(id=type.id,type='checkbox', value=type.id, name='monitoreo', checked='checked', disabled='disabled')
-                          |  
-                          label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
-                          if index === monitor.length - 1
-                            | </div>
-                        else
-                          if index % 4 === 3
-                            .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
-                              input.flat(id=type.id,type='checkbox', value=type.id, name='monitoreo', checked='checked', disabled='disabled')
-                            |  
-                            label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
-                            | </div>
-                          else
-                            .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
-                              input.flat(id=type.id,type='checkbox', value=type.id, name='monitoreo', checked='checked', disabled='disabled')
-                            |  
-                            label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
-                            if index === monitor.length - 1
-                              | </div>
-                      else
-                        if index % 4 === 0
-                          | <div class="row" style="width:99%">
-                          .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
-                            input.flat(id=type.id,type='checkbox', value=type.id, name='monitoreo')
-                          |  
-                          label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
-                          if index === monitor.length - 1
-                            | </div>
-                        else
-                          if index % 4 === 3
-                            .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
-                              input.flat(id=type.id,type='checkbox', value=type.id, name='monitoreo')
-                            |  
-                            label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
-                            | </div>
-                          else
-                            .col-md-1.col-sm-1.col-xs-1(style='text-align: right;min-height:30px')
-                              input.flat(id=type.id,type='checkbox', value=type.id, name='monitoreo')
-                            |  
-                            label.control-label.col-md-2.col-sm-5.col-xs-11(for=type.id,style='cursor: pointer;min-height:30px') #{type.name}
-                            if index === monitor.length - 1
-                              | </div>
 
     script.
       var theme = {
@@ -552,34 +335,6 @@ block container
       };
 
       window.onload = function() {
-        var firsttime = '#{session.user.firsttime}';
-        if (firsttime == 1) {
-          $('#wizard').smartWizard({
-            labelNext:'Siguiente',
-            labelPrevious:'Anterior',
-            labelFinish:'Finalizar',
-            buttonOrder: ['prev', 'next', 'finish'],
-            onLeaveStep: changeStep,
-            onFinish: finishWizard
-          });
-          $('.buttonNext').addClass('btn btn-success');
-          $('.buttonPrevious').addClass('btn btn-primary');
-          $('.buttonFinish').addClass('btn btn-default');
-          $('#config_init').modal('show');
-        }
-        $('#multiunidad').on('ifChecked',function(){
-          $('#unidadinit').val($(this).val()).addClass('disabled').attr('disabled',true);
-        });
-        $('#multiunidad').on('ifUnchecked',function(){
-          $('#unidadinit').val('').removeClass('disabled').attr('disabled',false);
-        });
-
-        $('#multiproyoper').on('ifChecked',function(){
-          $('#proyoper').val($(this).val()).addClass('disabled').attr('disabled',true);
-        });
-        $('#multiproyoper').on('ifUnchecked',function(){
-          $('#proyoper').val('').removeClass('disabled').attr('disabled',false);
-        });
         var echartDonutCommit = echarts.init(document.getElementById('echart_donut_commit'), theme);
         echartDonutCommit.setOption({
           tooltip: {
@@ -772,7 +527,7 @@ block container
             }
             },
             data: [{
-            value: 25,
+            value: #{commitmentdesviation},
             name: 'Desviación'
             }]
           }]
@@ -893,15 +648,15 @@ block container
             name: 'Total',
             type: 'pie',
             radius: '55%',
-            center: ['50%', '48%'],
+            center: ['50%', '50%'],
             data: [{
-            value: 335,
+            value: #{getCommitmentUncomplishedBySeverityHigh},
             name: 'Criticidad Alta'
             }, {
-            value: 310,
+            value: #{getCommitmentUncomplishedBySeverityMedium},
             name: 'Criticidad Media'
             }, {
-            value: 234,
+            value: #{getCommitmentUncomplishedBySeverityLow},
             name: 'Criticidad Baja'
             }]
           }]
@@ -935,24 +690,4 @@ block container
             }]
           }]
         });
-      }
-      var changeStep = function(obj, context) {
-        var isStepValid = true;
-        if(!$('#frmstep' + context.fromStep).valid()){
-          isStepValid = false;
-        }
-        return isStepValid;
-      }
-      var finishWizard = function(){
-        var $form = $('<form />', { action: '/secure/initConfig', method: 'POST' });
-        $("#frmstep1 :input").appendTo($form);
-        $("#frmstep2 :input").appendTo($form);
-        $("#frmstep3 :input").appendTo($form);
-        $("#frmstep4 :input").appendTo($form);
-        $form.appendTo('body');
-        $('input').removeAttr('disabled');
-        $form.submit();
-      }
-      var closewizard = function() {
-        $('#close_wizard').modal('show');
       }

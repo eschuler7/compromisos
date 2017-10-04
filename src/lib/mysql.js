@@ -545,6 +545,12 @@ var compromisosdb = {
 			conn.dispose();
 			return result;
 		},
+		totalCommitmentBySeverity : function(ruc) {
+			var conn = new mysql(connectionOptions);
+			const result = conn.query('select criticidad, count(criticidad) as totalcompromisoscriticidad from t_commitment where ruc=? group by criticidad order by criticidad asc',[ruc]);
+			conn.dispose();
+			return result;
+		},
 		getCommitmentsIncompletedByRuc : function(ruc, comconfig) {
 			//falta modificar!!!!!
 			var columns = [];
@@ -559,6 +565,49 @@ var compromisosdb = {
 			var dynamicquery = 'select ' + columns.toString() + ' from t_commitment where ruc=?';
 			var conn = new mysql(connectionOptions);
 			const result = conn.query(dynamicquery,[ruc]);
+			conn.dispose();
+			return result;
+		},
+		getCommitmentByStatusClosed : function(ruc) {
+			var conn = new mysql(connectionOptions);
+			const result = conn.query('select count(estadocumplimiento) as totalcompromisoscerrados from t_commitment where ruc=? and estadocumplimiento = "Cerrado"',[ruc]);
+			conn.dispose();
+			return result;
+		},
+
+		getCommitmentRequiereAction : function(ruc) {
+			var conn = new mysql(connectionOptions);
+			const result = conn.query('select count(accioncompromiso) as compromisoreqaccion from t_commitment where ruc=? and accioncompromiso = "Si"',[ruc]);
+			conn.dispose();
+			return result;
+		},
+		getCommitmentUncomplishedWithAction : function(ruc) {
+			var conn = new mysql(connectionOptions);
+			const result = conn.query('select count(estadocumplimiento) as compromisoincumpconaccion  from t_commitment where ruc=? and estadocumplimiento = "Vencido" and detalleaccion IS NOT NULL',[ruc]);
+			conn.dispose();
+			return result;
+		},
+		getCommitmentWithoutAction : function(ruc) {
+			var conn = new mysql(connectionOptions);
+			const result = conn.query('select count(nrocorrelativo) as compromisosinaccion from t_commitment where ruc=? and detalleaccion IS NULL',[ruc]);
+			conn.dispose();
+			return result;
+		},
+		getCommitmentUncomplishedTotal : function(ruc) {
+			var conn = new mysql(connectionOptions);
+			const result = conn.query('select count(estadocumplimiento) as compromisosincumplidostotal from t_commitment where ruc=? and estadocumplimiento = "Vencido"',[ruc]);
+			conn.dispose();
+			return result;
+		},
+		getCommitmentUncomplishedBySeverity : function(ruc) {
+			var conn = new mysql(connectionOptions);
+			const result = conn.query('select criticidad, count(criticidad) as compromisosincumpxcriticidad from t_commitment where ruc=? and estadocumplimiento = "Vencido" group by criticidad order by criticidad asc',[ruc]);
+			conn.dispose();
+			return result;
+		},
+		totalMonitorByRuc : function(ruc) {
+			var conn = new mysql(connectionOptions);
+			const result = conn.query('select count(nrocorrelativo) as totalmonitoreo from t_monitor where ruc=?',[ruc]);
 			conn.dispose();
 			return result;
 		}

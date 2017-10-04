@@ -46,7 +46,7 @@ router.post('/login',function(req, res){
 				if(userlist[0].t_rol_rolid == 'ROL5') {
 					res.redirect('/admin/clientlist');
 				} else {
-					res.redirect('/secure/dashboard');
+					res.redirect('/secure/home');
 				}
 				auditlog(req);
 			}
