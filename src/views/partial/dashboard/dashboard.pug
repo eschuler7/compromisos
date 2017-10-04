@@ -1,693 +1,692 @@
 extends ../../layouts/layout_main.pug
 block container
-  .page-title
-    //.right_col(role='main')
-    // top tiles
-    if session.user.firsttime != 1
-      .row
-        .col-md-6.col-sm-6.col-xs-12
-          .row.tile_count
-            .col-md-4.col-sm-4.col-xs-4.tile_stats_count
-              span.count_top
-                |  Compromisos total
-              .count #{totalCommitmentByRuc}
-            .col-md-4.col-sm-4.col-xs-4.tile_stats_count
-              span.count_top
-                |  Compromisos incompletos
-              .count(style='color:orange') 100
-            .col-md-4.col-sm-4.col-xs-4.tile_stats_count
-              span.count_top
-                |  Compromisos Cerrados
-              .count.green #{getCommitmentByStatusClosed}
-          .row
-            .col-md-12.col-sm-12.col-xs-12
+  //.right_col(role='main')
+  // top tiles
+  if session.user.firsttime != 1
+    .row
+      .col-md-6.col-sm-6.col-xs-12
+        .row.tile_count
+          .col-md-4.col-sm-4.col-xs-4.tile_stats_count
+            span.count_top
+              |  Compromisos total
+            .count #{totalCommitmentByRuc}
+          .col-md-4.col-sm-4.col-xs-4.tile_stats_count
+            span.count_top
+              |  Compromisos incompletos
+            .count(style='color:orange') 100
+          .col-md-4.col-sm-4.col-xs-4.tile_stats_count
+            span.count_top
+              |  Compromisos Cerrados
+            .count.green #{getCommitmentByStatusClosed}
+        .row
+          .col-md-12.col-sm-12.col-xs-12
+            .panel.panel-body
+              .x_title
+                h4 Compromisos por criticidad
+              .row
+                .col-xs-4 
+                  span.chart(data-percent=commitmenthighseverity) 
+                    span.percent
+                    p Alta 
+                .col-xs-4
+                  span.chart(data-percent=commitmentmediumseverity) 
+                    span.percent
+                    p Media
+                .col-xs-4
+                  span.chart(data-percent=commitmentlowseverity) 
+                    span.percent
+                    p Baja
+        .row
+          .col-md-12.col-sm-12.col-xs-12
+            .x_panel
+              .x_title
+                h2 Acción sobre compromisos
+                .clearfix
+              .x_content
+                #echart_donut_commit(style='height:350px;')
+        .row
+          .col-md-12.col-sm-12.col-xs-12
+            .x_panel
               .panel.panel-body
                 .x_title
-                  h4 Compromisos por criticidad
-                .row
-                  .col-xs-4 
-                    span.chart(data-percent=commitmenthighseverity) 
-                      span.percent
-                      p Alta 
-                  .col-xs-4
-                    span.chart(data-percent=commitmentmediumseverity) 
-                      span.percent
-                      p Media
-                  .col-xs-4
-                    span.chart(data-percent=commitmentlowseverity) 
-                      span.percent
-                      p Baja
-          .row
-            .col-md-12.col-sm-12.col-xs-12
-              .x_panel
-                .x_title
-                  h2 Acción sobre compromisos
+                  h2 Desviación - Compromisos
                   .clearfix
                 .x_content
-                  #echart_donut_commit(style='height:350px;')
-          .row
-            .col-md-12.col-sm-12.col-xs-12
-              .x_panel
-                .panel.panel-body
-                  .x_title
-                    h2 Desviación - Compromisos
-                    .clearfix
-                  .x_content
-                    #echart_gauge_commit(style='height:370px;')
-          .row
-            .col-md-12.col-sm-12.col-xs-12
-              .x_panel
-                .x_title
-                  h2 Incumplimiento - Compromisos
-                  .clearfix
-                .x_content
-                  #echart_pie_commit(style='height:350px;')
+                  #echart_gauge_commit(style='height:370px;')
+        .row
+          .col-md-12.col-sm-12.col-xs-12
+            .x_panel
+              .x_title
+                h2 Incumplimiento - Compromisos
+                .clearfix
+              .x_content
+                #echart_pie_commit(style='height:350px;')
 
-        .col-md-6.col-sm-6.col-xs-12
-          .row.tile_count
-            .col-md-4.col-sm-4.col-xs-4.tile_stats_count
-              span.count_top
-                |  Monitoreo total 
-              .count 1000
-            .col-md-4.col-sm-4.col-xs-4.tile_stats_count
-              span.count_top
-                |  Monitoreo incompletos
-              .count(style='color:orange') 80
-            .col-md-4.col-sm-4.col-xs-4.tile_stats_count
-              span.count_top
-                |  Monitoreo cerrados
-              .count.green 5
-          .row
-            .col-md-12.col-sm-12.col-xs-12
+      .col-md-6.col-sm-6.col-xs-12
+        .row.tile_count
+          .col-md-4.col-sm-4.col-xs-4.tile_stats_count
+            span.count_top
+              |  Monitoreo total 
+            .count 1000
+          .col-md-4.col-sm-4.col-xs-4.tile_stats_count
+            span.count_top
+              |  Monitoreo incompletos
+            .count(style='color:orange') 80
+          .col-md-4.col-sm-4.col-xs-4.tile_stats_count
+            span.count_top
+              |  Monitoreo cerrados
+            .count.green 5
+        .row
+          .col-md-12.col-sm-12.col-xs-12
+            .panel.panel-body
+              .x_title
+                h4 Monitoreo por criticidad
+              .row
+                .col-xs-4
+                  span.chart(data-percent='86')
+                    span.percent
+                    p Alta
+                .col-xs-4
+                  span.chart(data-percent='73')
+                    span.percent
+                    p Media
+                .col-xs-4
+                  span.chart(data-percent='60')
+                    span.percent
+                    p Baja
+        .row
+          .col-md-12.col-sm-12.col-xs-12
+            .x_panel
+              .x_title
+                h2 Acción sobre monitoreos
+                .clearfix
+              .x_content
+                #echart_donut_monit(style='height:350px;')
+        .row
+          .col-md-12.col-sm-12.col-xs-12
+            .x_panel
               .panel.panel-body
                 .x_title
-                  h4 Monitoreo por criticidad
-                .row
-                  .col-xs-4
-                    span.chart(data-percent='86')
-                      span.percent
-                      p Alta
-                  .col-xs-4
-                    span.chart(data-percent='73')
-                      span.percent
-                      p Media
-                  .col-xs-4
-                    span.chart(data-percent='60')
-                      span.percent
-                      p Baja
-          .row
-            .col-md-12.col-sm-12.col-xs-12
-              .x_panel
-                .x_title
-                  h2 Acción sobre monitoreos
+                  h2 Desviación - Monitoreo
                   .clearfix
                 .x_content
-                  #echart_donut_monit(style='height:350px;')
-          .row
-            .col-md-12.col-sm-12.col-xs-12
-              .x_panel
-                .panel.panel-body
-                  .x_title
-                    h2 Desviación - Monitoreo
-                    .clearfix
-                  .x_content
-                    #echart_gauge_monit(style='height:370px;')
-          .row
-            .col-md-12.col-sm-12.col-xs-12
-              .x_panel
-                .x_title
-                  h2 Incumplimiento - Monitoreo
-                  .clearfix
-                .x_content
-                  #echart_pie_monit(style='height:350px;')
+                  #echart_gauge_monit(style='height:370px;')
+        .row
+          .col-md-12.col-sm-12.col-xs-12
+            .x_panel
+              .x_title
+                h2 Incumplimiento - Monitoreo
+                .clearfix
+              .x_content
+                #echart_pie_monit(style='height:350px;')
 
-    script.
-      var theme = {
-        color: [
-          '#26B99A', '#34495E', '#BDC3C7', '#3498DB',
-          '#9B59B6', '#8abb6f', '#759c6a', '#bfd3b7'
-        ],
+  script.
+    var theme = {
+      color: [
+        '#26B99A', '#34495E', '#BDC3C7', '#3498DB',
+        '#9B59B6', '#8abb6f', '#759c6a', '#bfd3b7'
+      ],
 
-        title: {
-          itemGap: 8,
-          textStyle: {
-            fontWeight: 'normal',
+      title: {
+        itemGap: 8,
+        textStyle: {
+          fontWeight: 'normal',
+          color: '#408829'
+        }
+      },
+
+      dataRange: {
+        color: ['#1f610a', '#97b58d']
+      },
+
+      toolbox: {
+        color: ['#408829', '#408829', '#408829', '#408829']
+      },
+
+      tooltip: {
+        backgroundColor: 'rgba(0,0,0,0.5)',
+        axisPointer: {
+          type: 'line',
+          lineStyle: {
+            color: '#408829',
+            type: 'dashed'
+          },
+          crossStyle: {
             color: '#408829'
-          }
-        },
-
-        dataRange: {
-          color: ['#1f610a', '#97b58d']
-        },
-
-        toolbox: {
-          color: ['#408829', '#408829', '#408829', '#408829']
-        },
-
-        tooltip: {
-          backgroundColor: 'rgba(0,0,0,0.5)',
-          axisPointer: {
-            type: 'line',
-            lineStyle: {
-              color: '#408829',
-              type: 'dashed'
-            },
-            crossStyle: {
-              color: '#408829'
-            },
-            shadowStyle: {
-              color: 'rgba(200,200,200,0.3)'
-            }
-          }
-        },
-
-        dataZoom: {
-          dataBackgroundColor: '#eee',
-          fillerColor: 'rgba(64,136,41,0.2)',
-          handleColor: '#408829'
-        },
-        grid: {
-          borderWidth: 0
-        },
-
-        categoryAxis: {
-          axisLine: {
-            lineStyle: {
-              color: '#408829'
-            }
           },
-          splitLine: {
-            lineStyle: {
-              color: ['#eee']
-            }
+          shadowStyle: {
+            color: 'rgba(200,200,200,0.3)'
           }
-        },
+        }
+      },
 
-        valueAxis: {
-          axisLine: {
-            lineStyle: {
-              color: '#408829'
-            }
-          },
-          splitArea: {
-            show: true,
-            areaStyle: {
-              color: ['rgba(250,250,250,0.1)', 'rgba(200,200,200,0.1)']
-            }
-          },
-          splitLine: {
-            lineStyle: {
-              color: ['#eee']
-            }
-          }
-        },
-        timeline: {
+      dataZoom: {
+        dataBackgroundColor: '#eee',
+        fillerColor: 'rgba(64,136,41,0.2)',
+        handleColor: '#408829'
+      },
+      grid: {
+        borderWidth: 0
+      },
+
+      categoryAxis: {
+        axisLine: {
           lineStyle: {
             color: '#408829'
-          },
-          controlStyle: {
-            normal: {color: '#408829'},
-            emphasis: {color: '#408829'}
           }
         },
+        splitLine: {
+          lineStyle: {
+            color: ['#eee']
+          }
+        }
+      },
 
-        k: {
-          itemStyle: {
-            normal: {
-              color: '#68a54a',
-              color0: '#a9cba2',
-              lineStyle: {
-                width: 1,
-                color: '#408829',
-                color0: '#86b379'
-              }
-            }
+      valueAxis: {
+        axisLine: {
+          lineStyle: {
+            color: '#408829'
           }
         },
-        map: {
-          itemStyle: {
-            normal: {
-              areaStyle: {
-                color: '#ddd'
-              },
-              label: {
-                textStyle: {
-                  color: '#c12e34'
-                }
-              }
-            },
-            emphasis: {
-              areaStyle: {
-                color: '#99d2dd'
-              },
-              label: {
-                textStyle: {
-                  color: '#c12e34'
-                }
-              }
-            }
+        splitArea: {
+          show: true,
+          areaStyle: {
+            color: ['rgba(250,250,250,0.1)', 'rgba(200,200,200,0.1)']
           }
         },
-        force: {
-          itemStyle: {
-            normal: {
-              linkStyle: {
-                strokeColor: '#408829'
-              }
-            }
+        splitLine: {
+          lineStyle: {
+            color: ['#eee']
           }
+        }
+      },
+      timeline: {
+        lineStyle: {
+          color: '#408829'
         },
-        chord: {
-          padding: 4,
-          itemStyle: {
-            normal: {
-              lineStyle: {
-                width: 1,
-                color: 'rgba(128, 128, 128, 0.5)'
-              },
-              chordStyle: {
-                lineStyle: {
-                  width: 1,
-                  color: 'rgba(128, 128, 128, 0.5)'
-                }
-              }
-            },
-            emphasis: {
-              lineStyle: {
-                width: 1,
-                color: 'rgba(128, 128, 128, 0.5)'
-              },
-              chordStyle: {
-                lineStyle: {
-                  width: 1,
-                  color: 'rgba(128, 128, 128, 0.5)'
-                }
-              }
-            }
-          }
-        },
-        gauge: {
-          startAngle: 225,
-          endAngle: -45,
-          axisLine: {
-            show: true,
+        controlStyle: {
+          normal: {color: '#408829'},
+          emphasis: {color: '#408829'}
+        }
+      },
+
+      k: {
+        itemStyle: {
+          normal: {
+            color: '#68a54a',
+            color0: '#a9cba2',
             lineStyle: {
-              color: [[0.2, '#86b379'], [0.8, '#68a54a'], [1, '#408829']],
-              width: 8
+              width: 1,
+              color: '#408829',
+              color0: '#86b379'
             }
+          }
+        }
+      },
+      map: {
+        itemStyle: {
+          normal: {
+            areaStyle: {
+              color: '#ddd'
+            },
+            label: {
+              textStyle: {
+                color: '#c12e34'
+              }
+            }
+          },
+          emphasis: {
+            areaStyle: {
+              color: '#99d2dd'
+            },
+            label: {
+              textStyle: {
+                color: '#c12e34'
+              }
+            }
+          }
+        }
+      },
+      force: {
+        itemStyle: {
+          normal: {
+            linkStyle: {
+              strokeColor: '#408829'
+            }
+          }
+        }
+      },
+      chord: {
+        padding: 4,
+        itemStyle: {
+          normal: {
+            lineStyle: {
+              width: 1,
+              color: 'rgba(128, 128, 128, 0.5)'
+            },
+            chordStyle: {
+              lineStyle: {
+                width: 1,
+                color: 'rgba(128, 128, 128, 0.5)'
+              }
+            }
+          },
+          emphasis: {
+            lineStyle: {
+              width: 1,
+              color: 'rgba(128, 128, 128, 0.5)'
+            },
+            chordStyle: {
+              lineStyle: {
+                width: 1,
+                color: 'rgba(128, 128, 128, 0.5)'
+              }
+            }
+          }
+        }
+      },
+      gauge: {
+        startAngle: 225,
+        endAngle: -45,
+        axisLine: {
+          show: true,
+          lineStyle: {
+            color: [[0.2, '#86b379'], [0.8, '#68a54a'], [1, '#408829']],
+            width: 8
+          }
+        },
+        axisTick: {
+          splitNumber: 10,
+          length: 12,
+          lineStyle: {
+            color: 'auto'
+          }
+        },
+        axisLabel: {
+          textStyle: {
+            color: 'auto'
+          }
+        },
+        splitLine: {
+          length: 18,
+          lineStyle: {
+            color: 'auto'
+          }
+        },
+        pointer: {
+          length: '90%',
+          color: 'auto'
+        },
+        title: {
+          textStyle: {
+            color: '#333'
+          }
+        },
+        detail: {
+          textStyle: {
+            color: 'auto'
+          }
+        }
+      },
+      textStyle: {
+        fontFamily: 'Arial, Verdana, sans-serif'
+      }
+    };
+
+    window.onload = function() {
+      var echartDonutCommit = echarts.init(document.getElementById('echart_donut_commit'), theme);
+      echartDonutCommit.setOption({
+        tooltip: {
+          trigger: 'item',
+          formatter: "{a} <br/>{b} : {c} ({d}%)"
+        },
+        calculable: true,
+        legend: {
+          x: 'center',
+          y: 'bottom',
+          data: ['Requiere Acción', 'Incumplidos con plan de acción', 'Sin plan de acción']
+        },
+        series: [{
+          name: 'Cantidad',
+          type: 'pie',
+          radius: ['35%', '55%'],
+          itemStyle: {
+          normal: {
+            label: {
+            show: true
+            },
+            labelLine: {
+            show: true
+            }
+          },
+          emphasis: {
+            label: {
+            show: true,
+            position: 'center',
+            textStyle: {
+              fontSize: '14',
+              fontWeight: 'normal'
+            }
+            }
+          }
+          },
+          data: [{
+          value: #{getCommitmentRequiereAction},
+          name: 'Requiere Acción'
+          }, {
+          value: #{getCommitmentUncomplishedWithAction},
+          name: 'Incumplidos con plan de acción'
+          }, {
+          value: #{getCommitmentWithoutAction},
+          name: 'Sin plan de acción'
+          }]
+        }]
+      });
+
+      var echartDonutMonit = echarts.init(document.getElementById('echart_donut_monit'), theme);
+      echartDonutMonit.setOption({
+        tooltip: {
+          trigger: 'item',
+          formatter: "{a} <br/>{b} : {c} ({d}%)"
+        },
+        calculable: true,
+        legend: {
+          x: 'center',
+          y: 'bottom',
+          data: ['Requiere Acción', 'Incumplidos con plan de acción', 'Sin plan de acción']
+        },
+        series: [{
+          name: 'Cantidad',
+          type: 'pie',
+          radius: ['35%', '55%'],
+          itemStyle: {
+          normal: {
+            label: {
+            show: true
+            },
+            labelLine: {
+            show: true
+            }
+          },
+          emphasis: {
+            label: {
+            show: true,
+            position: 'center',
+            textStyle: {
+              fontSize: '14',
+              fontWeight: 'normal'
+            }
+            }
+          }
+          },
+          data: [{
+          value: 335,
+          name: 'Requiere Acción'
+          }, {
+          value: 310,
+          name: 'Incumplidos con plan de acción'
+          }, {
+          value: 234,
+          name: 'Sin plan de acción'
+          }]
+        }]
+      });
+
+      var echartGaugeCommit = echarts.init(document.getElementById('echart_gauge_commit'), theme);
+      echartGaugeCommit.setOption({
+        tooltip: {
+          formatter: "{a} <br/>{b} : {c}%"
+        },
+        series: [{
+          name: 'Performance',
+          type: 'gauge',
+          center: ['50%', '50%'],
+          startAngle: 140,
+          endAngle: -140,
+          min: 0,
+          max: 100,
+          precision: 0,
+          splitNumber: 10,
+          axisLine: {
+          show: true,
+          lineStyle: {
+            color: [
+            [0.2, 'lightgreen'],
+            [0.4, 'orange'],
+            [0.8, 'skyblue'],
+            [1, '#ff4500']
+            ],
+            width: 30
+          }
           },
           axisTick: {
-            splitNumber: 10,
-            length: 12,
-            lineStyle: {
-              color: 'auto'
-            }
+          show: true,
+          splitNumber: 5,
+          length: 8,
+          lineStyle: {
+            color: '#eee',
+            width: 1,
+            type: 'solid'
+          }
           },
           axisLabel: {
-            textStyle: {
-              color: 'auto'
+          show: true,
+          formatter: function(v) {
+            switch (v + '') {
+            case '10':
+              return 'a';
+            case '30':
+              return 'b';
+            case '60':
+              return 'c';
+            case '90':
+              return 'd';
+            default:
+              return '';
             }
+          },
+          textStyle: {
+            color: '#333'
+          }
           },
           splitLine: {
-            length: 18,
-            lineStyle: {
-              color: 'auto'
-            }
+          show: true,
+          length: 30,
+          lineStyle: {
+            color: '#eee',
+            width: 2,
+            type: 'solid'
+          }
           },
           pointer: {
-            length: '90%',
-            color: 'auto'
+          length: '80%',
+          width: 8,
+          color: 'auto'
           },
           title: {
-            textStyle: {
-              color: '#333'
-            }
+          show: true,
+          offsetCenter: ['-65%', -10],
+          textStyle: {
+            color: '#333',
+            fontSize: 15
+          }
           },
           detail: {
-            textStyle: {
-              color: 'auto'
-            }
+          show: true,
+          backgroundColor: 'rgba(0,0,0,0)',
+          borderWidth: 0,
+          borderColor: '#ccc',
+          width: 100,
+          height: 40,
+          offsetCenter: ['-60%', 10],
+          formatter: '{value}%',
+          textStyle: {
+            color: 'auto',
+            fontSize: 30
           }
+          },
+          data: [{
+          value: #{commitmentdesviation},
+          name: 'Desviación'
+          }]
+        }]
+      });
+
+      var echartGaugeMonit = echarts.init(document.getElementById('echart_gauge_monit'), theme);
+      echartGaugeMonit.setOption({
+        tooltip: {
+          formatter: "{a} <br/>{b} : {c}%"
         },
-        textStyle: {
-          fontFamily: 'Arial, Verdana, sans-serif'
-        }
-      };
-
-      window.onload = function() {
-        var echartDonutCommit = echarts.init(document.getElementById('echart_donut_commit'), theme);
-        echartDonutCommit.setOption({
-          tooltip: {
-            trigger: 'item',
-            formatter: "{a} <br/>{b} : {c} ({d}%)"
+        series: [{
+          name: 'Performance',
+          type: 'gauge',
+          center: ['50%', '50%'],
+          startAngle: 140,
+          endAngle: -140,
+          min: 0,
+          max: 100,
+          precision: 0,
+          splitNumber: 10,
+          axisLine: {
+          show: true,
+          lineStyle: {
+            color: [
+            [0.2, 'lightgreen'],
+            [0.4, 'orange'],
+            [0.8, 'skyblue'],
+            [1, '#ff4500']
+            ],
+            width: 30
+          }
           },
-          calculable: true,
-          legend: {
-            x: 'center',
-            y: 'bottom',
-            data: ['Requiere Acción', 'Incumplidos con plan de acción', 'Sin plan de acción']
+          axisTick: {
+          show: true,
+          splitNumber: 5,
+          length: 8,
+          lineStyle: {
+            color: '#eee',
+            width: 1,
+            type: 'solid'
+          }
           },
-          series: [{
-            name: 'Cantidad',
-            type: 'pie',
-            radius: ['35%', '55%'],
-            itemStyle: {
-            normal: {
-              label: {
-              show: true
-              },
-              labelLine: {
-              show: true
-              }
-            },
-            emphasis: {
-              label: {
-              show: true,
-              position: 'center',
-              textStyle: {
-                fontSize: '14',
-                fontWeight: 'normal'
-              }
-              }
+          axisLabel: {
+          show: true,
+          formatter: function(v) {
+            switch (v + '') {
+            case '10':
+              return 'a';
+            case '30':
+              return 'b';
+            case '60':
+              return 'c';
+            case '90':
+              return 'd';
+            default:
+              return '';
             }
-            },
-            data: [{
-            value: #{getCommitmentRequiereAction},
-            name: 'Requiere Acción'
-            }, {
-            value: #{getCommitmentUncomplishedWithAction},
-            name: 'Incumplidos con plan de acción'
-            }, {
-            value: #{getCommitmentWithoutAction},
-            name: 'Sin plan de acción'
-            }]
+          },
+          textStyle: {
+            color: '#333'
+          }
+          },
+          splitLine: {
+          show: true,
+          length: 30,
+          lineStyle: {
+            color: '#eee',
+            width: 2,
+            type: 'solid'
+          }
+          },
+          pointer: {
+          length: '80%',
+          width: 8,
+          color: 'auto'
+          },
+          title: {
+          show: true,
+          offsetCenter: ['-65%', -10],
+          textStyle: {
+            color: '#333',
+            fontSize: 15
+          }
+          },
+          detail: {
+          show: true,
+          backgroundColor: 'rgba(0,0,0,0)',
+          borderWidth: 0,
+          borderColor: '#ccc',
+          width: 100,
+          height: 40,
+          offsetCenter: ['-60%', 10],
+          formatter: '{value}%',
+          textStyle: {
+            color: 'auto',
+            fontSize: 30
+          }
+          },
+          data: [{
+          value: 85,
+          name: 'Desviación'
           }]
-        });
-
-        var echartDonutMonit = echarts.init(document.getElementById('echart_donut_monit'), theme);
-        echartDonutMonit.setOption({
-          tooltip: {
-            trigger: 'item',
-            formatter: "{a} <br/>{b} : {c} ({d}%)"
-          },
-          calculable: true,
-          legend: {
-            x: 'center',
-            y: 'bottom',
-            data: ['Requiere Acción', 'Incumplidos con plan de acción', 'Sin plan de acción']
-          },
-          series: [{
-            name: 'Cantidad',
-            type: 'pie',
-            radius: ['35%', '55%'],
-            itemStyle: {
-            normal: {
-              label: {
-              show: true
-              },
-              labelLine: {
-              show: true
-              }
-            },
-            emphasis: {
-              label: {
-              show: true,
-              position: 'center',
-              textStyle: {
-                fontSize: '14',
-                fontWeight: 'normal'
-              }
-              }
-            }
-            },
-            data: [{
-            value: 335,
-            name: 'Requiere Acción'
-            }, {
-            value: 310,
-            name: 'Incumplidos con plan de acción'
-            }, {
-            value: 234,
-            name: 'Sin plan de acción'
-            }]
+        }]
+      });
+      var echartPieCommit = echarts.init(document.getElementById('echart_pie_commit'), theme);
+      echartPieCommit.setOption({
+        tooltip: {
+          trigger: 'item',
+          formatter: "{a} <br/>{b} : {c} ({d}%)"
+        },
+        legend: {
+          x: 'center',
+          y: 'bottom',
+          data: ['Criticidad Alta', 'Criticidad Media', 'Criticidad Baja']
+        },        
+        calculable: true,
+        series: [{
+          name: 'Total',
+          type: 'pie',
+          radius: '55%',
+          center: ['50%', '50%'],
+          data: [{
+          value: #{getCommitmentUncomplishedBySeverityHigh},
+          name: 'Criticidad Alta'
+          }, {
+          value: #{getCommitmentUncomplishedBySeverityMedium},
+          name: 'Criticidad Media'
+          }, {
+          value: #{getCommitmentUncomplishedBySeverityLow},
+          name: 'Criticidad Baja'
           }]
-        });
-
-        var echartGaugeCommit = echarts.init(document.getElementById('echart_gauge_commit'), theme);
-        echartGaugeCommit.setOption({
-          tooltip: {
-            formatter: "{a} <br/>{b} : {c}%"
-          },
-          series: [{
-            name: 'Performance',
-            type: 'gauge',
-            center: ['50%', '50%'],
-            startAngle: 140,
-            endAngle: -140,
-            min: 0,
-            max: 100,
-            precision: 0,
-            splitNumber: 10,
-            axisLine: {
-            show: true,
-            lineStyle: {
-              color: [
-              [0.2, 'lightgreen'],
-              [0.4, 'orange'],
-              [0.8, 'skyblue'],
-              [1, '#ff4500']
-              ],
-              width: 30
-            }
-            },
-            axisTick: {
-            show: true,
-            splitNumber: 5,
-            length: 8,
-            lineStyle: {
-              color: '#eee',
-              width: 1,
-              type: 'solid'
-            }
-            },
-            axisLabel: {
-            show: true,
-            formatter: function(v) {
-              switch (v + '') {
-              case '10':
-                return 'a';
-              case '30':
-                return 'b';
-              case '60':
-                return 'c';
-              case '90':
-                return 'd';
-              default:
-                return '';
-              }
-            },
-            textStyle: {
-              color: '#333'
-            }
-            },
-            splitLine: {
-            show: true,
-            length: 30,
-            lineStyle: {
-              color: '#eee',
-              width: 2,
-              type: 'solid'
-            }
-            },
-            pointer: {
-            length: '80%',
-            width: 8,
-            color: 'auto'
-            },
-            title: {
-            show: true,
-            offsetCenter: ['-65%', -10],
-            textStyle: {
-              color: '#333',
-              fontSize: 15
-            }
-            },
-            detail: {
-            show: true,
-            backgroundColor: 'rgba(0,0,0,0)',
-            borderWidth: 0,
-            borderColor: '#ccc',
-            width: 100,
-            height: 40,
-            offsetCenter: ['-60%', 10],
-            formatter: '{value}%',
-            textStyle: {
-              color: 'auto',
-              fontSize: 30
-            }
-            },
-            data: [{
-            value: #{commitmentdesviation},
-            name: 'Desviación'
-            }]
+        }]
+      });
+      var echartPieMonit = echarts.init(document.getElementById('echart_pie_monit'), theme);
+      echartPieMonit.setOption({
+        tooltip: {
+          trigger: 'item',
+          formatter: "{a} <br/>{b} : {c} ({d}%)"
+        },
+        legend: {
+          x: 'center',
+          y: 'bottom',
+          data: ['Criticidad Alta', 'Criticidad Media', 'Criticidad Baja']
+        },        
+        calculable: true,
+        series: [{
+          name: 'Total',
+          type: 'pie',
+          radius: '55%',
+          center: ['50%', '48%'],
+          data: [{
+          value: 335,
+          name: 'Criticidad Alta'
+          }, {
+          value: 310,
+          name: 'Criticidad Media'
+          }, {
+          value: 234,
+          name: 'Criticidad Baja'
           }]
-        });
-
-        var echartGaugeMonit = echarts.init(document.getElementById('echart_gauge_monit'), theme);
-        echartGaugeMonit.setOption({
-          tooltip: {
-            formatter: "{a} <br/>{b} : {c}%"
-          },
-          series: [{
-            name: 'Performance',
-            type: 'gauge',
-            center: ['50%', '50%'],
-            startAngle: 140,
-            endAngle: -140,
-            min: 0,
-            max: 100,
-            precision: 0,
-            splitNumber: 10,
-            axisLine: {
-            show: true,
-            lineStyle: {
-              color: [
-              [0.2, 'lightgreen'],
-              [0.4, 'orange'],
-              [0.8, 'skyblue'],
-              [1, '#ff4500']
-              ],
-              width: 30
-            }
-            },
-            axisTick: {
-            show: true,
-            splitNumber: 5,
-            length: 8,
-            lineStyle: {
-              color: '#eee',
-              width: 1,
-              type: 'solid'
-            }
-            },
-            axisLabel: {
-            show: true,
-            formatter: function(v) {
-              switch (v + '') {
-              case '10':
-                return 'a';
-              case '30':
-                return 'b';
-              case '60':
-                return 'c';
-              case '90':
-                return 'd';
-              default:
-                return '';
-              }
-            },
-            textStyle: {
-              color: '#333'
-            }
-            },
-            splitLine: {
-            show: true,
-            length: 30,
-            lineStyle: {
-              color: '#eee',
-              width: 2,
-              type: 'solid'
-            }
-            },
-            pointer: {
-            length: '80%',
-            width: 8,
-            color: 'auto'
-            },
-            title: {
-            show: true,
-            offsetCenter: ['-65%', -10],
-            textStyle: {
-              color: '#333',
-              fontSize: 15
-            }
-            },
-            detail: {
-            show: true,
-            backgroundColor: 'rgba(0,0,0,0)',
-            borderWidth: 0,
-            borderColor: '#ccc',
-            width: 100,
-            height: 40,
-            offsetCenter: ['-60%', 10],
-            formatter: '{value}%',
-            textStyle: {
-              color: 'auto',
-              fontSize: 30
-            }
-            },
-            data: [{
-            value: 85,
-            name: 'Desviación'
-            }]
-          }]
-        });
-        var echartPieCommit = echarts.init(document.getElementById('echart_pie_commit'), theme);
-        echartPieCommit.setOption({
-          tooltip: {
-            trigger: 'item',
-            formatter: "{a} <br/>{b} : {c} ({d}%)"
-          },
-          legend: {
-            x: 'center',
-            y: 'bottom',
-            data: ['Criticidad Alta', 'Criticidad Media', 'Criticidad Baja']
-          },        
-          calculable: true,
-          series: [{
-            name: 'Total',
-            type: 'pie',
-            radius: '55%',
-            center: ['50%', '50%'],
-            data: [{
-            value: #{getCommitmentUncomplishedBySeverityHigh},
-            name: 'Criticidad Alta'
-            }, {
-            value: #{getCommitmentUncomplishedBySeverityMedium},
-            name: 'Criticidad Media'
-            }, {
-            value: #{getCommitmentUncomplishedBySeverityLow},
-            name: 'Criticidad Baja'
-            }]
-          }]
-        });
-        var echartPieMonit = echarts.init(document.getElementById('echart_pie_monit'), theme);
-        echartPieMonit.setOption({
-          tooltip: {
-            trigger: 'item',
-            formatter: "{a} <br/>{b} : {c} ({d}%)"
-          },
-          legend: {
-            x: 'center',
-            y: 'bottom',
-            data: ['Criticidad Alta', 'Criticidad Media', 'Criticidad Baja']
-          },        
-          calculable: true,
-          series: [{
-            name: 'Total',
-            type: 'pie',
-            radius: '55%',
-            center: ['50%', '48%'],
-            data: [{
-            value: 335,
-            name: 'Criticidad Alta'
-            }, {
-            value: 310,
-            name: 'Criticidad Media'
-            }, {
-            value: 234,
-            name: 'Criticidad Baja'
-            }]
-          }]
-        });
-      }
+        }]
+      });
+    }
