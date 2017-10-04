@@ -52,47 +52,54 @@ var udploadMonTemplate = multer({ storage: uploadsMonStorage });
 var uploadEvidences = multer({storage: objectstorage.getEvidenceObjectStorage});
 
 router.get('/dashboard',function(req, res){
+        
+    var totalCommitmentByRuc = mysql.batch.totalCommitmentByRuc(req.session.user.t_company_ruc);
+    var totalCommitmentBySeverity = mysql.batch.totalCommitmentBySeverity(req.session.user.t_company_ruc);
+    var getCommitmentByStatusClosed = mysql.batch.getCommitmentByStatusClosed(req.session.user.t_company_ruc);
+    var getCommitmentRequiereAction = mysql.batch.getCommitmentRequiereAction(req.session.user.t_company_ruc);
+    var getCommitmentUncomplishedWithAction = mysql.batch.getCommitmentUncomplishedWithAction(req.session.user.t_company_ruc);
+    var getCommitmentWithoutAction = mysql.batch.getCommitmentWithoutAction(req.session.user.t_company_ruc);
+    var getCommitmentUncomplishedTotal = mysql.batch.getCommitmentUncomplishedTotal(req.session.user.t_company_ruc);
+    var getCommitmentUncomplishedBySeverity = mysql.batch.getCommitmentUncomplishedBySeverity(req.session.user.t_company_ruc);
+    var commitmentdesviation = Math.round((getCommitmentUncomplishedTotal[0].compromisosincumplidostotal*100/totalCommitmentByRuc[0].totalcompromisos)*100)/100;
+    var commitmenthighseverity = Math.round((totalCommitmentBySeverity[0].totalcompromisoscriticidad*100/totalCommitmentByRuc[0].totalcompromisos)*100)/100;
+    var commitmentmediumseverity = Math.round((totalCommitmentBySeverity[2].totalcompromisoscriticidad*100/totalCommitmentByRuc[0].totalcompromisos)*100)/100;
+    var commitmentlowseverity = Math.round((totalCommitmentBySeverity[1].totalcompromisoscriticidad*100/totalCommitmentByRuc[0].totalcompromisos)*100)/100;                
+    var getCommitmentUncomplishedBySeverityHigh = getCommitmentUncomplishedBySeverity[0].compromisosincumpxcriticidad;
+    var getCommitmentUncomplishedBySeverityMedium = getCommitmentUncomplishedBySeverity[2].compromisosincumpxcriticidad;
+    var getCommitmentUncomplishedBySeverityLow = getCommitmentUncomplishedBySeverity[1].compromisosincumpxcriticidad;
+
+
+    // validar con if las criticidades cuando no existan
+
+    console.log(commitmenthighseverity,commitmentmediumseverity,commitmentlowseverity);
+    res.render('partial/dashboard/dashboard',{
+        totalCommitmentByRuc : totalCommitmentByRuc[0].totalcompromisos,
+        commitmenthighseverity : commitmenthighseverity,
+        commitmentmediumseverity : commitmentmediumseverity,
+        commitmentlowseverity : commitmentlowseverity,
+        getCommitmentByStatusClosed : getCommitmentByStatusClosed[0].totalcompromisoscerrados,
+        getCommitmentRequiereAction : getCommitmentRequiereAction[0].compromisoreqaccion, 
+        getCommitmentUncomplishedWithAction : getCommitmentUncomplishedWithAction[0].compromisoincumpconaccion, 
+        getCommitmentWithoutAction : getCommitmentWithoutAction[0].compromisosinaccion,
+        getCommitmentUncomplishedTotal : getCommitmentUncomplishedTotal[0].compromisosincumplidostotal, 
+        getCommitmentUncomplishedBySeverityHigh : getCommitmentUncomplishedBySeverityHigh,
+        getCommitmentUncomplishedBySeverityMedium : getCommitmentUncomplishedBySeverityMedium,
+        getCommitmentUncomplishedBySeverityLow : getCommitmentUncomplishedBySeverityLow, 
+        commitmentdesviation : commitmentdesviation, notification: req.notification});
+
+
+});
+router.get('/home',function(req, res){
     var ft = req.session.user.firsttime;
     if(ft == 1) {
         var dashboard = mysql.dashboard.getDashboardTypes();
         var commitment = mysql.commitment.getCommitmentTypes();
         var monitor = mysql.monitor.getMonitorTypes();
-        res.render('partial/dashboard/dashboard',{dashboard: dashboard, commitment: commitment, monitor: monitor,notification: req.notification});
+        res.render('partial/home',{dashboard: dashboard, commitment: commitment, monitor: monitor,notification: req.notification});
     } else {
-        
-        var totalCommitmentByRuc = mysql.batch.totalCommitmentByRuc(req.session.user.t_company_ruc);
-        var totalCommitmentBySeverity = mysql.batch.totalCommitmentBySeverity(req.session.user.t_company_ruc);
-        var getCommitmentByStatusClosed = mysql.batch.getCommitmentByStatusClosed(req.session.user.t_company_ruc);
-        var getCommitmentRequiereAction = mysql.batch.getCommitmentRequiereAction(req.session.user.t_company_ruc);
-        var getCommitmentUncomplishedWithAction = mysql.batch.getCommitmentUncomplishedWithAction(req.session.user.t_company_ruc);
-        var getCommitmentWithoutAction = mysql.batch.getCommitmentWithoutAction(req.session.user.t_company_ruc);
-        var getCommitmentUncomplishedTotal = mysql.batch.getCommitmentUncomplishedTotal(req.session.user.t_company_ruc);
-        var getCommitmentUncomplishedBySeverity = mysql.batch.getCommitmentUncomplishedBySeverity(req.session.user.t_company_ruc);
-        var commitmentdesviation = Math.round((getCommitmentUncomplishedTotal[0].compromisosincumplidostotal*100/totalCommitmentByRuc[0].totalcompromisos)*100)/100;
-        var commitmenthighseverity = Math.round((totalCommitmentBySeverity[0].totalcompromisoscriticidad*100/totalCommitmentByRuc[0].totalcompromisos)*100)/100;
-        var commitmentmediumseverity = Math.round((totalCommitmentBySeverity[1].totalcompromisoscriticidad*100/totalCommitmentByRuc[0].totalcompromisos)*100)/100;
-        var commitmentlowseverity = Math.round((totalCommitmentBySeverity[2].totalcompromisoscriticidad*100/totalCommitmentByRuc[0].totalcompromisos)*100)/100;                
-        var getCommitmentUncomplishedBySeverityHigh = getCommitmentUncomplishedBySeverity[0].compromisosincumpxcriticidad;
-        var getCommitmentUncomplishedBySeverityMedium = getCommitmentUncomplishedBySeverity[1].compromisosincumpxcriticidad;
-        var getCommitmentUncomplishedBySeverityLow = getCommitmentUncomplishedBySeverity[2].compromisosincumpxcriticidad;
 
-        // validar con if las criticidades cuando no existan
-
-        console.log(getCommitmentUncomplishedBySeverity);
-        res.render('partial/dashboard/dashboard',{
-            totalCommitmentByRuc : totalCommitmentByRuc[0].totalcompromisos,
-            commitmenthighseverity : commitmenthighseverity,
-            commitmentmediumseverity : commitmentmediumseverity,
-            commitmentlowseverity : commitmentlowseverity,
-            getCommitmentByStatusClosed : getCommitmentByStatusClosed[0].totalcompromisoscerrados,
-            getCommitmentRequiereAction : getCommitmentRequiereAction[0].compromisoreqaccion, 
-            getCommitmentUncomplishedWithAction : getCommitmentUncomplishedWithAction[0].compromisoincumpconaccion, 
-            getCommitmentWithoutAction : getCommitmentWithoutAction[0].compromisosinaccion,
-            getCommitmentUncomplishedTotal : getCommitmentUncomplishedTotal[0].compromisosincumplidostotal, 
-            getCommitmentUncomplishedBySeverityHigh : getCommitmentUncomplishedBySeverityHigh,
-            getCommitmentUncomplishedBySeverityMedium : getCommitmentUncomplishedBySeverityMedium,
-            getCommitmentUncomplishedBySeverityLow : getCommitmentUncomplishedBySeverityLow, 
-            commitmentdesviation : commitmentdesviation, notification: req.notification});
+        res.render('partial/home',{notification: req.notification});
 
     }
 });
@@ -392,6 +399,7 @@ router.post('/uploadcomtemplate',udploadComTemplate.single('template'), function
             mysql.commitment.createCommitment(compcomm, comdatatotal);
             req.session.notification = computil.notification('success','Carga Satisfactorio','La carga masiva de los compromisos se completó correctamente.');
             res.redirect('/secure/commitlist');
+            auditlog(req);
         } else {
             req.session.notification = computil.notification('error','Error de Caga Masiva','Los campos de la plantilla no coinciden');
             res.redirect('/secure/commitmassive');
@@ -434,6 +442,7 @@ router.post('/uploadmontemplate',udploadMonTemplate.single('template'), function
             mysql.monitor.createMonitor(monconf, mondatatotal);
             req.session.notification = computil.notification('success','Carga Satisfactorio','La carga masiva de los monitoreos se completó correctamente.');
             res.redirect('/secure/monitlist');
+            auditlog(req);
         } else {
             req.session.notification = computil.notification('error','Error de Caga Masiva','Los campos de la plantilla no coinciden');
             res.redirect('/secure/monitmassive');
@@ -468,7 +477,7 @@ router.post('/initConfig', function(req, res){
         // Creating object storage
         objectstorage.container.createContainer(req.session.user.t_company_ruc);
     }
-    res.redirect('/secure/dashboard');
+    res.redirect('/secure/home');
 });
 
 router.post('/commitconfigattr', function(req, res){
@@ -673,7 +682,7 @@ router.post('/emailToSoporte', function(req, res, next){
             htmlRegistrationTemplate = htmlRegistrationTemplate.replace('$RECEPTION',reception[0].email);
             compemail.sendEmail(inbox,'Consulta de soporte a NOLAN',htmlRegistrationTemplate);
         }
-        res.redirect('/secure/dashboard');
+        res.redirect('/secure/home');
         auditlog(req);
     } catch(e) {
         next(e);

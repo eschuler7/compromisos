@@ -540,7 +540,7 @@ var compromisosdb = {
 		},
 		totalCommitmentBySeverity : function(ruc) {
 			var conn = new mysql(connectionOptions);
-			const result = conn.query('select criticidad, count(criticidad) as totalcompromisoscriticidad from t_commitment where ruc=? group by criticidad',[ruc]);
+			const result = conn.query('select criticidad, count(criticidad) as totalcompromisoscriticidad from t_commitment where ruc=? group by criticidad order by criticidad asc',[ruc]);
 			conn.dispose();
 			return result;
 		},
@@ -594,7 +594,7 @@ var compromisosdb = {
 		},
 		getCommitmentUncomplishedBySeverity : function(ruc) {
 			var conn = new mysql(connectionOptions);
-			const result = conn.query('select criticidad, count(criticidad) as compromisosincumpxcriticidad from t_commitment where ruc=? and estadocumplimiento = "Vencido" group by criticidad',[ruc]);
+			const result = conn.query('select criticidad, count(criticidad) as compromisosincumpxcriticidad from t_commitment where ruc=? and estadocumplimiento = "Vencido" group by criticidad order by criticidad asc',[ruc]);
 			conn.dispose();
 			return result;
 		},
