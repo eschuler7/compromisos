@@ -12,9 +12,8 @@ block container
               tr
                 each conf in monitconfig
                   th #{conf.name}
-                th Opciones
             tbody
-              each monitor in monitors
+              //-each monitor in monitors
                 tr
                   each column in monitconfig
                     td #{monitor[column.columnasoc]}
@@ -35,29 +34,24 @@ block container
                             |  Eliminar
           .ln_solid(style='margin-top:5px')
           a.btn.btn-warning.btn-xs(href='/secure/monitregister') Nuevo Monitoreo
+          #exportbuttons.pull-right
+            | Exportar: 
+            a.btn.btn-default.btn-xs(href='#') Excel
 
-    #confirm_delete.modal.fade(tabindex='-1', role='dialog', data-backdrop='static', data-keyboard='false')
-      .modal-dialog(role='document')
-        .modal-content
-          .modal-header
-            //-button.close(type='button', data-dismiss='modal', aria-label='Close')
-              span(aria-hidden='true') &times;
-            h4#comfirm_delete_title.modal-title
-          form#frmConfirmDelete(action='/secure/monitdelete',method='post')
-            .modal-body
-              p Esta acción eliminará el monitoreo seleccionado
-              center
-                strong ¿Desea continuar?
-              input(type='hidden',name='nrocorrelativo')
-            .modal-footer
-              button.btn.btn-default.pull-left(type='button', data-dismiss='modal') Cancelar
-              |  
-              button.btn.btn-danger(type='submit') Continuar
     script.
       window.onload = function() {
-        $('#tblmonitor').DataTable({
-          //dom: 'Bfrtip',
-          //buttons: ['copy','csv','print'],
+        var columns = !{columns};
+        var table = $('#tblmonitor').DataTable({
+          scrollX: true,
+          ajax:'/secure/monitlistrest',
+          deferRender: true,
+          columns: columns,
+          columnDefs: [{
+            targets: '_all',
+            render: function ( data, type, row, meta ) {
+              return (data == null) ? '' : '<a href="/secure/monitdetail/' + row.nrocorrelativo + '">' + data + '</a>';
+            }
+          }],
           lengthMenu: [[5, 15], [5, 15]],
           language: {
             paginate: {
@@ -68,15 +62,12 @@ block container
             },
             info: 'Mostrando _START_ a _END_ de _TOTAL_ registro(s)',
             infoEmpty: 'No se encontraron registros',
-            emptyTable: 'No se encontraron registros',
+            emptyTable: 'No tiene monitoreos registrados',
             lengthMenu: 'Mostrar _MENU_ registro(s)',
             search: 'Buscar:',
-            zeroRecords: 'No se encontraron registros coincidentes'
+            searchPlaceholder: 'Ejm, Abierto',
+            zeroRecords: 'No se encontraron registros coincidentes',
+            loadingRecords: 'Cargando Registros ...'
           }
         });
-      }
-      var deletemonitor = function(nrocorrelativo) {
-        $('#comfirm_delete_title').text('Eliminar monitoreo con No correlativo  ' + nrocorrelativo);
-        $('#frmConfirmDelete input[name=nrocorrelativo]').val(nrocorrelativo);
-        $('#confirm_delete').modal('show');
       }

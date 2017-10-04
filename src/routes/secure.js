@@ -128,8 +128,27 @@ router.get('/commitedit/:nrocorrelativo', function(req, res){
 
 router.get('/commitlist', function(req, res){
     var comconfig = mysql.commitment.getComConfigByRuc(req.session.user.t_company_ruc);
+    var columns = [];
+    var evipos = -1
+    for (var i = 0; i < comconfig.length; i++) {
+        if(comconfig[i].columnasoc == 'evidencias') {
+            evipos = i;
+        } else {
+            var data = {data:comconfig[i].columnasoc};
+            columns.push(data);
+        }
+    }
+    //columns.push({data:'options',defaultContent:'Hola'});
+    if(evipos > -1)
+        comconfig.splice(evipos,1);
+    res.render('partial/commitment/commitlist',{comconfig: comconfig, columns: JSON.stringify(columns), notification: req.notification});
+});
+
+router.get('/commitlistrest',function(req,res){
+    var comconfig = mysql.commitment.getComConfigByRuc(req.session.user.t_company_ruc);
     var commitments = mysql.commitment.getCommitmentsByRuc(req.session.user.t_company_ruc,comconfig);
-    res.render('partial/commitment/commitlist',{comconfig: comconfig, commitments: commitments,notification: req.notification});
+    res.setHeader('Content-Type','application/json');
+    res.send({data:commitments});
 });
 
 router.get('/dashboardconfigattr', function(req, res){
@@ -149,9 +168,28 @@ router.get('/monitconfigattr', function(req, res){
 });
 router.get('/monitlist', function(req, res){
     var monitconfig = mysql.monitor.getMonitorConfigByRuc(req.session.user.t_company_ruc);
-    var monitors = mysql.monitor.getMonitorsByRuc(req.session.user.t_company_ruc,monitconfig);
-    res.render('partial/monitor/monitlist',{monitconfig: monitconfig, monitors: monitors,notification: req.notification});
+    var columns = [];
+    var evipos = -1
+    for (var i = 0; i < monitconfig.length; i++) {
+        if(monitconfig[i].columnasoc == 'evidencias') {
+            evipos = i;
+        } else {
+            var data = {data:monitconfig[i].columnasoc};
+            columns.push(data);
+        }
+    }
+    //columns.push({data:'options',defaultContent:'Hola'});
+    if(evipos > -1)
+        monitconfig.splice(evipos,1);
+    res.render('partial/monitor/monitlist',{monitconfig: monitconfig,columns: JSON.stringify(columns),notification: req.notification});
 });
+router.get('/monitlistrest', function(req, res){
+    var monitconfig = mysql.monitor.getMonitorConfigByRuc(req.session.user.t_company_ruc);
+    var monitors = mysql.monitor.getMonitorsByRuc(req.session.user.t_company_ruc,monitconfig);
+    res.setHeader('Content-Type','application/json');
+    res.send({data:monitors});
+});
+
 router.get('/monitdetail/:nrocorrelativo', function(req, res){
     var nrocorrelativo = req.params.nrocorrelativo;
     var monitconfig = mysql.monitor.getMonitorConfigByRuc(req.session.user.t_company_ruc);
@@ -399,16 +437,16 @@ router.post('/uploadcomtemplate',udploadComTemplate.single('template'), function
             });
             mysql.commitment.createCommitment(compcomm, comdatatotal);
             req.session.notification = computil.notification('success','Carga Satisfactorio','La carga masiva de los compromisos se completó correctamente.');
-            res.redirect('/secure/commitlist');
+            res.send('ok');
             auditlog(req);
         } else {
             req.session.notification = computil.notification('error','Error de Caga Masiva','Los campos de la plantilla no coinciden');
-            res.redirect('/secure/commitmassive');
+            res.send('error');
         }
     }).catch( function(reason) {
         console.error( 'onRejected function called: ', reason );
         req.session.notification = computil.notification('error','Error de Caga Masiva','Hubo un error durante la carga masiva, por favor verifique los datos e intente nuevamente.');
-        res.redirect('/secure/commitmassive');
+        res.send('error');
     });;
 });
 

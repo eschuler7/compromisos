@@ -191,10 +191,11 @@ var compromisosdb = {
 			}
 			var dynamicquery = 'insert into t_commitment(ruc,' + columns.toString() + ',cdatetime,udatetime,t_user_userid) values(?,' + values.toString() + ',now(),now(),?)';
 			var conn = new mysql(connectionOptions);
-			console.log(dynamicquery);
+			console.log(new Date());
 			for (var i = 0; i < comdatatotal.length; i++) {
 				conn.query(dynamicquery,comdatatotal[i]);
 			}
+			console.log(new Date());
 			conn.dispose();
 		},
 		createSingleCommitment : function(compcomm, comdata) {
@@ -240,7 +241,7 @@ var compromisosdb = {
 		},
 		getComConfigByRuc : function(ruc) {
 			var conn = new mysql(connectionOptions);
-			const result = conn.query('select t_company_ruc,t_commitment_config_id,tco.name,tco.columnasoc from t_company_commitment tcc left join t_commitment_config tco on tcc.t_commitment_config_id=tco.id where t_company_ruc=?',[ruc]);
+			const result = conn.query('select t_commitment_config_id,tco.name,tco.columnasoc from t_company_commitment tcc left join t_commitment_config tco on tcc.t_commitment_config_id=tco.id where t_company_ruc=?',[ruc]);
 			conn.dispose();
 			return result;
 		},
@@ -534,7 +535,13 @@ var compromisosdb = {
 	batch : {
 		totalCommitmentByRuc : function(ruc) {
 			var conn = new mysql(connectionOptions);
-			const result = conn.query('select count(nrocorrelativo) as totalcompromisos from t_commitment where ruc=?',[ruc]);
+			const result = conn.query('select count(nrocorrelativo) from t_commitment where ruc=?',[ruc]);
+			conn.dispose();
+			return result;
+		},
+		totalMonitorByRuc : function(ruc) {
+			var conn = new mysql(connectionOptions);
+			const result = conn.query('select count(nrocorrelativo) from t_monitor where ruc=?',[ruc]);
 			conn.dispose();
 			return result;
 		},

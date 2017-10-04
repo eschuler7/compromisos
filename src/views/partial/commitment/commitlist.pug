@@ -12,9 +12,8 @@ block container
               tr
                 each conf in comconfig
                   th #{conf.name}
-                th Opciones
             tbody
-              each commitment in commitments
+              //-each commitment in commitments
                 tr
                   each column in comconfig
                     td #{commitment[column.columnasoc]}
@@ -37,54 +36,22 @@ block container
           a.btn.btn-warning.btn-xs(href='/secure/commitregister') Nuevo Compromiso
           #exportbuttons.pull-right
             | Exportar: 
-            
-
-    #confirm_delete.modal.fade(tabindex='-1', role='dialog', data-backdrop='static', data-keyboard='false')
-      .modal-dialog(role='document')
-        .modal-content
-          .modal-header
-            //-button.close(type='button', data-dismiss='modal', aria-label='Close')
-              span(aria-hidden='true') &times;
-            h4#comfirm_delete_title.modal-title
-          form#frmConfirmDelete(action='/secure/commitdelete',method='post')
-            .modal-body
-              p Esta acción eliminará el compromiso seleccionado
-              center
-                strong ¿Desea continuar?
-              input(type='hidden',name='nrocorrelativo')
-            .modal-footer
-              button.btn.btn-default.pull-left(type='button', data-dismiss='modal') Cancelar
-              |  
-              button.btn.btn-danger(type='submit') Continuar
+            a.btn.btn-default.btn-xs(href='#') Excel
 
     script.
       window.onload = function() {
+        var columns = !{columns};
         var table = $('#tblcommitments').DataTable({
-          //dom: 'Bfrtip',
-          buttons: [
-            {
-              extend: "copy",
-              className: "btn-xs",
-              text: "Copiar"
-            },
-            {
-              extend: "csv",
-              className: "btn-xs"
-            },
-            {
-              extend: "excel",
-              className: "btn-xs"
-            },
-            {
-              extend: "pdfHtml5",
-              className: "btn-xs"
-            },
-            {
-              extend: "print",
-              className: "btn-xs",
-              text: "Imprimir"
-            },
-          ],
+          scrollX: true,
+          ajax:'/secure/commitlistrest',
+          deferRender: true,
+          columns: columns,
+          columnDefs: [{
+            targets: '_all',
+            render: function ( data, type, row, meta ) {
+              return (data == null) ? '' : '<a href="/secure/commitdetail/' + row.nrocorrelativo + '">' + data + '</a>';
+            }
+          }],
           lengthMenu: [[5, 15], [5, 15]],
           language: {
             paginate: {
@@ -98,14 +65,17 @@ block container
             emptyTable: 'No tiene compromisos registrados',
             lengthMenu: 'Mostrar _MENU_ registro(s)',
             search: 'Buscar:',
-            zeroRecords: 'No se encontraron registros coincidentes'
+            searchPlaceholder: 'Ejm, Abierto',
+            zeroRecords: 'No se encontraron registros coincidentes',
+            loadingRecords: 'Cargando Registros ...'
           }
         });
-
-        table.buttons().container().appendTo( $('#exportbuttons') );
-      }
-      var deletecommit = function(nrocorrelativo) {
-        $('#comfirm_delete_title').text('Eliminar compromiso con No correlativo  ' + nrocorrelativo);
-        $('#frmConfirmDelete input[name=nrocorrelativo]').val(nrocorrelativo);
-        $('#confirm_delete').modal('show');
+        /*$('#tblcommitments tbody').on('click','tr',function(){
+          if($(this).hasClass('selected')){
+            $(this).removeClass('selected');
+          } else {
+            table.$('tr.selected').removeClass('selected');
+            $(this).addClass('selected');
+          }
+        });*/
       }
