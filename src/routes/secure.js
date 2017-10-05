@@ -61,14 +61,19 @@ router.get('/dashboard',function(req, res){
     var getCommitmentWithoutAction = mysql.batch.getCommitmentWithoutAction(req.session.user.t_company_ruc);
     var getCommitmentUncomplishedTotal = mysql.batch.getCommitmentUncomplishedTotal(req.session.user.t_company_ruc);
     var getCommitmentUncomplishedBySeverity = mysql.batch.getCommitmentUncomplishedBySeverity(req.session.user.t_company_ruc);
-    var commitmentdesviation = Math.round((getCommitmentUncomplishedTotal[0].compromisosincumplidostotal*100/totalCommitmentByRuc[0].totalcompromisos)*100)/100;
     
+    var commitmentdesviation = 0;
+    
+    if (getCommitmentUncomplishedTotal[0].compromisosincumplidostotal != 0) {
+        commitmentdesviation = Math.round((getCommitmentUncomplishedTotal[0].compromisosincumplidostotal*100/totalCommitmentByRuc[0].totalcompromisos)*100)/100;
+        console.log(commitmentdesviation);
+    }
+
     var commitmenthighseverity = 0;
     var commitmentmediumseverity = 0;
     var commitmentlowseverity = 0;
 
     for (var i = 0; i < totalCommitmentBySeverity.length; i++) {
-        console.log(totalCommitmentBySeverity[i].criticidad);
         if(totalCommitmentBySeverity[i].criticidad == 'Alto') {
             commitmenthighseverity = Math.round((totalCommitmentBySeverity[0].totalcompromisoscriticidad*100/totalCommitmentByRuc[0].totalcompromisos)*100)/100;
         } else if (totalCommitmentBySeverity[i].criticidad == 'Bajo') {
@@ -83,12 +88,12 @@ router.get('/dashboard',function(req, res){
     var getCommitmentUncomplishedBySeverityLow = 0;
 
     for (var i = 0; i < getCommitmentUncomplishedBySeverity.length; i++) {
-        if(getCommitmentUncomplishedBySeverity[0].criticidad == 'Alto') {
+        if(getCommitmentUncomplishedBySeverity[i].criticidad == 'Alto') {
             getCommitmentUncomplishedBySeverityHigh = getCommitmentUncomplishedBySeverity[0].compromisosincumpxcriticidad;
-        } else if (getCommitmentUncomplishedBySeverity[0].criticidad == 'Medio') {
-            getCommitmentUncomplishedBySeverityMedium = getCommitmentUncomplishedBySeverity[2].compromisosincumpxcriticidad;
-        } else if (getCommitmentUncomplishedBySeverity[0].criticidad == 'Bajo'){
+        } else if (getCommitmentUncomplishedBySeverity[i].criticidad == 'Bajo') {
             getCommitmentUncomplishedBySeverityLow = getCommitmentUncomplishedBySeverity[1].compromisosincumpxcriticidad;
+        } else if (getCommitmentUncomplishedBySeverity[i].criticidad == 'Medio'){
+            getCommitmentUncomplishedBySeverityMedium = getCommitmentUncomplishedBySeverity[2].compromisosincumpxcriticidad;
         }
     }
 
