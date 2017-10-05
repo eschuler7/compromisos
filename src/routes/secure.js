@@ -62,18 +62,41 @@ router.get('/dashboard',function(req, res){
     var getCommitmentUncomplishedTotal = mysql.batch.getCommitmentUncomplishedTotal(req.session.user.t_company_ruc);
     var getCommitmentUncomplishedBySeverity = mysql.batch.getCommitmentUncomplishedBySeverity(req.session.user.t_company_ruc);
     var commitmentdesviation = Math.round((getCommitmentUncomplishedTotal[0].compromisosincumplidostotal*100/totalCommitmentByRuc[0].totalcompromisos)*100)/100;
-    var commitmenthighseverity = Math.round((totalCommitmentBySeverity[0].totalcompromisoscriticidad*100/totalCommitmentByRuc[0].totalcompromisos)*100)/100;
-    var commitmentmediumseverity = Math.round((totalCommitmentBySeverity[2].totalcompromisoscriticidad*100/totalCommitmentByRuc[0].totalcompromisos)*100)/100;
-    var commitmentlowseverity = Math.round((totalCommitmentBySeverity[1].totalcompromisoscriticidad*100/totalCommitmentByRuc[0].totalcompromisos)*100)/100;                
-    var getCommitmentUncomplishedBySeverityHigh = getCommitmentUncomplishedBySeverity[0].compromisosincumpxcriticidad;
-    var getCommitmentUncomplishedBySeverityMedium = getCommitmentUncomplishedBySeverity[2].compromisosincumpxcriticidad;
-    var getCommitmentUncomplishedBySeverityLow = getCommitmentUncomplishedBySeverity[1].compromisosincumpxcriticidad;
+    
+    var commitmenthighseverity = 0;
+    var commitmentmediumseverity = 0;
+    var commitmentlowseverity = 0;
+
+    for (var i = 0; i < totalCommitmentBySeverity.length; i++) {
+        console.log(totalCommitmentBySeverity[i].criticidad);
+        if(totalCommitmentBySeverity[i].criticidad == 'Alto') {
+            commitmenthighseverity = Math.round((totalCommitmentBySeverity[0].totalcompromisoscriticidad*100/totalCommitmentByRuc[0].totalcompromisos)*100)/100;
+        } else if (totalCommitmentBySeverity[i].criticidad == 'Bajo') {
+            commitmentlowseverity = Math.round((totalCommitmentBySeverity[1].totalcompromisoscriticidad*100/totalCommitmentByRuc[0].totalcompromisos)*100)/100;
+        } else if (totalCommitmentBySeverity[i].criticidad == 'Medio'){
+            commitmentmediumseverity = Math.round((totalCommitmentBySeverity[2].totalcompromisoscriticidad*100/totalCommitmentByRuc[0].totalcompromisos)*100)/100;
+        }
+        
+    }
+    var getCommitmentUncomplishedBySeverityHigh = 0;
+    var getCommitmentUncomplishedBySeverityMedium = 0;
+    var getCommitmentUncomplishedBySeverityLow = 0;
+
+    for (var i = 0; i < getCommitmentUncomplishedBySeverity.length; i++) {
+        if(getCommitmentUncomplishedBySeverity[0].criticidad == 'Alto') {
+            getCommitmentUncomplishedBySeverityHigh = getCommitmentUncomplishedBySeverity[0].compromisosincumpxcriticidad;
+        } else if (getCommitmentUncomplishedBySeverity[0].criticidad == 'Medio') {
+            getCommitmentUncomplishedBySeverityMedium = getCommitmentUncomplishedBySeverity[2].compromisosincumpxcriticidad;
+        } else if (getCommitmentUncomplishedBySeverity[0].criticidad == 'Bajo'){
+            getCommitmentUncomplishedBySeverityLow = getCommitmentUncomplishedBySeverity[1].compromisosincumpxcriticidad;
+        }
+    }
 
     // Monit
 
     // validar con if las criticidades cuando no existan
-    console.log(getCommitmentUncomplishedTotal,totalCommitmentByRuc,totalCommitmentBySeverity);
-    console.log(commitmentdesviation,commitmenthighseverity,commitmentmediumseverity,commitmentlowseverity,getCommitmentUncomplishedBySeverityHigh,getCommitmentUncomplishedBySeverityMedium,getCommitmentUncomplishedBySeverityLow);
+    //console.log(getCommitmentUncomplishedTotal,totalCommitmentByRuc,totalCommitmentBySeverity);
+    //console.log(commitmentdesviation,commitmenthighseverity,commitmentmediumseverity,commitmentlowseverity,getCommitmentUncomplishedBySeverityHigh,getCommitmentUncomplishedBySeverityMedium,getCommitmentUncomplishedBySeverityLow);
     res.render('partial/dashboard/dashboard',{
         totalCommitmentByRuc : totalCommitmentByRuc[0].totalcompromisos,
         commitmenthighseverity : commitmenthighseverity,
