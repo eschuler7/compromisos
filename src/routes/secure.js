@@ -224,6 +224,52 @@ router.get('/logout', function(req, res){
     auditlog(req);
 });
 
+router.get('/commitexportexcel', function(req, res){
+    var comconfigbyruc = mysql.commitment.getComConfigByRuc(req.session.user.t_company_ruc);
+    var commitments = mysql.commitment.getCommitmentsByRucForExport(req.session.user.t_company_ruc,comconfigbyruc);
+
+    var workbook = new Excel.Workbook();
+    workbook.creator = 'Nolan';
+    workbook.lastModifiedBy = 'Nolan';
+    workbook.created = new Date();
+    workbook.modified = new Date();
+    var wscommit = workbook.addWorksheet('Compromisos');
+    var header = [];
+    for (var i = 0; i < comconfigbyruc.length; i++) {
+        if(comconfigbyruc[i].columnasoc != 'evidencias') {
+            header.push(comconfigbyruc[i].name);
+        }
+    }
+    wscommit.addRow(header);
+    for (var i = 0; i < commitments.length; i++) {
+        var row = [];
+        for (var i = 0; i < comconfigbyruc.length; i++) {
+            if(comconfigbyruc[i].columnasoc != 'evidencias') {
+                row.push(commitments[i][comconfigbyruc[i].columnasoc]);
+            }
+        }
+        wscommit.addRow(row);
+    }
+    wscommit.eachRow(function(row, rowNumber) {
+        for (var i = 0; i < comconfigbyruc.length - 1; i++) {
+            row.getCell(i+1).border = {
+                top: {style:'thin'},
+                left: {style:'thin'},
+                bottom: {style:'thin'},
+                right: {style:'thin'}
+            }
+        }
+    });
+    var downloadpath = path.resolve('downloads/' + req.session.user.t_company_ruc);
+    var filename = req.session.user.userid + '-export-commitments.xlsx';
+    var fullpath = downloadpath + '/' + filename;
+    workbook.xlsx.writeFile(fullpath)
+    .then(function() {
+        res.attachment('Export_Compromisos.xlsx');
+        res.sendFile(fullpath);
+    });
+});
+
 router.get('/committemplate', function(req, res){
     var workbook = new Excel.Workbook();
     workbook.creator = 'Nolan';
@@ -283,7 +329,7 @@ router.get('/committemplate', function(req, res){
     wscaption.eachRow(function(row, rowNumber){
         row.eachCell(function(cell, colNumber){
             cell.border = {
-               top: {style:'thin'},
+                top: {style:'thin'},
                 left: {style:'thin'},
                 bottom: {style:'thin'},
                 right: {style:'thin'}
@@ -379,9 +425,12 @@ router.get('/monittemplate', function(req, res){
 });
 
 router.get('/userlist', function(req, res){
-    var users;
-    users = mysql.user.getUsersByRuc(req.session.user.t_company_ruc);
-    res.render('partial/users/userlist', {users: users,notification: req.notification});
+    res.render('partial/users/userlist', {notification: req.notification});
+});
+router.get('/userlistrest', function(req, res){
+    var users = mysql.user.getUsersByRuc(req.session.user.t_company_ruc);
+    res.setHeader('Content-Type','application/json');
+    res.send({data:users});
 });
 
 router.get('/usercreate', function(req, res){

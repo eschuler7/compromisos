@@ -70,6 +70,27 @@ block container
                     td #{user.email}
                     td #{user.rol_name}
                     td #{user.cdatetime}
+
+  #confirm_delete.modal.fade(tabindex='-1', role='dialog', data-backdrop='static', data-keyboard='false')
+    .modal-dialog(role='document')
+      .modal-content
+        .modal-header
+          //-button.close(type='button', data-dismiss='modal', aria-label='Close')
+            span(aria-hidden='true') &times;
+          h4#comfirm_delete_title.modal-title
+        form#frmConfirmDelete(action='/admin/clientdelete',method='post')
+          .modal-body
+            p Esta acción eliminará completamente el cliente así como también sus compromisos, monitoreos y toda su configuración. Después de haber sido eliminado no podrá dar marcha atrás.
+            center
+              strong ¿Desea continuar?
+            input(type='hidden',name='ruc')
+          .modal-footer
+            button.btn.btn-default.pull-left(type='button', data-dismiss='modal') Cancelar
+            |  
+            button.btn.btn-danger(type='submit') Continuar
+
   .row
     .col-md-12.col-sm-12.col-xs-12
-      a.btn.btn-default(href='/admin/clientlist') Regresar
+      a.btn.btn-default.btn-xs(href='/admin/clientlist') Regresar
+      a.btn.btn-info.btn-xs(href='/admin/clientedit' + client.ruc) Modificar Datos Cliente
+      a.btn.btn-danger.btn-xs.pull-right(href='javascript:deleteClient("' + client.ruc + '","' + client.companyname + '")') Eliminar Cliente

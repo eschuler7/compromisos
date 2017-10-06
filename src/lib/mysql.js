@@ -119,7 +119,7 @@ var compromisosdb = {
 		},
 		getUsersByRuc : function(ruc) {
 			var conn = new mysql(connectionOptions);
-			const result = conn.query("select userid, email, tu.name, lastname, t_rol_rolid, tr.name rol_name, DATE_FORMAT(tu.cdatetime,'%d/%m/%Y') as cdatetime, DATE_FORMAT(tu.udatetime,'%d/%m/%Y') as udatetime from t_user tu left join t_rol tr on tu.t_rol_rolid=tr.rolid where tu.t_company_ruc=?",[ruc]);
+			const result = conn.query("select userid, email, tu.name, lastname, tr.name rol_name, DATE_FORMAT(tu.cdatetime,'%d/%m/%Y') as cdatetime, DATE_FORMAT(tu.udatetime,'%d/%m/%Y') as udatetime from t_user tu left join t_rol tr on tu.t_rol_rolid=tr.rolid where tu.t_company_ruc=?",[ruc]);
 			conn.dispose();
 			return result;
 		},
@@ -153,6 +153,22 @@ var compromisosdb = {
 						columns.push("date_format(" + compcomm[i].columnasoc + ",'%d/%m/%Y') as " + compcomm[i].columnasoc);
 					} else if(compcomm[i].columnasoc == 'contorigcomp' || compcomm[i].columnasoc == 'resumencomp' || compcomm[i].columnasoc == 'antecedentes' || compcomm[i].columnasoc == 'detalleaccion' || compcomm[i].columnasoc == 'correosnotificacion' || compcomm[i].columnasoc == 'comentarios' || compcomm[i].columnasoc == 'referencialegal'){
 						columns.push('if(char_length(' + compcomm[i].columnasoc + ')>20, concat(substring(' + compcomm[i].columnasoc + ',1,20)," ..."),' + compcomm[i].columnasoc + ') as ' + compcomm[i].columnasoc);
+					} else {
+						columns.push(compcomm[i].columnasoc);
+					}
+			}
+			var dynamicquery = 'select ' + columns.toString() + ' from t_commitment where ruc=?';
+			var conn = new mysql(connectionOptions);
+			const result = conn.query(dynamicquery,[ruc]);
+			conn.dispose();
+			return result;
+		},
+		getCommitmentsByRucForExport : function(ruc, compcomm) {
+			var columns = [];
+			for (var i = 0; i < compcomm.length; i++) {
+				if (compcomm[i].columnasoc != 'evidencias')
+					if(compcomm[i].columnasoc.startsWith('fecha')) {
+						columns.push("date_format(" + compcomm[i].columnasoc + ",'%d/%m/%Y') as " + compcomm[i].columnasoc);
 					} else {
 						columns.push(compcomm[i].columnasoc);
 					}
@@ -604,6 +620,19 @@ var compromisosdb = {
 			const result = conn.query('select count(nrocorrelativo) as totalmonitoreo from t_monitor where ruc=?',[ruc]);
 			conn.dispose();
 			return result;
+		}
+	},
+	platformconfig : {
+		getPlatformConfig : function() {
+			var conn = new mysql(connectionOptions);
+			const result = conn.query('select configid, configname, configvalue from t_nolan_config');
+			conn.dispose();
+			return result;
+		},
+		updateSupportEmail : function(emaillist) {
+			var conn = new mysql(connectionOptions);
+			const result = conn.query("update t_nolan_config set configvalue=? where configid='NC01'",[emaillist]);
+			conn.dispose();
 		}
 	}
 }

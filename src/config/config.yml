@@ -5,7 +5,7 @@ prod: &default
   checksumhash: md5
   baseUrl: https://compromisos.mybluemix.net
   sendgrid:
-    apikey: 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
+    apikey: 
     from: nolan_notification@nolanhub.com
     name: NOLAN Notifications
   smtp:
@@ -30,19 +30,19 @@ dev:
     debug: false
   baseUrl: http://localhost:8080
   sendgrid:
-    apikey: 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
+    apikey: 
     from: nolan_notification@nolanhub.com
     name: NOLAN Notifications
-  #smtp:
-  #  host: smtp.gmail.com
-  #  port: 465
-  #  secure: true
-  #  auth:
-  #   user: joandelgado18@gmail.com
-  #    pass: xtyecjonhrbllmno
-  #  from:
-  #    name: NOLAN Notification
-  #   email: nolan_notification@nolanhub.com
+  smtp:
+    host: smtp.gmail.com
+    port: 465
+    secure: true
+    auth:
+      user: joandelgado18@gmail.com
+      pass: xtyecjonhrbllmno
+    from:
+      name: NOLAN Notification
+      email: nolan_notification@nolanhub.com
   objectstorage:
     region: dallas
     useInternal: false

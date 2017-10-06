@@ -7,7 +7,7 @@ block container
           h2 Registro de Auditoría
           .clearfix
         .x_content
-          table#tblauditologs.table.table-striped.table-bordered.jambo_table
+          table#tblauditologs.table.table-striped.table-bordered.jambo_table(width='100%')
             thead
               tr
                 th Fecha y Hora
@@ -20,7 +20,7 @@ block container
                 th ID Afectado
                 th Campos Afectados
             tbody
-              if auditlogs
+              //-if auditlogs
                 each log in auditlogs
                   tr
                     td #{log.datetime}
@@ -36,7 +36,21 @@ block container
     script.
       window.onload = function() {
         $('#tblauditologs').DataTable({
-          "lengthMenu": [[5, 15, 20], [5, 15, 20]],
+          scrollX: true,
+          ajax:'/admin/auditlogsrest',
+          deferRender: true,
+          columns: [
+            {data:'datetime'},
+            {data:'ruc'},
+            {data:'companyname'},
+            {data:'sessionid'},
+            {data:'userid'},
+            {data:'router'},
+            {data:'action'},
+            {data:'idaffected'},
+            {data:'fieldaffected'}
+          ],
+          lengthMenu: [[5, 15], [5, 15]],
           language: {
             paginate: {
                 first:    'Inicio',
@@ -46,10 +60,12 @@ block container
             },
             info: 'Mostrando _START_ a _END_ de _TOTAL_ registro(s)',
             infoEmpty: 'No se encontraron registros',
-            emptyTable: 'No se encontraron registros de auditoría',
+            emptyTable: 'No tiene compromisos registrados',
             lengthMenu: 'Mostrar _MENU_ registro(s)',
             search: 'Buscar:',
-            zeroRecords: 'No se encontraron registros coincidentes'
+            searchPlaceholder: 'Ejm, Abierto',
+            zeroRecords: 'No se encontraron registros coincidentes',
+            loadingRecords: 'Cargando Registros ...'
           }
         });
         var message = '!{message}';

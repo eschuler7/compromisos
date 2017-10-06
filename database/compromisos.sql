@@ -5,6 +5,8 @@ insert into t_rol values('ROL2','Responsables','Responsables de Unidades',0,0,1,
 insert into t_rol values('ROL3','Terceros de Soporte','Terceros de Soporte',0,1,1,0,now(),now());
 insert into t_rol values('ROL4','Supervisores','Supervisores de Compromisos',0,1,1,1,now(),now());
 insert into t_rol values('ROL5','Super Admin','SIGN EQ Super Admin User',0,1,1,1,now(),now());
+-- Inserts iniciales de la tabla nolan config
+insert into t_nolan_config values('NC01','supportemails','joandelgado18@gmail.com');
 -- Inserts iniciales para la tabla dashboard
 insert into t_dashboard_config values('DB01','Total Compromisos','',1,now(),now());
 insert into t_dashboard_config values('DB02','Compromisos que requieren acción','',1,now(),now());

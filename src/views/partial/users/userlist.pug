@@ -7,7 +7,7 @@ block container
           h2 Acceso a usuarios
           .clearfix
         .x_content
-          table#tblusers.table.table-striped.table-bordered.jambo_table
+          table#tblusers.table.table-striped.table-bordered.jambo_table(width='100%')
             thead
               tr
                 th ID Usuario
@@ -15,9 +15,10 @@ block container
                 th Nombres
                 th Apellido
                 th Rol
+                th Fecha de Creación
                 th Acción
             tbody
-              if users
+              //-if users
                 each user in users
                   tr
                     td #{user.userid}
@@ -33,7 +34,7 @@ block container
           a.btn.btn-warning.btn-xs(href='/secure/usercreate') Nuevo usuario
 
     #confirm_delete.modal.fade(tabindex='-1', role='dialog', data-backdrop='static', data-keyboard='false')
-      .modal-dialog.modal-sm(role='document')
+      .modal-dialog.modal-md(role='document')
         .modal-content
           .modal-header
             //-button.close(type='button', data-dismiss='modal', aria-label='Close')
@@ -53,7 +54,24 @@ block container
     script.
       window.onload = function() {
         $('#tblusers').DataTable({
-          "lengthMenu": [[5, 15], [5, 15]],
+          scrollX: true,
+          ajax:'/secure/userlistrest',
+          deferRender: true,
+          columns: [
+            {data:'userid'},
+            {data:'email'},
+            {data:'name'},
+            {data:'lastname'},
+            {data:'rol_name'},
+            {data:'cdatetime'},
+            {
+              data:null,
+              render:function( data, type, row, meta ){
+                return '<a class="btn btn-danger btn-xs" href="javascript:deleteUser(\'' + row.userid +'\')"><i class="fa fa-trash-o"></i> Eliminar</span>';
+              }
+            }
+          ],
+          lengthMenu: [[5, 15], [5, 15]],
           language: {
             paginate: {
                 first:    'Inicio',
@@ -63,10 +81,12 @@ block container
             },
             info: 'Mostrando _START_ a _END_ de _TOTAL_ registro(s)',
             infoEmpty: 'No se encontraron registros',
-            emptyTable: 'No tiene clientes registrados',
+            emptyTable: 'No tiene compromisos registrados',
             lengthMenu: 'Mostrar _MENU_ registro(s)',
             search: 'Buscar:',
-            zeroRecords: 'No se encontraron registros coincidentes'
+            searchPlaceholder: 'Ejm, Abierto',
+            zeroRecords: 'No se encontraron registros coincidentes',
+            loadingRecords: 'Cargando Registros ...'
           }
         });
       }

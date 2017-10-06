@@ -21,9 +21,14 @@ var auditlog = require('../lib/auditlog');
 
 // TODAS LAS LLAMADAS GET
 router.get('/clientlist', function(req, res){
-	var companies = mysql.company.listCompanies(req.session.user.t_company_ruc);
-	res.render('partial/admin/clientlist',{clients: companies, notification: req.notification});
+	res.render('partial/admin/clientlist',{notification: req.notification});
 });
+router.get('/clientlistrest', function(req, res){
+	var companies = mysql.company.listCompanies(req.session.user.t_company_ruc);
+	res.setHeader('Content-Type','application/json');
+    res.send({data:companies});
+});
+
 router.get('/clientdetail/:ruc', function(req, res){
 	var ruc = req.params.ruc;
 	var client = mysql.company.getCompanyByRuc(ruc);
@@ -42,11 +47,17 @@ router.get('/logout', function(req, res){
 	auditlog(req);
 });
 router.get('/auditlogs', function(req, res){
-	var auditlogs = mysql.auditlog.getAuditLogs();
-	res.render('partial/admin/auditlog',{auditlogs: auditlogs,notification: req.notification});
+	res.render('partial/admin/auditlog',{notification: req.notification});
 });
+router.get('/auditlogsrest', function(req, res){
+	var auditlogs = mysql.auditlog.getAuditLogs();
+	res.setHeader('Content-Type','application/json');
+    res.send({data:auditlogs});
+});
+
 router.get('/platformconfig', function(req, res){
-	res.render('partial/admin/platformconfig',{notification: req.notification});
+	var platformconfig = mysql.platformconfig.getPlatformConfig();
+	res.render('partial/admin/platformconfig',{platformconfig: platformconfig, notification: req.notification});
 });
 
 
@@ -123,9 +134,16 @@ router.post('/clientdelete', function(req, res){
 	auditlog(req);
 });
 router.post('/updatesupportemails', function(req, res){
-	var emails = req.body.supportemails.split(/[;,]+/);
-	
-	res.redirect('/admin/platformconfig');
+	var emails = req.body.supportemails;
+	try{
+		mysql.platformconfig.updateSupportEmail(emails);
+		req.session.notification = computil.notification('success','Actualización Satisfactoria','Se actualizó correctamente el/los correos de soporte.');
+		res.redirect('/admin/platformconfig');
+		auditlog(req);
+	} catch(error) {
+		req.session.notification = computil.notification('error','Error de Actualización','Ocurrió un error durante la actualización de la configuración.');
+		res.redirect('/admin/platformconfig');
+	}
 });
 
 //Ajax call

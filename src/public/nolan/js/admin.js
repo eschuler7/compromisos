@@ -130,6 +130,28 @@ $(document).ready(function(){
 			form.submit();
 		}
 	});
+	$('#frm_support_email').validate({
+		rules : {
+			supportemails : {
+				required : true,
+				multiemail : true
+			}
+		},
+		messages : {
+			supportemails : {
+				required : 'Este campo es requerido',
+				multiemail : 'Ingrese el correo electrónico correcto.'
+			}
+		},
+		submitHandler : function(form) {
+			var btnSubmit = $(form).find(':submit');
+			var width = btnSubmit.css('width');
+			btnSubmit.css('width',width);
+	        btnSubmit.html('Guardando ...');
+	        btnSubmit.attr('disabled',true);
+			form.submit();
+		}
+	});
 });
 
 $(document).ready(function(){

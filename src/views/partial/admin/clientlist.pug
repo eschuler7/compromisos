@@ -7,63 +7,48 @@ block container
           h2 Cartera de Clientes
           .clearfix
         .x_content
-          table#tblclients.table.table-striped.table-bordered.jambo_table
+          table#tblclients.table.table-striped.table-bordered.jambo_table(width='100% ')
             thead
               tr
                 th RUC
-                th Cliente
-                th Usuarios
+                th Nombre de Cliente
+                th Cantidad de Usuarios
                 th Configuración Inicial
                 th Fecha de Registro
-                th Opciones
             tbody
-              if clients
-                each client in clients
-                  tr
-                    td #{client.ruc}
-                    td #{client.companyname}
-                    td #{client.users}
-                    td
-                      if client.firsttime == 0
-                        span.label.label-success Completo
-                      else
-                        span.label.label-warning Incompleto
-                    td #{client.cdatetime}
-                    td
-                      a.btn.btn-primary.btn-xs(href='clientdetail/' + client.ruc)
-                        i.fa.fa-folder
-                        |  Ver
-                      //-a.btn.btn-info.btn-xs(href='clientedit/' + client.ruc)
-                        i.fa.fa-pencil
-                        |  Editar
-                      a.btn.btn-danger.btn-xs(href='javascript:deleteClient("' + client.ruc + '","' + client.companyname + '")')
-                        i.fa.fa-trash-o
-                        |  Eliminar
+
           .ln_solid(style='margin-top:5px')
           a.btn.btn-warning.btn-xs(href='/admin/clientcreate') Nuevo Cliente
-
-    #confirm_delete.modal.fade(tabindex='-1', role='dialog', data-backdrop='static', data-keyboard='false')
-      .modal-dialog(role='document')
-        .modal-content
-          .modal-header
-            //-button.close(type='button', data-dismiss='modal', aria-label='Close')
-              span(aria-hidden='true') &times;
-            h4#comfirm_delete_title.modal-title
-          form#frmConfirmDelete(action='/admin/clientdelete',method='post')
-            .modal-body
-              p Esta acción eliminará completamente el cliente así como también sus compromisos, monitoreos y toda su configuración. Después de haber sido eliminado no podrá dar marcha atrás.
-              center
-                strong ¿Desea continuar?
-              input(type='hidden',name='ruc')
-            .modal-footer
-              button.btn.btn-default.pull-left(type='button', data-dismiss='modal') Cancelar
-              |  
-              button.btn.btn-danger(type='submit') Continuar
 
     script.
       window.onload = function() {
         $('#tblclients').DataTable({
-          "lengthMenu": [[5, 15], [5, 15]],
+          scrollX: true,
+          ajax:'/admin/clientlistrest',
+          deferRender: true,
+          columns: [
+            {data:'ruc'},
+            {data:'companyname'},
+            {data:'users'},
+            {
+              data:'firsttime',
+              render:function( data, type, row, meta ){
+                if(data == '0') {
+                  return '<span class="label label-success">Completo</span>';
+                } else {
+                  return '<span class="label label-warning">Incompleto</span>';
+                }
+              }
+            },
+            {data:'cdatetime'}
+          ],
+          columnDefs: [{
+            targets: '_all',
+            render: function ( data, type, row, meta ) {
+              return (data == null) ? '' : '<a href="/admin/clientdetail/' + row.ruc + '">' + data + '</a>';
+            }
+          }],
+          lengthMenu: [[5, 15], [5, 15]],
           language: {
             paginate: {
                 first:    'Inicio',
@@ -73,10 +58,12 @@ block container
             },
             info: 'Mostrando _START_ a _END_ de _TOTAL_ registro(s)',
             infoEmpty: 'No se encontraron registros',
-            emptyTable: 'No tiene clientes registrados',
+            emptyTable: 'No tiene compromisos registrados',
             lengthMenu: 'Mostrar _MENU_ registro(s)',
             search: 'Buscar:',
-            zeroRecords: 'No se encontraron registros coincidentes'
+            searchPlaceholder: 'Ejm, Abierto',
+            zeroRecords: 'No se encontraron registros coincidentes',
+            loadingRecords: 'Cargando Registros ...'
           }
         });
       }
