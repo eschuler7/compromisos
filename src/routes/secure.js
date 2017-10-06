@@ -61,19 +61,86 @@ router.get('/dashboard',function(req, res){
     var getCommitmentWithoutAction = mysql.batch.getCommitmentWithoutAction(req.session.user.t_company_ruc);
     var getCommitmentUncomplishedTotal = mysql.batch.getCommitmentUncomplishedTotal(req.session.user.t_company_ruc);
     var getCommitmentUncomplishedBySeverity = mysql.batch.getCommitmentUncomplishedBySeverity(req.session.user.t_company_ruc);
-    var commitmentdesviation = Math.round((getCommitmentUncomplishedTotal[0].compromisosincumplidostotal*100/totalCommitmentByRuc[0].totalcompromisos)*100)/100;
-    var commitmenthighseverity = Math.round((totalCommitmentBySeverity[0].totalcompromisoscriticidad*100/totalCommitmentByRuc[0].totalcompromisos)*100)/100;
-    var commitmentmediumseverity = Math.round((totalCommitmentBySeverity[2].totalcompromisoscriticidad*100/totalCommitmentByRuc[0].totalcompromisos)*100)/100;
-    var commitmentlowseverity = Math.round((totalCommitmentBySeverity[1].totalcompromisoscriticidad*100/totalCommitmentByRuc[0].totalcompromisos)*100)/100;                
-    var getCommitmentUncomplishedBySeverityHigh = getCommitmentUncomplishedBySeverity[0].compromisosincumpxcriticidad;
-    var getCommitmentUncomplishedBySeverityMedium = getCommitmentUncomplishedBySeverity[2].compromisosincumpxcriticidad;
-    var getCommitmentUncomplishedBySeverityLow = getCommitmentUncomplishedBySeverity[1].compromisosincumpxcriticidad;
+    
+    var commitmentdesviation = 0;
+    
+    if (getCommitmentUncomplishedTotal[0].compromisosincumplidostotal != 0) {
+        commitmentdesviation = Math.round((getCommitmentUncomplishedTotal[0].compromisosincumplidostotal*100/totalCommitmentByRuc[0].totalcompromisos)*100)/100;
+        console.log(commitmentdesviation);
+    }
 
-    // Monit
+    var commitmenthighseverity = 0;
+    var commitmentmediumseverity = 0;
+    var commitmentlowseverity = 0;
 
-    // validar con if las criticidades cuando no existan
-    console.log(getCommitmentUncomplishedTotal,totalCommitmentByRuc,totalCommitmentBySeverity);
-    console.log(commitmentdesviation,commitmenthighseverity,commitmentmediumseverity,commitmentlowseverity,getCommitmentUncomplishedBySeverityHigh,getCommitmentUncomplishedBySeverityMedium,getCommitmentUncomplishedBySeverityLow);
+    for (var i = 0; i < totalCommitmentBySeverity.length; i++) {
+        if(totalCommitmentBySeverity[i].criticidad == 'Alto') {
+            commitmenthighseverity = Math.round((totalCommitmentBySeverity[i].totalcompromisoscriticidad*100/totalCommitmentByRuc[0].totalcompromisos)*100)/100;
+        } else if (totalCommitmentBySeverity[i].criticidad == 'Bajo') {
+            commitmentlowseverity = Math.round((totalCommitmentBySeverity[i].totalcompromisoscriticidad*100/totalCommitmentByRuc[0].totalcompromisos)*100)/100;
+        } else if (totalCommitmentBySeverity[i].criticidad == 'Medio'){
+            commitmentmediumseverity = Math.round((totalCommitmentBySeverity[i].totalcompromisoscriticidad*100/totalCommitmentByRuc[0].totalcompromisos)*100)/100;
+        }
+        
+    }
+    var getCommitmentUncomplishedBySeverityHigh = 0;
+    var getCommitmentUncomplishedBySeverityMedium = 0;
+    var getCommitmentUncomplishedBySeverityLow = 0;
+
+    for (var i = 0; i < getCommitmentUncomplishedBySeverity.length; i++) {
+        if(getCommitmentUncomplishedBySeverity[i].criticidad == 'Alto') {
+            getCommitmentUncomplishedBySeverityHigh = getCommitmentUncomplishedBySeverity[i].compromisosincumpxcriticidad;
+        } else if (getCommitmentUncomplishedBySeverity[i].criticidad == 'Bajo') {
+            getCommitmentUncomplishedBySeverityLow = getCommitmentUncomplishedBySeverity[i].compromisosincumpxcriticidad;
+        } else if (getCommitmentUncomplishedBySeverity[i].criticidad == 'Medio'){
+            getCommitmentUncomplishedBySeverityMedium = getCommitmentUncomplishedBySeverity[i].compromisosincumpxcriticidad;
+        }
+    }
+
+    // Monitor
+    var totalMonitorByRuc = mysql.batch.totalMonitorByRuc(req.session.user.t_company_ruc);
+    //var totalMonitorBySeverity = mysql.batch.totalMonitorBySeverity(req.session.user.t_company_ruc);
+    var getMonitorByStatusClosed = mysql.batch.getMonitorByStatusClosed(req.session.user.t_company_ruc);
+    var getMonitorRequiereAction = mysql.batch.getMonitorRequiereAction(req.session.user.t_company_ruc);
+    var getMonitorUncomplishedWithAction = mysql.batch.getMonitorUncomplishedWithAction(req.session.user.t_company_ruc);
+    var getMonitorWithoutAction = mysql.batch.getMonitorWithoutAction(req.session.user.t_company_ruc);
+    var getMonitorUncomplishedTotal = mysql.batch.getMonitorUncomplishedTotal(req.session.user.t_company_ruc);
+    //var getMonitorUncomplishedBySeverity = mysql.batch.getMonitorUncomplishedBySeverity(req.session.user.t_company_ruc);
+    
+    var monitordesviation = 0;
+    
+    if (getMonitorUncomplishedTotal[0].monitoroesincumplidostotal != 0) {
+        monitordesviation = Math.round((getMonitorUncomplishedTotal[0].monitoroesincumplidostotal*100/totalMonitorByRuc[0].totalmonitoreo)*100)/100;
+    }
+    /*
+    var monitorhighseverity = 0;
+    var monitormediumseverity = 0;
+    var monitorlowseverity = 0;
+
+    for (var i = 0; i < totalMonitorBySeverity.length; i++) {
+        if(totalMonitorBySeverity[i].criticidad == 'Alto') {
+            monitorhighseverity = Math.round((totalMonitorBySeverity[i].totalmonitoreocriticidad*100/totalMonitorByRuc[0].totalmonitoreo)*100)/100;
+        } else if (totalMonitorBySeverity[i].criticidad == 'Bajo') {
+            monitorlowseverity = Math.round((totalMonitorBySeverity[i].totalmonitoreocriticidad*100/totalMonitorByRuc[0].totalmonitoreo)*100)/100;
+        } else if (totalMonitorBySeverity[i].criticidad == 'Medio'){
+            monitormediumseverity = Math.round((totalMonitorBySeverity[i].totalmonitoreocriticidad*100/totalMonitorByRuc[0].totalmonitoreo)*100)/100;
+        }
+        
+    }
+    var getMonitorUncomplishedBySeverityHigh = 0;
+    var getMonitorUncomplishedBySeverityMedium = 0;
+    var getMonitorUncomplishedBySeverityLow = 0;
+
+    for (var i = 0; i < getMonitorUncomplishedBySeverity.length; i++) {
+        if(getMonitorUncomplishedBySeverity[i].criticidad == 'Alto') {
+            getMonitorUncomplishedBySeverityHigh = getMonitorUncomplishedBySeverity[i].monitoreoincumpxcriticidad;
+        } else if (getMonitorUncomplishedBySeverity[i].criticidad == 'Bajo') {
+            getMonitorUncomplishedBySeverityLow = getMonitorUncomplishedBySeverity[i].monitoreoincumpxcriticidad;
+        } else if (getMonitorUncomplishedBySeverity[i].criticidad == 'Medio'){
+            getMonitorUncomplishedBySeverityMedium = getMonitorUncomplishedBySeverity[i].monitoreoincumpxcriticidad;
+        }
+    }
+    */
     res.render('partial/dashboard/dashboard',{
         totalCommitmentByRuc : totalCommitmentByRuc[0].totalcompromisos,
         commitmenthighseverity : commitmenthighseverity,
@@ -87,8 +154,15 @@ router.get('/dashboard',function(req, res){
         getCommitmentUncomplishedBySeverityHigh : getCommitmentUncomplishedBySeverityHigh,
         getCommitmentUncomplishedBySeverityMedium : getCommitmentUncomplishedBySeverityMedium,
         getCommitmentUncomplishedBySeverityLow : getCommitmentUncomplishedBySeverityLow, 
-        commitmentdesviation : commitmentdesviation, notification: req.notification});
-
+        commitmentdesviation : commitmentdesviation, 
+        totalMonitorByRuc : totalMonitorByRuc[0].totalmonitoreo,
+        getMonitorByStatusClosed : getMonitorByStatusClosed[0].totalmonitorcerrados,
+        getMonitorRequiereAction : getMonitorRequiereAction[0].monitoreoreqaccion, 
+        getMonitorUncomplishedWithAction : getMonitorUncomplishedWithAction[0].monitoreoincumpconaccion, 
+        getMonitorWithoutAction : getMonitorWithoutAction[0].monitoreosinaccion,
+        getMonitorUncomplishedTotal : getMonitorUncomplishedTotal[0].monitoroesincumplidostotal, 
+        monitordesviation : monitordesviation, 
+        notification: req.notification});
 
 });
 router.get('/home',function(req, res){

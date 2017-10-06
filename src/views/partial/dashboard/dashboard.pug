@@ -12,8 +12,8 @@ block container
             .count #{totalCommitmentByRuc}
           .col-md-4.col-sm-4.col-xs-4.tile_stats_count
             span.count_top
-              |  Compromisos incompletos
-            .count(style='color:orange') 100
+              |  Compromisos incumplidos
+            .count(style='color:orange') #{getCommitmentUncomplishedTotal}
           .col-md-4.col-sm-4.col-xs-4.tile_stats_count
             span.count_top
               |  Compromisos Cerrados
@@ -67,15 +67,15 @@ block container
           .col-md-4.col-sm-4.col-xs-4.tile_stats_count
             span.count_top
               |  Monitoreo total 
-            .count 1000
+            .count #{totalMonitorByRuc}
           .col-md-4.col-sm-4.col-xs-4.tile_stats_count
             span.count_top
-              |  Monitoreo incompletos
-            .count(style='color:orange') 80
+              |  Monitoreo incumplidos
+            .count(style='color:orange') #{getMonitorUncomplishedTotal}
           .col-md-4.col-sm-4.col-xs-4.tile_stats_count
             span.count_top
               |  Monitoreo cerrados
-            .count.green 5
+            .count.green #{getMonitorByStatusClosed}
         .row
           .col-md-12.col-sm-12.col-xs-12
             .panel.panel-body
@@ -83,15 +83,15 @@ block container
                 h4 Monitoreo por criticidad
               .row
                 .col-xs-4
-                  span.chart(data-percent='86')
+                  span.chart(data-percent='50')
                     span.percent
                     p Alta
                 .col-xs-4
-                  span.chart(data-percent='73')
+                  span.chart(data-percent='50')
                     span.percent
                     p Media
                 .col-xs-4
-                  span.chart(data-percent='60')
+                  span.chart(data-percent='50')
                     span.percent
                     p Baja
         .row
@@ -420,13 +420,13 @@ block container
           }
           },
           data: [{
-          value: 335,
+          value: #{getCommitmentRequiereAction},
           name: 'Requiere Acción'
           }, {
-          value: 310,
+          value: #{getMonitorUncomplishedWithAction},
           name: 'Incumplidos con plan de acción'
           }, {
-          value: 234,
+          value: #{getMonitorWithoutAction},
           name: 'Sin plan de acción'
           }]
         }]
@@ -626,7 +626,7 @@ block container
           }
           },
           data: [{
-          value: 85,
+          value: #{monitordesviation},
           name: 'Desviación'
           }]
         }]
@@ -676,15 +676,15 @@ block container
           name: 'Total',
           type: 'pie',
           radius: '55%',
-          center: ['50%', '48%'],
+          center: ['50%', '50%'],
           data: [{
-          value: 335,
+          value: 88,
           name: 'Criticidad Alta'
           }, {
-          value: 310,
+          value: 90,
           name: 'Criticidad Media'
           }, {
-          value: 234,
+          value: 77,
           name: 'Criticidad Baja'
           }]
         }]

@@ -561,23 +561,6 @@ var compromisosdb = {
 			conn.dispose();
 			return result;
 		},
-		getCommitmentsIncompletedByRuc : function(ruc, comconfig) {
-			//falta modificar!!!!!
-			var columns = [];
-			for (var i = 0; i < comconfig.length; i++) {
-				if (comconfig[i].columnasoc != 'evidencias')
-					if(comconfig[i].columnasoc.startsWith('fecha')) {
-						columns.push("DATE_FORMAT(" + comconfig[i].columnasoc + ",'%d/%m/%Y') as " + comconfig[i].columnasoc);
-					} else {
-						columns.push(comconfig[i].columnasoc);
-					}
-			}
-			var dynamicquery = 'select ' + columns.toString() + ' from t_commitment where ruc=?';
-			var conn = new mysql(connectionOptions);
-			const result = conn.query(dynamicquery,[ruc]);
-			conn.dispose();
-			return result;
-		},
 		getCommitmentByStatusClosed : function(ruc) {
 			var conn = new mysql(connectionOptions);
 			const result = conn.query('select count(estadocumplimiento) as totalcompromisoscerrados from t_commitment where ruc=? and estadocumplimiento = "Cerrado"',[ruc]);
@@ -615,9 +598,53 @@ var compromisosdb = {
 			conn.dispose();
 			return result;
 		},
+		//monit
 		totalMonitorByRuc : function(ruc) {
 			var conn = new mysql(connectionOptions);
 			const result = conn.query('select count(nrocorrelativo) as totalmonitoreo from t_monitor where ruc=?',[ruc]);
+			conn.dispose();
+			return result;
+		},
+		totalMonitorBySeverity : function(ruc) {
+			var conn = new mysql(connectionOptions);
+			const result = conn.query('select criticidad, count(criticidad) as totalmonitoreocriticidad from t_monitor where ruc=? group by criticidad order by criticidad asc',[ruc]);
+			conn.dispose();
+			return result;
+		},
+		getMonitorByStatusClosed : function(ruc) {
+			var conn = new mysql(connectionOptions);
+			const result = conn.query('select count(estadocumplimiento) as totalmonitorcerrados from t_monitor where ruc=? and estadocumplimiento = "Cerrado"',[ruc]);
+			conn.dispose();
+			return result;
+		},
+
+		getMonitorRequiereAction : function(ruc) {
+			var conn = new mysql(connectionOptions);
+			const result = conn.query('select count(accionmonitoreo) as monitoreoreqaccion from t_monitor where ruc=? and accionmonitoreo = "Si"',[ruc]);
+			conn.dispose();
+			return result;
+		},
+		getMonitorUncomplishedWithAction : function(ruc) {
+			var conn = new mysql(connectionOptions);
+			const result = conn.query('select count(estadocumplimiento) as monitoreoincumpconaccion  from t_monitor where ruc=? and estadocumplimiento = "Vencido" and detalleaccion IS NOT NULL',[ruc]);
+			conn.dispose();
+			return result;
+		},
+		getMonitorWithoutAction : function(ruc) {
+			var conn = new mysql(connectionOptions);
+			const result = conn.query('select count(nrocorrelativo) as monitoreosinaccion from t_monitor where ruc=? and detalleaccion IS NULL',[ruc]);
+			conn.dispose();
+			return result;
+		},
+		getMonitorUncomplishedTotal : function(ruc) {
+			var conn = new mysql(connectionOptions);
+			const result = conn.query('select count(estadocumplimiento) as monitoroesincumplidostotal from t_monitor where ruc=? and estadocumplimiento = "Vencido"',[ruc]);
+			conn.dispose();
+			return result;
+		},
+		getMonitorUncomplishedBySeverity : function(ruc) {
+			var conn = new mysql(connectionOptions);
+			const result = conn.query('select criticidad, count(criticidad) as monitoreoincumpxcriticidad from t_monitor where ruc=? and estadocumplimiento = "Vencido" group by criticidad order by criticidad asc',[ruc]);
 			conn.dispose();
 			return result;
 		}
