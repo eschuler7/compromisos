@@ -31,6 +31,7 @@ app.use(function(req,res,next){
     next();
 });
 
+
 // Session Filter
 app.all('/secure/*',function(req,res,next){
 	if(req.session.user){
@@ -116,4 +117,11 @@ app.use(function(err, req, res, next){
 app.listen(app.get('port'), '0.0.0.0', function() {
 	console.log('Node.Js Server iniciado en el puerto:',app.get('port'));
 	console.log('Node JS Version:', process.version);
+});
+
+// JOb Schedule
+var schedule = require('node-schedule');
+ 
+var j = schedule.scheduleJob('*/1 * * * *', function(){
+  console.log('prueba de job!');
 });

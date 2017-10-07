@@ -5,8 +5,6 @@ insert into t_rol values('ROL2','Responsables','Responsables de Unidades',0,0,1,
 insert into t_rol values('ROL3','Terceros de Soporte','Terceros de Soporte',0,1,1,0,now(),now());
 insert into t_rol values('ROL4','Supervisores','Supervisores de Compromisos',0,1,1,1,now(),now());
 insert into t_rol values('ROL5','Super Admin','SIGN EQ Super Admin User',0,1,1,1,now(),now());
--- Inserts iniciales de la tabla nolan config
-insert into t_nolan_config values('NC01','supportemails','joandelgado18@gmail.com');
 -- Inserts iniciales para la tabla dashboard
 insert into t_dashboard_config values('DB01','Total Compromisos','',1,now(),now());
 insert into t_dashboard_config values('DB02','Compromisos que requieren acción','',1,now(),now());
@@ -93,6 +91,9 @@ insert into t_company values('12345678909','NOLAN',null,null,0,now(),now());
 insert into t_user values('jdelgado','ca1b02d4cff620b1dd6fccdf2a48714f','joandelgado18@gmail.com','Joan Martín','Delgado Bendezú','12345678909','ROL5',1,now(),now());
 insert into t_user values('eschuler','ca1b02d4cff620b1dd6fccdf2a48714f','eschulergodo7@gmail.com','Emilio Jose','Schuler Godo','12345678909','ROL5',1,now(),now());
 
+-- Inserts Buzon de soporte
+insert into t_nolan_config values('NC01','Soporte Nolan','example@gmail.com');
+
 update t_company set firsttime=0 where ruc='10101010101';
 select * from t_company;
 select * from t_company_dashboard;
@@ -162,10 +163,8 @@ select count(nrocorrelativo) as totalcompromisos from t_commitment where ruc=101
 select count(estadocumplimiento) as totalcompromisoscerrados from t_commitment where ruc=10101010101 and estadocumplimiento = 'Cerrado';
 -- Compromisos con aspectos no definidos
 
-
 -- Compromisos en cumplimiento
 select count(nrocorrelativo) from t_commitment where ruc=10101010101 and (estadocumplimiento = 'Abierto' or estadocumplimiento = 'proceso') and accioncompromiso = 'No';
-
 
 -- Compromisos que requieren acción
 select count(accioncompromiso) as compromisoreqaccion from t_commitment where ruc=10101010101 and accioncompromiso = 'Si';
@@ -182,11 +181,10 @@ select count(criticidad) as compromisosinccriticidadalta from t_commitment where
 
 select criticidad, count(criticidad) as compromisosincumpxcriticidad from t_commitment where ruc=10101010101 and estadocumplimiento = 'Vencido' group by criticidad order by criticidad asc;
 
-
+select criticidad, count(criticidad) as totalmonitoreocriticidad from t_monitor where ruc=10101010101 group by criticidad order by criticidad asc
 
 -- Compromisos que requieren ser modificados (en base a que?)
 -- Compromisos en cumplimiento con sustento 
-
 
 
 
