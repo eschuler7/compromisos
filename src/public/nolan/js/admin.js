@@ -125,7 +125,7 @@ $(document).ready(function(){
 			var btnSubmit = $(form).find(':submit');
 			var width = btnSubmit.css('width');
 			btnSubmit.css('width',width);
-	        btnSubmit.html(htmlSpinner);
+	        btnSubmit.html('Registrando ...');
 	        btnSubmit.attr('disabled',true);
 			form.submit();
 		}
@@ -148,25 +148,6 @@ $(document).ready(function(){
 			var width = btnSubmit.css('width');
 			btnSubmit.css('width',width);
 	        btnSubmit.html('Guardando ...');
-	        btnSubmit.attr('disabled',true);
-			form.submit();
-		}
-	});
-});
-
-$(document).ready(function(){
-	$('#frm_support_email').validate({
-		rules : {
-			supportemail : {
-				required : true,
-				multiemail : true
-			}
-		},
-		submitHandler : function(form) {
-			var btnSubmit = $(form).find(':submit');
-			var width = btnSubmit.css('width');
-			btnSubmit.css('width',width);
-	        btnSubmit.html(htmlSpinner);
 	        btnSubmit.attr('disabled',true);
 			form.submit();
 		}

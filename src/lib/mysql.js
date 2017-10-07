@@ -370,6 +370,23 @@ var compromisosdb = {
 			conn.dispose();
 			return result;
 		},
+		getMonitorsByRucForExport : function(ruc, monconf) {
+			var columns = [];
+			for (var i = 0; i < monconf.length; i++) {
+				if (monconf[i].columnasoc != 'evidencias') {
+					if(monconf[i].columnasoc.startsWith('fecha')) {
+						columns.push("DATE_FORMAT(" + monconf[i].columnasoc + ",'%d/%m/%Y') as " + monconf[i].columnasoc);
+					} else {
+						columns.push(monconf[i].columnasoc);
+					}
+				}
+			}
+			var dynamicquery = 'select ' + columns.toString() + ' from t_monitor where ruc=?';
+			var conn = new mysql(connectionOptions);
+			const result = conn.query(dynamicquery,[ruc]);
+			conn.dispose();
+			return result;
+		},
 		getNextCorrelative : function(ruc) {
 			var conn = new mysql(connectionOptions);
 			const result = conn.query('select if(max(nrocorrelativo) is null, 1, max(nrocorrelativo) + 1) as correlativo from t_monitor where ruc=?',[ruc]);

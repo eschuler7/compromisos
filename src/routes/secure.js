@@ -302,46 +302,51 @@ router.get('/commitexportexcel', function(req, res){
     var comconfigbyruc = mysql.commitment.getComConfigByRuc(req.session.user.t_company_ruc);
     var commitments = mysql.commitment.getCommitmentsByRucForExport(req.session.user.t_company_ruc,comconfigbyruc);
 
-    var workbook = new Excel.Workbook();
-    workbook.creator = 'Nolan';
-    workbook.lastModifiedBy = 'Nolan';
-    workbook.created = new Date();
-    workbook.modified = new Date();
-    var wscommit = workbook.addWorksheet('Compromisos');
-    var header = [];
-    for (var i = 0; i < comconfigbyruc.length; i++) {
-        if(comconfigbyruc[i].columnasoc != 'evidencias') {
-            header.push(comconfigbyruc[i].name);
-        }
-    }
-    wscommit.addRow(header);
-    for (var i = 0; i < commitments.length; i++) {
-        var row = [];
+    if(commitments.length > 0){
+        var workbook = new Excel.Workbook();
+        workbook.creator = 'Nolan';
+        workbook.lastModifiedBy = 'Nolan';
+        workbook.created = new Date();
+        workbook.modified = new Date();
+        var wscommit = workbook.addWorksheet('Compromisos');
+        var header = [];
         for (var i = 0; i < comconfigbyruc.length; i++) {
             if(comconfigbyruc[i].columnasoc != 'evidencias') {
-                row.push(commitments[i][comconfigbyruc[i].columnasoc]);
+                header.push(comconfigbyruc[i].name);
             }
         }
-        wscommit.addRow(row);
+        wscommit.addRow(header);
+        for (var i = 0; i < commitments.length; i++) {
+            var row = [];
+            for (var j = 0; j < comconfigbyruc.length; j++) {
+                if(comconfigbyruc[j].columnasoc != 'evidencias') {
+                    row.push(commitments[i][comconfigbyruc[j].columnasoc]);
+                }
+            }
+            wscommit.addRow(row);
+        }
+        wscommit.eachRow(function(row, rowNumber) {
+            for (var i = 0; i < comconfigbyruc.length - 1; i++) {
+                row.getCell(i+1).border = {
+                    top: {style:'thin'},
+                    left: {style:'thin'},
+                    bottom: {style:'thin'},
+                    right: {style:'thin'}
+                }
+            }
+        });
+        var downloadpath = path.resolve('downloads/' + req.session.user.t_company_ruc);
+        var filename = req.session.user.userid + '-export-commitments.xlsx';
+        var fullpath = downloadpath + '/' + filename;
+        workbook.xlsx.writeFile(fullpath)
+        .then(function() {
+            res.attachment('Export_Compromisos.xlsx');
+            res.sendFile(fullpath);
+        });
+    } else {
+        req.session.notification = computil.notification('info','Sin Registros','No se cuenta con registros para realizar la exportación.');
+        res.redirect('/secure/commitlist');
     }
-    wscommit.eachRow(function(row, rowNumber) {
-        for (var i = 0; i < comconfigbyruc.length - 1; i++) {
-            row.getCell(i+1).border = {
-                top: {style:'thin'},
-                left: {style:'thin'},
-                bottom: {style:'thin'},
-                right: {style:'thin'}
-            }
-        }
-    });
-    var downloadpath = path.resolve('downloads/' + req.session.user.t_company_ruc);
-    var filename = req.session.user.userid + '-export-commitments.xlsx';
-    var fullpath = downloadpath + '/' + filename;
-    workbook.xlsx.writeFile(fullpath)
-    .then(function() {
-        res.attachment('Export_Compromisos.xlsx');
-        res.sendFile(fullpath);
-    });
 });
 
 router.get('/committemplate', function(req, res){
@@ -496,6 +501,56 @@ router.get('/monittemplate', function(req, res){
         res.attachment('Plantilla_Monitoreo.xlsx');
         res.sendFile(fullpath);
     });
+});
+
+router.get('/monitexportexcel', function(req, res){
+    var monconfigbyruc = mysql.monitor.getMonitorConfigByRuc(req.session.user.t_company_ruc);
+    var monitors = mysql.monitor.getMonitorsByRucForExport(req.session.user.t_company_ruc,monconfigbyruc);
+    if(monitors.length > 0){
+        var workbook = new Excel.Workbook();
+        workbook.creator = 'Nolan';
+        workbook.lastModifiedBy = 'Nolan';
+        workbook.created = new Date();
+        workbook.modified = new Date();
+        var wscommit = workbook.addWorksheet('Monitoreos');
+        var header = [];
+        for (var i = 0; i < monconfigbyruc.length; i++) {
+            if(monconfigbyruc[i].columnasoc != 'evidencias') {
+                header.push(monconfigbyruc[i].name);
+            }
+        }
+        wscommit.addRow(header);
+        for (var i = 0; i < monitors.length; i++) {
+            var row = [];
+            for (var j = 0; j < monconfigbyruc.length; j++) {
+                if(monconfigbyruc[j].columnasoc != 'evidencias') {
+                    row.push(monitors[i][monconfigbyruc[j].columnasoc]);
+                }
+            }
+            wscommit.addRow(row);
+        }
+        wscommit.eachRow(function(row, rowNumber) {
+            for (var i = 0; i < monconfigbyruc.length - 1; i++) {
+                row.getCell(i+1).border = {
+                    top: {style:'thin'},
+                    left: {style:'thin'},
+                    bottom: {style:'thin'},
+                    right: {style:'thin'}
+                }
+            }
+        });
+        var downloadpath = path.resolve('downloads/' + req.session.user.t_company_ruc);
+        var filename = req.session.user.userid + '-export-monitors.xlsx';
+        var fullpath = downloadpath + '/' + filename;
+        workbook.xlsx.writeFile(fullpath)
+        .then(function() {
+            res.attachment('Export_Monitoreos.xlsx');
+            res.sendFile(fullpath);
+        });
+    } else {
+        req.session.notification = computil.notification('info','Sin Registros','No se cuenta con registros para realizar la exportación.');
+        res.redirect('/secure/monitlist');
+    }
 });
 
 router.get('/userlist', function(req, res){

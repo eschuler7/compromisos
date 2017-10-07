@@ -5,7 +5,8 @@ var express = require('express');
 
 // Initilizing express application
 var app = express();
-
+// Loading util library
+var computil = require('./lib/computil');
 //Loading Config
 var config = require('./lib/config');
 
@@ -104,6 +105,7 @@ app.use('/admin', admin);
 app.use(function(err, req, res, next){
 	console.log('[ERROR]','[' + req.originalUrl + ']','[' + req.method + ']','[Ajax:' + req.xhr + ']',err);
 	if(req.xhr) {
+		req.session.notification = computil.notification('error','Error en la Transacción','Ocurrió un error procesando la operación, por favor vuelva a intentarlo.');
 		res.send('error');
 	} else {
 		res.render('partial/handlers/error');

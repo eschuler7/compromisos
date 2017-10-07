@@ -339,7 +339,7 @@ $(document).ready(function(){
 			error.insertAfter(ref);
 		},
 		submitHandler : function(form) {
-			submitMassiveForm(form,'/secure/monitlist');
+			submitMassiveForm(form,'/secure/commitlist');
 		}
 	});
 	$('#frmmonitmasive').validate({
@@ -361,7 +361,7 @@ $(document).ready(function(){
 			error.insertAfter(ref);
 		},
 		submitHandler : function(form) {
-			submitMassiveForm(form,'/secure/commitlist');
+			submitMassiveForm(form,'/secure/monitlist');
 		}
 	});
 });
