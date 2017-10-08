@@ -240,3 +240,8 @@ html
           styling: 'bootstrap3'
         });
       }
+      $("a").each(function(){
+        if(window.location.href == this.href) {
+          this.onclick=function(){return false};
+        }
+      });
