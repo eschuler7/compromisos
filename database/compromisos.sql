@@ -152,7 +152,7 @@ select * from t_commitment_evidence;
 -- Batch
 -- Commitment types selected
 -- criticidad
-select * from t_commitment where ruc=10101010101;
+select * from t_commitment where ruc=12345678908;
 select count(criticidad) from t_commitment where ruc=10101010101 and criticidad = 'Alto';
 select count(criticidad) from t_commitment where ruc=10101010101 and criticidad = 'Medio';
 select count(criticidad) from t_commitment where ruc=10101010101 and criticidad = 'Bajo';
@@ -181,11 +181,11 @@ select count(criticidad) as compromisosinccriticidadalta from t_commitment where
 
 select criticidad, count(criticidad) as compromisosincumpxcriticidad from t_commitment where ruc=10101010101 and estadocumplimiento = 'Vencido' group by criticidad order by criticidad asc;
 
-select criticidad, count(criticidad) as totalmonitoreocriticidad from t_monitor where ruc=10101010101 group by criticidad order by criticidad asc
+select criticidad, count(criticidad) as totalmonitoreocriticidad from t_monitor where ruc=10101010101 group by criticidad order by criticidad asc;
 
 -- Compromisos que requieren ser modificados (en base a que?)
 -- Compromisos en cumplimiento con sustento 
 
-
+delete from t_commitment where ruc='12345678908' and nrocorrelativo>0;
 
 

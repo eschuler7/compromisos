@@ -613,9 +613,7 @@ router.post('/uploadcomtemplate',udploadComTemplate.single('template'), function
                     comdatatotal.push(comdata);
                 }
             });
-            mysql.commitment.createCommitment(compcomm, comdatatotal);
-            req.session.notification = computil.notification('success','Carga Satisfactorio','La carga masiva de los compromisos se completó correctamente.');
-            res.send('ok');
+            mysql.commitment.createBulkCommitments(compcomm, comdatatotal, req, res);
             auditlog(req);
         } else {
             req.session.notification = computil.notification('error','Error de Caga Masiva','Los campos de la plantilla no coinciden');
@@ -656,18 +654,16 @@ router.post('/uploadmontemplate',udploadMonTemplate.single('template'), function
                     mondatatotal.push(mondata);
                 }
             });
-            mysql.monitor.createMonitor(monconf, mondatatotal);
-            req.session.notification = computil.notification('success','Carga Satisfactorio','La carga masiva de los monitoreos se completó correctamente.');
-            res.redirect('/secure/monitlist');
+            mysql.monitor.createBulkMonitor(monconf, mondatatotal, req, res);
             auditlog(req);
         } else {
             req.session.notification = computil.notification('error','Error de Caga Masiva','Los campos de la plantilla no coinciden');
-            res.redirect('/secure/monitmassive');
+            res.send('error');
         }
     }).catch( function(reason) {
         console.error( 'onRejected function called: ', reason );
         req.session.notification = computil.notification('error','Error de Caga Masiva','Hubo un error durante la carga masiva, por favor verifique los datos e intente nuevamente.');
-        res.redirect('/secure/monitmassive');
+        res.send('error');
     });
 });
 
