@@ -464,7 +464,7 @@ router.get('/monittemplate', function(req, res){
                 cell.name = monconfigbyruc[colNumber - 1].columnasoc;
             });
         } else {
-            for (var i = 0; i < monconfigbyruc.length; i++) {
+            for (var i = 0; i < monconfigbyruc.length - 1; i++) {
                 row.getCell(i+1).border = {
                     top: {style:'thin'},
                     left: {style:'thin'},

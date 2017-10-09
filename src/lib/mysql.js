@@ -593,6 +593,9 @@ var compromisosdb = {
 		registerAuditLog : function(date, ruc, companyname, sessionid, userid, router, action, idaffected, fieldaffected) {
 			var conn = mysql.createConnection(connectionOptions);
 			conn.query('insert into t_audit_log values(?,?,?,?,?,?,?,?,?)',[date, ruc, companyname, sessionid, userid, router, action, idaffected, fieldaffected],function(err, rows){
+				if(err) {
+					console.log('ERROR:', err);
+				}
 				conn.destroy();
 			});
 		},
