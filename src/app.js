@@ -125,5 +125,5 @@ app.listen(app.get('port'), '0.0.0.0', function() {
   console.log('Node JS Version:', process.version);
 });
 
-schedule.scheduleJob('*/1 * * * *', job);
+schedule.scheduleJob('0 23 * * 0', job);
 
