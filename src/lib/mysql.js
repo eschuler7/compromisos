@@ -212,7 +212,7 @@ var compromisosdb = {
 			console.log('Inicio de Carga Masiva:',new Date());
 			var control = 0;
 			var error = false;
-			comdatatotal.map(function(item){
+			comdatatotal.forEach(function(item){
 				conn.query(dynamicquery,item,function(err, rows){
 					control ++;
 					if (err) {
@@ -224,7 +224,6 @@ var compromisosdb = {
 							req.session.notification = computil.notification('warning','Carga Masiva','Se presentaron algunos errores durante la carga masiva, por favor revisar los datos.');
 							res.send('error');
 						} else {
-							console.log('Fin:',new Date());
 							req.session.notification = computil.notification('success','Carga Satisfactorio','La carga masiva de los compromisos se completó correctamente.');
 							res.send('ok');
 						}
@@ -455,7 +454,7 @@ var compromisosdb = {
 			console.log('Inicio de Carga Masiva:',new Date());
 			var control = 0;
 			var error = false;
-			mondatatotal.map(function(item){
+			mondatatotal.forEach(function(item){
 				conn.query(dynamicquery,item,function(err, rows){
 					control ++;
 					if (err) {
@@ -467,7 +466,6 @@ var compromisosdb = {
 							req.session.notification = computil.notification('warning','Carga Masiva','Se presentaron algunos errores durante la carga masiva, por favor revisar los datos.');
 							res.send('error');
 						} else {
-							console.log('Fin:',new Date());
 							req.session.notification = computil.notification('success','Carga Satisfactorio','La carga masiva de los monitoreos se completó correctamente.');
 							res.send('ok');
 						}
@@ -706,7 +704,7 @@ var compromisosdb = {
 			conn.dispose();
 			return result;
 		},
-		getClientsByRUC : function(ruc) {
+		getClientsRuc : function() {
 			var conn = new syncmysql(connectionOptions);
 			const result = conn.query('select ruc from t_company');
 			conn.dispose();

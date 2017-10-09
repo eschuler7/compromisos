@@ -9,11 +9,6 @@ var app = express();
 var computil = require('./lib/computil');
 //Loading Config
 var config = require('./lib/config');
-// Loading mysql library
-var mysql = require('./lib/mysql');
-// JOb Schedule
-var schedule = require('node-schedule');
-var job = require('./lib/jobs');
 // Body parser
 var bodyParser = require('body-parser');
 
@@ -124,6 +119,3 @@ app.listen(app.get('port'), '0.0.0.0', function() {
   console.log('Node.Js Server iniciado en el puerto:',app.get('port'));
   console.log('Node JS Version:', process.version);
 });
-
-schedule.scheduleJob('0 23 * * 0', job);
-
