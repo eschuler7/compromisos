@@ -702,7 +702,19 @@ var compromisosdb = {
 			const result = conn.query('select criticidad, count(criticidad) as monitoreoincumpxcriticidad from t_monitor where ruc=? and estadocumplimiento = "Vencido" group by criticidad order by criticidad asc',[ruc]);
 			conn.dispose();
 			return result;
-		}
+		},
+		getClientsByRUC : function(ruc) {
+			var conn = new syncmysql(connectionOptions);
+			const result = conn.query('select ruc from t_company');
+			conn.dispose();
+			return result;
+		},
+		getUsersByRuc : function(ruc) {
+			var conn = new syncmysql(connectionOptions);
+			const result = conn.query("select userid, email from t_user tu where tu.t_company_ruc=?",[ruc]);
+			conn.dispose();
+			return result;
+		},
 	},
 	platformconfig : {
 		getPlatformConfig : function() {

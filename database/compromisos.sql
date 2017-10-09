@@ -116,6 +116,8 @@ select t_company_ruc,t_monitor_config_id,tmc.name from t_company_monitor tcm lef
 
 delete from t_commitment where ruc='10101010101' and nrocorrelativo='1';
 delete from t_monitor where ruc='10101010101' and nrocorrelativo='1';
+select * from t_commitment where ruc='10101010101';
+delete from t_commitment where ruc='10101010101';
 -- Eliminar data de las tablas de configuración de atributos
 select * from t_commitment_config;
 select id, name, columnasoc, mandatory from t_commitment_config;
