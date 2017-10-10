@@ -40,7 +40,6 @@ block container
                   .form-group
                     label.control-label.col-md-3.col-sm-3.col-xs-12
                       | Frecuencia de monitoreo
-                      span.required *
                     .col-sm-2
                       select#frecuencia.form-control(name=config.columnasoc)
                         option(value='') Seleccionar..
@@ -57,7 +56,6 @@ block container
                   .form-group
                     label.control-label.col-md-3.col-sm-3.col-xs-12
                       | Frecuencia de reporte
-                      span.required *
                     .col-sm-2
                       select#frecuencia.form-control(name=config.columnasoc)
                         option(value='') Seleccionar..
@@ -91,8 +89,7 @@ block container
                 when 'MN19'
                   .form-group
                     label.control-label.col-md-3.col-sm-3.col-xs-12
-                      | Estado del monitoreo 
-                      span.required *
+                      | Estado del monitoreo
                     .col-sm-2
                       select#estadocommit.form-control(name=config.columnasoc)
                         option(value='') Seleccionar..
@@ -106,8 +103,7 @@ block container
                 when 'MN21'
                   .form-group
                     label.control-label.col-md-3.col-sm-3.col-xs-12
-                      | Acción sobre el monitoreo 
-                      span.required *
+                      | Acción sobre el monitoreo
                     .col-sm-2
                       select#accioncompromiso.form-control(name=config.columnasoc)
                         option(value='') Seleccionar..
@@ -117,8 +113,7 @@ block container
                 when 'MN23'
                   .form-group
                     label.control-label.col-md-3.col-sm-3.col-xs-12
-                      | Frecuencia de verificación del monitoreo 
-                      span.required *
+                      | Frecuencia de verificación del monitoreo
                     .col-sm-2
                       select#frecuenciaverif.form-control(name=config.columnasoc)
                         option(value='') Seleccionar..
@@ -189,23 +184,25 @@ block container
             .ln_solid
             .row
               .col-md-3.col-sm-3.col-xs-12
-                a.btn.btn-default.btn-sm(href='/secure/monitlist') Cancelar
-                button.btn.btn-success.btn-sm(type='submit') Registrar monitoreo
+                a.btn.btn-default.btn-xs(href='/secure/monitlist') Cancelar
+                button.btn.btn-success.btn-xs(type='submit') Registrar monitoreo
               #pbcontainer.col-md-9.col-sm-9.col-xs-12(style='display: none')
                 .progress(style='border-radius: 4px;margin-bottom: 0;margin-top: 5px')
                   #progressbar.progress-bar.progress-bar-success(role="progressbar",style="width: 0%",aria-valuenow="0",aria-valuemin="0",aria-valuemax="100") Progreso 0%
-  script(src='/jquery/dist/jquery.min.js')
-  script(src='/moment/min/moment-with-locales.min.js')
-  script(src='/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js')
+
   script.
-    $('#fechainicio').datetimepicker({
-      defaultDate: new Date(),
-      format: 'DD/MM/YYYY',
-      locale: 'es'
-    });
-    $('#fecharevision').datetimepicker({
-      defaultDate: new Date(),
-      format: 'DD/MM/YYYY',
-      locale: 'es'
-    });
+    window.onload = function() {
+      $('#fechainicio').datetimepicker({
+        defaultDate: new Date(),
+        format: 'DD/MM/YYYY',
+        locale: 'es'
+      }).on("dp.change", function (e) {
+        $('#fecharevision').data('DateTimePicker').minDate(e.date);
+      });
+      $('#fecharevision').datetimepicker({
+        format: 'DD/MM/YYYY',
+        locale: 'es',
+        useCurrent: false
+      });
+    }
     

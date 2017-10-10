@@ -18,6 +18,8 @@ var fs = require('fs');
 var path = require("path");
 //Audit Log
 var auditlog = require('../lib/auditlog');
+// Loading jobs library
+var scheduler = require('../lib/scheduler');
 
 // TODAS LAS LLAMADAS GET
 router.get('/clientlist', function(req, res){
@@ -58,6 +60,18 @@ router.get('/auditlogsrest', function(req, res){
 router.get('/platformconfig', function(req, res){
 	var platformconfig = mysql.platformconfig.getPlatformConfig();
 	res.render('partial/admin/platformconfig',{platformconfig: platformconfig, notification: req.notification});
+});
+router.get('/schedulelist', function(req, res){
+	res.render('partial/admin/schedulelist',{notification: req.notification});
+});
+router.get('/schedulelistrest', function(req, res){
+    var scheduledJobs = scheduler.getScheduledJobs();
+    res.setHeader('Content-Type','application/json');
+    res.send({data:scheduledJobs});
+});
+router.get('/schedulecreate', function(req, res){
+	var jobs = scheduler.getJobs();
+	res.render('partial/admin/schedulecreate',{jobs: jobs, notification: req.notification});
 });
 
 
@@ -144,6 +158,28 @@ router.post('/updatesupportemails', function(req, res){
 		req.session.notification = computil.notification('error','Error de Actualización','Ocurrió un error durante la actualización de la configuración.');
 		res.redirect('/admin/platformconfig');
 	}
+});
+router.post('/cancelschedule', function(req, res){
+	var schedulename = req.body.schedulename;
+	var cancel = scheduler.cancelScheduledJob(schedulename);
+	if(cancel) {
+		req.session.notification = computil.notification('success','Job','El job fue cancelado correctamente.');
+	} else {
+		req.session.notification = computil.notification('error','Job','El job no pudo ser cancelado.');
+	}
+	res.redirect('/admin/schedulelist');
+});
+router.post('/schedulejob', function(req, res){
+	var schedulename = req.body.schedulename;
+	var jobname = req.body.jobname;
+	var cronexpression = req.body.cronexpression;
+	var scheduled = scheduler.scheduleJob(schedulename, jobname, cronexpression);
+	if(scheduled) {
+		req.session.notification = computil.notification('success','Programación de Job','La programación ' + schedulename + ' fue realizada correctamente.');
+	} else {
+		req.session.notification = computil.notification('error','Programación de Job','La programación no pudo ser realizada.');
+	}
+	res.redirect('/admin/schedulelist');
 });
 
 //Ajax call

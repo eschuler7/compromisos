@@ -216,9 +216,6 @@ block container
               #pbcontainer.col-md-9.col-sm-9.col-xs-12(style='display: none')
                 .progress(style='border-radius: 4px;margin-bottom: 0')
                   #progressbar.progress-bar.progress-bar-success(role="progressbar",style="width: 0%",aria-valuenow="0",aria-valuemin="0",aria-valuemax="100") Progreso 0%
-  script(src='/jquery/dist/jquery.min.js')
-  script(src='/moment/min/moment-with-locales.min.js')
-  script(src='/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js')
   script.
     window.onload = function() {
       $('#comdata').val('');
@@ -226,45 +223,46 @@ block container
         var comdata = validateinfo(this.name);
         $('#comdata').val(comdata);
       });
-    }
-    if($('#fechainicio')){
-      $('#fechainicio').datetimepicker({
-        defaultDate: new Date(),
-        format: 'DD/MM/YYYY',
-        locale: 'es'
+      if($('#fechainicio')){
+        $('#fechainicio').datetimepicker({
+          defaultDate: new Date(),
+          format: 'DD/MM/YYYY',
+          locale: 'es'
+        });
+        $('#fechainicio').on('dp.change', function(e){ 
+          var comdata = validateinfo('fechainicio');
+          $('#comdata').val(comdata);
+          $('#fecharevision').data('DateTimePicker').minDate(e.date);
+        });
+      }
+      if($('#fecharevision')){
+        $('#fecharevision').datetimepicker({
+          defaultDate: new Date(),
+          format: 'DD/MM/YYYY',
+          locale: 'es'
+        });
+        $('#fecharevision').on('dp.change', function(e){
+          var comdata = validateinfo('fecharevision');
+          $('#comdata').val(comdata);
+        });
+      }
+      $('input[type=text]').change(function() {
+        var comdata = validateinfo(this.name);
+        $('#comdata').val(comdata);
       });
-      $('#fechainicio').on('dp.change', function(e){ 
-        var comdata = validateinfo('fechainicio');
+      $('input[type=file]').change(function() {
+        var comdata = validateinfo(this.name);
+        $('#comdata').val(comdata);
+      });
+      $('select').change(function(){
+        var comdata = validateinfo(this.name);
+        $('#comdata').val(comdata);
+      });
+      $('textarea').change(function() {
+        var comdata = validateinfo(this.name);
         $('#comdata').val(comdata);
       });
     }
-    if($('#fecharevision')){
-      $('#fecharevision').datetimepicker({
-        defaultDate: new Date(),
-        format: 'DD/MM/YYYY',
-        locale: 'es'
-      });
-      $('#fecharevision').on('dp.change', function(e){
-        var comdata = validateinfo('fecharevision');
-        $('#comdata').val(comdata);
-      });
-    }
-    $('input[type=text]').change(function() {
-      var comdata = validateinfo(this.name);
-      $('#comdata').val(comdata);
-    });
-    $('input[type=file]').change(function() {
-      var comdata = validateinfo(this.name);
-      $('#comdata').val(comdata);
-    });
-    $('select').change(function(){
-      var comdata = validateinfo(this.name);
-      $('#comdata').val(comdata);
-    });
-    $('textarea').change(function() {
-      var comdata = validateinfo(this.name);
-      $('#comdata').val(comdata);
-    });
     
     function validateinfo(value){
       $(':submit').attr('disabled',false);

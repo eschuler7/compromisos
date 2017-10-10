@@ -1,0 +1,35 @@
+extends ../../layouts/layout_admin.pug
+block container
+  .row
+    .col-md-12.col-sm-12.col-xs-12
+      .x_panel
+        .x_title
+          h2 Formulario de Programación de Jobs
+          .clearfix
+        .x_content
+          form#demo-form2.form-horizontal(action='/admin/schedulejob',method='post')
+            .form-group
+              label.control-label.col-md-3.col-sm-3.col-xs-12
+                | Nombre de la Programación
+                span.required *
+              .col-md-3.col-sm-4.col-xs-12
+                input.form-control.col-md-7.col-xs-12(type='text',name='schedulename', placeholder='por ejm. Ejecución Semanal')
+            .form-group
+              label.control-label.col-md-3.col-sm-3.col-xs-12
+                | Job a Ejecutar
+                span.required *
+              .col-md-4.col-sm-5.col-xs-12
+                select.form-control(name='jobname')
+                  option(value='') Seleccionar..
+                  each job in jobs
+                    option(value=job) #{job}
+            .form-group
+              label.control-label.col-md-3.col-sm-3.col-xs-12
+                | Expresión Cron
+                span.required *
+              .col-md-4.col-sm-5.col-xs-12
+                input.form-control.col-md-7.col-xs-12(type='text', name='cronexpression', placeholder='por ejm. "*/15 * * * *"')
+            .ln_solid
+            .form-group
+              a.btn.btn-default.btn-xs(href='/admin/schedulelist') Cancelar
+              button.btn.btn-success.btn-xs.submit(type='submit') Programar Job

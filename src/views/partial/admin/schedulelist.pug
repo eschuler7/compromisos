@@ -1,0 +1,83 @@
+extends ../../layouts/layout_admin.pug
+block container
+  .row
+    .col-md-12.col-sm-12.col-xs-12
+      .x_panel
+        .x_title
+          h2 Jobs Programados
+          .clearfix
+        .x_content
+          table#tbljobs.table.table-striped.table-bordered.jambo_table(width='100% ')
+            thead
+              tr
+                th Nombre de la ejecución
+                th Job a ejecutar
+                th Expresión Cron
+                th Siguiente Ejecución
+                th Acción
+            tbody
+
+          .ln_solid(style='margin-top:5px')
+          a.btn.btn-warning.btn-xs(href='/admin/schedulecreate') Nuevo Job
+
+  #confirm_cancel.modal.fade(tabindex='-1', role='dialog', data-backdrop='static', data-keyboard='false')
+    .modal-dialog(role='document')
+      .modal-content
+        .modal-header
+          h4#comfirm_cancel_title.modal-title
+        form#frmConfirmCancel(action='/admin/cancelschedule',method='post')
+          .modal-body
+            p ¿Está seguro de cancelar el job?
+            input(type='hidden',name='schedulename')
+          .modal-footer
+            button.btn.btn-default.pull-left(type='button', data-dismiss='modal') Cancelar
+            |  
+            button.btn.btn-danger(type='submit') Continuar
+
+  script.
+    window.onload = function() {
+      $('#tbljobs').DataTable({
+        scrollX: true,
+        ajax:'/admin/schedulelistrest',
+        deferRender: true,
+        columns: [
+          {data:'name'},
+          {data:'job'},
+          {
+            data:'cronExpression',
+            render:function( data, type, row, meta ){
+              return '<table><tr><td>Minutos:</td><td style="padding-left: 5px">' + data.minute.toString() + '</td></tr><tr><td>Horas:</td><td style="padding-left: 5px">' + data.hour.toString() + '</td></tr><tr><td>Dia del Mes:</td><td style="padding-left: 5px">' + data.dayOfMonth.toString() + '</td></tr><tr><td>Mes:</td><td style="padding-left: 5px">' + data.month.toString() + '</td></tr><tr><td>Dia de la Semana:</td><td style="padding-left: 5px">' + data.dayOfWeek.toString() + '</td></tr></table>';
+            }
+          },
+          {data:'nextInvocation'},
+          {
+            data: null,
+            render: function( data, type, row, meta ){
+              return '<a class="btn btn-danger btn-xs" href="javascript:cancelJob(\'' + row.name + '\')"><i class="fa fa-ban"></i> Cancelar</a>';
+            }
+          }
+        ],
+        lengthMenu: [[5, 15], [5, 15]],
+        language: {
+          paginate: {
+              first:    'Inicio',
+              previous: 'Anterior',
+              next:     'Siguiente',
+              last:     'Fin'
+          },
+          info: 'Mostrando _START_ a _END_ de _TOTAL_ registro(s)',
+          infoEmpty: 'No se encontraron registros',
+          emptyTable: 'No tiene compromisos registrados',
+          lengthMenu: 'Mostrar _MENU_ registro(s)',
+          search: 'Buscar:',
+          searchPlaceholder: 'Ejm, Abierto',
+          zeroRecords: 'No se encontraron registros coincidentes',
+          loadingRecords: 'Cargando Registros ...'
+        }
+      });
+    }
+    function cancelJob(schedulename){
+      $('#comfirm_cancel_title').text('Cancelación de Job "' + schedulename + '"');
+      $('#frmConfirmCancel input[name=schedulename]').val(schedulename);
+       $('#confirm_cancel').modal('show');
+    }

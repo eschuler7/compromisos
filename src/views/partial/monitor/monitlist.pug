@@ -13,25 +13,6 @@ block container
                 each conf in monitconfig
                   th #{conf.name}
             tbody
-              //-each monitor in monitors
-                tr
-                  each column in monitconfig
-                    td #{monitor[column.columnasoc]}
-                  td
-                    table
-                      tr
-                        td
-                          a.btn.btn-primary.btn-xs(href='monitdetail/' + monitor.nrocorrelativo)
-                            i.fa.fa-folder
-                            |  Ver
-                        td
-                          a.btn.btn-info.btn-xs(href='monitedit/' + monitor.nrocorrelativo)
-                            i.fa.fa-pencil
-                            |  Editar
-                        td
-                          a.btn.btn-danger.btn-xs(href='javascript:deletemonitor("' + monitor.nrocorrelativo + '")')
-                            i.fa.fa-trash-o
-                            |  Eliminar
           .ln_solid(style='margin-top:5px')
           a.btn.btn-warning.btn-xs(href='/secure/monitregister') Nuevo Monitoreo
           #exportbuttons.pull-right

@@ -57,6 +57,8 @@ html
                       li
                         a(href='/admin/auditlogs') Auditoría
                       li
+                        a(href='/admin/schedulelist') Jobs
+                      li
                         a(href='/admin/platformconfig') Configuración de la Plataforma
         // top navigation
         .top_nav
@@ -131,3 +133,8 @@ html
           styling: 'bootstrap3'
         });
       }
+      $("a").each(function(){
+        if(window.location.href == this.href) {
+          this.onclick=function(){return false};
+        }
+      });

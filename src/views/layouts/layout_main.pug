@@ -15,7 +15,7 @@ html
     // iCheck
     link(href='/iCheck/skins/flat/green.css', rel='stylesheet')
     // bootstrap-datetimepicker
-    link(href='/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css', rel='stylesheet')
+    link(href='/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css', rel='stylesheet')
     // Datatable
     link(href='/datatables.net-bs/css/dataTables.bootstrap.min.css', rel='stylesheet')
     link(href='/datatables.net-buttons-bs/css/buttons.bootstrap.min.css', rel='stylesheet')
@@ -196,6 +196,8 @@ html
     script(src='/bootstrap/dist/js/bootstrap.min.js')
     // Moment
     script(src='/moment/min/moment.min.js')
+    script(src='/moment/min/moment-with-locales.min.js')
+    script(src='/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js')
     // FastClick
     script(src='/fastclick/lib/fastclick.js')
     // jQuery Smart Wizard
@@ -240,3 +242,8 @@ html
           styling: 'bootstrap3'
         });
       }
+      $("a").each(function(){
+        if(window.location.href == this.href) {
+          this.onclick=function(){return false};
+        }
+      });

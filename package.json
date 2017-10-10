@@ -13,6 +13,7 @@
     "express": "^4.15.4",
     "express-session": "^1.15.5",
     "fs": "0.0.1-security",
+    "fs-promise": "^2.0.3",
     "js-yaml": "^3.9.0",
     "multer": "^1.3.0",
     "multer-storage-pkgcloud": "^1.2.1",
